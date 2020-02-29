@@ -46,7 +46,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Teo Jun Xiong
-image::teo-jun-xiong.png.jpg[width="150", align="left"]
+image::teo-jun-xiong.png[width="150", align="left"]
 {empty}[http://github.com/teo-jun-xiong[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
