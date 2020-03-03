@@ -51,7 +51,39 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Ingredients inventory commands
 
-=== Recipe inventory commands
+=== Recipe commands
+
+Recipe commands are commands that change a particular recipe, which you can indicate using the index of the recipe. +
+Some things you can do are to add and remove ingredients from a recipe's ingredient list. +
+You can also write instructions for your recipes.
+
+==== Add an ingredient
+This command allows you to add ingredients to a recipe.
+Format: `recipe INDEX add i/INGREDIENT q/QUANTITY`
+Examples:
+* `recipe 1 add i/Egg q/2` +
+Adds 2 eggs to the 1st recipe's list of ingredients.
+* `recipe 2 remove i/Milk q/200 ml` +
+Adds 200 ml of milk to the 2nd recipe's list of ingredients.
+
+==== Edit an ingredient
+If you want to change the quantity of an ingredient after some experimentation, this command will help you achieve that.
+Format: `recipe INDEX edit i/INGREDIENT q/QUANTITY`
+Examples:
+* `recipe 1 edit i/Egg q/2` +
+Changes the quantity of eggs to 3 in the 1st recipe's list of ingredients.
+* `recipe 2 edit i/Milk q/100 ml` +
+Changes the quantity of milk to 100 ml in the 2nd recipe's list of ingredients.
+
+==== Remove an ingredient
+You can remove ingredients that spoil the taste of the dish using this command. +
+If the quantity to be removed is not specified, all of the ingredient will be removed.
+Format: `recipe INDEX remove i/INGREDIENT [q/QUANTITY]`
+Examples:
+* `recipe 1 remove i/Egg q/1` +
+Removes 1 egg from the 1st recipe's list of ingredients.
+* `recipe 2 remove i/Milk` +
+Removes milk from the 2nd recipe's list of ingredients.
 
 === Database commands
 
