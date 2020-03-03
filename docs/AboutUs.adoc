@@ -28,7 +28,7 @@ Responsibilities: Model
 '''
 
 === Ong Han Sheng
-image::99448783.png[width="150", align="left"]
+image::hans555.png[width="150", align="left"]
 {empty}[http://github.com/hans555[github]] [<<hans555#, portfolio>>]
 
 Role: Developer +
