@@ -18,7 +18,7 @@ By: `Team F11-4`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-Cooking Papa is for those who prefer to use a desktop app for managing recipes. More importantly, Cooking Papa is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Cooking Papa can help you plan and cook meals more easily than traditional GUI apps. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
+Cooking Papa is for those who prefer to use a desktop app for managing recipes. More importantly, Cooking Papa is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Cooking Papa can help you plan and cook meals more easily than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -51,43 +51,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Ingredients inventory commands
 
-==== Add ingredient to inventory: `addi`
-
-==== Remove ingredient from the inventory: `removei`
-
 === Recipe inventory commands
-
-==== Add ingredient to recipe: `addr`
-
-==== Edit ingredient inside recipe: `editr`
-
-==== Add step to a recipe: `addstep`
-- Add a step ...
-
-[TIP]
-If no description is given, the step will simply be removed.
 
 === Database commands
 
-==== Add a recipe to the databsae: ```addrecipe```
-
 === Calendar commands
-
-==== Add a meal to calendar: ```addcalendar```
 
 === Miscellaneous commands
 
-==== View a recipe's cooking history: `history`
-
 === Coming in v2.0
-
-==== Listen to voice commands
-
-==== Predictive text
-
-==== Recipe text-to-speech
-
-==== Parse recipe through URLs
 
 == FAQ
 
