@@ -54,10 +54,101 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Recipe inventory commands
 
 === Database commands
+==== View a recipe from the database: `cookbook view recipe`
+- View a recipe, its ingredients, and the steps to cook it. +
+- Format: `cookbook view recipe INDEX` +
+- Example: +
+* `cookbook view recipe 1`
+
+==== Tag a recipe: `cookbag tag recipe`
+- Tag a recipe. +
+- Format: cookbook tag recipe INDEX t/TAG… +
+- Examples: +
+* `recipe tag recipe 1 t/Pasta` +
+* `recipe tag 1 recipe t/Carbonara t/Pasta t/Cream`
+
+==== Untag a recipe: `cookbook untag recipe`
+- Untag a recipe. +
+
+[TIP]
+If no tags are specified, all the tags for the recipe will be removed.
+
+- Format: cookbook untag recipe INDEX [t/TAG]… +
+- Examples: +
+* `recipe untag 1` +
+* `recipe untag 1 t/Carbonara`
+
+==== Search recipes by keyword: cookbook search recipe
+- Search for a recipe by a keyword, and the desired recipe can be viewed using the command `cookbook view recipe`. +
+- Format: `cookbook search recipe w/KEYWORD` +
+- Example: +
+* `cookbook search recipe w/Carbonara`
+
+==== Search recipes by tag: `cookbook search tag`
+- Search for recipes by tags, and the desired recipe can be viewed using the command `cookbook view recipe`. +
+- Format: cookbook search tag [t/TAG]… +
+- Example: +
+* `cookbook search tag t/Pasta t/Cream t/Easy`
+
+==== Search recipes by ingredients owned: `cookbook search inventory`
+- Search for recipes by the percentage of required ingredients owned, and the desired recipe can be viewed using the command `cookbook view recipe`. +
+- Format: `cookbook search inventory` +
+- Example:
+* `cookbook search inventory`
+
+==== Cook recipe according to a serving size: `cookbook recipe serving`
+- Cook and view a recipe from the database according to a serving size.  Once this command is executed, the ingredients used for the recipe will be deducted from the ingredients inventory.
+
+[TIP]
+If no serving size is provided, the default serving size in the recipe will be used.
+- Format: `cookbook recipe INDEX serving [v/SERVING_SIZE]` +
+- Examples: +
+* `cookbook recipe 1 serving`
+* `cookbook recipe 1 serving v/5`
+
+==== Add missing ingredients in a recipe to a shopping list:  `cookbook recipe shop`
+- Add the missing ingredients in a recipe to a shopping list according to a serving size.
+
+[TIP]
+If no serving size is provided, the default serving size in the recipe will be used.
+
+- Format: `cookbook recipe INDEX shop [serving v/SERVING_SIZE]` +
+- Examples:
+* `cookbook recipe INDEX shop` +
+* `cookbook recipe INDEX shop serving v/5`
+
+==== Store nutritional information of a recipe for a day: `cookbook recipe nutrition`
+- Tracks the nutritional information of an existing recipe for a specific date +
+- Format: `cookbook recipe nutrition d/DDMMYYYY` +
+- Example: +
+* `cookbook recipe nutrition d/01012000`
 
 === Calendar commands
 
 === Miscellaneous commands
+==== View a recipe’s cooking history: `recipe history`
+- Show the cooking history for a recipe. +
+- Format: `history INDEX` +
+- Example:
+* `history 1`
+
+==== Timer: `timer`
+- Sets a timer for usage in the recipe. +
+- Format: `timer /HH`, `time /MM`,  `timer/SS`, `time /HHMM`,  `timer/MMSS`, `time /HHMMSS` +
+- Examples: +
+* `timer /1h` +
+* `timer /10m` +
+* `timer /45s` +
+* `timer /1h 10m` +
+* `timer /10m 45s` +
+* `timer /1h 10m 45s` +
+
+==== Generate a random recipe from the database: `random`
+- Generates a random recipe from the database for users who may be clueless on what to cook. +
+- Format: `random [t/TAG]...` +
+- Examples: +
+* `random` +
+* `random t/Pasta`
 
 === Coming in v2.0
 
@@ -67,6 +158,3 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
