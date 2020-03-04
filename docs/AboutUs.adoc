@@ -37,7 +37,7 @@ Responsibilities: Data
 '''
 
 === Tay Zi Hiang Willis
-image::tzihiang.jpg[width="150", align="left"]
+image::tzihiang.png[width="150", align="left"]
 {empty}[http://github.com/tzihiang[github]] [<<tzihiang#, portfolio>>]
 
 Role: Developer +
