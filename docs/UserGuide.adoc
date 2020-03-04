@@ -121,6 +121,48 @@ Removes 1 egg from the 1st recipe's list of ingredients.
 * `recipe 2 remove i/Milk` +
 Removes milk from the 2nd recipe's list of ingredients.
 
+==== Add a cooking step
+
+This command allows you to add a cooking step to the selected recipe.
+Requires a valid index in the list of recipes and the cooking step.
+
+- Format: `recipe INDEX add x/STEP_INDEX S/STEP_DESCRIPTION`
+- Examples:
+* `recipe 1 add x/2 s/Bring the water to boil` +
+Add a cooking step 2 (Bring water to boil) to the 1st recipe.
+* `recipe 2 insert x/next s/Add a teaspoon of salt in the soup` +
+Add the next cooking step (Add a teaspoon of salt in the soup) to the 2nd recipe
+
+==== Remove a cooking step
+
+This command allows you to remove a cooking step from the selected recipe.
+Requires a valid index in the list of recipes and the cooking step.
+
+- Format: `recipe INDEX remove x/STEP_INDEX`
+- Example:
+* `recipe 1 remove x/2` +
+Remove cooking step 2 from the 1st recipe.
+
+==== Add a tag
+
+This command allows you to add a tag to the selected recipe.
+Requires a valid index in the list of recipes.
+
+- Format: `recipe INDEX add t/TAG`
+- Example:
+* `recipe 1 add t/Pasta` +
+Add a tag (Pasta) to the 1st recipe.
+
+==== Remove a tag
+
+This command allows you to remove a tag from the selected recipe.
+Requires a valid index in the list of recipes.
+
+- Format: `recipe INDEX remove t/TAG`
+- Example:
+* `recipe 1 remove t/Beef` +
+Remove a tag (Beef) from the 1st recipe.
+
 === Cookbook commands
 Cookbook commands are commands for that allows users to add and remove recipes from the cookbook, as well as view recipes stored in the  cookbook. Cookbook commands also comprise of actions that can be done with recipes that are not covered in <<Recipe inventory commands>>.
 
