@@ -64,7 +64,7 @@ This command allows you to view a recipe, the ingredients required, and the step
 * `cookbook view recipe 1`
 
 ==== Tag a recipe
-Tag a recipe with short one-word descriptions.
+This command allows you to tag a recipe with short one-word descriptions.
 
 - Format: `cookbook tag recipe INDEX t/TAG…`
 - Examples:
@@ -72,10 +72,7 @@ Tag a recipe with short one-word descriptions.
 * `cookbook tag recipe 1 t/Carbonara t/Pasta t/Cream`
 
 ==== Untag a recipe
-Untag a recipe.
-
-[TIP]
-If no tags are specified, all the tags for the recipe will be removed.
+This command allows you to remove a previously added tag from a recipe. If no tags are specified, all the tags for the recipe will be removed.
 
 - Format: `cookbook untag recipe INDEX [t/TAG]…`
 - Examples:
@@ -83,14 +80,14 @@ If no tags are specified, all the tags for the recipe will be removed.
 * `cookbook recipe untag 1 t/Carbonara`
 
 ==== Search recipes by keyword
-Search for a recipe by a keyword, and the desired recipe can be viewed using the command `cookbook view recipe`.
+This command allows you to search for a recipe by a keyword, and the desired recipe can be viewed using the command `cookbook view recipe`.
 
 - Format: `cookbook search recipe w/KEYWORD`
 - Example:
 * `cookbook search recipe w/Carbonara`
 
 ==== Search recipes by tag
-Search for recipes by tags, and the desired recipe can be viewed using the command `cookbook view recipe`.
+This command allows you to search for recipes by tags, and the desired recipe can be viewed using the command `cookbook view recipe`.
 
 - Format: `cookbook search tag t/TAG…`
 - Examples:
@@ -98,17 +95,14 @@ Search for recipes by tags, and the desired recipe can be viewed using the comma
 * `cookbook search tag t/Pasta t/Cream t/Easy`
 
 ==== Search recipes by ingredients owned
-This command helps you to see what you can cook with your current inventory of ingredients by searching for recipes by the percentage of required ingredients owned, and the desired recipe can be viewed using the command `cookbook view recipe`.
+This command allows you to see what you can cook with your current inventory of ingredients by searching for recipes by the percentage of required ingredients owned, and the desired recipe can be viewed using the command `cookbook view recipe`.
 
 - Format: `cookbook search inventory`
 - Example:
 * `cookbook search inventory`
 
 ==== Cook recipe according to a serving size
-Cook and view a recipe from the cookbook according to a serving size.  Once this command is executed, the ingredients used for the recipe will be deducted from the ingredients inventory.
-
-[TIP]
-If no serving size is provided, the default serving size in the recipe will be used.
+This command allows you to view a recipe (and its ingredients and steps) from the cookbook according to a serving size, and then cook it.  Once this command is executed, the ingredients used for the recipe will be deducted from the ingredients inventory. If no serving size is provided, the default serving size in the recipe will be used.
 
 - Format: `cookbook recipe INDEX serving [v/SERVING_SIZE]`
 - Examples:
@@ -116,22 +110,12 @@ If no serving size is provided, the default serving size in the recipe will be u
 * `cookbook recipe 1 serving v/5`
 
 ==== Add missing ingredients in a recipe to a shopping list
-Create a shopping list with in seconds with this command by adding the missing ingredients in a recipe to a shopping list, according to a serving size.
-
-[TIP]
-If no serving size is provided, the default serving size in the recipe will be used.
+This command allows you to create a shopping list with in seconds with this command by adding the missing ingredients in a recipe to a shopping list, according to a serving size. If no serving size is provided, the default serving size in the recipe will be used.
 
 - Format: `cookbook recipe INDEX shop [serving v/SERVING_SIZE]`
 - Examples:
 * `cookbook recipe 1 shop`
 * `cookbook recipe 1 shop serving v/5`
-
-==== Store nutritional information of a recipe for a day
-Tracks the nutritional information of an existing recipe for a specific date.
-
-- Format: `cookbook recipe nutrition d/DDMMYYYY`
-- Example:
-* `cookbook recipe 1 nutrition d/01012000`
 
 === Calendar commands
 
