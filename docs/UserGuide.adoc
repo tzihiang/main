@@ -122,7 +122,7 @@ Removes 1 egg from the 1st recipe's list of ingredients.
 Removes milk from the 2nd recipe's list of ingredients.
 
 === Cookbook commands
-Cookbook commands are commands for that allows users to add and remove recipes from the cookbook, as well as view recipes stored in the  cookbook. Cookbook commands also comprise of actions that can be done with recipes that are not covered in <<Recipe inventory commands>>.
+Cookbook commands are commands for that allows users to add and remove recipes from the cookbook, as well as view recipes stored in the  cookbook. Cookbook commands also comprise of actions that can be done with recipes that are not covered in <<Recipe commands>>.
 
 ==== View a recipe from the cookbook
 This command allows you to view a recipe, the ingredients required, and the steps to cook it.
