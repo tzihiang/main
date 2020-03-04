@@ -37,11 +37,11 @@ Responsibilities: Data
 '''
 
 === Tay Zi Hiang Willis
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+image::tzihiang.png[width="150", align="left"]
+{empty}[http://github.com/tzihiang[github]] [<<tzihiang#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Logic
 
 '''
 
