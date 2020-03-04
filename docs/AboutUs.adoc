@@ -28,8 +28,8 @@ Responsibilities: Model
 '''
 
 === Ong Han Sheng
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+image::hans555.png[width="150", align="left"]
+{empty}[http://github.com/hans555[github]] [<<hans555#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data
@@ -37,11 +37,11 @@ Responsibilities: Data
 '''
 
 === Tay Zi Hiang Willis
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+image::tzihiang.png[width="150", align="left"]
+{empty}[http://github.com/tzihiang[github]] [<<tzihiang#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Logic
 
 '''
 
