@@ -101,7 +101,7 @@ Add the next cooking step (Add a teaspoon of salt in the soup) to the 2nd recipe
 
 ==== Remove a cooking step
 
-This command allows you to remove a cooking step to the selected recipe.
+This command allows you to remove a cooking step from the selected recipe.
 Requires a valid index in the list of recipes and the cooking step.
 
 - Format: `recipe INDEX remove x/STEP_INDEX`
@@ -121,7 +121,7 @@ Add a tag (Pasta) to the 1st recipe.
 
 ==== Remove a tag
 
-This command allows you to remove a tag to the selected recipe.
+This command allows you to remove a tag from the selected recipe.
 Requires a valid index in the list of recipes.
 
 - Format: `recipe INDEX remove t/TAG`
