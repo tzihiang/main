@@ -87,6 +87,28 @@ Removes 1 egg from the 1st recipe's list of ingredients.
 * `recipe 2 remove i/Milk` +
 Removes milk from the 2nd recipe's list of ingredients.
 
+==== Insert a cooking step
+
+Allows the user to insert a cooking step to the selected recipe.
+Requires a valid index in the list of recipes and the cooking step.
+
+- Format: `recipe [INDEX] insert [STEP INDEX] [S/STEP_DESCRIPTION]`
+- Examples:
+* `recipe 1 insert 2 s/Bring the water to boil` +
+Insert cooking step 2 (Bring water to boil) from the 1st recipe.
+* `recipe 2 insert next s/Add a teaspoon of salt in the soup` +
+Insert the next cooking step (Add a teaspoon of salt in the soup) from the 2nd recipe
+
+==== Delete a cooking step
+
+Allows the user to delete a cooking step to the selected recipe.
+Requires a valid index in the list of recipes and the cooking step.
+
+- Format: `recipe [INDEX] delete [STEP INDEX]`
+- Examples:
+* `recipe 1 delete 2` +
+Delete cooking step 2 from the 1st recipe.
+
 === Database commands
 
 === Calendar commands
