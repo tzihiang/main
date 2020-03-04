@@ -92,7 +92,7 @@ Search for a recipe by a keyword, and the desired recipe can be viewed using the
 ==== Search recipes by tag
 Search for recipes by tags, and the desired recipe can be viewed using the command `cookbook view recipe`.
 
-- Format: cookbook search tag [t/TAG]…
+- Format: `cookbook search tag [t/TAG]…`
 - Examples:
 * `cookbook search tag t/Easy`
 * `cookbook search tag t/Pasta t/Cream t/Easy`
@@ -105,7 +105,7 @@ This command helps you to see what you can cook with your current inventory of i
 * `cookbook search inventory`
 
 ==== Cook recipe according to a serving size
-Cook and view a recipe from the database according to a serving size.  Once this command is executed, the ingredients used for the recipe will be deducted from the ingredients inventory.
+Cook and view a recipe from the cookbook according to a serving size.  Once this command is executed, the ingredients used for the recipe will be deducted from the ingredients inventory.
 
 [TIP]
 If no serving size is provided, the default serving size in the recipe will be used.
