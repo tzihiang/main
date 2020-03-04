@@ -171,8 +171,33 @@ This command allows you to view a recipe, the ingredients required, and the step
 
 - Format: `cookbook view recipe INDEX`
 - Example:
-* `cookbook view recipe 1` +
+* `cookbook view 1` +
     Views the ingredients and steps of recipe 1.
+
+==== Add a new recipe to the cookbook
+This command allows you to add and store a new recipe with the specified recipe name to the cookbook.
+If neither of the details is specified, an empty recipe will be added.
+
+- Format: `cookbook add n/NAME [i/INGREDIENT] [q/QUANTITY] [x/STEP_INDEX] [s/STEP] [t/TAG]`
+- Example:
+* `cookbook add n/Bacon Carbonara` +
+    Adds a new empty recipe with the name 'Bacon Carbonara'.
+* `cookbook add n/Chicken Ham Sandwich i/Chicken Ham i/White Bread q/2 slices
+   x/1 s/Toast the bread x/2 s/Grill the ham. t/sandwich t/easy` +
+    Adds a new recipe with the name 'Chicken Ham Sandwich' and the following recipe details. +
+    Tags: sandwich, easy +
+    Ingredients: Ham, Bread (2 slices) +
+    Preparation Steps: +
+    1. Toast the ham +
+    2. Grill the bread
+
+==== Remove a recipe from the cookbook
+This command allows you to remove a recipe of the specified index from the cookbook.
+
+- Format: `cookbook remove INDEX`
+- Example:
+* `cookbook remove 1` +
+    Removes recipe 1 from the cookbook.
 
 ==== Search recipes by keyword
 This command allows you to search for a recipe by a keyword, and the desired recipe can be viewed using the command `cookbook view recipe`.
