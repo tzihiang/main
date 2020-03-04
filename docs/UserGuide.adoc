@@ -50,6 +50,40 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 
 === Ingredients inventory commands
+The Ingredients inventory commands are commands that update the user's very own inventory at home.
+These commands include adding, remove and viewing the current inventory database.
+
+==== Add ingredient to the inventory
+This commands allows you to add ingredients to your inventory.
+
+- Format: `inventory add i/INGREDIENT q/QUANTITY`
+- Examples:
+* `inventory add i/Egg q/10` +
+Adds 10 eggs into your inventory.
+* `inventory add i/Butter q/200g` +
+Adds 200g of butter into your inventory.
+
+==== Remove ingredient from the inventory
+This command allows you to remove ingredients from your inventory. You may add in
+an additional argument for the quantity you wish to remove. If no additional argument for quantity
+is supplied, that instance of the ingredient will be removed entirely.
+
+- Format: `inventory remove i/INGREDIENT [q/QUANTITY]`
+- Examples:
+* `inventory remove i/Egg` +
+Remove all eggs from your inventory.
+* `inventory remove i/Butter q/200g` +
+Removes 200g of butter from your inventory.
+
+==== View inventory of ingredients
+This command allows you to view your current list of ingredients. You may add in an
+additional argument for a particular ingredient you are looking for in your database.
+If no additional arguments for the ingredient is supplied, it will display the entire inventory.
+
+- Format: `inventory view`
+- Examples:
+* `inventory view` +
+Displays the entire inventory
 
 === Recipe commands
 Recipe commands are commands that change a particular recipe, which you can indicate using the index of the recipe.
