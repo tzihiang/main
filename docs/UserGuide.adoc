@@ -80,14 +80,10 @@ This command allows you to view your current list of ingredients. You may add in
 additional argument for a particular ingredient you are looking for in your database.
 If no additional arguments for the ingredient is supplied, it will display the entire inventory.
 
-- Format: `inventory view [i/INGREDIENT]`
+- Format: `inventory view`
 - Examples:
 * `inventory view` +
 Displays the entire inventory
-* `inventory view i/eggs` +
-Displays the number of eggs currently in the inventory.
-
-
 
 === Recipe commands
 Recipe commands are commands that change a particular recipe, which you can indicate using the index of the recipe.
