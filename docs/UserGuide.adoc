@@ -202,19 +202,19 @@ This command allows you to remove a recipe of the specified index from the cookb
 ==== Search recipes by keyword
 This command allows you to search for a recipe by a keyword, and the desired recipe can be viewed using the command `cookbook view recipe`.
 
-- Format: `cookbook search recipe w/KEYWORD`
+- Format: `cookbook search w/KEYWORD`
 - Example:
-* `cookbook search recipe w/Carbonara` +
+* `cookbook search w/Carbonara` +
     Searches the cookbook for recipes with names matching the keyword 'Carbonara'.
 
 ==== Search recipes by tag
 This command allows you to search for recipes by tags, and the desired recipe can be viewed using the command `cookbook view recipe`.
 
-- Format: `cookbook search tag t/TAG…`
+- Format: `cookbook search t/TAG…`
 - Examples:
-* `cookbook search tag t/Easy` +
+* `cookbook search t/Easy` +
     Searches the cookbook for recipes with tags matching 'Easy'.
-* `cookbook search tag t/Pasta t/Cream t/Easy` +
+* `cookbook search t/Pasta t/Cream t/Easy` +
     Searches the cookbook for recipes with tags matching 'Pasta', 'Cream', and 'Easy'.
 
 ==== Search recipes by ingredients owned
