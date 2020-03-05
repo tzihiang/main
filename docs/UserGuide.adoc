@@ -154,7 +154,7 @@ Removes 1 egg from the list of ingredients in recipe 1.
 * `recipe 2 remove i/Milk` +
 Removes milk from the list of ingredients in recipe 2.
 
-==== Add a preparation step to the recipe
+==== Add a preparation step to a recipe
 
 This command allows you to add a preparation step to the selected recipe.
 Requires a valid index in the list of recipes and the cooking step.
