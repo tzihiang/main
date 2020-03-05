@@ -296,8 +296,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is `Cooking Papa` and the *Actor* is the `user`, unless specified otherwise)
 
-[source,shell]
-
 ```
 Use case: Create a recipe
 
