@@ -296,6 +296,24 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is `Cooking Papa` and the *Actor* is the `user`, unless specified otherwise)
 
+```
+Use case: Add a recipe's ingredients to cart
+
+MSS:
+1. User chooses to add a recipe's ingredients to the cart.
+2. Cooking Papa requests for index of the recipe.
+3. User enters the requested index.
+4. Cooking Papa add the ingredients to the cart.
+Use case ends.
+
+Extensions:
+    3a. The given index is invalid.
+        3a1. Cooking Papa requests for the correct index.
+        3a2. User enters the new index.
+        Steps 3a1-3a2 are repeated until the index entered is valid.
+        Use case resume from step 4.
+```
+
 [appendix]
 == Non Functional Requirements
 
