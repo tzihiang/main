@@ -297,7 +297,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is `Cooking Papa` and the *Actor* is the `user`, unless specified otherwise)
 
 ```
-Use case: Create a recipe
+Use case: UC01 - Create a recipe
 
 MSS:
 1. User chooses to create a recipe.
