@@ -297,28 +297,34 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is `Cooking Papa` and the *Actor* is the `user`, unless specified otherwise)
 
 [source,shell]
-----
+....
 Use Case: UC02 - View Recipes
 
 MSS:
 1. User chooses to view recipes.
-2. User enters the index of the desired recipe.
-3. Cooking papa receives the index.
-4. Cooking Papa displays the recipe.
+2. Cooking Papa requests for input.
+3. User enters the index of the desired recipe.
+4. Cooking Papa displays the entire recipe with the corresponding index.
+Use case ends.
+....
+
+[source,shell]
+....
+Use Case: UC08 - Search Recipes
+
+MSS:
+1. User chooses to search recipes.
+2. Cooking Papa requests for input.
+3. User enters the keyword to be searched.
+4. Cooking Papa displays recipes with the corresponding keyword.
 Use case ends.
 
 Extensions:
-    2b. User enters the keywords of the desired recipe.
-        2a1. Cooking papa receives the keyword.
-        2a2. Cooking Papa displays index and corresponding name of recipes that match the given keyword.
-        Use case resumes from step 3.
+    3a. User enters the tag to be searched.
+        3a1. Cooking Papa displays the recipes with the corresponding tags.
+        Use case ends.
+....
 
-    2b. User enters the tag of the desired receipe.
-        2b1. Cooking papa receives the tag.
-        2b2. Cooking Papa displays index and corresponding name of recipes that match the given tag.
-        Use case resumes from step 3.
-
-----
 [appendix]
 == Non Functional Requirements
 
