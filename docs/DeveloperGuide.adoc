@@ -296,8 +296,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is `Cooking Papa` and the *Actor* is the `user`, unless specified otherwise)
 
-[source,shell]
-....
+```
 Use Case: UC02 - View Recipes
 
 MSS:
@@ -306,10 +305,8 @@ MSS:
 3. User enters the index of the desired recipe.
 4. Cooking Papa displays the entire recipe with the corresponding index.
 Use case ends.
-....
-
-[source,shell]
-....
+```
+```
 Use Case: UC08 - Search Recipes
 
 MSS:
@@ -323,7 +320,7 @@ Extensions:
     3a. User enters the tag to be searched.
         3a1. Cooking Papa displays the recipes with the corresponding tags.
         Use case ends.
-....
+```
 
 [appendix]
 == Non Functional Requirements
