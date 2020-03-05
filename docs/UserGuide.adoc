@@ -71,7 +71,7 @@ This command allows you to add and store a new recipe with the specified recipe 
 If neither of the details is specified, an empty recipe will be added.
 
 - Format: `cookbook add n/NAME [i/INGREDIENT] [q/QUANTITY] [x/STEP_INDEX] [s/STEP] [t/TAG]`
-- Example:
+- Examples:
 * `cookbook add n/Bacon Carbonara` +
     Adds a new empty recipe with the name 'Bacon Carbonara'.
 * `cookbook add n/Chicken Ham Sandwich i/Chicken Ham i/White Bread q/2 slices
@@ -92,7 +92,7 @@ This command allows you to remove a recipe of the specified index from the cookb
     Removes recipe 1 from the cookbook.
 
 ==== Search recipes by keyword
-This command allows you to search for a recipe by a keyword, and the desired recipe can be viewed using the command `cookbook view recipe`.
+This command allows you to search for recipes by a keyword, and the search result will be returned along with the respective recipe indices.
 
 - Format: `cookbook search w/KEYWORD`
 - Example:
@@ -100,7 +100,7 @@ This command allows you to search for a recipe by a keyword, and the desired rec
     Searches the cookbook for recipes with names matching the keyword 'Carbonara'.
 
 ==== Search recipes by tag
-This command allows you to search for recipes by tags, and the desired recipe can be viewed using the command `cookbook view recipe`.
+This command allows you to search for recipes by tags, and the search result will be returned along with the respective recipe indices.
 
 - Format: `cookbook search t/TAG…`
 - Examples:
@@ -110,12 +110,12 @@ This command allows you to search for recipes by tags, and the desired recipe ca
     Searches the cookbook for recipes with tags matching 'Pasta', 'Cream', and 'Easy'.
 
 ==== Search recipes by ingredients owned
-This command allows you to see what you can cook with your current inventory of ingredients by searching for recipes by the percentage of required ingredients owned, and the desired recipe can be viewed using the command `cookbook view recipe`.
+This command allows you to see what you can cook with your current inventory of ingredients by searching for recipes by the percentage of required ingredients owned, and the search result will be returned along with the respective recipe indices.
 
 - Format: `cookbook search inventory`
 - Example:
 * `cookbook search inventory` +
-    Searches the cookbook for recipes whose ingredients are owned by you.
+    Searches the cookbook for recipes whose ingredients are available in the inventory.
 
 
 === Recipe Commands
@@ -130,18 +130,8 @@ This command allows you to add ingredients to a recipe.
 - Examples:
 * `recipe 1 add i/Egg q/2` +
 Adds 2 eggs to the 1st recipe's list of ingredients.
-* `recipe 2 remove i/Milk q/200 ml` +
+* `recipe 2 add i/Milk q/200 ml` +
 Adds 200 ml of milk to the 2nd recipe's list of ingredients.
-
-==== Edit an ingredient in a recipe
-If you want to change the quantity of an ingredient after some experimentation, this command will help you achieve that.
-
-- Format: `recipe INDEX edit i/INGREDIENT q/QUANTITY`
-- Examples:
-* `recipe 1 edit i/Egg q/2` +
-Changes the quantity of eggs to 3 in the 1st recipe's list of ingredients.
-* `recipe 2 edit i/Milk q/100 ml` +
-Changes the quantity of milk to 100 ml in the 2nd recipe's list of ingredients.
 
 ==== Remove an ingredient from a recipe
 You can remove ingredients that spoil the taste of the dish using this command.
@@ -159,12 +149,12 @@ Removes milk from the list of ingredients in recipe 2.
 This command allows you to add a preparation step to the selected recipe.
 Requires a valid index in the list of recipes and the cooking step.
 
-- Format: `recipe INDEX add x/STEP_INDEX S/STEP_DESCRIPTION`
+- Format: `recipe INDEX add x/STEP_INDEX s/STEP_DESCRIPTION`
 - Examples:
 * `recipe 1 add x/2 s/Bring the water to boil` +
-Add a preparation step 2 (Bring water to boil) to recipe 1.
-* `recipe 2 insert x/next s/Add a teaspoon of salt in the soup` +
-Add the next preparation step (Add a teaspoon of salt in the soup) to recipe 2.
+Adds a preparation step 2 (Bring water to boil) to recipe 1.
+* `recipe 2 add x/next s/Add a teaspoon of salt in the soup` +
+Adds the next preparation step (Add a teaspoon of salt in the soup) to recipe 2.
 
 ==== Remove a preparation step from a recipe
 
@@ -174,7 +164,16 @@ Requires a valid index in the list of recipes and the cooking step.
 - Format: `recipe INDEX remove x/STEP_INDEX`
 - Example:
 * `recipe 1 remove x/2` +
-Remove preparation step 2 from the recipe 1.
+Removes preparation step 2 in recipe 1.
+
+==== Edit a preparation step in a recipe
+This command allows you to edit a preparation step from the selected recipe.
+Requires a valid index in the list of recipes and the cooking step
+
+- Format: `recipe INDEX edit x/STEP_INDEX s/STEP_DESCRIPTION`
+- Example:
+* `recipe 1 edit x/2 s/Fry the eggs` +
+Changes preparation step 2 to 'Fry the eggs' in recipe 1
 
 ==== Add a tag to a recipe
 
@@ -184,7 +183,7 @@ Requires a valid index in the list of recipes.
 - Format: `recipe INDEX add t/TAG`
 - Example:
 * `recipe 1 add t/Pasta` +
-Add a tag (Pasta) to the recipe 1.
+Adds a tag (Pasta) to the recipe 1.
 
 ==== Remove a tag from a recipe
 
@@ -194,7 +193,7 @@ Requires a valid index in the list of recipes.
 - Format: `recipe INDEX remove t/TAG`
 - Example:
 * `recipe 1 remove t/Beef` +
-Remove a tag (Beef) from the recipe 1.
+Removes a tag (Beef) from the recipe 1.
 
 
 === Inventory Commands
