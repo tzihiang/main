@@ -297,7 +297,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is `Cooking Papa` and the *Actor* is the `user`, unless specified otherwise)
 
 [source,shell]
-----
+
+```
 Use case: Create a recipe
 
 MSS:
@@ -317,7 +318,7 @@ Extensions:
 
     *a. At any time, User chooses to end the creation of a recipe.
         *a1. Cooking Papa cancels creation of a recipe.
-----
+```
 
 [appendix]
 == Non Functional Requirements
