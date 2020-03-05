@@ -150,31 +150,31 @@ If the quantity to be removed is not specified, all of the ingredient will be re
 - Format: `recipe INDEX remove i/INGREDIENT [q/QUANTITY]`
 - Examples:
 * `recipe 1 remove i/Egg q/1` +
-Removes 1 egg from the 1st recipe's list of ingredients.
+Removes 1 egg from the list of ingredients in recipe 1.
 * `recipe 2 remove i/Milk` +
-Removes milk from the 2nd recipe's list of ingredients.
+Removes milk from the list of ingredients in recipe 2.
 
-==== Add a cooking step to the recipe
+==== Add a preparation step to the recipe
 
-This command allows you to add a cooking step to the selected recipe.
+This command allows you to add a preparation step to the selected recipe.
 Requires a valid index in the list of recipes and the cooking step.
 
 - Format: `recipe INDEX add x/STEP_INDEX S/STEP_DESCRIPTION`
 - Examples:
 * `recipe 1 add x/2 s/Bring the water to boil` +
-Add a cooking step 2 (Bring water to boil) to the 1st recipe.
+Add a preparation step 2 (Bring water to boil) to recipe 1.
 * `recipe 2 insert x/next s/Add a teaspoon of salt in the soup` +
-Add the next cooking step (Add a teaspoon of salt in the soup) to the 2nd recipe
+Add the next preparation step (Add a teaspoon of salt in the soup) to recipe 2.
 
-==== Remove a cooking step from a recipe
+==== Remove a preparation step from a recipe
 
-This command allows you to remove a cooking step from the selected recipe.
+This command allows you to remove a preparation step from the selected recipe.
 Requires a valid index in the list of recipes and the cooking step.
 
 - Format: `recipe INDEX remove x/STEP_INDEX`
 - Example:
 * `recipe 1 remove x/2` +
-Remove cooking step 2 from the 1st recipe.
+Remove preparation step 2 from the recipe 1.
 
 ==== Add a tag to a recipe
 
@@ -184,7 +184,7 @@ Requires a valid index in the list of recipes.
 - Format: `recipe INDEX add t/TAG`
 - Example:
 * `recipe 1 add t/Pasta` +
-Add a tag (Pasta) to the 1st recipe.
+Add a tag (Pasta) to the recipe 1.
 
 ==== Remove a tag from a recipe
 
@@ -194,7 +194,7 @@ Requires a valid index in the list of recipes.
 - Format: `recipe INDEX remove t/TAG`
 - Example:
 * `recipe 1 remove t/Beef` +
-Remove a tag (Beef) from the 1st recipe.
+Remove a tag (Beef) from the recipe 1.
 
 
 === Inventory Commands
