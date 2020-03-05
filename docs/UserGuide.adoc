@@ -133,6 +133,16 @@ Adds 2 eggs to the 1st recipe's list of ingredients.
 * `recipe 2 add i/Milk q/200 ml` +
 Adds 200 ml of milk to the 2nd recipe's list of ingredients.
 
+==== Edit an ingredient in a recipe
+If you want to change the quantity of an ingredient after some experimentation, this command will help you achieve that.
+
+- Format: `recipe INDEX edit i/INGREDIENT q/QUANTITY`
+- Examples:
+* `recipe 1 edit i/Egg q/2` +
+Changes the quantity of eggs to 3 in the 1st recipe's list of ingredients.
+* `recipe 2 edit i/Milk q/100 ml` +
+Changes the quantity of milk to 100 ml in the 2nd recipe's list of ingredients.
+
 ==== Remove an ingredient from a recipe
 You can remove ingredients that spoil the taste of the dish using this command.
 If the quantity to be removed is not specified, all of the ingredient will be removed.
