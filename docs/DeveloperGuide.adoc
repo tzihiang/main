@@ -295,7 +295,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |forgetful person |add ingredients for my planned meals to a grocery list easily |I know what I need to get when shopping
 
-|`* * *` |disorganized person |keep track of the ingredients I have at home |plan my meals better
+|`* * *` |disorganized person |keep track of the ingredients I have at home |I can plan my meals better
 
 |`* * *` |busy student |cook a meal with the ingredients I already have |I don't waste time on grocery shopping
 
@@ -307,7 +307,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |regular cook |set a timer during meal preparation |I can control the quality of my meal
 
-|`* *` |CS student |cook a quick meal |spend more doing CS2103T
+|`* *` |CS student |cook a quick meal |I can spend more doing CS2103T
 
 |`* *` |vegetarian |find recipes that don't contain meat |I can keep to my diet constraints
 
