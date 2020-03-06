@@ -279,7 +279,14 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-*Value proposition*:
+* has a need to manage a significant number of recipes
+* has a need to manage food resources efficiently
+* prefer desktop apps over other types of apps
+* can type fast
+* prefers typing over mouse input
+* is reasonably comfortable using CLI apps
+
+*Value proposition*: manage recipes and food resources faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
