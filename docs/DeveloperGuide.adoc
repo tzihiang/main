@@ -301,9 +301,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |low-income individual |cook a meal with the ingredients I already have |I can save money
 
-|`* * *` |person with seafood allergy |cook meals that don't contain seafood |I do not have an allergic reaction
+|`* * *` |person with food allergies |cook meals that I am not allergic to |I do not have an allergic reaction
 
-|`* *` |cooking enthusiast |edit recipes |I can tweak a recipe to my liking
+|`* *` |regular cook |edit recipes |I can tweak a recipe to my liking
 
 |`* *` |regular cook |set a timer during meal preparation |I can control the quality of my meal
 
@@ -325,7 +325,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |stay-at-home parent |plan a variety of meals for the week |I can make sure that my family eats healthily
 
-|`*` |kiasu parent |know how much ingredients I need for 2 weeks |my family can survive an epidemic
+|`*` |kiasu parent |know how much ingredients I need for 2 weeks |ensure my family never runs out of food
 
 |`*` |party host |scale recipe ingredients by the number of servings |I can prepare meals for large groups
 
