@@ -279,7 +279,14 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-*Value proposition*:
+* has a need to manage a significant number of recipes
+* has a need to manage food resources efficiently
+* prefer desktop apps over other types of apps
+* can type fast
+* prefers typing over mouse input
+* is reasonably comfortable using CLI apps
+
+*Value proposition*: manage recipes and food resources faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -301,9 +308,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |low-income individual |cook a meal with the ingredients I already have |I can save money
 
-|`* * *` |person with seafood allergy |cook meals that don't contain seafood |I do not have an allergic reaction
+|`* * *` |person with food allergies |cook meals that I am not allergic to |I do not have an allergic reaction
 
-|`* *` |cooking enthusiast |edit recipes |I can tweak a recipe to my liking
+|`* *` |regular cook |edit recipes |I can tweak a recipe to my liking
 
 |`* *` |regular cook |set a timer during meal preparation |I can control the quality of my meal
 
@@ -325,7 +332,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |stay-at-home parent |plan a variety of meals for the week |I can make sure that my family eats healthily
 
-|`*` |kiasu parent |know how much ingredients I need for 2 weeks |my family can survive an epidemic
+|`*` |kiasu parent |know how much ingredients I need for 2 weeks |ensure my family never runs out of food
 
 |`*` |party host |scale recipe ingredients by the number of servings |I can prepare meals for large groups
 
@@ -338,47 +345,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is `Cooking Papa` and the *Actor* is the `user`, unless specified otherwise)
 
 ```
-Use case: UC01 - Add a recipe's ingredients to cart
-
-MSS:
-1. User chooses to add a recipe's ingredients to the cart.
-2. Cooking Papa requests for index of the recipe.
-3. User enters the requested index.
-4. Cooking Papa add the ingredients to the cart.
-Use case ends.
-
-Extensions:
-    3a. The given index is invalid.
-        3a1. Cooking Papa requests for the correct index.
-        3a2. User enters the new index.
-        Steps 3a1-3a2 are repeated until the index entered is valid.
-        Use case resumes from step 4.
-=======
-Use Case: UC02 - View Recipes
-
-MSS:
-1. User chooses to view recipes.
-2. Cooking Papa requests for input.
-3. User enters the index of the desired recipe.
-4. Cooking Papa displays the entire recipe with the corresponding index.
-Use case ends.
-```
-```
-Use Case: UC08 - Search Recipes
-
-MSS:
-1. User chooses to search recipes.
-2. Cooking Papa requests for input.
-3. User enters the keyword to be searched.
-4. Cooking Papa displays recipes with the corresponding keyword.
-Use case ends.
-
-Extensions:
-    3a. User enters the tag to be searched.
-        3a1. Cooking Papa displays the recipes with the corresponding tags.
-        Use case ends.
-```
-```
 Use case: UC01 - Create a recipe
 
 MSS:
@@ -386,7 +352,7 @@ MSS:
 2. Cooking Papa requests for details of the recipe.
 3. User enters the requested details.
 4. Cooking Papa creates the recipe and stores it in the cookbook, and displays the newly created recipe.
-Use case ends
+Use case ends.
 
 Extensions:
     3a. Cooking Papa detects an error in the entered data.
@@ -399,6 +365,55 @@ Extensions:
     *a. At any time, User chooses to end the creation of a recipe.
         *a1. Cooking Papa cancels creation of a recipe.
 
+```
+
+```
+Use Case: UC02 - Search for recipes
+
+MSS:
+1. User chooses to search recipes.
+2. Cooking Papa requests for the tag to be searched.
+3. User enters the tag.
+4. Cooking Papa displays recipes with the corresponding tag.
+Use case ends.
+```
+
+```
+Use Case: UC03 - View a recipe
+
+MSS:
+1. User chooses to view recipes.
+2. Cooking Papa requests for the index of the recipe.
+3. User enters the requested index.
+4. Cooking Papa displays the entire recipe with the corresponding index.
+Use case ends.
+
+Extensions:
+    3a. The given index is invalid.
+        3a1. Cooking Papa shows an error message.
+        3a2. Cooking Papa requests for the correct index.
+        3a3. User enters the new index.
+        Steps 3a1-3a3 are repeated until the index entered is valid.
+        Use case resumes from step 4.
+```
+
+```
+Use case: UC04 - Add a recipe's ingredients to the cart
+
+MSS:
+1. User chooses to add a recipe's ingredients to the cart.
+2. Cooking Papa requests for the index of the recipe.
+3. User enters the requested index.
+4. Cooking Papa add the ingredients to the cart.
+Use case ends.
+
+Extensions:
+    3a. The given index is invalid.
+        3a1. Cooking Papa shows an error message.
+        3a2. Cooking Papa requests for the correct index.
+        3a3. User enters the new index.
+        Steps 3a1-3a3 are repeated until the index entered is valid.
+        Use case resumes from step 4.
 ```
 
 [appendix]
