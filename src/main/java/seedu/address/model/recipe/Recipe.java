@@ -39,14 +39,15 @@ public class Recipe {
      * Recipe constructor for optional fields
      * Every field must be present and not null.
      */
-//    public Recipe(RecipeName name, RecipeDescription description, IngredientList ingredients, StepList steps, Set<Tag> tags) {
-//        requireAllNonNull(name, description, ingredients, steps, tags);
-//        this.name = name;
-//        this.description = description;
-//        this.ingredients = ingredients;
-//        this.steps = steps;
-//        this.tags.addAll(tags);
-//    }
+    //public Recipe(RecipeName name, RecipeDescription description,
+    //  IngredientList ingredients, StepList steps, Set<Tag> tags) {
+    //    requireAllNonNull(name, description, ingredients, steps, tags);
+    //    this.name = name;
+    //    this.description = description;
+    //    this.ingredients = ingredients;
+    //    this.steps = steps;
+    //    this.tags.addAll(tags);
+    //}
 
     public RecipeName getName() {
         return name;
@@ -56,13 +57,13 @@ public class Recipe {
         return description;
     }
 
-//    public IngredientList getIngredients() {
-//        return ingredients;
-//    }
+    //public IngredientList getIngredients() {
+    //    return ingredients;
+    //}
 
-//    public StepList getSteps() {
-//        return steps;
-//    }
+    //public StepList getSteps() {
+    //    return steps;
+    //}
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
