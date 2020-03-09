@@ -3,9 +3,6 @@ package seedu.address.model.step;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-
 public class Step {
 
     public static final String MESSAGE_CONSTRAINTS =

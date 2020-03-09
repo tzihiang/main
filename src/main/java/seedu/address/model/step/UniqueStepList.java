@@ -78,7 +78,7 @@ public class UniqueStepList implements Iterable<Step> {
         }
     }
 
-    public void setStep(seedu.address.model.step.UniqueStepList replacement) {
+    public void setSteps(UniqueStepList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -87,7 +87,7 @@ public class UniqueStepList implements Iterable<Step> {
      * Replaces the contents of this list with {@code Step}.
      * {@code Step} must not contain duplicate persons.
      */
-    public void setPersons(List<Step> steps) {
+    public void setSteps(List<Step> steps) {
         requireAllNonNull(steps);
         if (!stepsAreUnique(steps)) {
             throw new DuplicateStepException();
@@ -111,8 +111,8 @@ public class UniqueStepList implements Iterable<Step> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.step.UniqueStepList // instanceof handles nulls
-                && internalList.equals(((seedu.address.model.step.UniqueStepList) other).internalList));
+                || (other instanceof UniqueStepList // instanceof handles nulls
+                && internalList.equals(((UniqueStepList) other).internalList));
     }
 
     @Override
