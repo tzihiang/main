@@ -14,9 +14,9 @@ import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
 
 /**
  * A list of ingredients that enforces uniqueness between its elements and does not allow nulls.
- * An ingredient is considered unique by comparing using {@code Ingredient#isSameIngredient(Ingredient)}. As such, adding and updating of
- * ingredients uses Ingredient#isSameIngredient(Ingredient) for equality so as to ensure that the ingredient being added or updated is
- * unique in terms of identity in the UniqueIngredientList.
+ * An ingredient is considered unique by comparing using {@code Ingredient#isSameIngredient(Ingredient)}. As such,
+ * adding and updating of ingredients uses Ingredient#isSameIngredient(Ingredient) for equality so as to ensure
+ * that the ingredient being added or updated is unique in terms of identity in the UniqueIngredientList.
  */
 
 public class UniqueIngredientList implements Iterable<Ingredient> {
@@ -25,7 +25,12 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
     private final ObservableList<Ingredient> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-    public boolean contains(Ingredient otherIngredient){
+    /**
+     * Checks if otherIngredient already exists in the list.
+     * @param otherIngredient
+     * @return true is otherIngredient exists, false otherwise.
+     */
+    public boolean contains(Ingredient otherIngredient) {
         requireNonNull(otherIngredient);
         return internalList.stream().anyMatch(otherIngredient::isSameIngredient);
     }
@@ -89,6 +94,11 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
                 && internalList.equals(((UniqueIngredientList) other).internalList));
     }
 
+    /**
+     * Checks if all the ingredients given in the list are unique and has no repeats.
+     * @param ingredients
+     * @return true if all ingredients are unique, false otherwise.
+     */
     private boolean ingredientsAreUnique(List<Ingredient> ingredients) {
         for (int i = 0; i < ingredients.size() - 1; i++) {
             for (int j = i + 1; j < ingredients.size(); j++) {
