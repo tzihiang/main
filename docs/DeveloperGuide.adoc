@@ -279,22 +279,142 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-*Value proposition*:
+* has a need to manage a significant number of recipes
+* has a need to manage food resources efficiently
+* prefer desktop apps over other types of apps
+* can type fast
+* prefers typing over mouse input
+* is reasonably comfortable using CLI apps
+
+*Value proposition*: manage recipes and food resources faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="75%",cols="<15%,<25%,<30%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
+|Priority |As a ... |I want to ... |So that ...
+|`* * *` |beginner cook |find new recipes easily |I don't waste time searching though recipes from different sources
+
+|`* * *` |regular cook |record my own recipes |I can refer to them easily in future
+
+|`* * *` |forgetful person |add ingredients for my planned meals to a grocery list easily |I know what I need to get when shopping
+
+|`* * *` |disorganized person |keep track of the ingredients I have at home |I can plan my meals better
+
+|`* * *` |busy student |cook a meal with the ingredients I already have |I don't waste time on grocery shopping
+
+|`* * *` |low-income individual |cook a meal with the ingredients I already have |I can save money
+
+|`* * *` |person with food allergies |cook meals that I am not allergic to |I do not have an allergic reaction
+
+|`* *` |regular cook |edit recipes |I can tweak a recipe to my liking
+
+|`* *` |regular cook |set a timer during meal preparation |I can control the quality of my meal
+
+|`* *` |CS student |cook a quick meal |I can spend more doing CS2103T
+
+|`* *` |vegetarian |find recipes that don't contain meat |I can keep to my diet constraints
+
+|`* *` |picky eater |choose recipes that only contain the food I like |I can enjoy the meals I cook
+
+|`* *` |working adult |plan meals for the next week |I can buy all the ingredients I need in one trip
+
+|`* *` |person with health issues |record the meals I eat |I can share the information with my doctor easily
+
+|`*` |health-conscious person |keep track of the nutritional value of the food I eat |I can meet my nutritional goals
+
+|`*` |regular gym-goer |keep track of my dietary intake |I can meet my fitness goals
+
+|`*` |obesity fighter |keep track of my calorie and fat intake |I can lose weight
+
+|`*` |stay-at-home parent |plan a variety of meals for the week |I can make sure that my family eats healthily
+
+|`*` |kiasu parent |know how much ingredients I need for 2 weeks |ensure my family never runs out of food
+
+|`*` |party host |scale recipe ingredients by the number of servings |I can prepare meals for large groups
+
+|`*` |cafe manager |keep track of the expiry dates of my ingredients |I know what ingredients I need to stock up on
 |=======================================================================
 
 [appendix]
 == Use Cases
 
 (For all use cases below, the *System* is `Cooking Papa` and the *Actor* is the `user`, unless specified otherwise)
+
+```
+Use case: UC01 - Create a recipe
+
+MSS:
+1. User chooses to create a recipe.
+2. Cooking Papa requests for details of the recipe.
+3. User enters the requested details.
+4. Cooking Papa creates the recipe and stores it in the cookbook, and displays the newly created recipe.
+Use case ends.
+
+Extensions:
+    3a. Cooking Papa detects an error in the entered data.
+        3a1. Cooking Papa shows an error message.
+        3a2. Cooking Papa requests for the correct data.
+        3a3. User enters new data.
+        Steps 3a1 to 3a3 are repeated until the data entered is correct.
+        Use case resumes from step 4.
+
+    *a. At any time, User chooses to end the creation of a recipe.
+        *a1. Cooking Papa cancels creation of a recipe.
+
+```
+
+```
+Use Case: UC02 - Search for recipes
+
+MSS:
+1. User chooses to search recipes.
+2. Cooking Papa requests for the tag to be searched.
+3. User enters the tag.
+4. Cooking Papa displays recipes with the corresponding tag.
+Use case ends.
+```
+
+```
+Use Case: UC03 - View a recipe
+
+MSS:
+1. User chooses to view recipes.
+2. Cooking Papa requests for the index of the recipe.
+3. User enters the requested index.
+4. Cooking Papa displays the entire recipe with the corresponding index.
+Use case ends.
+
+Extensions:
+    3a. The given index is invalid.
+        3a1. Cooking Papa shows an error message.
+        3a2. Cooking Papa requests for the correct index.
+        3a3. User enters the new index.
+        Steps 3a1-3a3 are repeated until the index entered is valid.
+        Use case resumes from step 4.
+```
+
+```
+Use case: UC04 - Add a recipe's ingredients to the cart
+
+MSS:
+1. User chooses to add a recipe's ingredients to the cart.
+2. Cooking Papa requests for the index of the recipe.
+3. User enters the requested index.
+4. Cooking Papa add the ingredients to the cart.
+Use case ends.
+
+Extensions:
+    3a. The given index is invalid.
+        3a1. Cooking Papa shows an error message.
+        3a2. Cooking Papa requests for the correct index.
+        3a3. User enters the new index.
+        Steps 3a1-3a3 are repeated until the index entered is valid.
+        Use case resumes from step 4.
+```
 
 [appendix]
 == Non Functional Requirements
