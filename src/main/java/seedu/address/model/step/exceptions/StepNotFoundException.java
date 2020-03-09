@@ -1,4 +1,6 @@
 package seedu.address.model.step.exceptions;
 
-public class StepNotFoundException {
-}
+/**
+ * Signals that the operation is unable to find the specified step.
+ */
+public class StepNotFoundException extends RuntimeException {}
