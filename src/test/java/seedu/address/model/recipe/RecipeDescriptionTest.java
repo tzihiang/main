@@ -33,7 +33,7 @@ public class RecipeDescriptionTest {
         assertTrue(RecipeDescription.isValidRecipeDescription("11223344")); // numbers only
         assertTrue(RecipeDescription.isValidRecipeDescription("1st in the world")); // alphanumeric characters
         assertTrue(RecipeDescription.isValidRecipeDescription("Succulent Pork Belly")); // with capital letters
-        assertFalse(RecipeDescription.isValidRecipeDescription("A-grade")); // contains non-alphanumeric characters
+        assertTrue(RecipeDescription.isValidRecipeDescription("A-grade")); // contains non-alphanumeric characters
         assertTrue(RecipeDescription.isValidRecipeDescription("Roasted cod with crushed potatoes, artichoke, "
                 + "salted capers, red wine and lemon sauce")); // long descriptions
     }

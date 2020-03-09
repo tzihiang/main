@@ -33,7 +33,7 @@ public class RecipeNameTest {
         assertTrue(RecipeName.isValidRecipeName("0123210")); // numbers only
         assertTrue(RecipeName.isValidRecipeName("number 1 cake")); // alphanumeric characters
         assertTrue(RecipeName.isValidRecipeName("Beef Wellington")); // with capital letters
-        assertFalse(RecipeName.isValidRecipeName("Shepherd's Pie")); // contains non-alphanumeric characters
+        assertTrue(RecipeName.isValidRecipeName("Shepherd's Pie")); // contains non-alphanumeric characters
         assertTrue(RecipeName.isValidRecipeName("Slow-roasted Cumbrian saddleback pork belly")); // long names
     }
 }
