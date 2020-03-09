@@ -17,7 +17,7 @@ public class Inventory implements ReadOnlyIngredientList {
 
     public Inventory() {}
 
-    public Inventory(ReadOnlyAddressBook toBeCopied) {
+    public Inventory(ReadOnlyIngredientList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -66,6 +66,7 @@ public class Inventory implements ReadOnlyIngredientList {
     @Override
     public String toString() {
         // TODO: After implementing Ingredients
+        return "";
     }
 
     @Override
@@ -76,7 +77,7 @@ public class Inventory implements ReadOnlyIngredientList {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && ingredients.equals(((AddressBook) other).ingredients));
+                || (other instanceof Inventory // instanceof handles nulls
+                && ingredients.equals(((Inventory) other).ingredients));
     }
 }
