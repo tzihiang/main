@@ -9,12 +9,12 @@ public class UniqueIngredientListTest {
     private final UniqueIngredientList uniqueIngredientList = new UniqueIngredientList();
 
     @Test
-    public void contains_nullPerson_throwsNullPointerException() {
+    public void containsNullIngredientThrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueIngredientList.contains(null));
     }
 
     @Test
-    public void add_nullPerson_throwsNullPointerException() {
+    public void addNullIngredientThrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueIngredientList.add(null));
     }
 
