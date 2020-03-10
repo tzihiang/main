@@ -18,9 +18,9 @@ import seedu.address.model.step.exceptions.StepNotFoundException;
 
 public class UniqueStepListTest {
 
-    private final UniqueStepList uniqueStepList = new UniqueStepList();
     private static final Step TESTSTEP = new Step("Cook 1 egg."); // for the time being only
     private static final Step TESTSTEP2 = new Step("Boil 2 egg."); // for the time being only
+    private final UniqueStepList uniqueStepList = new UniqueStepList();
 
     @Test
     public void contains_nullPerson_throwsNullPointerException() {
@@ -28,12 +28,12 @@ public class UniqueStepListTest {
     }
 
     @Test
-    public void contains_StepNotInList_returnsFalse() {
+    public void contains_stepNotInList_returnsFalse() {
         assertFalse(uniqueStepList.contains(TESTSTEP));
     }
 
     @Test
-    public void contains_StepInList_returnsTrue() {
+    public void contains_stepInList_returnsTrue() {
         uniqueStepList.add(TESTSTEP);
         assertTrue(uniqueStepList.contains(TESTSTEP));
     }
@@ -95,7 +95,7 @@ public class UniqueStepListTest {
     }
 
     @Test
-    public void remove_StepDoesNotExist_throwsStepNotFoundException() {
+    public void remove_stepDoesNotExist_throwsStepNotFoundException() {
         assertThrows(StepNotFoundException.class, () -> uniqueStepList.remove(TESTSTEP));
     }
 
@@ -145,6 +145,6 @@ public class UniqueStepListTest {
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
-                -> uniqueStepList.asUnmodifiableObservableList().remove(0));
+            -> uniqueStepList.asUnmodifiableObservableList().remove(0));
     }
 }
