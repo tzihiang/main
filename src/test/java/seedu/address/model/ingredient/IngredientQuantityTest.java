@@ -21,19 +21,29 @@ public class IngredientQuantityTest {
 
     @Test
     public void isValidIngredientQuantity() {
-        // null ingredient name
+        // null ingredient quantity
         assertThrows(NullPointerException.class, () -> IngredientQuantity.isValidIngredientQuantity(null));
 
-        // invalid ingredient name
+        // invalid ingredient quantity
         assertFalse(IngredientQuantity.isValidIngredientQuantity("")); // empty string
         assertFalse(IngredientQuantity.isValidIngredientQuantity(" ")); // spaces only
         assertFalse(IngredientQuantity.isValidIngredientQuantity("dozen")); // starts with alphabets
+        assertFalse(IngredientQuantity.isValidIngredientQuantity("1.")); // whole number with decimal point
+        assertFalse(IngredientQuantity.isValidIngredientQuantity("1 / 2 cups")); // spaces in fraction
+        assertFalse(IngredientQuantity.isValidIngredientQuantity("1 piece1")); // number in unit
 
-        // valid ingredient name
-        assertTrue(IngredientQuantity.isValidIngredientQuantity("12345")); // numbers only
-        assertTrue(IngredientQuantity.isValidIngredientQuantity("100 ml")); // alphanumeric characters
-        assertTrue(IngredientQuantity.isValidIngredientQuantity("2.5 cups")); // with decimal point
-        assertTrue(IngredientQuantity.isValidIngredientQuantity("2 1/2 cups")); // with fractions
+        // valid ingredient quantity
+        assertTrue(IngredientQuantity.isValidIngredientQuantity("12345")); // whole number
+        assertTrue(IngredientQuantity.isValidIngredientQuantity("0.5")); // decimal number
+        assertTrue(IngredientQuantity.isValidIngredientQuantity("1/2")); // pure fraction
+        assertTrue(IngredientQuantity.isValidIngredientQuantity("1 1/2")); // mixed fraction
+        assertTrue(IngredientQuantity.isValidIngredientQuantity("100 ml")); // whole number and unit
+        assertTrue(IngredientQuantity.isValidIngredientQuantity("100ml")); // no space between value and unit
+        assertTrue(IngredientQuantity.isValidIngredientQuantity("2.5 cups")); // decimal number and unit
+        assertTrue(IngredientQuantity.isValidIngredientQuantity(".5 cups")); // starts with decimal point
+        assertTrue(IngredientQuantity.isValidIngredientQuantity("1/2 cups")); // pure fractions and unit
+        assertTrue(IngredientQuantity.isValidIngredientQuantity("2 1/2 cups")); // mixed fractions and unit
         assertTrue(IngredientQuantity.isValidIngredientQuantity("1 Tablespoon")); // with capital letters
+        assertTrue(IngredientQuantity.isValidIngredientQuantity("1 rounded tsp")); // unit with spaces
     }
 }
