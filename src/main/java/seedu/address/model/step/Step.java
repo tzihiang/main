@@ -6,13 +6,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Step {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Step should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Step should only contain sentences, and it should not be blank";
 
     /*
      * The first character of the step must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\p{Graph}][\\p{Graph} ]*";
 
     public final String stepDescription;
 
@@ -50,7 +50,4 @@ public class Step {
     public int hashCode() {
         return stepDescription.hashCode();
     }
-
-
-
 }
