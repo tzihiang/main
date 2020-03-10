@@ -14,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::shanecsj.png[width="150", align="left"]
 {empty}[https://github.com/shanecsj[github]] [<<shanecsj#, portfolio>>]
 
-Role: Developer
+Role: Developer +
 Responsibilities: Storage
 
 '''
