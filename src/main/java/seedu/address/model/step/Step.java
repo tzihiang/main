@@ -3,6 +3,10 @@ package seedu.address.model.step;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a cooking step in a recipe
+ * Guarantees: immutable; is valid as declared in {@link #isValidStep(String)}
+ */
 public class Step {
 
     public static final String MESSAGE_CONSTRAINTS =
