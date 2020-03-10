@@ -75,7 +75,7 @@ public class EditCommandParserTest {
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC,
                 Name.MESSAGE_CONSTRAINTS);
-}
+    }
 
     @Test
     public void parse_allFieldsSpecified_success() {
