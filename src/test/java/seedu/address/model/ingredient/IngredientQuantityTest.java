@@ -147,7 +147,7 @@ public class IngredientQuantityTest {
         assertEquals("2.5", IngredientQuantity.parseValue("2.5 cups").toString()); // decimal number and unit
         assertEquals("0.5", IngredientQuantity.parseValue(".5 cups").toString()); // starts with decimal point
         assertEquals("1/2", IngredientQuantity.parseValue("1/2 cups").toString()); // pure fractions and unit
-        assertEquals("2.6", IngredientQuantity.parseValue("2 3/5 cups").toString()); // denominator larger than 4
+        assertEquals("2.3", IngredientQuantity.parseValue("2 3/10 cups").toString()); // denominator larger than 6
         assertEquals("1", IngredientQuantity.parseValue("1 Tablespoon").toString()); // with capital letters
         assertEquals("1", IngredientQuantity.parseValue("1 rounded tsp").toString()); // unit with spaces;
     }
@@ -181,7 +181,7 @@ public class IngredientQuantityTest {
         assertEquals("2.5 cups", new IngredientQuantity("2.5 cups").toString()); // decimal number and unit
         assertEquals("0.5 cups", new IngredientQuantity(".5 cups").toString()); // starts with decimal point
         assertEquals("1/2 cups", new IngredientQuantity("1/2 cups").toString()); // pure fractions and unit
-        assertEquals("2.6 cups", new IngredientQuantity("2 3/5 cups").toString()); // mixed fractions and unit
+        assertEquals("2.3 cups", new IngredientQuantity("2 3/10 cups").toString()); // mixed fractions and unit
         assertEquals("1 Tablespoon", new IngredientQuantity("1 Tablespoon").toString()); // with capital letters
         assertEquals("1 rounded tsp", new IngredientQuantity("1 rounded tsp ").toString()); // unit with spaces;
     }

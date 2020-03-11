@@ -35,7 +35,7 @@ public class IngredientQuantity {
     private static final Pattern FRACTION_PATTERN = Pattern.compile(FRACTION_REGEX);
     private static final Pattern UNIT_PATTERN = Pattern.compile(UNIT_REGEX);
 
-    private static final int LARGEST_DENOMINATOR = 4;
+    private static final int LARGEST_DENOMINATOR = 6;
 
     public final Number value;
     public final String unit;
