@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
+// import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 
 /**
@@ -15,7 +15,7 @@ import seedu.address.model.person.Person;
  */
 public class CartIngredientListPanel extends UiPart<Region> {
     private static final String FXML = "CartIngredientListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    // private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
     private ListView<Person> cartIngredientListView;
