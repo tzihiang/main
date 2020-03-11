@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,21 +21,19 @@ public class IngredientQuantity {
             "Ingredient quantities should only contain a value and a unit, where the value can be "
             + "whole numbers, decimals, or fractions, and the unit should only contain alphabets";
 
-    public static final String WHOLE_NUMBER_REGEX = "[\\p{Digit}]+ *";
-    public static final String DECIMAL_REGEX = "[\\p{Digit}]*\\.[\\p{Digit}]+ *";
-    public static final String FRACTION_REGEX = "[\\p{Digit}]+( +[\\p{Digit}]+)?/[\\p{Digit}]+ *";
-    public static final String UNIT_REGEX = "[\\p{Alpha}][\\p{Alpha} ]*";
+    private static final String DECIMAL_REGEX = "(([\\p{Digit}]+(\\.[\\p{Digit}]+)?)|(\\.[\\p{Digit}]+))";
+    private static final String FRACTION_REGEX = "[\\p{Digit}]+( +[\\p{Digit}]+)?/[\\p{Digit}]+";
+    private static final String UNIT_REGEX = "[\\p{Alpha}][\\p{Alpha} ]*";
 
     /*
      * The ingredient quantity must consist of a whole number, decimal, or fraction, and an optional unit.
      */
-    public static final String VALIDATION_REGEX = String.format("((%s)|(%s)|(%s))(%s)?",
-            WHOLE_NUMBER_REGEX, DECIMAL_REGEX, FRACTION_REGEX, UNIT_REGEX);
+    public static final String VALIDATION_REGEX = String.format("((%s)|(%s)) *(%s)?",
+            DECIMAL_REGEX, FRACTION_REGEX, UNIT_REGEX);
 
-    public static final Pattern WHOLE_NUMBER_PATTERN = Pattern.compile(WHOLE_NUMBER_REGEX);
-    public static final Pattern DECIMAL_PATTERN = Pattern.compile(DECIMAL_REGEX);
-    public static final Pattern FRACTION_PATTERN = Pattern.compile(FRACTION_REGEX);
-    public static final Pattern UNIT_PATTERN = Pattern.compile(UNIT_REGEX);
+    private static final Pattern DECIMAL_PATTERN = Pattern.compile(DECIMAL_REGEX);
+    private static final Pattern FRACTION_PATTERN = Pattern.compile(FRACTION_REGEX);
+    private static final Pattern UNIT_PATTERN = Pattern.compile(UNIT_REGEX);
 
     private static final int LARGEST_DENOMINATOR = 4;
 
@@ -66,7 +65,10 @@ public class IngredientQuantity {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public boolean isCompatible(IngredientQuantity other) {
+    /**
+     * Returns true if the specified ingredient quantity can be added to or subtracted from this ingredient quantity.
+     */
+    public boolean isCompatibleWith(IngredientQuantity other) {
         return this.unit.equals(other.unit);
     }
 
@@ -77,31 +79,23 @@ public class IngredientQuantity {
      * @return a new ingredient quantity with the specified ingredient quantity added.
      */
     public IngredientQuantity add(IngredientQuantity other) {
-        checkArgument(isCompatible(other));
+        checkArgument(isCompatibleWith(other));
 
         Number newValue = null;
-        if (this.value instanceof Integer && other.value instanceof Integer) {
-            newValue = Integer.sum((Integer) this.value, (Integer) other.value);
-        } else if (this.value instanceof Double && other.value instanceof Double) {
-            newValue = Double.sum((Double) this.value, (Double) other.value);
+        if (this.value instanceof BigDecimal && other.value instanceof BigDecimal) {
+            newValue = ((BigDecimal) this.value).add((BigDecimal) other.value);
         } else if (this.value instanceof MixedFraction && other.value instanceof MixedFraction) {
-            newValue = MixedFraction.sum((MixedFraction) this.value, (MixedFraction) other.value);
-        } else if (this.value instanceof Integer && other.value instanceof Double) {
-            newValue = Double.sum(this.value.doubleValue(), (Double) other.value);
-        } else if (this.value instanceof Double && other.value instanceof Integer) {
-            newValue = Double.sum((Double) this.value, other.value.doubleValue());
-        } else if (this.value instanceof Integer && other.value instanceof MixedFraction) {
-            newValue = MixedFraction.sum(new MixedFraction((Integer) this.value), (MixedFraction) other.value);
-        } else if (this.value instanceof MixedFraction && other.value instanceof Integer) {
-            newValue = MixedFraction.sum((MixedFraction) this.value, new MixedFraction((Integer) other.value));
-        } else if (this.value instanceof Double && other.value instanceof MixedFraction) {
-            newValue = MixedFraction.sum(new MixedFraction((Double) this.value), (MixedFraction) other.value);
-        } else if (this.value instanceof MixedFraction && other.value instanceof Double) {
-            newValue = MixedFraction.sum((MixedFraction) this.value, new MixedFraction((Double) other.value));
+            newValue = ((MixedFraction) this.value).add((MixedFraction) other.value);
+        } else if (this.value instanceof BigDecimal && other.value instanceof MixedFraction) {
+            newValue = MixedFraction.getFromBigDecimal(((BigDecimal) this.value)).add((MixedFraction) other.value);
+        } else if (this.value instanceof MixedFraction && other.value instanceof BigDecimal) {
+            newValue = ((MixedFraction) this.value).add(MixedFraction.getFromBigDecimal(((BigDecimal) other.value)));
         }
 
         if (newValue instanceof MixedFraction && ((MixedFraction) newValue).getDenominator() > LARGEST_DENOMINATOR) {
-            newValue = ((MixedFraction) newValue).doubleValue();
+            MixedFraction mixedFraction = (MixedFraction) newValue;
+            newValue = new BigDecimal(mixedFraction.getNumerator())
+                    .divide(new BigDecimal(mixedFraction.getDenominator()));
         }
 
         assert newValue != null;
@@ -116,35 +110,25 @@ public class IngredientQuantity {
      * @return a new ingredient quantity with the specified ingredient quantity subtracted.
      */
     public IngredientQuantity subtract(IngredientQuantity other) {
-        checkArgument(isCompatible(other));
+        checkArgument(isCompatibleWith(other));
 
         Number newValue = null;
-        if (this.value instanceof Integer && other.value instanceof Integer) {
-            newValue = Integer.sum((Integer) this.value, -Integer.valueOf((Integer) other.value));
-        } else if (this.value instanceof Double && other.value instanceof Double) {
-            newValue = Double.sum((Double) this.value, -Double.valueOf((Double) other.value));
+        if (this.value instanceof BigDecimal && other.value instanceof BigDecimal) {
+            newValue = ((BigDecimal) this.value).subtract((BigDecimal) other.value);
         } else if (this.value instanceof MixedFraction && other.value instanceof MixedFraction) {
-            newValue = MixedFraction.sum((MixedFraction) this.value, ((MixedFraction) other.value).negate());
-        } else if (this.value instanceof Integer && other.value instanceof Double) {
-            newValue = Double.sum(this.value.doubleValue(), -Double.valueOf((Double) other.value));
-        } else if (this.value instanceof Double && other.value instanceof Integer) {
-            newValue = Double.sum((Double) this.value, -other.value.doubleValue());
-        } else if (this.value instanceof Integer && other.value instanceof MixedFraction) {
-            newValue =
-                    MixedFraction.sum(new MixedFraction((Integer) this.value), ((MixedFraction) other.value).negate());
-        } else if (this.value instanceof MixedFraction && other.value instanceof Integer) {
-            newValue =
-                    MixedFraction.sum((MixedFraction) this.value, new MixedFraction((Integer) other.value).negate());
-        } else if (this.value instanceof Double && other.value instanceof MixedFraction) {
-            newValue =
-                    MixedFraction.sum(new MixedFraction((Double) this.value), ((MixedFraction) other.value).negate());
-        } else if (this.value instanceof MixedFraction && other.value instanceof Double) {
-            newValue =
-                    MixedFraction.sum((MixedFraction) this.value, new MixedFraction((Double) other.value).negate());
+            newValue = ((MixedFraction) this.value).subtract((MixedFraction) other.value);
+        } else if (this.value instanceof BigDecimal && other.value instanceof MixedFraction) {
+            newValue = MixedFraction.getFromBigDecimal(((BigDecimal) this.value))
+                    .subtract((MixedFraction) other.value);
+        } else if (this.value instanceof MixedFraction && other.value instanceof BigDecimal) {
+            newValue = ((MixedFraction) this.value)
+                    .subtract(MixedFraction.getFromBigDecimal(((BigDecimal) other.value)));
         }
 
         if (newValue instanceof MixedFraction && ((MixedFraction) newValue).getDenominator() > LARGEST_DENOMINATOR) {
-            newValue = ((MixedFraction) newValue).doubleValue();
+            MixedFraction mixedFraction = (MixedFraction) newValue;
+            newValue = new BigDecimal(mixedFraction.getNumerator())
+                    .divide(new BigDecimal(mixedFraction.getDenominator()));
         }
 
         assert newValue != null;
@@ -161,17 +145,16 @@ public class IngredientQuantity {
      * @param ingredientQuantity The given string representing an ingredient's quantity.
      * @return The value of the ingredient's IngredientQuantity.
      */
-    private static Number parseValue(String ingredientQuantity) {
+    public static Number parseValue(String ingredientQuantity) {
+        checkArgument(isValidIngredientQuantity(ingredientQuantity));
+
         Number parsedValue = null;
-        Matcher wholeNumberMatcher = WHOLE_NUMBER_PATTERN.matcher(ingredientQuantity);
         Matcher decimalMatcher = DECIMAL_PATTERN.matcher(ingredientQuantity);
         Matcher mixedFractionMatcher = FRACTION_PATTERN.matcher(ingredientQuantity);
-        if (decimalMatcher.find()) {
-            parsedValue = Double.parseDouble(decimalMatcher.group().trim());
-        } else if (mixedFractionMatcher.find()) {
+        if (mixedFractionMatcher.find()) {
             parsedValue = MixedFraction.parseUnsignedMixedFraction(mixedFractionMatcher.group().trim());
-        } else if (wholeNumberMatcher.find()) {
-            parsedValue = Integer.parseUnsignedInt(wholeNumberMatcher.group().trim());
+        } else if (decimalMatcher.find()) {
+            parsedValue = new BigDecimal(decimalMatcher.group().trim());
         }
 
         if (parsedValue instanceof MixedFraction
@@ -189,14 +172,20 @@ public class IngredientQuantity {
      * @param ingredientQuantity The given string representing an ingredient's quantity.
      * @return The unit of the ingredient's IngredientQuantity.
      */
-    private static String parseUnit(String ingredientQuantity) {
+    public static String parseUnit(String ingredientQuantity) {
+        checkArgument(isValidIngredientQuantity(ingredientQuantity));
         Matcher unitMatcher = UNIT_PATTERN.matcher(ingredientQuantity);
-        unitMatcher.find();
-        return unitMatcher.group().trim();
+        if (unitMatcher.find()) {
+            return unitMatcher.group().trim();
+        }
+        return "";
     }
 
     @Override
     public String toString() {
+        if (unit.length() == 0) {
+            return value.toString();
+        }
         return String.format("%s %s", value, unit);
     }
 

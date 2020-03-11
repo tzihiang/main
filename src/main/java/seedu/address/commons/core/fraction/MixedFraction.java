@@ -1,5 +1,8 @@
 package seedu.address.commons.core.fraction;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 import org.apache.commons.math3.fraction.Fraction;
 
 /**
@@ -7,27 +10,25 @@ import org.apache.commons.math3.fraction.Fraction;
  */
 public class MixedFraction extends Fraction {
     private static final int NUM_OF_PARTS_IN_PURE_FRACTION = 1;
-    private static final int WHOLE_NUMBER_PART_OF_PURE_FRACTION = 0;
-    private static final int FRACTION_PART_POSITION_IN_PURE_FRACTION = 0;
+    private static final int WHOLE_PART_OF_PURE_FRACTION = 0;
+    private static final int FRACTIONAL_PART_POSITION_IN_PURE_FRACTION = 0;
     private static final int NUM_OF_PARTS_IN_MIXED_FRACTION = 2;
-    private static final int WHOLE_NUMBER_PART_POSITION_IN_MIXED_FRACTION = 0;
-    private static final int FRACTION_PART_POSITION_IN_MIXED_FRACTION = 1;
+    private static final int WHOLE_PART_POSITION_IN_MIXED_FRACTION = 0;
+    private static final int FRACTIONAL_PART_POSITION_IN_MIXED_FRACTION = 1;
     private static final int NUM_OF_PARTS_IN_FRACTION = 2;
     private static final int NUMERATOR_POSITION = 0;
     private static final int DENOMINATOR_POSITION = 1;
 
-    public MixedFraction(int value) {
-        super(value);
-    }
-
-    public MixedFraction(double value) {
-        super(value);
-    }
-
+    /**
+     * Constructs a {@code MixedFraction} from a {@code Fraction}.
+     */
     public MixedFraction(Fraction f) {
         super(f.getNumerator(), f.getDenominator());
     }
 
+    /**
+     * Constructs a {@code MixedFraction} from a numerator and a denominator.
+     */
     public MixedFraction(int num, int den) {
         super(num, den);
     }
@@ -44,53 +45,85 @@ public class MixedFraction extends Fraction {
             throw new NumberFormatException("null");
         }
 
-        int wholeNumberPart;
-        int fractionPosition;
+        int wholePart;
+        int fractionalPartPosition;
         String[] splitInput = s.split("\\s+");
         if (splitInput.length == NUM_OF_PARTS_IN_PURE_FRACTION) {
-            wholeNumberPart = WHOLE_NUMBER_PART_OF_PURE_FRACTION;
-            fractionPosition = FRACTION_PART_POSITION_IN_PURE_FRACTION;
+            wholePart = WHOLE_PART_OF_PURE_FRACTION;
+            fractionalPartPosition = FRACTIONAL_PART_POSITION_IN_PURE_FRACTION;
         } else if (splitInput.length == NUM_OF_PARTS_IN_MIXED_FRACTION) {
-            wholeNumberPart = Integer.parseInt(splitInput[WHOLE_NUMBER_PART_POSITION_IN_MIXED_FRACTION]);
-            fractionPosition = FRACTION_PART_POSITION_IN_MIXED_FRACTION;
+            wholePart = Integer.parseInt(splitInput[WHOLE_PART_POSITION_IN_MIXED_FRACTION]);
+            fractionalPartPosition = FRACTIONAL_PART_POSITION_IN_MIXED_FRACTION;
         } else {
             throw new NumberFormatException(s);
         }
 
-        String[] splitFraction = splitInput[fractionPosition].split("/");
+        String[] splitFraction = splitInput[fractionalPartPosition].split("/");
         if (splitFraction.length != NUM_OF_PARTS_IN_FRACTION) {
             throw new NumberFormatException(s);
         }
 
         int numerator = Integer.parseInt(splitFraction[NUMERATOR_POSITION]);
         int denominator = Integer.parseInt(splitFraction[DENOMINATOR_POSITION]);
-        numerator += wholeNumberPart * denominator;
+        numerator += wholePart * denominator;
         return new MixedFraction(numerator, denominator);
     }
 
     /**
-     * Adds two {@code MixedFraction} values together.
+     * Returns the {@code MixedFraction} representation of a {@code BigDecimal} value.
+     *
+     * @param value the {@code BigDecimal} value.
+     * @return the {@code MixedFraction} representation of the {@code BigDecimal} value.
      */
-    public static MixedFraction sum(MixedFraction a, MixedFraction b) {
-        return new MixedFraction(a.add(b));
+    public static MixedFraction getFromBigDecimal(BigDecimal value) {
+        String stringRepresentation = value.toString();
+        boolean hasFractionalPart = stringRepresentation.split("\\.").length > 1;
+        int wholePart = Integer.parseInt(stringRepresentation.split("\\.")[0]);
+        int numerator = wholePart;
+        int denominator = 1;
+
+        if (hasFractionalPart) {
+            String fractionalPartString = stringRepresentation.split("\\.")[1];
+            denominator = new BigInteger("10").pow(fractionalPartString.length()).intValue();
+            if (numerator >= 0) {
+                numerator = wholePart * denominator + Integer.parseInt(fractionalPartString);
+            } else {
+                numerator = wholePart * denominator - Integer.parseInt(fractionalPartString);
+            }
+        }
+        return new MixedFraction(numerator, denominator);
     }
 
     /**
-     * Return the additive inverse of this mixed fraction.
+     * Adds the specified mixed fraction.
      */
-    public MixedFraction negate() {
-        return new MixedFraction(super.negate());
+    public MixedFraction add(MixedFraction mixedFraction) {
+        return new MixedFraction(super.add(mixedFraction));
+    }
+
+    /**
+     * Subtracts the specified mixed fraction.
+     */
+    public MixedFraction subtract(MixedFraction mixedFraction) {
+        return new MixedFraction(super.subtract(mixedFraction));
     }
 
     @Override
     public String toString() {
-        int wholeNumberPart = intValue();
+        int wholePart = intValue();
+        int numerator = getNumerator();
         int denominator = getDenominator();
-        int numerator = getNumerator() - (wholeNumberPart * denominator);
+        if (numerator > 0) {
+            numerator = numerator - (wholePart * denominator);
+        } else if (wholePart < 0) {
+            numerator = (wholePart * denominator) - numerator;
+        }
 
-        if (wholeNumberPart == 0) {
+        if (numerator == 0) {
+            return "0";
+        } else if (wholePart == 0) {
             return String.format("%d/%d", numerator, denominator);
         }
-        return String.format("%d %d/%d", wholeNumberPart, numerator, denominator);
+        return String.format("%d %d/%d", wholePart, numerator, denominator);
     }
 }
