@@ -187,7 +187,7 @@ public class MainWindow extends UiPart<Stage> {
     public CartIngredientListPanel getCartIngredientListPanel1() {
         return cartIngredientListPanel1;
     }
-    
+
     /**
      * Executes the command and returns the result.
      *
