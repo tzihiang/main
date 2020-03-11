@@ -44,9 +44,9 @@ public class UniqueStepListTest {
     }
 
     @Test
-    public void add_duplicateStep_throwsDuplicatePersonException() {
+    public void add_duplicateStep_throwsDuplicateStepException() {
         uniqueStepList.add(TESTSTEP);
-        assertThrows(DuplicatePersonException.class, () -> uniqueStepList.add(TESTSTEP));
+        assertThrows(DuplicateStepException.class, () -> uniqueStepList.add(TESTSTEP));
     }
 
     @Test
