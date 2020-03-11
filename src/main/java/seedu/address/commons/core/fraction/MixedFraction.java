@@ -87,6 +87,10 @@ public class MixedFraction extends Fraction {
         int wholeNumberPart = intValue();
         int denominator = getDenominator();
         int numerator = getNumerator() - (wholeNumberPart * denominator);
+
+        if (wholeNumberPart == 0) {
+            return String.format("%d/%d", numerator, denominator);
+        }
         return String.format("%d %d/%d", wholeNumberPart, numerator, denominator);
     }
 }

@@ -2,6 +2,7 @@ package seedu.address.model.ingredient;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -35,6 +36,8 @@ public class IngredientQuantity {
     public static final Pattern FRACTION_PATTERN = Pattern.compile(FRACTION_REGEX);
     public static final Pattern UNIT_PATTERN = Pattern.compile(UNIT_REGEX);
 
+    private static final int LARGEST_DENOMINATOR = 4;
+
     public final Number value;
     public final String unit;
 
@@ -50,11 +53,106 @@ public class IngredientQuantity {
         this.unit = parseUnit(ingredientQuantity);
     }
 
+    private IngredientQuantity(Number value, String unit) {
+        requireAllNonNull(value, unit);
+        this.value = value;
+        this.unit = unit;
+    }
+
     /**
      * Returns true if a given string is a valid ingredient quantity.
      */
     public static boolean isValidIngredientQuantity(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public boolean isCompatible(IngredientQuantity other) {
+        return this.unit.equals(other.unit);
+    }
+
+    /**
+     * Adds the specified ingredient quantity to the ingredient quantity.
+     *
+     * @param other the ingredient quantity to be added.
+     * @return a new ingredient quantity with the specified ingredient quantity added.
+     */
+    public IngredientQuantity add(IngredientQuantity other) {
+        checkArgument(isCompatible(other));
+
+        Number newValue = null;
+        if (this.value instanceof Integer && other.value instanceof Integer) {
+            newValue = Integer.sum((Integer) this.value, (Integer) other.value);
+        } else if (this.value instanceof Double && other.value instanceof Double) {
+            newValue = Double.sum((Double) this.value, (Double) other.value);
+        } else if (this.value instanceof MixedFraction && other.value instanceof MixedFraction) {
+            newValue = MixedFraction.sum((MixedFraction) this.value, (MixedFraction) other.value);
+        } else if (this.value instanceof Integer && other.value instanceof Double) {
+            newValue = Double.sum(this.value.doubleValue(), (Double) other.value);
+        } else if (this.value instanceof Double && other.value instanceof Integer) {
+            newValue = Double.sum((Double) this.value, other.value.doubleValue());
+        } else if (this.value instanceof Integer && other.value instanceof MixedFraction) {
+            newValue = MixedFraction.sum(new MixedFraction((Integer) this.value), (MixedFraction) other.value);
+        } else if (this.value instanceof MixedFraction && other.value instanceof Integer) {
+            newValue = MixedFraction.sum((MixedFraction) this.value, new MixedFraction((Integer) other.value));
+        } else if (this.value instanceof Double && other.value instanceof MixedFraction) {
+            newValue = MixedFraction.sum(new MixedFraction((Double) this.value), (MixedFraction) other.value);
+        } else if (this.value instanceof MixedFraction && other.value instanceof Double) {
+            newValue = MixedFraction.sum((MixedFraction) this.value, new MixedFraction((Double) other.value));
+        }
+
+        if (newValue instanceof MixedFraction && ((MixedFraction) newValue).getDenominator() > LARGEST_DENOMINATOR) {
+            newValue = ((MixedFraction) newValue).doubleValue();
+        }
+
+        assert newValue != null;
+        return new IngredientQuantity(newValue, unit);
+    }
+
+    /**
+     * Subtracts the specified ingredient quantity from the ingredient quantity.
+     * If the specified ingredient quantity is larger, the value of the ingredient quantity returned will be 0.
+     *
+     * @param other the ingredient quantity to be subtracted.
+     * @return a new ingredient quantity with the specified ingredient quantity subtracted.
+     */
+    public IngredientQuantity subtract(IngredientQuantity other) {
+        checkArgument(isCompatible(other));
+
+        Number newValue = null;
+        if (this.value instanceof Integer && other.value instanceof Integer) {
+            newValue = Integer.sum((Integer) this.value, -Integer.valueOf((Integer) other.value));
+        } else if (this.value instanceof Double && other.value instanceof Double) {
+            newValue = Double.sum((Double) this.value, -Double.valueOf((Double) other.value));
+        } else if (this.value instanceof MixedFraction && other.value instanceof MixedFraction) {
+            newValue = MixedFraction.sum((MixedFraction) this.value, ((MixedFraction) other.value).negate());
+        } else if (this.value instanceof Integer && other.value instanceof Double) {
+            newValue = Double.sum(this.value.doubleValue(), -Double.valueOf((Double) other.value));
+        } else if (this.value instanceof Double && other.value instanceof Integer) {
+            newValue = Double.sum((Double) this.value, -other.value.doubleValue());
+        } else if (this.value instanceof Integer && other.value instanceof MixedFraction) {
+            newValue =
+                    MixedFraction.sum(new MixedFraction((Integer) this.value), ((MixedFraction) other.value).negate());
+        } else if (this.value instanceof MixedFraction && other.value instanceof Integer) {
+            newValue =
+                    MixedFraction.sum((MixedFraction) this.value, new MixedFraction((Integer) other.value).negate());
+        } else if (this.value instanceof Double && other.value instanceof MixedFraction) {
+            newValue =
+                    MixedFraction.sum(new MixedFraction((Double) this.value), ((MixedFraction) other.value).negate());
+        } else if (this.value instanceof MixedFraction && other.value instanceof Double) {
+            newValue =
+                    MixedFraction.sum((MixedFraction) this.value, new MixedFraction((Double) other.value).negate());
+        }
+
+        if (newValue instanceof MixedFraction && ((MixedFraction) newValue).getDenominator() > LARGEST_DENOMINATOR) {
+            newValue = ((MixedFraction) newValue).doubleValue();
+        }
+
+        assert newValue != null;
+        if (newValue.doubleValue() < 0) {
+            newValue = 0;
+        }
+
+        return new IngredientQuantity(newValue, unit);
     }
 
     /**
@@ -64,18 +162,25 @@ public class IngredientQuantity {
      * @return The value of the ingredient's IngredientQuantity.
      */
     private static Number parseValue(String ingredientQuantity) {
+        Number parsedValue = null;
         Matcher wholeNumberMatcher = WHOLE_NUMBER_PATTERN.matcher(ingredientQuantity);
         Matcher decimalMatcher = DECIMAL_PATTERN.matcher(ingredientQuantity);
         Matcher mixedFractionMatcher = FRACTION_PATTERN.matcher(ingredientQuantity);
         if (decimalMatcher.find()) {
-            return Double.parseDouble(decimalMatcher.group().trim());
+            parsedValue = Double.parseDouble(decimalMatcher.group().trim());
         } else if (mixedFractionMatcher.find()) {
-            return MixedFraction.parseMixedFraction(mixedFractionMatcher.group().trim());
+            parsedValue = MixedFraction.parseUnsignedMixedFraction(mixedFractionMatcher.group().trim());
         } else if (wholeNumberMatcher.find()) {
-            return Integer.parseInt(wholeNumberMatcher.group().trim());
+            parsedValue = Integer.parseUnsignedInt(wholeNumberMatcher.group().trim());
         }
-        assert false;
-        return null;
+
+        if (parsedValue instanceof MixedFraction
+                && ((MixedFraction) parsedValue).getDenominator() > LARGEST_DENOMINATOR) {
+            parsedValue = ((MixedFraction) parsedValue).doubleValue();
+        }
+
+        assert parsedValue != null;
+        return parsedValue;
     }
 
     /**
