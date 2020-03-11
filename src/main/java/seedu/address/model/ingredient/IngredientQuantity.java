@@ -73,7 +73,7 @@ public class IngredientQuantity {
     }
 
     /**
-     * Adds the specified ingredient quantity to the ingredient quantity.
+     * Adds the specified ingredient quantity to the ingredient quantity, if the ingredient quantities are compatible.
      *
      * @param other the ingredient quantity to be added.
      * @return a new ingredient quantity with the specified ingredient quantity added.
@@ -103,7 +103,8 @@ public class IngredientQuantity {
     }
 
     /**
-     * Subtracts the specified ingredient quantity from the ingredient quantity.
+     * Subtracts the specified ingredient quantity from the ingredient quantity, if the ingredient quantities are
+     * compatible.
      * If the specified ingredient quantity is larger, the value of the ingredient quantity returned will be 0.
      *
      * @param other the ingredient quantity to be subtracted.
