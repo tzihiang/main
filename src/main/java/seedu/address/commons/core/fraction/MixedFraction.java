@@ -3,7 +3,7 @@ package seedu.address.commons.core.fraction;
 import org.apache.commons.math3.fraction.Fraction;
 
 /**
- * Represents a non-negative mixed fraction.
+ * Represents a mixed fraction.
  */
 public class MixedFraction extends Fraction {
     private static final int NUM_OF_PARTS_IN_PURE_FRACTION = 1;
@@ -16,18 +16,30 @@ public class MixedFraction extends Fraction {
     private static final int NUMERATOR_POSITION = 0;
     private static final int DENOMINATOR_POSITION = 1;
 
-    private MixedFraction(int num, int den) {
+    public MixedFraction(int value) {
+        super(value);
+    }
+
+    public MixedFraction(double value) {
+        super(value);
+    }
+
+    public MixedFraction(Fraction f) {
+        super(f.getNumerator(), f.getDenominator());
+    }
+
+    public MixedFraction(int num, int den) {
         super(num, den);
     }
 
     /**
-     * Parses the string argument as a mixed fraction.
+     * Parses the string argument as an unsigned mixed fraction.
      *
      * @param s a {@code String} containing the {@code MixedFraction} representation to be parsed
      * @return the mixed fraction value represented by the argument.
-     * @throws NumberFormatException if the string does not contain a parsable mixed fraction.
+     * @throws NumberFormatException if the string does not contain a parsable unsigned mixed fraction.
      */
-    public static MixedFraction parseMixedFraction(String s) {
+    public static MixedFraction parseUnsignedMixedFraction(String s) {
         if (s == null) {
             throw new NumberFormatException("null");
         }
@@ -54,6 +66,20 @@ public class MixedFraction extends Fraction {
         int denominator = Integer.parseInt(splitFraction[DENOMINATOR_POSITION]);
         numerator += wholeNumberPart * denominator;
         return new MixedFraction(numerator, denominator);
+    }
+
+    /**
+     * Adds two {@code MixedFraction} values together.
+     */
+    public static MixedFraction sum(MixedFraction a, MixedFraction b) {
+        return new MixedFraction(a.add(b));
+    }
+
+    /**
+     * Return the additive inverse of this mixed fraction.
+     */
+    public MixedFraction negate() {
+        return new MixedFraction(super.negate());
     }
 
     @Override
