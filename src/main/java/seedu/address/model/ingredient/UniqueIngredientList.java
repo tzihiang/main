@@ -52,7 +52,7 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
+     * Replaces the contents of this list with {@code ingredients}.
      * {@code persons} must not contain duplicate persons.
      */
     public void setIngredients(List<Ingredient> ingredients) {

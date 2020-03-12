@@ -32,7 +32,6 @@ public class Inventory implements ReadOnlyIngredientList {
         this.ingredients.setIngredients(ingredients);
     }
 
-
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      * Called in constructor.
