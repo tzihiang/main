@@ -30,6 +30,6 @@ manage their ingredients inventory and shopping list.
 == Acknowledgements
 
 * This application was built on the excellent AddressBook-Level3 project created by link:https://se-education.org[SE-EDU] initiative.
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://commons.apache.org/proper/commons-math/[Apache Commons Math]
 
 == Licence : link:LICENSE[MIT]
