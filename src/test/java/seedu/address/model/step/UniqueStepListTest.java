@@ -22,7 +22,7 @@ public class UniqueStepListTest {
     private final UniqueStepList uniqueStepList = new UniqueStepList();
 
     @Test
-    public void contains_nullPerson_throwsNullPointerException() {
+    public void contains_nullStep_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueStepList.contains(null));
     }
 
