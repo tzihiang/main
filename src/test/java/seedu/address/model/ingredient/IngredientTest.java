@@ -3,7 +3,7 @@ package seedu.address.model.ingredient;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BANANA;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_BANANA;;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_BANANA;
 import static seedu.address.testutil.TypicalIngredients.APPLE;
 
 import org.junit.jupiter.api.Test;
