@@ -7,8 +7,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.ingredient.UniqueIngredientList;
+import seedu.address.model.step.UniqueStepList;
 import seedu.address.model.tag.Tag;
-//import seedu.address.model.ingredient;
 
 /**
  * Represents a Recipe in the cookbook.
@@ -21,8 +22,8 @@ public class Recipe {
     private final RecipeDescription description;
 
     // Data fields
-    //private final IngredientList ingredients = new IngredientList();
-    //private final StepList steps = new StepList();
+    private final UniqueIngredientList ingredients = new UniqueIngredientList();
+    private final UniqueStepList steps = new UniqueStepList();
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -57,13 +58,13 @@ public class Recipe {
         return description;
     }
 
-    //public IngredientList getIngredients() {
-    //    return ingredients;
-    //}
+    public UniqueIngredientList getIngredients() {
+        return ingredients;
+    }
 
-    //public StepList getSteps() {
-    //    return steps;
-    //}
+    public UniqueStepList getSteps() {
+        return steps;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -104,15 +105,15 @@ public class Recipe {
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName())
                 && otherRecipe.getDescription().equals(getDescription())
-                //&& otherRecipe.getIngredients().equals(getIngredients())
-                //&& otherRecipe.getSteps().equals(getSteps())
+                && otherRecipe.getIngredients().equals(getIngredients())
+                && otherRecipe.getSteps().equals(getSteps())
                 && otherRecipe.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, description, /*ingredients, steps,*/ tags);
+        return Objects.hash(name, description, ingredients, steps, tags);
     }
 
     @Override
@@ -121,10 +122,10 @@ public class Recipe {
         builder.append(getName())
                 .append(" Description: ")
                 .append(getDescription())
-                //.append(" Ingredients: ")
-                //.append(getIngredients())
-                //.append(" Preparation Steps: ")
-                //.append(getSteps())
+                .append(" Ingredients: ")
+                .append(getIngredients())
+                .append(" Preparation Steps: ")
+                .append(getSteps())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
