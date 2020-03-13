@@ -14,14 +14,14 @@ import seedu.address.model.person.Person;
 /**
  * Panel containing the list of persons.
  */
-public class CartIngredientListPanel extends UiPart<Region> {
+public class IngredientListPanel extends UiPart<Region> {
     private static final String FXML = "CartIngredientListPanel.fxml";
     // private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
     private ListView<Ingredient> cartIngredientListView;
 
-    public CartIngredientListPanel(ObservableList<Ingredient> ingredientList) {
+    public IngredientListPanel(ObservableList<Ingredient> ingredientList) {
         super(FXML);
         cartIngredientListView.setItems(ingredientList);
         cartIngredientListView.setCellFactory(listView -> new CartIngredientListViewCell());

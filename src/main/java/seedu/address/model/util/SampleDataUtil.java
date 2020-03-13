@@ -37,9 +37,14 @@ public class SampleDataUtil {
             sampleAb.addPerson(samplePerson);
         }
 
+        System.out.println("hi" );
+
         for (Ingredient sampleIngredient : getSampleIngredients()) {
+            System.out.println("in" + sampleIngredient);
+
             sampleAb.addIngredient(sampleIngredient);
         }
+        System.out.println(sampleAb.getIngredientList());
 
         return sampleAb;
     }
@@ -47,7 +52,7 @@ public class SampleDataUtil {
     public static Ingredient[] getSampleIngredients() {
         return new Ingredient[] {
                 new Ingredient(new IngredientName("Eggs"), new IngredientQuantity("10")),
-                new Ingredient(new IngredientName("Parmesan"), new IngredientQuantity("100 g")),
+                new Ingredient(new IngredientName("ParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesan"), new IngredientQuantity("10000000000000000000000000000000000000000000000000 g")),
                 new Ingredient(new IngredientName("Bacon"), new IngredientQuantity("10 pieces")),
                 new Ingredient(new IngredientName("Linguine"), new IngredientQuantity("250 g")),
                 new Ingredient(new IngredientName("Olive oil"), new IngredientQuantity("600 ml")),

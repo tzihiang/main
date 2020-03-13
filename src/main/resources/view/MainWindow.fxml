@@ -70,7 +70,7 @@
                                 <padding>
                                     <Insets top="10" right="10" bottom="10" left="10"/>
                                 </padding>
-                                <StackPane fx:id="cartIngredientListPanelPlaceholder" HBox.hgrow="ALWAYS"/>
+                                <StackPane fx:id="ingredientListPanelPlaceHolder" HBox.hgrow="ALWAYS"/>
                             </VBox>
 
                             <VBox fx:id="cartIngredientList1" styleClass="pane-with-border" minWidth="390"
@@ -78,7 +78,7 @@
                                 <padding>
                                     <Insets top="10" right="10" bottom="10" left="10"/>
                                 </padding>
-                                <StackPane fx:id="cartIngredientListPanelPlaceholder1" HBox.hgrow="ALWAYS"/>
+                                <StackPane fx:id="ingredientListPanelPlaceHolder1" HBox.hgrow="ALWAYS"/>
                             </VBox>
                         </VBox>
                     </right>

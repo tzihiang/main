@@ -32,8 +32,8 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
-    private CartIngredientListPanel cartIngredientListPanel;
-    private CartIngredientListPanel cartIngredientListPanel1;
+    private IngredientListPanel ingredientListPanel;
+    private IngredientListPanel ingredientListPanel1;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -47,10 +47,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
-    private StackPane cartIngredientListPanelPlaceholder;
+    private StackPane ingredientListPanelPlaceHolder;
 
     @FXML
-    private StackPane cartIngredientListPanelPlaceholder1;
+    private StackPane ingredientListPanelPlaceHolder1;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -120,12 +120,12 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         // Temporary, will replace with CartIngredientListPanel
-        cartIngredientListPanel = new CartIngredientListPanel(logic.getFilteredIngredientList());
-        cartIngredientListPanelPlaceholder.getChildren().add(cartIngredientListPanel.getRoot());
+        ingredientListPanel = new IngredientListPanel(logic.getFilteredIngredientList());
+        ingredientListPanelPlaceHolder.getChildren().add(ingredientListPanel.getRoot());
 
         // Temporary, will replace with CartIngredientListPanel
-        cartIngredientListPanel1 = new CartIngredientListPanel(logic.getFilteredIngredientList());
-        cartIngredientListPanelPlaceholder1.getChildren().add(cartIngredientListPanel1.getRoot());
+        ingredientListPanel1 = new IngredientListPanel(logic.getFilteredIngredientList());
+        ingredientListPanelPlaceHolder1.getChildren().add(ingredientListPanel1.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -181,12 +181,12 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
-    public CartIngredientListPanel getCartIngredientListPanel() {
-        return cartIngredientListPanel;
+    public IngredientListPanel getIngredientListPanel() {
+        return ingredientListPanel;
     }
 
-    public CartIngredientListPanel getCartIngredientListPanel1() {
-        return cartIngredientListPanel1;
+    public IngredientListPanel getIngredientListPanel1() {
+        return ingredientListPanel1;
     }
 
     /**
