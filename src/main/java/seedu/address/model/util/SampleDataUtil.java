@@ -63,9 +63,13 @@ public class SampleDataUtil {
 
     public static Recipe[] getSampleRecipes() {
         return new Recipe[]{
-            new Recipe(new RecipeName("Carbonara"), new RecipeDescription("The best dish sold in NUS.")),
-            new Recipe(new RecipeName("Aglio olio"), new RecipeDescription("A traditional Italian pasta dish from made with garlic in olive oil, and dried red chili flakes.")),
-            new Recipe(new RecipeName("Spaghetti bolognese"), new RecipeDescription("Jaime Oliver's great version of the classic Italian Bolognese."))
+            new Recipe(new RecipeName("Carbonara"),
+                new RecipeDescription("The best dish sold in NUS.")),
+            new Recipe(new RecipeName("Aglio olio"),
+                new RecipeDescription("A traditional Italian pasta dish from made " +
+                        "with garlic in olive oil, and dried red chili flakes.")),
+            new Recipe(new RecipeName("Spaghetti bolognese"),
+                new RecipeDescription("Jaime Oliver's great version of the classic Italian Bolognese."))
         };
     }
 
