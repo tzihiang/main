@@ -23,6 +23,11 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_NAME_ALMOND = "Almonds";
+    public static final String VALID_NAME_BANANA = "Bananas";
+    public static final String VALID_QUANTITY_ALMOND = "50 g";
+    public static final String VALID_QUANTITY_BANANA = "3";
+
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_TAG_HUSBAND = "husband";
