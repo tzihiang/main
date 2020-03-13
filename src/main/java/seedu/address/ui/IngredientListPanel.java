@@ -14,7 +14,7 @@ import seedu.address.model.ingredient.Ingredient;
  * Panel containing the list of persons.
  */
 public class IngredientListPanel extends UiPart<Region> {
-    private static final String FXML = "CartIngredientListPanel.fxml";
+    private static final String FXML = "IngredientListPanel.fxml";
     // private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML

@@ -16,6 +16,7 @@ import seedu.address.model.recipe.Recipe;
 public class RecipeCard extends UiPart<Region> {
 
     private static final String FXML = "RecipeListCard.fxml";
+    private static final String DESCRIPTION_OFFSET = "    ";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -34,6 +35,8 @@ public class RecipeCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label description;
+    @FXML
     private FlowPane tags;
 
     public RecipeCard(Recipe recipe, int displayedIndex) {
@@ -41,6 +44,7 @@ public class RecipeCard extends UiPart<Region> {
         this.recipe = recipe;
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().fullRecipeName);
+        description.setText(DESCRIPTION_OFFSET + recipe.getDescription().fullRecipeDescription);
         recipe.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
