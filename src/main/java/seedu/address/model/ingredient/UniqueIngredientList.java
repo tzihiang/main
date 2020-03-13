@@ -46,7 +46,7 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
         internalList.add(toAdd);
     }
 
-    public void setIngredients(UniqueIngredientList replacement) {
+    public void setIngredient(UniqueIngredientList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }

@@ -62,6 +62,7 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
+        //System.out.println(model.getFilteredIngredientList());
 
         logic = new LogicManager(model, storage);
 
@@ -89,6 +90,7 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
         }
+        //System.out.println(initialData.getIngredientList());
 
         return new ModelManager(initialData, userPrefs);
     }

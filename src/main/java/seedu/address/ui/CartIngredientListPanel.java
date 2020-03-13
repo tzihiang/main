@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 // import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Person;
 
 /**
@@ -18,27 +19,27 @@ public class CartIngredientListPanel extends UiPart<Region> {
     // private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<Person> cartIngredientListView;
+    private ListView<Ingredient> cartIngredientListView;
 
-    public CartIngredientListPanel(ObservableList<Person> personList) {
+    public CartIngredientListPanel(ObservableList<Ingredient> ingredientList) {
         super(FXML);
-        cartIngredientListView.setItems(personList);
+        cartIngredientListView.setItems(ingredientList);
         cartIngredientListView.setCellFactory(listView -> new CartIngredientListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class CartIngredientListViewCell extends ListCell<Person> {
+    class CartIngredientListViewCell extends ListCell<Ingredient> {
         @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Ingredient ingredient, boolean empty) {
+            super.updateItem(ingredient, empty);
 
-            if (empty || person == null) {
+            if (empty || ingredient == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new IngredientCard(ingredient, getIndex() + 1).getRoot());
             }
         }
     }

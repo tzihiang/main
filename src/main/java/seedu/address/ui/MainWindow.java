@@ -120,11 +120,11 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         // Temporary, will replace with CartIngredientListPanel
-        cartIngredientListPanel = new CartIngredientListPanel(logic.getFilteredPersonList());
+        cartIngredientListPanel = new CartIngredientListPanel(logic.getFilteredIngredientList());
         cartIngredientListPanelPlaceholder.getChildren().add(cartIngredientListPanel.getRoot());
 
         // Temporary, will replace with CartIngredientListPanel
-        cartIngredientListPanel1 = new CartIngredientListPanel(logic.getFilteredPersonList());
+        cartIngredientListPanel1 = new CartIngredientListPanel(logic.getFilteredIngredientList());
         cartIngredientListPanelPlaceholder1.getChildren().add(cartIngredientListPanel1.getRoot());
 
         resultDisplay = new ResultDisplay();
