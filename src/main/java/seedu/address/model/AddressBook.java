@@ -5,10 +5,13 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import org.apache.commons.math3.analysis.function.Add;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.UniqueRecipeList;
 
 /**
  * Wraps all data at the address-book level
@@ -18,6 +21,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueIngredientList ingredients;
+    private final UniqueRecipeList recipes;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -29,6 +33,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         ingredients = new UniqueIngredientList();
+        recipes = new UniqueRecipeList();
     }
 
     public AddressBook() {}
@@ -56,6 +61,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.ingredients.setIngredients(ingredients);
     }
 
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes.setRecipes(recipes);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -64,6 +73,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setIngredients(newData.getIngredientList());
+        setRecipes(newData.getRecipeList());
     }
 
     //// person-level operations
@@ -106,7 +116,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// ingredient-level methods
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a ingredient with the same identity as {@code ingredient} exists in the address book.
      */
     public boolean hasIngredient(Ingredient ingredient) {
         requireNonNull(ingredient);
@@ -114,17 +124,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a ingredient to the address book.
+     * The ingredient must not already exist in the address book.
      */
     public void addIngredient(Ingredient i) {
         ingredients.add(i);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given ingredient {@code target} in the list with {@code editedIngredient}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code editedPerson} must not be the same as an existing ingredient in the address book.
      */
     // public void setIngredient(Ingredient target, Ingredient editedIngredient) { }
 
@@ -134,6 +144,39 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeIngredient(Ingredient key) {
         ingredients.remove(key);
+    }
+
+    //// recipe-level methods
+
+    /**
+     * Returns true if a person with the same identity as {@code recipe} exists in the address book.
+     */
+    public boolean hasRecipe(Recipe recipe) {
+        requireNonNull(recipe);
+        return recipes.contains(recipe);
+    }
+
+    /**
+     * Adds a recipe to the address book.
+     * The recipe must not already exist in the address book.
+     */
+    public void addRecipe(Recipe r) {
+        recipes.add(r);
+    }
+
+    /**
+     * Replaces the given recipe {@code target} in the list with {@code editedRecipe}.
+     * {@code target} must exist in the address book.
+     * {@code editedRecipe} must not be the same as an existing recipe in the address book.
+     */
+    // public void setRecipe(Recipe target, Recipe editedRecipe) { }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeRecipe(Recipe key) {
+        recipes.remove(key);
     }
 
     //// util methods
@@ -155,11 +198,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Recipe> getRecipeList() {
+        return recipes.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons)
-                && ingredients.equals(((AddressBook) other).ingredients));
+                && ingredients.equals(((AddressBook) other).ingredients)
+                && recipes.equals(((AddressBook) other).recipes));
     }
 
     @Override

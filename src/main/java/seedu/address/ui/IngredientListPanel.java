@@ -23,13 +23,13 @@ public class IngredientListPanel extends UiPart<Region> {
     public IngredientListPanel(ObservableList<Ingredient> ingredientList) {
         super(FXML);
         cartIngredientListView.setItems(ingredientList);
-        cartIngredientListView.setCellFactory(listView -> new CartIngredientListViewCell());
+        cartIngredientListView.setCellFactory(listView -> new IngredientListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class CartIngredientListViewCell extends ListCell<Ingredient> {
+    class IngredientListViewCell extends ListCell<Ingredient> {
         @Override
         protected void updateItem(Ingredient ingredient, boolean empty) {
             super.updateItem(ingredient, empty);

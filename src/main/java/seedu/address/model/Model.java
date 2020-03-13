@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Person;
+import seedu.address.model.recipe.Recipe;
 
 /**
  * The API of the Model component.
@@ -88,4 +89,8 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered ingredient list */
     ObservableList<Ingredient> getFilteredIngredientList();
+
+
+    /** Returns an unmodifiable view of the filtered recipe list */
+    ObservableList<Recipe> getFilteredRecipeList();
 }
