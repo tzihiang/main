@@ -90,7 +90,18 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered ingredient list */
     ObservableList<Ingredient> getFilteredIngredientList();
 
+    /**
+     * Updates the filter of the filtered ingredient list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredIngredientList(Predicate<Ingredient> predicate);
 
     /** Returns an unmodifiable view of the filtered recipe list */
     ObservableList<Recipe> getFilteredRecipeList();
+
+    /**
+     * Updates the filter of the filtered recipe list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredRecipeList(Predicate<Recipe> predicate);
 }

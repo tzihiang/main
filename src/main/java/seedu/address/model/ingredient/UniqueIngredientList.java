@@ -81,7 +81,6 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
         return internalUnmodifiableList;
     }
 
-
     @Override
     public Iterator<Ingredient> iterator() {
         return internalList.iterator();

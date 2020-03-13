@@ -141,8 +141,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateFilteredIngredientList(Predicate<Ingredient> predicate) {
+        requireNonNull(predicate);
+        filteredIngredients.setPredicate(predicate);
+    }
+
+    @Override
     public ObservableList<Recipe> getFilteredRecipeList() {
         return filteredRecipes;
+    }
+
+    @Override
+    public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
+        requireNonNull(predicate);
+        filteredRecipes.setPredicate(predicate);
     }
 
     @Override

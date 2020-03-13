@@ -33,8 +33,8 @@ public class SampleDataUtil {
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+        for (Recipe sampleRecipe : getSampleRecipes()) {
+            sampleAb.addRecipe(sampleRecipe);
         }
 
         for (Ingredient sampleIngredient : getSampleIngredients()) {
@@ -63,6 +63,8 @@ public class SampleDataUtil {
 
     public static Recipe[] getSampleRecipes() {
         return new Recipe[]{
+            new Recipe(new RecipeName("Scrambled egg"),
+                new RecipeDescription("Gordan Ramsay's famous creamy and fluffy scrambled eggs.")),
             new Recipe(new RecipeName("Carbonara"),
                 new RecipeDescription("The best dish sold in NUS.")),
             new Recipe(new RecipeName("Aglio olio"),
