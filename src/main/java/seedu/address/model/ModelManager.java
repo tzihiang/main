@@ -38,8 +38,6 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredIngredients = new FilteredList<>(this.addressBook.getIngredientList());
-        System.out.println("mm"+addressBook.getIngredientList());
-
     }
 
     public ModelManager() {

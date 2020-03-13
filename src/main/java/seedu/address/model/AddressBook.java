@@ -38,7 +38,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
-        System.out.println("cons" + toBeCopied.getIngredientList());
 
         resetData(toBeCopied);
     }
@@ -65,8 +64,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setIngredients(newData.getIngredientList());
-        //System.out.println(newData.getIngredientList());
-
     }
 
     //// person-level operations

@@ -22,12 +22,12 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[]{
-                new Person(new Name("Alex Yeoh"), getTagSet("friends")),
-                new Person(new Name("Bernice Yu"), getTagSet("colleagues", "friends")),
-                new Person(new Name("Charlotte Oliveiro"), getTagSet("neighbours")),
-                new Person(new Name("David Li"), getTagSet("family")),
-                new Person(new Name("Irfan Ibrahim"), getTagSet("classmates")),
-                new Person(new Name("Roy Balakrishnan"), getTagSet("colleagues"))
+            new Person(new Name("Alex Yeoh"), getTagSet("friends")),
+            new Person(new Name("Bernice Yu"), getTagSet("colleagues", "friends")),
+            new Person(new Name("Charlotte Oliveiro"), getTagSet("neighbours")),
+            new Person(new Name("David Li"), getTagSet("family")),
+            new Person(new Name("Irfan Ibrahim"), getTagSet("classmates")),
+            new Person(new Name("Roy Balakrishnan"), getTagSet("colleagues"))
         };
     }
 
@@ -37,40 +37,35 @@ public class SampleDataUtil {
             sampleAb.addPerson(samplePerson);
         }
 
-        System.out.println("hi" );
-
         for (Ingredient sampleIngredient : getSampleIngredients()) {
-            System.out.println("in" + sampleIngredient);
-
             sampleAb.addIngredient(sampleIngredient);
         }
-        System.out.println(sampleAb.getIngredientList());
 
         return sampleAb;
     }
 
     public static Ingredient[] getSampleIngredients() {
         return new Ingredient[] {
-                new Ingredient(new IngredientName("Eggs"), new IngredientQuantity("10")),
-                new Ingredient(new IngredientName("ParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesanParmesan"), new IngredientQuantity("10000000000000000000000000000000000000000000000000 g")),
-                new Ingredient(new IngredientName("Bacon"), new IngredientQuantity("10 pieces")),
-                new Ingredient(new IngredientName("Linguine"), new IngredientQuantity("250 g")),
-                new Ingredient(new IngredientName("Olive oil"), new IngredientQuantity("600 ml")),
-                new Ingredient(new IngredientName("Black pepper"), new IngredientQuantity("300 g")),
-                new Ingredient(new IngredientName("Salt"), new IngredientQuantity("500 g")),
-                new Ingredient(new IngredientName("Garlic"), new IngredientQuantity("5 cloves")),
-                new Ingredient(new IngredientName("Dried chili flakes"), new IngredientQuantity("50 g")),
-                new Ingredient(new IngredientName("Butter"), new IngredientQuantity("3 sticks")),
-                new Ingredient(new IngredientName("Minced beef"), new IngredientQuantity("500 g")),
-                new Ingredient(new IngredientName("Tomatoes"), new IngredientQuantity("10"))
+            new Ingredient(new IngredientName("Eggs"), new IngredientQuantity("10")),
+            new Ingredient(new IngredientName("Parmesan"), new IngredientQuantity("1 kg")),
+            new Ingredient(new IngredientName("Bacon"), new IngredientQuantity("10 pieces")),
+            new Ingredient(new IngredientName("Linguine"), new IngredientQuantity("250 g")),
+            new Ingredient(new IngredientName("Olive oil"), new IngredientQuantity("600 ml")),
+            new Ingredient(new IngredientName("Black pepper"), new IngredientQuantity("300 g")),
+            new Ingredient(new IngredientName("Salt"), new IngredientQuantity("500 g")),
+            new Ingredient(new IngredientName("Garlic"), new IngredientQuantity("5 cloves")),
+            new Ingredient(new IngredientName("Dried chili flakes"), new IngredientQuantity("50 g")),
+            new Ingredient(new IngredientName("Butter"), new IngredientQuantity("3 sticks")),
+            new Ingredient(new IngredientName("Minced beef"), new IngredientQuantity("500 g")),
+            new Ingredient(new IngredientName("Tomatoes"), new IngredientQuantity("10"))
         };
     }
 
     public static Recipe[] getSampleRecipes() {
         return new Recipe[]{
-                new Recipe(new RecipeName("Carbonara"), new RecipeDescription("The best dish sold in NUS.")),
-                new Recipe(new RecipeName("Aglio olio"), new RecipeDescription("A traditional Italian pasta dish from made with garlic in olive oil, and dried red chili flakes.")),
-                new Recipe(new RecipeName("Spaghetti bolognese"), new RecipeDescription("Jaime Oliver's great version of the classic Italian Bolognese."))
+            new Recipe(new RecipeName("Carbonara"), new RecipeDescription("The best dish sold in NUS.")),
+            new Recipe(new RecipeName("Aglio olio"), new RecipeDescription("A traditional Italian pasta dish from made with garlic in olive oil, and dried red chili flakes.")),
+            new Recipe(new RecipeName("Spaghetti bolognese"), new RecipeDescription("Jaime Oliver's great version of the classic Italian Bolognese."))
         };
     }
 
