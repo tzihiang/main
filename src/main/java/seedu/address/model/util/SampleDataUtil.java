@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientName;
+import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -14,6 +17,16 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+    public static Ingredient[] getSampleIngredients() {
+        return new Ingredient[] {
+            new Ingredient(new IngredientName("Flour"), new IngredientQuantity("250g")),
+            new Ingredient(new IngredientName("Eggs"), new IngredientQuantity("2")),
+            new Ingredient(new IngredientName("Milk"), new IngredientQuantity("100ml")),
+            new Ingredient(new IngredientName("Chicken breast"), new IngredientQuantity("8 pieces")),
+            new Ingredient(new IngredientName("Spinach"), new IngredientQuantity("200g")),
+        };
+    }
+
     public static Person[] getSamplePersons() {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), getTagSet("friends")),

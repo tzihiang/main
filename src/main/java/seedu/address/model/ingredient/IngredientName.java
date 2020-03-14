@@ -17,7 +17,7 @@ public class IngredientName {
      * The first character of the ingredient name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Graph}][\\p{Graph} ]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}\\-'% ]*";
 
     public final String ingredientName;
 
@@ -29,7 +29,7 @@ public class IngredientName {
     public IngredientName(String ingredientName) {
         requireNonNull(ingredientName);
         checkArgument(isValidIngredientName(ingredientName), MESSAGE_CONSTRAINTS);
-        this.ingredientName = ingredientName;
+        this.ingredientName = ingredientName.trim();
     }
 
     /**
