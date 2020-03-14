@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.recipe.Recipe;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -95,6 +96,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasRecipe(Recipe recipe) {
+        // TODO: implement
+        return false;
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
@@ -106,10 +113,22 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addRecipe(Recipe recipe) {
+        // TODO: implement
+        return;
+    }
+
+    @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public void setRecipe(Recipe target, Recipe editedRecipe) {
+        // TODO: implement
+        return;
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -124,9 +143,21 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Recipe> getFilteredRecipeList() {
+        // TODO: implement
+        return null;
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
+        // TODO: implement
+        return;
     }
 
     @Override
