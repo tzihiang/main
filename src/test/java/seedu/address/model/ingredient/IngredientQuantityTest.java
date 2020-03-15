@@ -215,4 +215,36 @@ public class IngredientQuantityTest {
         assertEquals("1 Tablespoon", new IngredientQuantity("1 Tablespoon").toString()); // with capital letters
         assertEquals("1 rounded tsp", new IngredientQuantity("1 rounded tsp ").toString()); // unit with spaces;
     }
+
+    @Test
+    public void equals() {
+        IngredientQuantity testIngredientQuantity = new IngredientQuantity("100 ml");
+
+        // same quantity -> returns true
+        assertTrue(testIngredientQuantity.equals(new IngredientQuantity("100 ml")));
+
+        // same object -> returns true
+        assertTrue(testIngredientQuantity.equals(testIngredientQuantity));
+
+        // same quantity with no whitespace between value and unit -> returns true
+        assertTrue(testIngredientQuantity.equals(new IngredientQuantity("100ml")));
+
+        // same quantity with trailing whitespace -> returns true
+        assertTrue(testIngredientQuantity.equals(new IngredientQuantity("100 ml ")));
+
+        // null -> returns false
+        assertFalse(testIngredientQuantity.equals(null));
+
+        // different ingredient quantity -> returns false
+        assertFalse(testIngredientQuantity.equals(new IngredientQuantity("200 g")));
+
+        // different ingredient quantity value -> returns false
+        assertFalse(testIngredientQuantity.equals(new IngredientQuantity("200 ml")));
+
+        // different ingredient quantity unit -> returns false
+        assertFalse(testIngredientQuantity.equals(new IngredientQuantity("100 g")));
+
+        // different ingredient quantity unit -> returns false
+        assertFalse(testIngredientQuantity.equals(new IngredientQuantity("100")));
+    }
 }
