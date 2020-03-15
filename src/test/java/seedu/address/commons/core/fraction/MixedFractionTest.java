@@ -56,47 +56,46 @@ public class MixedFractionTest {
     @Test
     public void add() {
         MixedFraction a = new MixedFraction(3, 2);
-        MixedFraction b = new MixedFraction(8, 3);
-        MixedFraction c = new MixedFraction(-5, 3);
+        MixedFraction b = new MixedFraction(4, 3);
+        MixedFraction c = new MixedFraction(-5, 2);
 
         // null input
         assertThrows(NullArgumentException.class, () -> a.add(null));
 
         // valid input
-        assertEquals(25, a.add(b).getNumerator());
-        assertEquals(6, a.add(b).getDenominator());
-        assertEquals(-1, a.add(c).getNumerator());
-        assertEquals(6, a.add(c).getDenominator());
-        assertEquals(1, b.add(c).getNumerator());
-        assertEquals(1, b.add(c).getDenominator());
+        assertEquals("3", a.add(a).toString());
+        assertEquals("2 5/6", a.add(b).toString());
+        assertEquals("-1", a.add(c).toString());
+
+        assertEquals("2 5/6", b.add(a).toString());
+        assertEquals("2 2/3", b.add(b).toString());
+        assertEquals("-1 1/6", b.add(c).toString());
+
+        assertEquals("-1", c.add(a).toString());
+        assertEquals("-1 1/6", c.add(b).toString());
+        assertEquals("-5", c.add(c).toString());
     }
 
     @Test
     public void subtract() {
         MixedFraction a = new MixedFraction(3, 2);
-        MixedFraction b = new MixedFraction(8, 3);
-        MixedFraction c = new MixedFraction(-5, 3);
+        MixedFraction b = new MixedFraction(4, 3);
+        MixedFraction c = new MixedFraction(-5, 2);
 
         // null input
         assertThrows(NullArgumentException.class, () -> a.subtract(null));
 
         // valid input
-        assertEquals(-7, a.subtract(b).getNumerator());
-        assertEquals(6, a.subtract(b).getDenominator());
-        assertEquals(19, a.subtract(c).getNumerator());
-        assertEquals(6, a.subtract(c).getDenominator());
-        assertEquals(13, b.subtract(c).getNumerator());
-        assertEquals(3, b.subtract(c).getDenominator());
-    }
+        assertEquals("0", a.subtract(a).toString());
+        assertEquals("1/6", a.subtract(b).toString());
+        assertEquals("4", a.subtract(c).toString());
 
-    @Test
-    public void toString_validMixedFraction_returnsStringRepresentation() {
-        assertEquals("0", new MixedFraction(0, 1).toString());
-        assertEquals("2", new MixedFraction(2, 1).toString());
-        assertEquals("-3", new MixedFraction(-3, 1).toString());
-        assertEquals("1/2", new MixedFraction(1, 2).toString());
-        assertEquals("1 2/3", new MixedFraction(5, 3).toString());
-        assertEquals("-1/2", new MixedFraction(-1, 2).toString());
-        assertEquals("-1 2/3", new MixedFraction(-5, 3).toString());
+        assertEquals("-1/6", b.subtract(a).toString());
+        assertEquals("0", b.subtract(b).toString());
+        assertEquals("3 5/6", b.subtract(c).toString());
+
+        assertEquals("-4", c.subtract(a).toString());
+        assertEquals("-3 5/6", c.subtract(b).toString());
+        assertEquals("0", c.subtract(c).toString());
     }
 }
