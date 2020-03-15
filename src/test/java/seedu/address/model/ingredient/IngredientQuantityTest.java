@@ -77,62 +77,92 @@ public class IngredientQuantityTest {
     public void add() {
         IngredientQuantity a = new IngredientQuantity("1 cup");
         IngredientQuantity b = new IngredientQuantity("0.25 cup");
-        IngredientQuantity c = new IngredientQuantity("2 1/2 cup");
-        IngredientQuantity d = new IngredientQuantity("1.2cup");
-        IngredientQuantity e = new IngredientQuantity("100 ml");
+        IngredientQuantity c = new IngredientQuantity("1.2cup");
+        IngredientQuantity d = new IngredientQuantity("3/4 cup");
+        IngredientQuantity e = new IngredientQuantity("2 1/2 cup");
+        IngredientQuantity f = new IngredientQuantity("100 ml");
 
-        assertThrows(IllegalArgumentException.class, () -> a.add(e));
-        assertThrows(IllegalArgumentException.class, () -> b.add(e));
-        assertThrows(IllegalArgumentException.class, () -> c.add(e));
-        assertThrows(IllegalArgumentException.class, () -> d.add(e));
-        assertThrows(IllegalArgumentException.class, () -> e.add(a));
-        assertThrows(IllegalArgumentException.class, () -> e.add(b));
-        assertThrows(IllegalArgumentException.class, () -> e.add(c));
-        assertThrows(IllegalArgumentException.class, () -> e.add(d));
+        assertThrows(IllegalArgumentException.class, () -> a.add(f));
+        assertThrows(IllegalArgumentException.class, () -> b.add(f));
+        assertThrows(IllegalArgumentException.class, () -> c.add(f));
+        assertThrows(IllegalArgumentException.class, () -> d.add(f));
+        assertThrows(IllegalArgumentException.class, () -> e.add(f));
+        assertThrows(IllegalArgumentException.class, () -> f.add(a));
+        assertThrows(IllegalArgumentException.class, () -> f.add(b));
+        assertThrows(IllegalArgumentException.class, () -> f.add(c));
+        assertThrows(IllegalArgumentException.class, () -> f.add(d));
+        assertThrows(IllegalArgumentException.class, () -> f.add(e));
 
         assertEquals("1.25 cup", a.add(b).toString());
-        assertEquals("3 1/2 cup", a.add(c).toString());
-        assertEquals("2.2 cup", a.add(d).toString());
+        assertEquals("2.2 cup", a.add(c).toString());
+        assertEquals("1 3/4 cup", a.add(d).toString());
+        assertEquals("3 1/2 cup", a.add(e).toString());
+
         assertEquals("1.25 cup", b.add(a).toString());
-        assertEquals("2 3/4 cup", b.add(c).toString());
-        assertEquals("1.45 cup", b.add(d).toString());
-        assertEquals("3 1/2 cup", c.add(a).toString());
-        assertEquals("2 3/4 cup", c.add(b).toString());
-        assertEquals("3.7 cup", c.add(d).toString());
-        assertEquals("2.2 cup", d.add(a).toString());
-        assertEquals("1.45 cup", d.add(b).toString());
-        assertEquals("3.7 cup", d.add(c).toString());
+        assertEquals("1.45 cup", b.add(c).toString());
+        assertEquals("1 cup", b.add(d).toString());
+        assertEquals("2 3/4 cup", b.add(e).toString());
+
+        assertEquals("2.2 cup", c.add(a).toString());
+        assertEquals("1.45 cup", c.add(b).toString());
+        assertEquals("1.95 cup", c.add(d).toString());
+        assertEquals("3.7 cup", c.add(e).toString());
+
+        assertEquals("1 3/4 cup", d.add(a).toString());
+        assertEquals("1 cup", d.add(b).toString());
+        assertEquals("1.95 cup", d.add(c).toString());
+        assertEquals("3 1/4 cup", d.add(e).toString());
+
+        assertEquals("3 1/2 cup", e.add(a).toString());
+        assertEquals("2 3/4 cup", e.add(b).toString());
+        assertEquals("3.7 cup", e.add(c).toString());
+        assertEquals("3 1/4 cup", e.add(d).toString());
     }
 
     @Test
     public void subtract() {
         IngredientQuantity a = new IngredientQuantity("1 cup");
         IngredientQuantity b = new IngredientQuantity("0.25 cup");
-        IngredientQuantity c = new IngredientQuantity("1/2 cup");
-        IngredientQuantity d = new IngredientQuantity("1.2cup");
-        IngredientQuantity e = new IngredientQuantity("100 ml");
+        IngredientQuantity c = new IngredientQuantity("1.2cup");
+        IngredientQuantity d = new IngredientQuantity("3/4 cup");
+        IngredientQuantity e = new IngredientQuantity("2 1/2 cup");
+        IngredientQuantity f = new IngredientQuantity("100 ml");
 
-        assertThrows(IllegalArgumentException.class, () -> a.subtract(e));
-        assertThrows(IllegalArgumentException.class, () -> b.subtract(e));
-        assertThrows(IllegalArgumentException.class, () -> c.subtract(e));
-        assertThrows(IllegalArgumentException.class, () -> d.subtract(e));
-        assertThrows(IllegalArgumentException.class, () -> e.subtract(a));
-        assertThrows(IllegalArgumentException.class, () -> e.subtract(b));
-        assertThrows(IllegalArgumentException.class, () -> e.subtract(c));
-        assertThrows(IllegalArgumentException.class, () -> e.subtract(d));
+        assertThrows(IllegalArgumentException.class, () -> a.subtract(f));
+        assertThrows(IllegalArgumentException.class, () -> b.subtract(f));
+        assertThrows(IllegalArgumentException.class, () -> c.subtract(f));
+        assertThrows(IllegalArgumentException.class, () -> d.subtract(f));
+        assertThrows(IllegalArgumentException.class, () -> e.subtract(f));
+        assertThrows(IllegalArgumentException.class, () -> f.subtract(a));
+        assertThrows(IllegalArgumentException.class, () -> f.subtract(b));
+        assertThrows(IllegalArgumentException.class, () -> f.subtract(c));
+        assertThrows(IllegalArgumentException.class, () -> f.subtract(d));
+        assertThrows(IllegalArgumentException.class, () -> f.subtract(e));
 
         assertEquals("0.75 cup", a.subtract(b).toString());
-        assertEquals("1/2 cup", a.subtract(c).toString());
-        assertEquals("0 cup", a.subtract(d).toString());
+        assertEquals("0 cup", a.subtract(c).toString());
+        assertEquals("1/4 cup", a.subtract(d).toString());
+        assertEquals("0 cup", a.subtract(e).toString());
+
         assertEquals("0 cup", b.subtract(a).toString());
         assertEquals("0 cup", b.subtract(c).toString());
         assertEquals("0 cup", b.subtract(d).toString());
-        assertEquals("0 cup", c.subtract(a).toString());
-        assertEquals("1/4 cup", c.subtract(b).toString());
-        assertEquals("0 cup", c.subtract(d).toString());
-        assertEquals("0.2 cup", d.subtract(a).toString());
-        assertEquals("0.95 cup", d.subtract(b).toString());
-        assertEquals("0.7 cup", d.subtract(c).toString());
+        assertEquals("0 cup", b.subtract(e).toString());
+
+        assertEquals("0.2 cup", c.subtract(a).toString());
+        assertEquals("0.95 cup", c.subtract(b).toString());
+        assertEquals("0.45 cup", c.subtract(d).toString());
+        assertEquals("0 cup", c.subtract(e).toString());
+
+        assertEquals("0 cup", d.subtract(a).toString());
+        assertEquals("1/2 cup", d.subtract(b).toString());
+        assertEquals("0 cup", d.subtract(c).toString());
+        assertEquals("0 cup", d.subtract(e).toString());
+
+        assertEquals("1 1/2 cup", e.subtract(a).toString());
+        assertEquals("2 1/4 cup", e.subtract(b).toString());
+        assertEquals("1.3 cup", e.subtract(c).toString());
+        assertEquals("1 3/4 cup", e.subtract(d).toString());
     }
 
     @Test
