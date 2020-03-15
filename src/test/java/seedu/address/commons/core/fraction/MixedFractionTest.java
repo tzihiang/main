@@ -91,10 +91,12 @@ public class MixedFractionTest {
 
     @Test
     public void toString_validMixedFraction_returnsStringRepresentation() {
+        assertEquals("0", new MixedFraction(0, 1).toString());
+        assertEquals("2", new MixedFraction(2, 1).toString());
+        assertEquals("-3", new MixedFraction(-3, 1).toString());
         assertEquals("1/2", new MixedFraction(1, 2).toString());
         assertEquals("1 2/3", new MixedFraction(5, 3).toString());
         assertEquals("-1/2", new MixedFraction(-1, 2).toString());
         assertEquals("-1 2/3", new MixedFraction(-5, 3).toString());
-        assertEquals("0", new MixedFraction(0, 1).toString());
     }
 }
