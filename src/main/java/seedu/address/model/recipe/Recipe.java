@@ -19,11 +19,11 @@ public class Recipe {
 
     // Identity fields
     private final RecipeName name;
-    private final RecipeDescription description;
 
     // Data fields
-    private final UniqueIngredientList ingredients = new UniqueIngredientList();
-    private final UniqueStepList steps = new UniqueStepList();
+    private final RecipeDescription description;
+    private final UniqueIngredientList ingredients;
+    private final UniqueStepList steps;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -34,21 +34,23 @@ public class Recipe {
         requireAllNonNull(name, description);
         this.name = name;
         this.description = description;
+        this.ingredients = new UniqueIngredientList();
+        this.steps = new UniqueStepList();
     }
 
     /**
      * Recipe constructor for optional fields
      * Every field must be present and not null.
      */
-    //public Recipe(RecipeName name, RecipeDescription description,
-    //  IngredientList ingredients, StepList steps, Set<Tag> tags) {
-    //    requireAllNonNull(name, description, ingredients, steps, tags);
-    //    this.name = name;
-    //    this.description = description;
-    //    this.ingredients = ingredients;
-    //    this.steps = steps;
-    //    this.tags.addAll(tags);
-    //}
+    public Recipe(RecipeName name, RecipeDescription description,
+            UniqueIngredientList ingredients, UniqueStepList steps, Set<Tag> tags) {
+        requireAllNonNull(name, description, ingredients, steps, tags);
+        this.name = name;
+        this.description = description;
+        this.ingredients = ingredients;
+        this.steps = steps;
+        this.tags.addAll(tags);
+    }
 
     public RecipeName getName() {
         return name;
@@ -75,7 +77,7 @@ public class Recipe {
     }
 
     /**
-     * Returns true if both recipes of the same name have descriptions that are the same.
+     * Returns true if both recipes have the same name.
      * This defines a weaker notion of equality between two recipes.
      */
     public boolean isSameRecipe(Recipe otherRecipe) {
@@ -84,8 +86,7 @@ public class Recipe {
         }
 
         return otherRecipe != null
-                && otherRecipe.getName().equals(getName())
-                && otherRecipe.getDescription().equals(getDescription());
+                && otherRecipe.getName().equals(getName());
     }
 
     /**
