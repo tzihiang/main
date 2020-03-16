@@ -1,8 +1,8 @@
 package seedu.address.logic.commands.cookbook;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECIPE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECIPE_DESCRIPTION;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -18,12 +18,12 @@ public class CookbookAddRecipeCommand extends CookbookCommand {
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD + " " + COMMAND_TYPE
             + ": Adds a new recipe to the cookbook. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_DESCRIPTION + "DESCRIPTION\n"
+            + PREFIX_RECIPE_NAME + "NAME "
+            + PREFIX_RECIPE_DESCRIPTION + "DESCRIPTION\n"
             + "Example: "
             + COMMAND_WORD + " " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Bacon Carbonara "
-            + PREFIX_DESCRIPTION + "Bacon Carbonara is an Italian classic pasta dish with creamy egg sauce"
+            + PREFIX_RECIPE_NAME + "Bacon Carbonara "
+            + PREFIX_RECIPE_DESCRIPTION + "Bacon Carbonara is an Italian classic pasta dish with creamy egg sauce"
             + " with noodles, pasta, eggs and bacon topped with salty Parmesan cheese in under 30 minutes.";
 
     public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";
