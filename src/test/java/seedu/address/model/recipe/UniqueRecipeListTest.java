@@ -1,16 +1,15 @@
 package seedu.address.model.recipe;
 
-import org.junit.jupiter.api.Test;
-
-import seedu.address.model.recipe.exceptions.DuplicateRecipeException;
-import seedu.address.model.recipe.exceptions.RecipeNotFoundException;
-
 import static seedu.address.testutil.TypicalRecipes.CARBONARA;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.recipe.exceptions.DuplicateRecipeException;
+import seedu.address.model.recipe.exceptions.RecipeNotFoundException;
 
 public class UniqueRecipeListTest {
 
