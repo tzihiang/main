@@ -61,7 +61,7 @@ public class UniqueRecipeListTest {
         uniqueRecipeList.add(CARBONARA);
         uniqueRecipeList.setRecipe(CARBONARA, CARBONARA);
         UniqueRecipeList expectedUniqueRecipeList = new UniqueRecipeList();
-        expectedUniqueRecipeList.add(SCRAMBLED_EGG);
+        expectedUniqueRecipeList.add(CARBONARA);
         assertEquals(expectedUniqueRecipeList, uniqueRecipeList);
     }
 }

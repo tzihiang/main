@@ -119,8 +119,8 @@ public class ModelManager implements Model {
 
     @Override
     public void addRecipe(Recipe recipe) {
-        // TODO: implement
-        return;
+        addressBook.addRecipe(recipe);
+        updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
     }
 
     @Override
