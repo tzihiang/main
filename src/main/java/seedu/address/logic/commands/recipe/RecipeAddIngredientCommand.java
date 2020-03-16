@@ -1,8 +1,6 @@
 package seedu.address.logic.commands.recipe;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.List;
@@ -17,23 +15,9 @@ import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Adds a person to the address book.
+ * Adds an ingredient to a recipe.
  */
-public class RecipeAddIngredientCommand extends RecipeCommand {
-
-    public static final String COMMAND_WORD = "add";
-    public static final String COMMAND_TYPE = "ingredient";
-
-    public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD + " " + COMMAND_TYPE
-            + ": Adds an ingredient to a recipe. "
-            + "Parameters: "
-            + "INDEX (must be a positive integer)"
-            + PREFIX_INGREDIENT_NAME + "INGREDIENT "
-            + PREFIX_INGREDIENT_QUANTITY + "QUANTITY\n"
-            + "Example: " + COMMAND_CATEGORY + " 1 "
-            + COMMAND_WORD + " "
-            + PREFIX_INGREDIENT_NAME + "Eggs "
-            + PREFIX_INGREDIENT_QUANTITY + "12";
+public class RecipeAddIngredientCommand extends RecipeAddCommand {
 
     public static final String MESSAGE_SUCCESS = "New ingredient added: %1$s";
     public static final String MESSAGE_INCOMPATIBLE_UNITS = "This ingredient has different units "
