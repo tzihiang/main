@@ -102,7 +102,7 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hasRecipe(Recipe recipe) {
-        // TODO: implement
+        requireNonNull(recipe);
         return false;
     }
 
