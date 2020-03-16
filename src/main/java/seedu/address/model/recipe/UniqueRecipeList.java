@@ -45,7 +45,22 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         internalList.add(toAdd);
     }
 
-    public void setRecipe(UniqueRecipeList replacement) {
+    public void setRecipe(Recipe target, Recipe editedRecipe) {
+        requireAllNonNull(target, editedRecipe);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new RecipeNotFoundException();
+        }
+
+        if (!target.isSameRecipe(editedRecipe) && contains(editedRecipe)) {
+            throw new DuplicateRecipeException();
+        }
+
+        internalList.set(index, editedRecipe);
+    }
+
+    public void setRecipes(UniqueRecipeList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -62,6 +77,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
 
         internalList.setAll(recipes);
     }
+
 
     /**
      * Removes the recipe from the list, provided it exists.

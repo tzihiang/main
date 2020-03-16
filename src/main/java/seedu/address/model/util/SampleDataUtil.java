@@ -70,7 +70,7 @@ public class SampleDataUtil {
                 new RecipeDescription("The best dish sold in NUS."),
                 getTagSet("Pasta", "Italian", "Simple", "Creamy")),
             new Recipe(new RecipeName("Aglio olio"),
-                new RecipeDescription("A traditional Italian pasta dish from made "
+                new RecipeDescription("A traditional Italian pasta dish made "
                     + "with garlic in olive oil, and dried red chili flakes."),
                 getTagSet("Pasta", "Spicy", "Italian", "Vegan")),
             new Recipe(new RecipeName("Spaghetti bolognese"),
