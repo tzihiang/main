@@ -120,7 +120,7 @@ public class MixedFraction extends Fraction {
         }
 
         if (numerator == 0) {
-            return "0";
+            return String.format("%d", wholePart);
         } else if (wholePart == 0) {
             return String.format("%d/%d", numerator, denominator);
         }
