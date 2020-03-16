@@ -16,6 +16,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Recipe> PREDICATE_SHOW_ALL_RECIPES = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -60,6 +63,11 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a recipe with the same identity as {@code recipe} exists in the cookbook.
+     */
+    boolean hasRecipe(Recipe recipe);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -72,11 +80,24 @@ public interface Model {
     void addPerson(Person person);
 
     /**
+     * Adds the given recipe.
+     * {@code person} must not already exist in the cookbook.
+     */
+    void addRecipe(Recipe recipe);
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
+
+    /**
+     * Replaces the given recipe {@code target} with {@code editedRecipe}.
+     * {@code target} must exist in the cookbook.
+     * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in the cookbook.
+     */
+    void setRecipe(Recipe target, Recipe editedRecipe);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

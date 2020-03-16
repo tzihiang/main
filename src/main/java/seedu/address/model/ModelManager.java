@@ -101,6 +101,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasRecipe(Recipe recipe) {
+        // TODO: implement
+        return false;
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
     }
@@ -112,10 +118,22 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addRecipe(Recipe recipe) {
+        // TODO: implement
+        return;
+    }
+
+    @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public void setRecipe(Recipe target, Recipe editedRecipe) {
+        // TODO: implement
+        return;
     }
 
     //=========== Filtered Person List Accessors =============================================================
