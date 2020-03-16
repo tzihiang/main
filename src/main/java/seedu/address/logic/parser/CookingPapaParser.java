@@ -10,9 +10,11 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.cookbook.CookbookCommand;
 import seedu.address.logic.commands.inventory.InventoryCommand;
-import seedu.address.logic.commands.recipe.RecipeAddCommand;
 import seedu.address.logic.commands.recipe.RecipeCommand;
+import seedu.address.logic.parser.cookbook.CookbookCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.inventory.InventoryCommandParser;
+import seedu.address.logic.parser.recipe.RecipeCommandParser;
 
 /**
  * Parses user input.
@@ -23,8 +25,6 @@ public class CookingPapaParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandCategory>\\S+)(?<arguments>.*)");
-    private static final Pattern RECIPE_COMMAND_ARGUMENT_FORMAT = Pattern
-            .compile("(?<index>\\S+) *(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Parses user input into a command for execution.
@@ -44,51 +44,17 @@ public class CookingPapaParser {
         switch (commandCategory) {
 
         case CookbookCommand.COMMAND_CATEGORY:
-            return parseCookbookCommand();
+            return new CookbookCommandParser().parse(arguments);
 
         case RecipeCommand.COMMAND_CATEGORY:
-            return parseRecipeCommand(arguments);
+            return new RecipeCommandParser().parse(arguments);
 
         case InventoryCommand.COMMAND_CATEGORY:
-            return parseInventoryCommand();
+            return new InventoryCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
-    }
-
-    private CookbookCommand parseCookbookCommand() {
-        // TODO: implement
-        return null;
-    }
-
-    /**
-     * Parses arguments into a recipe command for execution.
-     *
-     * @param args the arguments of the user input
-     * @return the {@code RecipeCommand} based on the user input
-     * @throws ParseException if the arguments do not conform to the expected format
-     */
-    private RecipeCommand parseRecipeCommand(String args) throws ParseException {
-        final Matcher matcher = RECIPE_COMMAND_ARGUMENT_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-        }
-
-        final String index = matcher.group("index");
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
-        switch (commandWord) {
-        case RecipeAddCommand.COMMAND_WORD:
-            return new RecipeAddCommandParser().parse(index + " " + arguments);
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-        }
-    }
-
-    private InventoryCommand parseInventoryCommand() {
-        // TODO: implement
-        return null;
     }
 
 }
