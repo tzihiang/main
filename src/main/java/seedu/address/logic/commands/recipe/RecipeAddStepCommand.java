@@ -5,7 +5,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Adds a step to the address book.
+ * Adds a step to a recipe.
  */
 public class RecipeAddStepCommand extends RecipeAddCommand {
     @Override

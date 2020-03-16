@@ -15,7 +15,7 @@ import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Adds an ingredinet to a recipe.
+ * Adds an ingredient to a recipe.
  */
 public class RecipeAddIngredientCommand extends RecipeAddCommand {
 
