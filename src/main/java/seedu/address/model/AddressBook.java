@@ -6,11 +6,9 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.recipe.UniqueRecipeList;
 
 /**
  * Wraps all data at the address-book level
