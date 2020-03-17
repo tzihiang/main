@@ -11,13 +11,18 @@ import javafx.collections.ObservableList;
 import seedu.address.model.recipe.exceptions.DuplicateRecipeException;
 import seedu.address.model.recipe.exceptions.RecipeNotFoundException;
 
+
 /**
  * A list of recipes that enforces uniqueness between its elements and does not allow nulls.
- * An recipe is considered unique by comparing using {@code Recipe#isSameRecipe(Recipe)}. As such,
- * adding and updating of recipes uses Recipe#isSameRecipe(Recipe) for equality so as to ensure
- * that the recipe being added or updated is unique in terms of identity in the UniqueRecipeList.
+ * A recipe is considered unique by comparing using {@code Recipe#isSameRecipe(Recipe)}. As such, adding and updating of
+ * recipes uses Recipe#isSameRecipe(Recipe) for equality so as to ensure that the recipe being added or updated is
+ * unique in terms of identity in the UniqueRecipeList. However, the removal of a recipe uses Recipe#equals(Object) so
+ * as to ensure that the recipe with exactly the same fields will be removed.
+ *
+ * Supports a minimal set of list operations.
+ *
+ * @see Recipe#isSameRecipe(Recipe)
  */
-
 public class UniqueRecipeList implements Iterable<Recipe> {
 
     private final ObservableList<Recipe> internalList = FXCollections.observableArrayList();
@@ -105,13 +110,16 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueRecipeList // instanceof handles nulls
-                && internalList.equals(((UniqueRecipeList) other).internalList));
+                        && internalList.equals(((UniqueRecipeList) other).internalList));
+    }
+
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
     }
 
     /**
-     * Checks if all the recipes given in the list are unique and has no repeats.
-     * @param recipes
-     * @return true if all recipes are unique, false otherwise.
+     * Returns true if {@code recipes} contains only unique recipes.
      */
     private boolean recipesAreUnique(List<Recipe> recipes) {
         for (int i = 0; i < recipes.size() - 1; i++) {

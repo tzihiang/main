@@ -1,10 +1,11 @@
 package seedu.address.model.recipe.exceptions;
 
 /**
- * Returns that the recipe already exists within the list.
+ * Signals that the operation will result in duplicate Recipes (Recipes are considered duplicates if they have the same
+ * identity).
  */
 public class DuplicateRecipeException extends RuntimeException {
     public DuplicateRecipeException() {
-        super("The recipe you are trying to add already exists");
+        super("Operation would result in duplicate recipes");
     }
 }

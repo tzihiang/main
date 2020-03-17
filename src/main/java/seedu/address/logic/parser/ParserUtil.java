@@ -9,6 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ingredient.IngredientName;
+import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
@@ -45,6 +47,36 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses an {@code String ingredientName} into an {@code IngredientName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code ingredientName} is invalid.
+     */
+    public static IngredientName parseIngredientName(String ingredientName) throws ParseException {
+        requireNonNull(ingredientName);
+        String trimmedIngredientName = ingredientName.trim();
+        if (!IngredientName.isValidIngredientName(trimmedIngredientName)) {
+            throw new ParseException(IngredientName.MESSAGE_CONSTRAINTS);
+        }
+        return new IngredientName(trimmedIngredientName);
+    }
+
+    /**
+     * Parses an {@code String ingredientQuantity} into an {@code IngredientQuantity}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code ingredientQuantity} is invalid.
+     */
+    public static IngredientQuantity parseIngredientQuantity(String ingredientQuantity) throws ParseException {
+        requireNonNull(ingredientQuantity);
+        String trimmedIngredientQuantity = ingredientQuantity.trim();
+        if (!IngredientQuantity.isValidIngredientQuantity(trimmedIngredientQuantity)) {
+            throw new ParseException(IngredientQuantity.MESSAGE_CONSTRAINTS);
+        }
+        return new IngredientQuantity(trimmedIngredientQuantity);
     }
 
     /**
