@@ -1,47 +1,47 @@
-package seedu.address.logic.commands.inventory;
+package seedu.address.logic.commands.cart;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
-import seedu.address.model.Inventory;
+import seedu.address.model.Cart;
 import seedu.address.model.ReadOnlyIngredientList;
 import seedu.address.model.ingredient.UniqueIngredientList;
 
 import java.util.Optional;
 
 /**
- * Represents an inventory command with hidden internal logic and the ability to be executed.
+ * Represents an Cart command with hidden internal logic and the ability to be executed.
  */
-public abstract class InventoryCommand extends Command {
+public abstract class CartCommand extends Command {
 
-    public static final String COMMAND_CATEGORY = "inventory";
+    public static final String COMMAND_CATEGORY = "cart";
 
     /**
-     * Stores the details to edit the inventory with.
+     * Stores the details to edit the cart with.
      */
-    public static class EditInventoryDescriptor {
+    public static class EditCartDescriptor {
         private UniqueIngredientList ingredients;
 
-        public EditInventoryDescriptor() {}
+        public EditCartDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditInventoryDescriptor(EditInventoryDescriptor toCopy) {
+        public EditCartDescriptor(EditCartDescriptor toCopy) {
             setIngredients(toCopy.ingredients);
         }
 
         /**
-         * Creates and returns a {@code Inventory} with the details of {@code inventoryToEdit}
-         * edited with {@code editInventoryDescriptor}.
+         * Creates and returns a {@code Cart} with the details of {@code CartToEdit}
+         * edited with {@code editCartDescriptor}.
          */
-        public static Inventory createEditedInventory(Inventory inventoryToEdit, EditInventoryDescriptor editInventoryDescriptor) {
-            assert inventoryToEdit != null;
+        public static Cart createEditedCart(Cart cartToEdit, EditCartDescriptor editCartDescriptor) {
+            assert cartToEdit != null;
 
-            UniqueIngredientList updatedIngredients = editInventoryDescriptor.getIngredients()
-                    .orElse(inventoryToEdit.getUniqueIngredientList());
+            UniqueIngredientList updatedIngredients = editCartDescriptor.getIngredients()
+                    .orElse(cartToEdit.getUniqueIngredientList());
 
-            return new Inventory((ReadOnlyIngredientList) updatedIngredients);
+            return new Cart((ReadOnlyIngredientList) updatedIngredients);
         }
         /**
          * Returns true if at least one field is edited.
@@ -66,12 +66,12 @@ public abstract class InventoryCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof InventoryCommand.EditInventoryDescriptor)) {
+            if (!(other instanceof CartCommand.EditCartDescriptor)) {
                 return false;
             }
 
             // state check
-            EditInventoryDescriptor e = (EditInventoryDescriptor) other;
+            EditCartDescriptor e = (EditCartDescriptor) other;
 
             return getIngredients().equals(e.getIngredients());
         }

@@ -1,4 +1,4 @@
 package seedu.address.logic.parser.inventory;
 
-public class InventoryRemoveCommandParser {
+public class InventoryRemoveIngredientCommandParser {
 }

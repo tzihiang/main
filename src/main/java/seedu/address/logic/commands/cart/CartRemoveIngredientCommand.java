@@ -4,7 +4,7 @@ import seedu.address.model.ingredient.Ingredient;
 
 import static java.util.Objects.requireNonNull;
 
-public class InventoryRemoveIngredientCommand {
+public class CartRemoveIngredientCommand {
 
     public static final String COMMAND_WORD = "remove";
     public static final String MESSAGE_SUCCESS = "Ingredient removed: %1$s";
@@ -12,9 +12,9 @@ public class InventoryRemoveIngredientCommand {
     private final Ingredient toRemove;
 
     /**
-     * Creates a InventoryAddIngredientCommand to add the specified {@code Ingredient} to the inventory
+     * Creates a CartRemoveIngredientCommand to add the specified {@code Ingredient} to the cart
      */
-    public InventoryRemoveIngredientCommand(Ingredient toRemove) {
+    public CartRemoveIngredientCommand(Ingredient toRemove) {
         requireNonNull(toRemove);
         this.toRemove = toRemove;
     }
@@ -24,8 +24,8 @@ public class InventoryRemoveIngredientCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof InventoryRemoveIngredientCommand // instanceof handles nulls
-                && toRemove.equals(((InventoryRemoveIngredientCommand) other).toRemove));
+                || (other instanceof CartRemoveIngredientCommand // instanceof handles nulls
+                && toRemove.equals(((CartRemoveIngredientCommand) other).toRemove));
     }
 
 }
