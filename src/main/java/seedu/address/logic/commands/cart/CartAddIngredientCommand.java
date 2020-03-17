@@ -16,7 +16,7 @@ public class CartAddIngredientCommand {
     private final Ingredient toAdd;
 
     /**
-     * Creates a InventoryAddIngredientCommand to add the specified {@code Ingredient} to the inventory
+     * Creates a CartAddIngredientCommand to add the specified {@code Ingredient} to the cart
      */
     public CartAddIngredientCommand(Ingredient toAdd) {
         requireNonNull(toAdd);
