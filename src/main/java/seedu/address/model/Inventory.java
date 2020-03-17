@@ -81,8 +81,4 @@ public class Inventory implements ReadOnlyIngredientList {
                 || (other instanceof Inventory // instanceof handles nulls
                 && ingredients.equals(((Inventory) other).ingredients));
     }
-
-    public boolean contains(Ingredient ingredient) {
-        return ingredients.contains(ingredient);
-    }
 }

@@ -18,7 +18,7 @@ import seedu.address.model.recipe.exceptions.RecipeNotFoundException;
  * recipes uses Recipe#isSameRecipe(Recipe) for equality so as to ensure that the recipe being added or updated is
  * unique in terms of identity in the UniqueRecipeList. However, the removal of a recipe uses Recipe#equals(Object) so
  * as to ensure that the recipe with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Recipe#isSameRecipe(Recipe)
@@ -31,6 +31,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
 
     /**
      * Checks if otherRecipe already exists in the list.
+     *
      * @param otherRecipe
      * @return true is otherRecipe exists, false otherwise.
      */
@@ -50,6 +51,11 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Replaces the recipe {@code target} in the list with {@code editedRecipe}.
+     * {@code target} must exist in the list.
+     * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in the list.
+     */
     public void setRecipe(Recipe target, Recipe editedRecipe) {
         requireAllNonNull(target, editedRecipe);
 
@@ -65,6 +71,12 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         internalList.set(index, editedRecipe);
     }
 
+    /**
+     * Replaces all the current recipes in UniqueRecipeList and replaces it with {@code replacement}.
+     * {@code replacement} must exist.
+     *
+     * @param replacement
+     */
     public void setRecipes(UniqueRecipeList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -82,7 +94,6 @@ public class UniqueRecipeList implements Iterable<Recipe> {
 
         internalList.setAll(recipes);
     }
-
 
     /**
      * Removes the recipe from the list, provided it exists.
@@ -106,18 +117,6 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         return internalList.iterator();
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof UniqueRecipeList // instanceof handles nulls
-                        && internalList.equals(((UniqueRecipeList) other).internalList));
-    }
-
-    @Override
-    public int hashCode() {
-        return internalList.hashCode();
-    }
-
     /**
      * Returns true if {@code recipes} contains only unique recipes.
      */
@@ -130,5 +129,17 @@ public class UniqueRecipeList implements Iterable<Recipe> {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UniqueRecipeList // instanceof handles nulls
+                && internalList.equals(((UniqueRecipeList) other).internalList));
+    }
+
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
     }
 }

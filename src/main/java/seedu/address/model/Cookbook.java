@@ -9,7 +9,7 @@ import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.UniqueRecipeList;
 
 /**
- * Wraps all data at the cookbook level
+ * Wraps all data at the cookbook level.
  * Duplicates are not allowed (by .isSameRecipe comparison)
  */
 public class Cookbook implements ReadOnlyCookbook {
@@ -116,9 +116,5 @@ public class Cookbook implements ReadOnlyCookbook {
     @Override
     public int hashCode() {
         return recipes.hashCode();
-    }
-
-    public boolean contains(Recipe recipe) {
-        return recipes.contains(recipe);
     }
 }

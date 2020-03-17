@@ -54,10 +54,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
+    /**
+     * Replaces the contents of the ingredient list with {@code ingredients}
+     * {@code ingredients} must not contain duplicate ingredients.
+     */
     public void setIngredients(List<Ingredient> ingredients) {
         this.inventory.setIngredients(ingredients);
     }
 
+    /**
+     * Replaces the contents of the recipe list with {@code recipes}
+     * {@code recipes} must not contain duplicate recipes.
+     */
     public void setRecipes(List<Recipe> recipes) {
         this.cookbook.setRecipes(recipes);
     }
@@ -117,7 +125,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasIngredient(Ingredient ingredient) {
         requireNonNull(ingredient);
-        return inventory.contains(ingredient);
+        return inventory.hasIngredient(ingredient);
     }
 
     /**
@@ -150,7 +158,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasRecipe(Recipe recipe) {
         requireNonNull(recipe);
-        return cookbook.contains(recipe);
+        return cookbook.hasRecipe(recipe);
     }
 
     /**
