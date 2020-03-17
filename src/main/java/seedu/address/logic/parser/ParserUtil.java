@@ -12,8 +12,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.model.person.Name;
-import seedu.address.model.recipe.RecipeName;
 import seedu.address.model.recipe.RecipeDescription;
+import seedu.address.model.recipe.RecipeName;
 import seedu.address.model.tag.Tag;
 
 /**
