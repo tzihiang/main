@@ -1,16 +1,18 @@
 package seedu.address.logic.commands.cookbook;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RECIPE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECIPE_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECIPE_NAME;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.recipe.Recipe;
 
-
-public class CookbookAddRecipeCommand extends CookbookCommand {
+/**
+ * Adds a recipe into the cookbook.
+ */
+public class CookbookAddCommand extends CookbookCommand {
 
     public static final String COMMAND_WORD = "add";
     public static final String COMMAND_TYPE = "recipe";
@@ -32,9 +34,9 @@ public class CookbookAddRecipeCommand extends CookbookCommand {
     private final Recipe toAdd;
 
     /**
-     * Creates a CookbookAddRecipeCommand to add a new {@code recipe} to the cookbook
+     * Creates a CookbookAddCommand to add a new {@code recipe} to the cookbook
      */
-    public CookbookAddRecipeCommand(Recipe recipe) {
+    public CookbookAddCommand(Recipe recipe) {
         requireNonNull(recipe);
         toAdd = recipe;
     }
@@ -54,7 +56,7 @@ public class CookbookAddRecipeCommand extends CookbookCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CookbookAddRecipeCommand // instanceof handles nulls
-                && toAdd.equals(((CookbookAddRecipeCommand) other).toAdd));
+                || (other instanceof CookbookAddCommand // instanceof handles nulls
+                && toAdd.equals(((CookbookAddCommand) other).toAdd));
     }
 }
