@@ -117,4 +117,8 @@ public class Cookbook implements ReadOnlyCookbook {
     public int hashCode() {
         return recipes.hashCode();
     }
+
+    public boolean contains(Recipe recipe) {
+        return recipes.contains(recipe);
+    }
 }
