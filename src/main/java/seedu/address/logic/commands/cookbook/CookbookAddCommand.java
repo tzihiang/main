@@ -15,9 +15,8 @@ import seedu.address.model.recipe.Recipe;
 public class CookbookAddCommand extends CookbookCommand {
 
     public static final String COMMAND_WORD = "add";
-    public static final String COMMAND_TYPE = "recipe";
 
-    public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD + " " + COMMAND_TYPE
+    public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": Adds a new recipe to the cookbook. "
             + "Parameters: "
             + PREFIX_RECIPE_NAME + "NAME "
@@ -25,8 +24,8 @@ public class CookbookAddCommand extends CookbookCommand {
             + "Example: "
             + COMMAND_WORD + " " + COMMAND_WORD + " "
             + PREFIX_RECIPE_NAME + "Bacon Carbonara "
-            + PREFIX_RECIPE_DESCRIPTION + "Bacon Carbonara is an Italian classic pasta dish with creamy egg sauce"
-            + " with noodles, pasta, eggs and bacon topped with salty Parmesan cheese in under 30 minutes.";
+            + PREFIX_RECIPE_DESCRIPTION + "An Italian classic pasta dish with creamy egg sauce"
+            + " and bacon topped with salty Parmesan cheese.";
 
     public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This recipe already exists in the cookbook.";

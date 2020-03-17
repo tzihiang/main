@@ -73,7 +73,7 @@ public interface Model {
     void deletePerson(Person target);
 
     /**
-     * Deletes the given recipe.
+     * Removes the given recipe.
      * The recipe must exist in the cookbook.
      */
     void removeRecipe(Recipe recipe);
