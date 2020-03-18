@@ -22,7 +22,6 @@ public class RecipeRemoveStepCommand extends RecipeRemoveCommand {
         this.stepIndex = stepIndex;
     }
 
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         return null;

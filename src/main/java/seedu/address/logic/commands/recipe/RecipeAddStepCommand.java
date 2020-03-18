@@ -7,6 +7,8 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -61,5 +63,12 @@ public class RecipeAddStepCommand extends RecipeAddCommand {
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RecipeAddStepCommand // instanceof handles nulls
+                && toAdd.equals(((RecipeAddStepCommand) other).toAdd));
     }
 }

@@ -2,7 +2,6 @@ package seedu.address.logic.commands.recipe;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
 
 /**
