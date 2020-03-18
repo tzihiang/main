@@ -74,6 +74,12 @@ public interface Model {
     void deletePerson(Person target);
 
     /**
+     * Removes the given recipe.
+     * The recipe must exist in the cookbook.
+     */
+    void removeRecipe(Recipe recipe);
+
+    /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */

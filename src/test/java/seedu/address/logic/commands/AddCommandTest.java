@@ -146,6 +146,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void removeRecipe(Recipe recipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
