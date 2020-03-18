@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalRecipes.CARBONARA;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -89,8 +90,28 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasRecipe_nullRecipe_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasRecipe(null));
+    }
+
+    @Test
+    public void hasRecipe_recipeNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasRecipe(CARBONARA));
+    }
+
+    @Test
+    public void hasRecipe_recipeInAddressBook_returnsTrue() {
+        modelManager.addRecipe(CARBONARA);
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void getFilteredRecipeList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredRecipeList().remove(0));
     }
 
     @Test
