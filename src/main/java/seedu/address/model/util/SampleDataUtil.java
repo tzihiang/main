@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.Cart;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
@@ -42,6 +43,10 @@ public class SampleDataUtil {
 
         for (Ingredient sampleIngredient : getSampleIngredients()) {
             sampleAb.addIngredient(sampleIngredient);
+        }
+
+        for (Ingredient sampleCartIngredient: getSampleCart()) {
+            sampleAb.addCartIngredient(sampleCartIngredient);
         }
 
         return sampleAb;
@@ -83,6 +88,15 @@ public class SampleDataUtil {
                 new RecipeDescription("Jaime Oliver's great version of the classic Italian Bolognese."),
                 new UniqueIngredientList(), new UniqueStepList(),
                 getTagSet("Pasta", "Tomatoes", "Celebrity"))
+        };
+    }
+
+    public static Ingredient[] getSampleCart() {
+        return new Ingredient[]{
+            new Ingredient(new IngredientName("Parmesan"), new IngredientQuantity("1 kg")),
+            new Ingredient(new IngredientName("Bacon"), new IngredientQuantity("10 pieces")),
+            new Ingredient(new IngredientName("Olive oil"), new IngredientQuantity("600 ml")),
+            new Ingredient(new IngredientName("Butter"), new IngredientQuantity("3 sticks"))
         };
     }
 

@@ -5,6 +5,8 @@ import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
 
+import java.util.List;
+
 /**
  * Unmodifiable view of an address book
  */
@@ -17,4 +19,5 @@ public interface ReadOnlyAddressBook {
     ObservableList<Person> getPersonList();
     ObservableList<Ingredient> getIngredientList();
     ObservableList<Recipe> getRecipeList();
+    ObservableList<Ingredient> getCart();
 }

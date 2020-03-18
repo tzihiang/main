@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -71,6 +72,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Recipe> getFilteredRecipeList() {
         return model.getFilteredRecipeList();
+    }
+
+    @Override
+    public ObservableList<Ingredient> getFilteredCart() {
+        return model.getFilteredCart();
     }
 
     @Override

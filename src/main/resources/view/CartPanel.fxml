@@ -8,7 +8,7 @@
 <?import javafx.geometry.Insets?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="header" styleClass="cell_header_label" alignment="CENTER"
-           text="                     Your inventory"/>
-    <ListView fx:id="ingredientListView" HBox.hgrow="ALWAYS"/>
+           text="                          Your cart"/>
+    <ListView fx:id="cartListView" HBox.hgrow="ALWAYS"/>
 </VBox>
 

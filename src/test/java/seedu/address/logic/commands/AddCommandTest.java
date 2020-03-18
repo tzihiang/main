@@ -188,6 +188,16 @@ public class AddCommandTest {
         public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<Ingredient> getFilteredCart() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredCart(Predicate<Ingredient> predicate) {
+
+        }
     }
 
     /**

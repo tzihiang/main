@@ -78,7 +78,7 @@
                                 <padding>
                                     <Insets top="10" right="10" bottom="10" left="10"/>
                                 </padding>
-                                <StackPane fx:id="ingredientListPanelPlaceHolder1" HBox.hgrow="ALWAYS"/>
+                                <StackPane fx:id="cartPanelPlaceHolder" HBox.hgrow="ALWAYS"/>
                             </VBox>
                         </VBox>
                     </right>

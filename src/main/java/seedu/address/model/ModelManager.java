@@ -26,6 +26,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Ingredient> filteredIngredients;
     private final FilteredList<Recipe> filteredRecipes;
+    private final FilteredList<Ingredient> filteredCart;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -41,6 +42,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredIngredients = new FilteredList<>(this.addressBook.getIngredientList());
         filteredRecipes = new FilteredList<>(this.addressBook.getRecipeList());
+        filteredCart = new FilteredList<>(this.addressBook.getCart());
     }
 
     public ModelManager() {
@@ -179,6 +181,17 @@ public class ModelManager implements Model {
     public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
         requireNonNull(predicate);
         filteredRecipes.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Ingredient> getFilteredCart() {
+        return filteredCart;
+    }
+
+    @Override
+    public void updateFilteredCart(Predicate<Ingredient> predicate) {
+        requireNonNull(predicate);
+        filteredCart.setPredicate(predicate);
     }
 
     @Override

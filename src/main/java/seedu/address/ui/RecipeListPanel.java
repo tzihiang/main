@@ -8,7 +8,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of recipes.
  */
 public class RecipeListPanel extends UiPart<Region> {
     private static final String FXML = "RecipeListPanel.fxml";
@@ -24,7 +24,7 @@ public class RecipeListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Recipe} using a {@code RecipeCard}.
      */
     static class RecipeListViewCell extends ListCell<Recipe> {
         @Override

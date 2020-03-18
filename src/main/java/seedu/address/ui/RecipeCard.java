@@ -10,7 +10,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Recipe}.
  */
 public class RecipeCard extends UiPart<Region> {
 

@@ -131,4 +131,13 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRecipeList(Predicate<Recipe> predicate);
+
+    /** Returns an unmodifiable view of the filtered cart */
+    ObservableList<Ingredient> getFilteredCart();
+
+    /**
+     * Updates the filter of the filtered cart to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredCart(Predicate<Ingredient> predicate);
 }

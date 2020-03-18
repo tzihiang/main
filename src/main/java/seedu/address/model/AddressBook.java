@@ -19,6 +19,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final Inventory inventory;
     private final Cookbook cookbook;
+    private final Cart cart;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -31,6 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
         inventory = new Inventory();
         cookbook = new Cookbook();
+        cart = new Cart();
     }
 
     public AddressBook() {}
@@ -71,6 +73,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the cart with {@code ingredients}
+     * {@code ingredients} must not contain duplicate ingredients.
+     */
+    public void setCart(List<Ingredient> ingredients) {
+        this.cart.setIngredients(ingredients);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -79,6 +89,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setIngredients(newData.getIngredientList());
         setRecipes(newData.getRecipeList());
+        setCart(newData.getCart());
     }
 
     //// person-level operations
@@ -184,6 +195,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         cookbook.removeRecipe(key);
     }
 
+    public void addCartIngredient(Ingredient sampleCartIngredient) {
+        cart.addIngredient(sampleCartIngredient);
+    }
+
     //// util methods
 
     @Override
@@ -205,6 +220,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Recipe> getRecipeList() {
         return cookbook.getRecipeList();
+    }
+
+    @Override
+    public ObservableList<Ingredient> getCart() {
+        return cart.getIngredientList();
     }
 
     @Override
