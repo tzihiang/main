@@ -14,6 +14,7 @@ import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.model.person.Name;
 import seedu.address.model.recipe.RecipeDescription;
 import seedu.address.model.recipe.RecipeName;
+import seedu.address.model.step.Step;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -110,6 +111,22 @@ public class ParserUtil {
         }
         return new IngredientQuantity(trimmedIngredientQuantity);
     }
+
+    /**
+     * Parses an {@code String stepDescription} into an {@code Step}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Step} is invalid.
+     */
+    public static Step parseStep(String stepDescription) throws ParseException {
+        requireNonNull(stepDescription);
+        String trimmedStepDescription = stepDescription.trim();
+        if (!Step.isValidStep(trimmedStepDescription)) {
+            throw new ParseException(Step.MESSAGE_CONSTRAINTS);
+        }
+        return new Step(trimmedStepDescription);
+    }
+
 
     /**
      * Parses a {@code String tag} into a {@code Tag}.
