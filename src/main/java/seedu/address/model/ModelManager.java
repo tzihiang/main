@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
 
@@ -23,6 +24,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Ingredient> filteredIngredients;
+    private final FilteredList<Recipe> filteredRecipes;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -36,6 +39,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredIngredients = new FilteredList<>(this.addressBook.getIngredientList());
+        filteredRecipes = new FilteredList<>(this.addressBook.getRecipeList());
     }
 
     public ModelManager() {
@@ -97,7 +102,7 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hasRecipe(Recipe recipe) {
-        // TODO: implement
+        requireNonNull(recipe);
         return false;
     }
 
@@ -114,8 +119,8 @@ public class ModelManager implements Model {
 
     @Override
     public void addRecipe(Recipe recipe) {
-        // TODO: implement
-        return;
+        addressBook.addRecipe(recipe);
+        updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
     }
 
     @Override
@@ -143,21 +148,31 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Recipe> getFilteredRecipeList() {
-        // TODO: implement
-        return null;
-    }
-
-    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
 
     @Override
+    public ObservableList<Ingredient> getFilteredIngredientList() {
+        return filteredIngredients;
+    }
+
+    @Override
+    public void updateFilteredIngredientList(Predicate<Ingredient> predicate) {
+        requireNonNull(predicate);
+        filteredIngredients.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Recipe> getFilteredRecipeList() {
+        return filteredRecipes;
+    }
+
+    @Override
     public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
-        // TODO: implement
-        return;
+        requireNonNull(predicate);
+        filteredRecipes.setPredicate(predicate);
     }
 
     @Override

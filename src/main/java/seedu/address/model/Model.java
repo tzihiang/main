@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
 
@@ -101,14 +102,23 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Recipe> getFilteredRecipeList();
-
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /** Returns an unmodifiable view of the filtered ingredient list */
+    ObservableList<Ingredient> getFilteredIngredientList();
+
+    /**
+     * Updates the filter of the filtered ingredient list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredIngredientList(Predicate<Ingredient> predicate);
+
+    /** Returns an unmodifiable view of the filtered recipe list */
+    ObservableList<Recipe> getFilteredRecipeList();
 
     /**
      * Updates the filter of the filtered recipe list to filter by the given {@code predicate}.

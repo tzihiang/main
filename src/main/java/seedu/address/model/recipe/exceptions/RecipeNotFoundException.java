@@ -1,6 +1,10 @@
 package seedu.address.model.recipe.exceptions;
 
 /**
- * Signals that the operation is unable to find the specified recipe.
+ *  Returns that the recipe is not found within the list
  */
-public class RecipeNotFoundException extends RuntimeException {}
+public class RecipeNotFoundException extends RuntimeException {
+    public RecipeNotFoundException() {
+        super("Recipe is not found in the list.");
+    }
+}
