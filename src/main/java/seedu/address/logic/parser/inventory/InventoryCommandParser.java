@@ -38,9 +38,9 @@ public class InventoryCommandParser implements Parser<InventoryCommand> {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
         case InventoryAddIngredientCommand.COMMAND_WORD:
-            //TODO : return new InventoryAddIngredientCommandParser().parse(arguments);
+            return new InventoryAddIngredientCommandParser().parse(arguments);
         case InventoryRemoveIngredientCommand.COMMAND_WORD:
-            //TODO: return new InventoryRemoveIngredientCommandParser().parse(arguments);
+            return new InventoryRemoveIngredientCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
