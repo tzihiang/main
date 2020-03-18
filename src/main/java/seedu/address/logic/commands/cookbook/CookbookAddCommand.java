@@ -22,7 +22,7 @@ public class CookbookAddCommand extends CookbookCommand {
             + PREFIX_RECIPE_NAME + "NAME "
             + PREFIX_RECIPE_DESCRIPTION + "DESCRIPTION\n"
             + "Example: "
-            + COMMAND_WORD + " " + COMMAND_WORD + " "
+            + COMMAND_CATEGORY + " " + COMMAND_WORD + " "
             + PREFIX_RECIPE_NAME + "Bacon Carbonara "
             + PREFIX_RECIPE_DESCRIPTION + "An Italian classic pasta dish with creamy egg sauce"
             + " and bacon topped with salty Parmesan cheese.";
