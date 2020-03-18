@@ -39,19 +39,6 @@ public class Recipe {
     }
 
     /**
-     * Recipe constructor for only recipe name, description, and tags.
-     * Every field must be present and not null.
-     */
-    public Recipe(RecipeName name, RecipeDescription description, Set<Tag> tags) {
-        requireAllNonNull(name, description);
-        this.name = name;
-        this.description = description;
-        this.ingredients = null;
-        this.steps = null;
-        this.tags.addAll(tags);
-    }
-
-    /**
      * Recipe constructor for optional fields
      * Every field must be present and not null.
      */

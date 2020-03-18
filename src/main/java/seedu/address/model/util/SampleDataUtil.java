@@ -9,11 +9,13 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
+import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.RecipeDescription;
 import seedu.address.model.recipe.RecipeName;
+import seedu.address.model.step.UniqueStepList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -64,18 +66,22 @@ public class SampleDataUtil {
 
     public static Recipe[] getSampleRecipes() {
         return new Recipe[]{
-            new Recipe(new RecipeName("Scrambled egg"),
+            new Recipe(new RecipeName("Scrambled eggs"),
                 new RecipeDescription("Gordan Ramsay's famous creamy and fluffy scrambled eggs."),
+                new UniqueIngredientList(), new UniqueStepList(),
                 getTagSet("Simple", "Celebrity")),
             new Recipe(new RecipeName("Carbonara"),
                 new RecipeDescription("The best dish sold in NUS."),
+                new UniqueIngredientList(), new UniqueStepList(),
                 getTagSet("Pasta", "Italian", "Simple", "Creamy")),
             new Recipe(new RecipeName("Aglio olio"),
                 new RecipeDescription("A traditional Italian pasta dish made "
                     + "with garlic in olive oil, and dried red chili flakes."),
+                new UniqueIngredientList(), new UniqueStepList(),
                 getTagSet("Pasta", "Spicy", "Italian", "Vegan")),
             new Recipe(new RecipeName("Spaghetti bolognese"),
                 new RecipeDescription("Jaime Oliver's great version of the classic Italian Bolognese."),
+                new UniqueIngredientList(), new UniqueStepList(),
                 getTagSet("Pasta", "Tomatoes", "Celebrity"))
         };
     }
