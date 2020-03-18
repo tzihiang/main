@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.recipe.RecipeAddCommand;
 import seedu.address.logic.commands.recipe.RecipeCommand;
+import seedu.address.logic.commands.recipe.RecipeRemoveCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -37,6 +38,8 @@ public class RecipeCommandParser implements Parser<RecipeCommand> {
         switch (commandWord) {
         case RecipeAddCommand.COMMAND_WORD:
             return new RecipeAddCommandParser().parse(index + " " + arguments);
+        case RecipeRemoveCommand.COMMAND_WORD:
+            return new RecipeRemoveCommandParser().parse(index + " " + arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
