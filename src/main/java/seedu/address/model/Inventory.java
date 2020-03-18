@@ -70,7 +70,9 @@ public class Inventory implements ReadOnlyIngredientList {
         return "";
     }
 
-    public UniqueIngredientList getUniqueIngredientList() {return ingredients;}
+    public UniqueIngredientList getUniqueIngredientList() {
+        return ingredients;
+    }
 
     @Override
     public ObservableList<Ingredient> getIngredientList() {

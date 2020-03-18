@@ -1,9 +1,7 @@
 package seedu.address.logic.parser.cart;
 
-
 import seedu.address.logic.commands.cart.CartAddIngredientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 
 /**
  * Parses input arguments and creates a new CartAddIngredientCommand object

@@ -1,8 +1,12 @@
 package seedu.address.logic.commands.inventory;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.model.ingredient.Ingredient;
 
-import static java.util.Objects.requireNonNull;
+/**
+ * Removes an ingredient to the inventory
+ */
 
 public class InventoryRemoveIngredientCommand {
 

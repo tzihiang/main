@@ -7,7 +7,11 @@ import seedu.address.model.ingredient.Ingredient;
 
 import static java.util.Objects.requireNonNull;
 
-public class CartRemoveIngredientCommand extends CartCommand{
+/**
+ * Adds an ingredient to the cart
+ */
+
+public class CartRemoveIngredientCommand extends CartCommand {
 
     public static final String COMMAND_WORD = "remove";
     public static final String MESSAGE_SUCCESS = "Ingredient removed: %1$s";

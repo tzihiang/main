@@ -4,6 +4,9 @@ import seedu.address.logic.commands.inventory.InventoryCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new InventoryRemoveIngredientCommand object
+ */
 public class InventoryRemoveIngredientCommandParser implements Parser<InventoryCommand> {
 
     /**

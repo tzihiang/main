@@ -1,12 +1,12 @@
 package seedu.address.logic.commands.cart;
 
+import java.util.Optional;
+
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.Cart;
 import seedu.address.model.ReadOnlyIngredientList;
 import seedu.address.model.ingredient.UniqueIngredientList;
-
-import java.util.Optional;
 
 /**
  * Represents an Cart command with hidden internal logic and the ability to be executed.

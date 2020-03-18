@@ -1,12 +1,12 @@
 package seedu.address.logic.commands.inventory;
 
+import java.util.Optional;
+
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.Inventory;
 import seedu.address.model.ReadOnlyIngredientList;
 import seedu.address.model.ingredient.UniqueIngredientList;
-
-import java.util.Optional;
 
 /**
  * Represents an inventory command with hidden internal logic and the ability to be executed.
@@ -35,7 +35,8 @@ public abstract class InventoryCommand extends Command {
          * Creates and returns a {@code Inventory} with the details of {@code inventoryToEdit}
          * edited with {@code editInventoryDescriptor}.
          */
-        public static Inventory createEditedInventory(Inventory inventoryToEdit, EditInventoryDescriptor editInventoryDescriptor) {
+        public static Inventory createEditedInventory(Inventory inventoryToEdit,
+                EditInventoryDescriptor editInventoryDescriptor) {
             assert inventoryToEdit != null;
 
             UniqueIngredientList updatedIngredients = editInventoryDescriptor.getIngredients()

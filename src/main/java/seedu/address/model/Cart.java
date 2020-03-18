@@ -13,7 +13,7 @@ import seedu.address.model.ingredient.UniqueIngredientList;
  * Wraps all data at the cart level
  * Duplicates are not allowed
  */
-public class Cart implements ReadOnlyIngredientList{
+public class Cart implements ReadOnlyIngredientList {
 
     private final UniqueIngredientList ingredients = new UniqueIngredientList();
 
@@ -70,7 +70,9 @@ public class Cart implements ReadOnlyIngredientList{
         return "";
     }
 
-    public UniqueIngredientList getUniqueIngredientList() {return ingredients;}
+    public UniqueIngredientList getUniqueIngredientList() {
+        return ingredients;
+    }
 
     @Override
     public ObservableList<Ingredient> getIngredientList() {
