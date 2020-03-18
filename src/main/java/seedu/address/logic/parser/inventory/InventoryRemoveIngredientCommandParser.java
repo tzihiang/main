@@ -1,4 +1,17 @@
 package seedu.address.logic.parser.inventory;
 
-public class InventoryRemoveIngredientCommandParser {
+import seedu.address.logic.commands.inventory.InventoryCommand;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.exceptions.ParseException;
+
+public class InventoryRemoveIngredientCommandParser implements Parser<InventoryCommand> {
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the InventoryCommand
+     * and returns a InventoryRemoveCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public InventoryCommand parse(String args) throws ParseException {
+        throw new ParseException("Not implemented yet");
+    }
 }
