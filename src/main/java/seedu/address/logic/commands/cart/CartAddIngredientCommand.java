@@ -1,5 +1,8 @@
 package seedu.address.logic.commands.cart;
 
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
 
 import static java.util.Objects.requireNonNull;
@@ -8,7 +11,7 @@ import static java.util.Objects.requireNonNull;
  * Adds an ingredient to the cart
  */
 
-public class CartAddIngredientCommand {
+public class CartAddIngredientCommand extends CartCommand{
 
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_SUCCESS = "New ingredient added: %1$s";
@@ -32,4 +35,10 @@ public class CartAddIngredientCommand {
                 && toAdd.equals(((CartAddIngredientCommand) other).toAdd));
     }
 
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+        // TODO: Implement this model
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
 }

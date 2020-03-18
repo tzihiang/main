@@ -1,10 +1,13 @@
 package seedu.address.logic.commands.cart;
 
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
 
 import static java.util.Objects.requireNonNull;
 
-public class CartRemoveIngredientCommand {
+public class CartRemoveIngredientCommand extends CartCommand{
 
     public static final String COMMAND_WORD = "remove";
     public static final String MESSAGE_SUCCESS = "Ingredient removed: %1$s";
@@ -28,4 +31,10 @@ public class CartRemoveIngredientCommand {
                 && toRemove.equals(((CartRemoveIngredientCommand) other).toRemove));
     }
 
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+        // TODO: Implement this model
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));
+    }
 }
