@@ -10,16 +10,16 @@ import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.UniqueIngredientList;
 
 /**
- * Wraps all data at the inventory level
+ * Wraps all data at the cart level
  * Duplicates are not allowed
  */
-public class Inventory implements ReadOnlyIngredientList {
+public class Cart implements ReadOnlyIngredientList {
 
     private final UniqueIngredientList ingredients = new UniqueIngredientList();
 
-    public Inventory() {}
+    public Cart() {}
 
-    public Inventory(ReadOnlyIngredientList toBeCopied) {
+    public Cart(ReadOnlyIngredientList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -45,7 +45,7 @@ public class Inventory implements ReadOnlyIngredientList {
     // For ingredient level:
 
     /**
-     * Returns true if an ingredient with the same identity as {@code ingredient} exists in the inventory.
+     * Returns true if an ingredient with the same identity as {@code ingredient} exists in the cart.
      */
     public boolean hasIngredient(Ingredient ingredient) {
         requireNonNull(ingredient);
@@ -57,8 +57,8 @@ public class Inventory implements ReadOnlyIngredientList {
     }
 
     /**
-     * Removes {@code key} from this {@code inventory}.
-     * {@code key} must exist in the inventory.
+     * Removes {@code key} from this {@code Cart}.
+     * {@code key} must exist in the cart.
      */
     public void removeIngredient(Ingredient key) {
         ingredients.remove(key);
@@ -82,7 +82,7 @@ public class Inventory implements ReadOnlyIngredientList {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Inventory // instanceof handles nulls
-                && ingredients.equals(((Inventory) other).ingredients));
+                || (other instanceof Cart // instanceof handles nulls
+                && ingredients.equals(((Cart) other).ingredients));
     }
 }

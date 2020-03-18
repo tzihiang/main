@@ -5,7 +5,7 @@ package seedu.address.model.ingredient.exceptions;
  */
 public class DuplicateIngredientException extends RuntimeException {
     public DuplicateIngredientException() {
-        super("The ingredient you are trying to add already exists");
+        super("The ingredient you are trying to add already exists.");
     }
 
 }
