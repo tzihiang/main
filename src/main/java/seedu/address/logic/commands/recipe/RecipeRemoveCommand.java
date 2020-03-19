@@ -3,9 +3,10 @@ package seedu.address.logic.commands.recipe;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
- * Remove a step or ingredient in a recipe inside the cookbook.
+ * Remove a step/ingredient/tag in a recipe inside the cookbook.
  */
 public abstract class RecipeRemoveCommand extends RecipeCommand {
 
@@ -26,5 +27,11 @@ public abstract class RecipeRemoveCommand extends RecipeCommand {
             + PREFIX_STEP_INDEX + "STEP_INDEX\n"
             + "Example: " + COMMAND_CATEGORY + " 1 "
             + COMMAND_WORD + " "
-            + PREFIX_STEP_INDEX + "1 ";
+            + PREFIX_STEP_INDEX + "1\n"
+            + "Parameters for removing a tag to a recipe: "
+            + "INDEX (must be a positive integer)"
+            + PREFIX_TAG + "TAG_NAME\n"
+            + "Example: " + COMMAND_CATEGORY + " 1 "
+            + COMMAND_WORD + " "
+            + PREFIX_TAG + "Pasta";
 }

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -11,26 +12,23 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.step.Step;
-import seedu.address.model.step.UniqueStepList;
+import seedu.address.model.tag.Tag;
 
 /**
- * Adds a step to a recipe.
+ * Adds a tag to a recipe.
  */
-public class RecipeAddStepCommand extends RecipeAddCommand {
+public class RecipeAddTagCommand extends RecipeAddCommand {
 
-    public static final String MESSAGE_SUCCESS = "New step added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New tag added: %1$s";
+    public static final String MESSAGE_DUPLICATE_STEPS = "This tag already exists in the recipe";
 
     private final Index recipeIndex;
-    private final Index stepIndex;
-    private final Step toAdd;
+    private final Tag toAdd;
 
-    public RecipeAddStepCommand(Index recipeIndex, Index stepIndex, Step toAdd) {
+    public RecipeAddTagCommand(Index recipeIndex, Tag toAdd) {
         requireNonNull(recipeIndex);
-        requireNonNull(stepIndex);
         requireNonNull(toAdd);
         this.recipeIndex = recipeIndex;
-        this.stepIndex = stepIndex;
         this.toAdd = toAdd;
     }
 
@@ -44,21 +42,14 @@ public class RecipeAddStepCommand extends RecipeAddCommand {
         }
 
         Recipe recipeToEdit = lastShownList.get(recipeIndex.getZeroBased());
-        UniqueStepList targetStepList = recipeToEdit.getSteps();
+        Set<Tag> targetTagSet = recipeToEdit.getTags();
 
-        if (stepIndex.getZeroBased() > targetStepList.asUnmodifiableObservableList().size()) {
-            // ensure the step index is valid
-            throw new CommandException((Messages.MESSAGE_INVALID_STEP_DISPLAYED_INDEX));
+        if (!targetTagSet.add(toAdd)) {
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_TAG);
         }
-
-        if (targetStepList.contains(toAdd)) {
-            throw new CommandException(((Messages.MESSAGE_DUPLICATE_STEPS)));
-        }
-
-        targetStepList.add(stepIndex, toAdd);
 
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
-        editRecipeDescriptor.setSteps(targetStepList);
+        editRecipeDescriptor.setTags(targetTagSet);
         Recipe editedRecipe = EditRecipeDescriptor.createEditedRecipe(recipeToEdit, editRecipeDescriptor);
         model.setCookbookRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredCookbookRecipeList(PREDICATE_SHOW_ALL_RECIPES);
@@ -69,8 +60,7 @@ public class RecipeAddStepCommand extends RecipeAddCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof RecipeAddStepCommand // instanceof handles nulls
-                && toAdd.equals(((RecipeAddStepCommand) other).toAdd)
-                && stepIndex.equals(((RecipeAddStepCommand) other).stepIndex));
+                || (other instanceof RecipeAddTagCommand // instanceof handles nulls
+                && toAdd.equals(((RecipeAddTagCommand) other).toAdd));
     }
 }

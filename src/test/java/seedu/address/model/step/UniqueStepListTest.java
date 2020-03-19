@@ -90,7 +90,7 @@ public class UniqueStepListTest {
 
     @Test
     public void remove_nullStep_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueStepList.remove(null));
+        assertThrows(NullPointerException.class, () -> uniqueStepList.remove((Step) null));
     }
 
     @Test
