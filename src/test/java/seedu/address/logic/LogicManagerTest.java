@@ -22,9 +22,15 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCart;
+import seedu.address.model.ReadOnlyCookbook;
+import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonCartStorage;
+import seedu.address.storage.JsonCookbookStorage;
+import seedu.address.storage.JsonInventoryStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
@@ -40,10 +46,14 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonCookbookStorage cookbookStorage =
+                new JsonCookbookStorage(temporaryFolder.resolve("cookbook.json"));
+        JsonInventoryStorage inventoryStorage =
+                new JsonInventoryStorage(temporaryFolder.resolve("inventory.json"));
+        JsonCartStorage cartStorage =
+                new JsonCartStorage(temporaryFolder.resolve("cart.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(cookbookStorage, inventoryStorage, cartStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -67,12 +77,17 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        // Setup LogicManager with JsonCookbookIoExceptionThrowingStub, JsonInventoryIoExceptionThrowingStub,
+        // and JsonCartIoExceptionThrowingStub
+        JsonCookbookStorage cookbookStorage =
+                new JsonCookbookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionCookbook.json"));
+        JsonInventoryStorage inventoryStorage =
+                new JsonInventoryIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionInventory.json"));
+        JsonCartStorage cartStorage =
+                new JsonCartIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionCart.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(cookbookStorage, inventoryStorage, cartStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -125,7 +140,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getCookbook(), model.getInventory(),
+                model.getCart(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -152,6 +168,48 @@ public class LogicManagerTest {
 
         @Override
         public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonCookbookIoExceptionThrowingStub extends JsonCookbookStorage {
+        private JsonCookbookIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveCookbook(ReadOnlyCookbook cookbook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonInventoryIoExceptionThrowingStub extends JsonInventoryStorage {
+        private JsonInventoryIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveInventory(ReadOnlyInventory inventory, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonCartIoExceptionThrowingStub extends JsonCartStorage {
+        private JsonCartIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveCart(ReadOnlyCart cart, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

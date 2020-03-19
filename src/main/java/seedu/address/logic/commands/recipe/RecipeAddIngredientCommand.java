@@ -39,7 +39,7 @@ public class RecipeAddIngredientCommand extends RecipeAddCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Recipe> lastShownList = model.getFilteredRecipeList();
+        List<Recipe> lastShownList = model.getFilteredCookbookRecipeList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
@@ -53,8 +53,8 @@ public class RecipeAddIngredientCommand extends RecipeAddCommand {
         editRecipeDescriptor.setIngredients(ingredients);
         Recipe editedRecipe = EditRecipeDescriptor.createEditedRecipe(recipeToEdit, editRecipeDescriptor);
 
-        model.setRecipe(recipeToEdit, editedRecipe);
-        model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+        model.setCookbookRecipe(recipeToEdit, editedRecipe);
+        model.updateFilteredCookbookRecipeList(PREDICATE_SHOW_ALL_RECIPES);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

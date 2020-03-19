@@ -28,6 +28,9 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new Cookbook(), new Cookbook(modelManager.getCookbook()));
+        assertEquals(new Inventory(), new Inventory(modelManager.getInventory()));
+        assertEquals(new Cart(), new Cart(modelManager.getCart()));
     }
 
     @Test
@@ -39,6 +42,9 @@ public class ModelManagerTest {
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setCookbookFilePath(Paths.get("cookbook/file/path"));
+        userPrefs.setInventoryFilePath(Paths.get("inventory/file/path"));
+        userPrefs.setCartFilePath(Paths.get("cart/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
@@ -46,6 +52,9 @@ public class ModelManagerTest {
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
         userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setCookbookFilePath(Paths.get("new/cookbook/file/path"));
+        userPrefs.setInventoryFilePath(Paths.get("new/inventory/file/path"));
+        userPrefs.setCartFilePath(Paths.get("new/cart/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -74,6 +83,42 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void setCookbookFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setCookbookFilePath(null));
+    }
+
+    @Test
+    public void setCookbookFilePath_validPath_setsCookbookFilePath() {
+        Path path = Paths.get("cookbook/file/path");
+        modelManager.setCookbookFilePath(path);
+        assertEquals(path, modelManager.getCookbookFilePath());
+    }
+
+    @Test
+    public void setInventoryFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setInventoryFilePath(null));
+    }
+
+    @Test
+    public void setInventoryFilePath_validPath_setsInventoryFilePath() {
+        Path path = Paths.get("inventory/file/path");
+        modelManager.setInventoryFilePath(path);
+        assertEquals(path, modelManager.getInventoryFilePath());
+    }
+
+    @Test
+    public void setCartFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setCartFilePath(null));
+    }
+
+    @Test
+    public void setCartFilePath_validPath_setsCartFilePath() {
+        Path path = Paths.get("cart/file/path");
+        modelManager.setCartFilePath(path);
+        assertEquals(path, modelManager.getCartFilePath());
+    }
+
+    @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
     }
@@ -90,18 +135,19 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasRecipe_nullRecipe_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasRecipe(null));
+    public void hasCookbookRecipe_nullRecipe_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasCookbookRecipe(null));
     }
 
     @Test
-    public void hasRecipe_recipeNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasRecipe(CARBONARA));
+    public void hasCookbookRecipe_recipeNotInCookbook_returnsFalse() {
+        assertFalse(modelManager.hasCookbookRecipe(CARBONARA));
     }
 
     @Test
-    public void hasRecipe_recipeInAddressBook_returnsTrue() {
-        modelManager.addRecipe(CARBONARA);
+    public void hasCookbookRecipe_recipeInCookbook_returnsTrue() {
+        modelManager.addCookbookRecipe(CARBONARA);
+        assertTrue(modelManager.hasCookbookRecipe(CARBONARA));
     }
 
     @Test
@@ -110,8 +156,8 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getFilteredRecipeList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredRecipeList().remove(0));
+    public void getFilteredCookbookRecipeList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredCookbookRecipeList().remove(0));
     }
 
     @Test
@@ -121,8 +167,9 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(addressBook, new Cookbook(), new Inventory(), new Cart(), userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, new Cookbook(), new Inventory(), new Cart(),
+                userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -135,12 +182,14 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, new Cookbook(), new Inventory(),
+                new Cart(), userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, new Cookbook(), new Inventory(), new Cart(),
+                userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -148,6 +197,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, new Cookbook(), new Inventory(), new Cart(),
+                differentUserPrefs)));
     }
 }
