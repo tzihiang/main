@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.step.exceptions.DuplicateStepException;
 import seedu.address.model.step.exceptions.StepNotFoundException;
 
@@ -48,6 +49,19 @@ public class UniqueStepList implements Iterable<Step> {
     }
 
     /**
+     * Adds a step to given index in the list.
+     * The step must not already exist in the list.
+     */
+    public void add(Index index, Step toAdd) {
+        requireNonNull(toAdd);
+        requireAllNonNull(index);
+        if (contains(toAdd)) {
+            throw new DuplicateStepException();
+        }
+        internalList.add(index.getZeroBased(), toAdd);
+    }
+
+    /**
      * Replaces the step {@code target} in the list with {@code editedStep}.
      * {@code target} must exist in the list.
      * The stepDescription of {@code editedStep} must not be the same as another existing step in the list.
@@ -76,6 +90,16 @@ public class UniqueStepList implements Iterable<Step> {
         if (!internalList.remove(toRemove)) {
             throw new StepNotFoundException();
         }
+    }
+
+    /**
+     * Removes the step from given index  in the list.
+     * The step must exist in the list.
+     */
+    public Step remove(Index index) {
+        requireNonNull(index);
+        Step toRemove = internalList.remove(index.getZeroBased());
+        return toRemove;
     }
 
     public void setSteps(UniqueStepList replacement) {

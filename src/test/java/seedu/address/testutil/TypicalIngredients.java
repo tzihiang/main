@@ -1,14 +1,16 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALMOND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BANANA;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_ALMOND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_BANANA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_NAME_ALMOND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_NAME_BANANA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_QUANTITY_ALMOND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_QUANTITY_BANANA;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.model.Cart;
+import seedu.address.model.Inventory;
 import seedu.address.model.ingredient.Ingredient;
 
 /**
@@ -29,14 +31,36 @@ public class TypicalIngredients {
     public static final Ingredient ICECUBES = new IngredientBuilder().withName("Ice cubes").build();
 
     // Manually added - Ingredient's details found in {@code CommandTestUtil}
-    public static final Ingredient ALMOND = new IngredientBuilder().withName(VALID_NAME_ALMOND)
-            .withQuantity(VALID_QUANTITY_ALMOND).build();
-    public static final Ingredient BANANA = new IngredientBuilder().withName(VALID_NAME_BANANA)
-            .withQuantity(VALID_QUANTITY_BANANA).build();
+    public static final Ingredient ALMOND = new IngredientBuilder().withName(VALID_INGREDIENT_NAME_ALMOND)
+            .withQuantity(VALID_INGREDIENT_QUANTITY_ALMOND).build();
+    public static final Ingredient BANANA = new IngredientBuilder().withName(VALID_INGREDIENT_NAME_BANANA)
+            .withQuantity(VALID_INGREDIENT_QUANTITY_BANANA).build();
 
     public static final String KEYWORD_MATCHING_APPLE = "Apple"; // A keyword that matches APPLE
 
     private TypicalIngredients() {} // prevents instantiation
+
+    /**
+     * Returns an {@code Inventory} with all the typical ingredients.
+     */
+    public static Inventory getTypicalInventory() {
+        Inventory inventory = new Inventory();
+        for (Ingredient ingredient : getTypicalIngredients()) {
+            inventory.addIngredient(ingredient);
+        }
+        return inventory;
+    }
+
+    /**
+     * Returns a {@code Cart} with all the typical Ingredients.
+     */
+    public static Cart getTypicalCart() {
+        Cart cart = new Cart();
+        for (Ingredient ingredient : getTypicalIngredients()) {
+            cart.addIngredient(ingredient);
+        }
+        return cart;
+    }
 
     public static List<Ingredient> getTypicalIngredients() {
         return new ArrayList<>(Arrays.asList(APPLE, BUTTER, CHICKEN, DUCK, EGG, FLOUR, GARLIC));
