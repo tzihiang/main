@@ -11,13 +11,14 @@ import javafx.collections.ObservableList;
 import seedu.address.model.recipe.exceptions.DuplicateRecipeException;
 import seedu.address.model.recipe.exceptions.RecipeNotFoundException;
 
+
 /**
  * A list of recipes that enforces uniqueness between its elements and does not allow nulls.
  * A recipe is considered unique by comparing using {@code Recipe#isSameRecipe(Recipe)}. As such, adding and updating of
  * recipes uses Recipe#isSameRecipe(Recipe) for equality so as to ensure that the recipe being added or updated is
  * unique in terms of identity in the UniqueRecipeList. However, the removal of a recipe uses Recipe#equals(Object) so
  * as to ensure that the recipe with exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Recipe#isSameRecipe(Recipe)
@@ -29,16 +30,18 @@ public class UniqueRecipeList implements Iterable<Recipe> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent recipe as the given argument.
+     * Checks if otherRecipe already exists in the list.
+     *
+     * @param otherRecipe
+     * @return true is otherRecipe exists, false otherwise.
      */
-    public boolean contains(Recipe toCheck) {
-        requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameRecipe);
+    public boolean contains(Recipe otherRecipe) {
+        requireNonNull(otherRecipe);
+        return internalList.stream().anyMatch(otherRecipe::isSameRecipe);
     }
 
     /**
-     * Adds a recipe to the list.
-     * The recipe must not already exist in the list.
+     * Adds an recipe to the list if it does not yet exist.
      */
     public void add(Recipe toAdd) {
         requireNonNull(toAdd);
@@ -69,16 +72,11 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     }
 
     /**
-     * Removes the equivalent recipe from the list.
-     * The recipe must exist in the list.
+     * Replaces all the current recipes in UniqueRecipeList and replaces it with {@code replacement}.
+     * {@code replacement} must exist.
+     *
+     * @param replacement
      */
-    public void remove(Recipe toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new RecipeNotFoundException();
-        }
-    }
-
     public void setRecipes(UniqueRecipeList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -98,6 +96,16 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     }
 
     /**
+     * Removes the recipe from the list, provided it exists.
+     */
+    public void remove(Recipe toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new RecipeNotFoundException();
+        }
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Recipe> asUnmodifiableObservableList() {
@@ -107,18 +115,6 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     @Override
     public Iterator<Recipe> iterator() {
         return internalList.iterator();
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof UniqueRecipeList // instanceof handles nulls
-                        && internalList.equals(((UniqueRecipeList) other).internalList));
-    }
-
-    @Override
-    public int hashCode() {
-        return internalList.hashCode();
     }
 
     /**
@@ -133,5 +129,17 @@ public class UniqueRecipeList implements Iterable<Recipe> {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UniqueRecipeList // instanceof handles nulls
+                && internalList.equals(((UniqueRecipeList) other).internalList));
+    }
+
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
     }
 }

@@ -74,6 +74,12 @@ public interface Model {
     void deletePerson(Person target);
 
     /**
+     * Removes the given recipe.
+     * The recipe must exist in the cookbook.
+     */
+    void removeRecipe(Recipe recipe);
+
+    /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
@@ -119,6 +125,18 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /** Returns an unmodifiable view of the filtered ingredient list */
+    ObservableList<Ingredient> getFilteredIngredientList();
+
+    /**
+     * Updates the filter of the filtered ingredient list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredIngredientList(Predicate<Ingredient> predicate);
+
+    /** Returns an unmodifiable view of the filtered recipe list */
+    ObservableList<Recipe> getFilteredRecipeList();
 
     /**
      * Updates the filter of the filtered recipe list to filter by the given {@code predicate}.
