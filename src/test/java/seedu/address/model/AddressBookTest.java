@@ -108,6 +108,11 @@ public class AddressBookTest {
         public ObservableList<Recipe> getRecipeList() {
             return null;
         }
+
+        @Override
+        public ObservableList<Ingredient> getCart() {
+            return null;
+        }
     }
 
 }
