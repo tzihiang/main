@@ -65,12 +65,12 @@
 
                     <right>
                         <VBox>
-                            <VBox fx:id="cartIngredientList" styleClass="pane-with-border" minWidth="390"
+                            <VBox fx:id="inventoryIngredientList" styleClass="pane-with-border" minWidth="390"
                                   prefWidth="390" maxWidth="390" VBox.vgrow="ALWAYS">
                                 <padding>
                                     <Insets top="10" right="10" bottom="10" left="10"/>
                                 </padding>
-                                <StackPane fx:id="ingredientListPanelPlaceHolder" HBox.hgrow="ALWAYS"/>
+                                <StackPane fx:id="inventoryIngredientListPanelPlaceHolder" HBox.hgrow="ALWAYS"/>
                             </VBox>
 
                             <VBox fx:id="cartIngredientList1" styleClass="pane-with-border" minWidth="390"
@@ -78,7 +78,7 @@
                                 <padding>
                                     <Insets top="10" right="10" bottom="10" left="10"/>
                                 </padding>
-                                <StackPane fx:id="cartPanelPlaceHolder" HBox.hgrow="ALWAYS"/>
+                                <StackPane fx:id="cartIngredientListPanelPlaceHolder" HBox.hgrow="ALWAYS"/>
                             </VBox>
                         </VBox>
                     </right>
@@ -90,4 +90,3 @@
         </Scene>
     </scene>
 </fx:root>
-

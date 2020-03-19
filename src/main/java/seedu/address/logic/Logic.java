@@ -8,6 +8,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCart;
+import seedu.address.model.ReadOnlyCookbook;
+import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
@@ -32,14 +35,38 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
+    /**
+     * Returns the Cookbook.
+     *
+     * @see seedu.address.model.Model#getCookbook()
+     */
+    ReadOnlyCookbook getCookbook();
+
+    /**
+     * Returns the Inventory.
+     *
+     * @see seedu.address.model.Model#getInventory()
+     */
+    ReadOnlyInventory getInventory();
+
+    /**
+     * Returns the Cart.
+     *
+     * @see seedu.address.model.Model#getCart()
+     */
+    ReadOnlyCart getCart();
+
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the filtered list of ingredients */
-    ObservableList<Ingredient> getFilteredIngredientList();
+    /** Returns an unmodifiable view of the filtered list of cookbook recipes */
+    ObservableList<Recipe> getFilteredCookbookRecipeList();
 
-    /** Returns an unmodifiable view of the filtered list of recipes */
-    ObservableList<Recipe> getFilteredRecipeList();
+    /** Returns an unmodifiable view of the filtered list of inventory ingredients */
+    ObservableList<Ingredient> getFilteredInventoryIngredientList();
+
+    /** Returns an unmodifiable view of the filtered list of cart ingredients */
+    ObservableList<Ingredient> getFilteredCartIngredientList();
 
     /** Returns an unmodifiable view of the filtered cart */
     ObservableList<Ingredient> getFilteredCart();
@@ -48,6 +75,21 @@ public interface Logic {
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
+
+    /**
+     * Returns the user prefs' cookbook file path.
+     */
+    Path getCookbookFilePath();
+
+    /**
+     * Returns the user prefs' inventory file path.
+     */
+    Path getInventoryFilePath();
+
+    /**
+     * Returns the user prefs' cart file path.
+     */
+    Path getCartFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

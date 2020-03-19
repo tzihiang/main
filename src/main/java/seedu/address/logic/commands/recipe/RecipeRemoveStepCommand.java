@@ -1,14 +1,21 @@
 package seedu.address.logic.commands.recipe;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
+import java.util.List;
+
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.recipe.Recipe;
+import seedu.address.model.step.Step;
+import seedu.address.model.step.UniqueStepList;
 
 /**
- * todo
+ * Removes a step from a recipe.
  */
 public class RecipeRemoveStepCommand extends RecipeRemoveCommand {
 
@@ -26,6 +33,36 @@ public class RecipeRemoveStepCommand extends RecipeRemoveCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return null;
+        requireNonNull(model);
+        List<Recipe> lastShownList = model.getFilteredCookbookRecipeList();
+
+        if (recipeIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+        }
+
+        Recipe recipeToEdit = lastShownList.get(recipeIndex.getZeroBased());
+        UniqueStepList targetStepList = recipeToEdit.getSteps();
+
+        if (stepIndex.getZeroBased() > targetStepList.asUnmodifiableObservableList().size()) {
+            // ensure the step index is valid
+            throw new CommandException((Messages.MESSAGE_INVALID_STEP_DISPLAYED_INDEX));
+        }
+
+        Step toRemove = targetStepList.remove(stepIndex);
+
+        EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
+        editRecipeDescriptor.setSteps(targetStepList);
+        Recipe editedRecipe = EditRecipeDescriptor.createEditedRecipe(recipeToEdit, editRecipeDescriptor);
+        model.setCookbookRecipe(recipeToEdit, editedRecipe);
+        model.updateFilteredCookbookRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RecipeRemoveStepCommand // instanceof handles nulls
+                && stepIndex.equals(((RecipeRemoveStepCommand) other).stepIndex));
     }
 }
