@@ -172,11 +172,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        return filteredIngredients;
-    }
-
-    @Override
     public void updateFilteredIngredientList(Predicate<Ingredient> predicate) {
         requireNonNull(predicate);
         filteredIngredients.setPredicate(predicate);
