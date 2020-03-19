@@ -68,6 +68,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of cart ingredients */
     ObservableList<Ingredient> getFilteredCartIngredientList();
 
+    /** Returns an unmodifiable view of the filtered cart */
+    ObservableList<Ingredient> getFilteredCart();
+
     /**
      * Returns the user prefs' address book file path.
      */

@@ -7,11 +7,11 @@ import javafx.scene.layout.Region;
 import seedu.address.model.ingredient.Ingredient;
 
 /**
- * An UI component that displays information of a {@code UniqueIngredientList}.
+ * An UI component that displays information of a {@code Cart}.
  */
-public class IngredientCard extends UiPart<Region> {
+public class CartCard extends UiPart<Region> {
 
-    private static final String FXML = "IngredientListCard.fxml";
+    private static final String FXML = "CartCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -32,7 +32,7 @@ public class IngredientCard extends UiPart<Region> {
     @FXML
     private Label quantity;
 
-    public IngredientCard(Ingredient ingredient, int displayedIndex) {
+    public CartCard(Ingredient ingredient, int displayedIndex) {
         super(FXML);
         this.ingredient = ingredient;
         id.setText(displayedIndex + ". ");
@@ -48,12 +48,12 @@ public class IngredientCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof IngredientCard)) {
+        if (!(other instanceof CartCard)) {
             return false;
         }
 
         // state check
-        IngredientCard card = (IngredientCard) other;
+        CartCard card = (CartCard) other;
         return id.getText().equals(card.id.getText())
                 && ingredient.equals(card.ingredient);
     }
