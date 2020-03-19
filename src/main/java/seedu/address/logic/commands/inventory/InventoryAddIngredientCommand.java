@@ -11,7 +11,7 @@ import seedu.address.model.ingredient.Ingredient;
  * Adds an ingredient to the inventory
  */
 
-public class InventoryAddIngredientCommand extends InventoryAddCommand{
+public class InventoryAddIngredientCommand extends InventoryAddCommand {
 
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_SUCCESS = "New ingredient added: %1$s";

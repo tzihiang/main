@@ -142,7 +142,7 @@ public class ModelManager implements Model {
         return;
     }
     @Override
-    public void setInventory(Inventory target, Inventory editedInventory){
+    public void setInventory(Inventory target, Inventory editedInventory) {
         // TODO: implement
         return;
     }
