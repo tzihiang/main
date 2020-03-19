@@ -19,6 +19,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCart;
+import seedu.address.model.ReadOnlyCookbook;
+import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Person;
@@ -111,12 +114,32 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
+        public Path getCookbookFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addRecipe(Recipe person) {
+        public void setCookbookFilePath(Path cookbookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getInventoryFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setInventoryFilePath(Path inventoryFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getCartFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCartFilePath(Path cartFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -131,12 +154,37 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public void setCookbook(ReadOnlyCookbook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasRecipe(Recipe person) {
+        public ReadOnlyCookbook getCookbook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setInventory(ReadOnlyInventory newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyInventory getInventory() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCart(ReadOnlyCart newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyCart getCart() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -146,7 +194,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void removeRecipe(Recipe recipe) {
+        public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -156,7 +204,62 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setRecipe(Recipe target, Recipe editedPerson) {
+        public boolean hasCookbookRecipe(Recipe recipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeCookbookRecipe(Recipe recipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCookbookRecipe(Recipe recipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCookbookRecipe(Recipe target, Recipe editedRecipe) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasInventoryIngredient(Ingredient ingredient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeInventoryIngredient(Ingredient ingredient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addInventoryIngredient(Ingredient ingredient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setInventoryIngredient(Ingredient target, Ingredient editedIngredient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCartIngredient(Ingredient ingredient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeCartIngredient(Ingredient ingredient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCartIngredient(Ingredient ingredient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCartIngredient(Ingredient target, Ingredient editedIngredient) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -166,26 +269,37 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Recipe> getFilteredRecipeList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Ingredient> getFilteredIngredientList() {
-            return null;
+        public ObservableList<Recipe> getFilteredCookbookRecipeList() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredIngredientList(Predicate<Ingredient> predicate) {
+        public void updateFilteredCookbookRecipeList(Predicate<Recipe> predicate) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
+        public ObservableList<Ingredient> getFilteredInventoryIngredientList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredInventoryIngredientList(Predicate<Ingredient> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Ingredient> getFilteredCartIngredientList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredCartIngredientList(Predicate<Ingredient> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
