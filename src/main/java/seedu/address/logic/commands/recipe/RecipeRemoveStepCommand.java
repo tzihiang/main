@@ -15,7 +15,7 @@ import seedu.address.model.step.Step;
 import seedu.address.model.step.UniqueStepList;
 
 /**
- * Removes a step to a recipe.
+ * Removes a step from a recipe.
  */
 public class RecipeRemoveStepCommand extends RecipeRemoveCommand {
 
