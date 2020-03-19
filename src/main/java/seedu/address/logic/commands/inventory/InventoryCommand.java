@@ -5,7 +5,7 @@ import java.util.Optional;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.Inventory;
-import seedu.address.model.ReadOnlyIngredientList;
+import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.ingredient.UniqueIngredientList;
 
 /**
@@ -42,7 +42,7 @@ public abstract class InventoryCommand extends Command {
             UniqueIngredientList updatedIngredients = editInventoryDescriptor.getIngredients()
                     .orElse(inventoryToEdit.getUniqueIngredientList());
 
-            return new Inventory((ReadOnlyIngredientList) updatedIngredients);
+            return new Inventory((ReadOnlyInventory) updatedIngredients);
         }
         /**
          * Returns true if at least one field is edited.

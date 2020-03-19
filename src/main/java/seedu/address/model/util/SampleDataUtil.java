@@ -4,8 +4,12 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.Cart;
+import seedu.address.model.Cookbook;
+import seedu.address.model.Inventory;
+import seedu.address.model.ReadOnlyCart;
+import seedu.address.model.ReadOnlyCookbook;
+import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
@@ -19,7 +23,7 @@ import seedu.address.model.step.UniqueStepList;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code CookingPapa} with sample data.
  */
 public class SampleDataUtil {
 
@@ -34,17 +38,28 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyCookbook getSampleCookbook() {
+        Cookbook sampleCookbook = new Cookbook();
         for (Recipe sampleRecipe : getSampleRecipes()) {
-            sampleAb.addRecipe(sampleRecipe);
+            sampleCookbook.addRecipe(sampleRecipe);
         }
+        return sampleCookbook;
+    }
 
+    public static ReadOnlyInventory getSampleInventory() {
+        Inventory sampleInventory = new Inventory();
         for (Ingredient sampleIngredient : getSampleIngredients()) {
-            sampleAb.addIngredient(sampleIngredient);
+            sampleInventory.addIngredient(sampleIngredient);
         }
+        return sampleInventory;
+    }
 
-        return sampleAb;
+    public static ReadOnlyCart getSampleCart() {
+        Cart sampleCart = new Cart();
+        for (Ingredient sampleIngredient : getSampleIngredients()) {
+            sampleCart.addIngredient(sampleIngredient);
+        }
+        return sampleCart;
     }
 
     public static Ingredient[] getSampleIngredients() {
