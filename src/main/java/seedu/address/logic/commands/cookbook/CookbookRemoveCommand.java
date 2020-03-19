@@ -34,14 +34,14 @@ public class CookbookRemoveCommand extends CookbookCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Recipe> lastShownList = model.getFilteredRecipeList();
+        List<Recipe> lastShownList = model.getFilteredCookbookRecipeList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
         }
 
         Recipe recipeToRemove = lastShownList.get(targetIndex.getZeroBased());
-        model.removeRecipe(recipeToRemove);
+        model.removeCookbookRecipe(recipeToRemove);
         return new CommandResult(String.format(MESSAGE_REMOVE_RECIPE_SUCCESS, recipeToRemove));
     }
 

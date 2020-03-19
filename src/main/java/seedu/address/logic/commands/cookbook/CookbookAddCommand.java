@@ -44,11 +44,11 @@ public class CookbookAddCommand extends CookbookCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasRecipe(toAdd)) {
+        if (model.hasCookbookRecipe(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addRecipe(toAdd);
+        model.addCookbookRecipe(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
