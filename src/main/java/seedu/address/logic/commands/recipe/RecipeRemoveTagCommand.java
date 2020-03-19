@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -11,27 +12,24 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.step.Step;
-import seedu.address.model.step.UniqueStepList;
+
+import seedu.address.model.tag.Tag;
 
 /**
- * Adds a step to a recipe.
+ * Removes a tag to a recipe.
  */
-public class RecipeAddStepCommand extends RecipeAddCommand {
+public class RecipeRemoveTagCommand extends RecipeRemoveCommand {
 
-    public static final String MESSAGE_SUCCESS = "New step added: %1$s";
+    public static final String MESSAGE_SUCCESS = "Tag deleted: %1$s";
 
     private final Index recipeIndex;
-    private final Index stepIndex;
-    private final Step toAdd;
+    private final Tag toRemove;
 
-    public RecipeAddStepCommand(Index recipeIndex, Index stepIndex, Step toAdd) {
+    public RecipeRemoveTagCommand(Index recipeIndex, Tag toRemove) {
         requireNonNull(recipeIndex);
-        requireNonNull(stepIndex);
-        requireNonNull(toAdd);
+        requireNonNull(toRemove);
         this.recipeIndex = recipeIndex;
-        this.stepIndex = stepIndex;
-        this.toAdd = toAdd;
+        this.toRemove = toRemove;
     }
 
     @Override
@@ -44,33 +42,25 @@ public class RecipeAddStepCommand extends RecipeAddCommand {
         }
 
         Recipe recipeToEdit = lastShownList.get(recipeIndex.getZeroBased());
-        UniqueStepList targetStepList = recipeToEdit.getSteps();
+        Set<Tag> targetTagSet = recipeToEdit.getTags();
 
-        if (stepIndex.getZeroBased() > targetStepList.asUnmodifiableObservableList().size()) {
-            // ensure the step index is valid
-            throw new CommandException((Messages.MESSAGE_INVALID_STEP_DISPLAYED_INDEX));
+        if (!targetTagSet.remove(toRemove)) {
+            throw new CommandException((Messages.MESSAGE_INVALID_TAG));
         }
-
-        if (targetStepList.contains(toAdd)) {
-            throw new CommandException(((Messages.MESSAGE_DUPLICATE_STEPS)));
-        }
-
-        targetStepList.add(stepIndex, toAdd);
 
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
-        editRecipeDescriptor.setSteps(targetStepList);
+        editRecipeDescriptor.setTags(targetTagSet);
         Recipe editedRecipe = EditRecipeDescriptor.createEditedRecipe(recipeToEdit, editRecipeDescriptor);
         model.setRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof RecipeAddStepCommand // instanceof handles nulls
-                && toAdd.equals(((RecipeAddStepCommand) other).toAdd)
-                && stepIndex.equals(((RecipeAddStepCommand) other).stepIndex));
+                || (other instanceof RecipeRemoveTagCommand // instanceof handles nulls
+                && toRemove.equals(((RecipeRemoveTagCommand) other).toRemove));
     }
 }
