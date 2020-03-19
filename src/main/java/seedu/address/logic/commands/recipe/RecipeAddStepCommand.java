@@ -67,6 +67,7 @@ public class RecipeAddStepCommand extends RecipeAddCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RecipeAddStepCommand // instanceof handles nulls
-                && toAdd.equals(((RecipeAddStepCommand) other).toAdd));
+                && toAdd.equals(((RecipeAddStepCommand) other).toAdd)
+                && stepIndex.equals(((RecipeAddStepCommand) other).stepIndex));
     }
 }
