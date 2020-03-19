@@ -2,17 +2,10 @@ package seedu.address.logic.commands.inventory;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.recipe.RecipeCommand;
-import seedu.address.model.Inventory;
 import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.ingredient.UniqueIngredientList;
-import seedu.address.model.recipe.Recipe;
-
-import java.util.List;
 
 /**
  * Adds an ingredient to the inventory
