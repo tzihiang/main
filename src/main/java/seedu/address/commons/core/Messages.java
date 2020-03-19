@@ -10,6 +10,10 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX = "The recipe index provided is invalid";
     public static final String MESSAGE_INVALID_STEP_DISPLAYED_INDEX = "The step index provided is invalid";
+    public static final String MESSAGE_DUPLICATE_STEPS = "This step already exists in the recipe";
+    public static final String MESSAGE_DUPLICATE_TAG = "This tag already exists in the recipe";
+    public static final String MESSAGE_INVALID_TAG = "The Tag provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
+
 
 }

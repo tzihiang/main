@@ -5,7 +5,7 @@ import java.util.Optional;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.Cart;
-import seedu.address.model.ReadOnlyIngredientList;
+import seedu.address.model.ReadOnlyCart;
 import seedu.address.model.ingredient.UniqueIngredientList;
 
 /**
@@ -41,7 +41,7 @@ public abstract class CartCommand extends Command {
             UniqueIngredientList updatedIngredients = editCartDescriptor.getIngredients()
                     .orElse(cartToEdit.getUniqueIngredientList());
 
-            return new Cart((ReadOnlyIngredientList) updatedIngredients);
+            return new Cart((ReadOnlyCart) updatedIngredients);
         }
         /**
          * Returns true if at least one field is edited.

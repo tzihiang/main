@@ -11,9 +11,13 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.CookingPapaParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyCart;
+import seedu.address.model.ReadOnlyCookbook;
+import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
@@ -29,11 +33,13 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private final CookingPapaParser cookingPapaParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         addressBookParser = new AddressBookParser();
+        cookingPapaParser = new CookingPapaParser();
     }
 
     @Override
@@ -45,7 +51,9 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveCookbook(model.getCookbook());
+            storage.saveInventory(model.getInventory());
+            storage.saveCart(model.getCart());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -59,23 +67,58 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyCookbook getCookbook() {
+        return model.getCookbook();
+    }
+
+    @Override
+    public ReadOnlyInventory getInventory() {
+        return model.getInventory();
+    }
+
+    @Override
+    public ReadOnlyCart getCart() {
+        return model.getCart();
+    }
+
+    @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
     }
 
     @Override
-    public ObservableList<Ingredient> getFilteredIngredientList() {
-        return model.getFilteredIngredientList();
+    public ObservableList<Recipe> getFilteredCookbookRecipeList() {
+        return model.getFilteredCookbookRecipeList();
     }
 
     @Override
-    public ObservableList<Recipe> getFilteredRecipeList() {
-        return model.getFilteredRecipeList();
+    public ObservableList<Ingredient> getFilteredInventoryIngredientList() {
+        return model.getFilteredInventoryIngredientList();
+    }
+
+    @Override
+    public ObservableList<Ingredient> getFilteredCartIngredientList() {
+        return model.getFilteredCartIngredientList();
     }
 
     @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
+    }
+
+    @Override
+    public Path getCookbookFilePath() {
+        return model.getCookbookFilePath();
+    }
+
+    @Override
+    public Path getInventoryFilePath() {
+        return model.getInventoryFilePath();
+    }
+
+    @Override
+    public Path getCartFilePath() {
+        return model.getCartFilePath();
     }
 
     @Override

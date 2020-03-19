@@ -34,7 +34,7 @@ public class CookbookViewCommand extends CookbookCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Recipe> lastShownList = model.getFilteredRecipeList();
+        List<Recipe> lastShownList = model.getFilteredCookbookRecipeList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);

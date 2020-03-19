@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.stream.Stream;
 
@@ -11,12 +12,14 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.recipe.RecipeRemoveCommand;
 import seedu.address.logic.commands.recipe.RecipeRemoveIngredientCommand;
 import seedu.address.logic.commands.recipe.RecipeRemoveStepCommand;
+import seedu.address.logic.commands.recipe.RecipeRemoveTagCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new RecipeRemoveCommand object
@@ -34,6 +37,8 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
             return parseRemoveIngredient(args);
         } else if (containsStep(args)) {
             return parseRemoveStep(args);
+        } else if (containsTag(args)) {
+            return parseRemoveTag(args);
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecipeRemoveCommand.MESSAGE_USAGE));
         }
@@ -79,12 +84,46 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
         return new RecipeRemoveStepCommand(recipeIndex, stepIndex);
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the RecipeRemoveTagCommand
+     * and returns a RecipeRemoveTagCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public RecipeRemoveTagCommand parseRemoveTag(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_TAG);
+
+        Index recipeIndex;
+
+        try {
+            recipeIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RecipeRemoveCommand.MESSAGE_USAGE), pe);
+        }
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_TAG)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RecipeRemoveCommand.MESSAGE_USAGE));
+        }
+
+        Tag toRemove = ParserUtil.parseTag(argMultimap
+                .getValue(PREFIX_TAG).get());
+
+        return new RecipeRemoveTagCommand(recipeIndex, toRemove);
+    }
+
     private boolean containsIngredient(String args) {
         return args.contains(PREFIX_INGREDIENT_NAME.toString());
     }
 
     private boolean containsStep(String args) {
         return args.contains(PREFIX_STEP_INDEX.toString());
+    }
+
+    private boolean containsTag(String args) {
+        return args.contains(PREFIX_TAG.toString());
     }
 
     /**
