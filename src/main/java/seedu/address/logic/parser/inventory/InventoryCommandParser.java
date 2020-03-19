@@ -36,6 +36,7 @@ public class InventoryCommandParser implements Parser<InventoryCommand> {
         // TODO: Implement optional argument for parser.
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+        // TODO: Add view case
         switch (commandWord) {
         case InventoryAddIngredientCommand.COMMAND_WORD:
             return new InventoryAddIngredientCommandParser().parse(arguments);
