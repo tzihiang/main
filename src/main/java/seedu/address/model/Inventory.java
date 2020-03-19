@@ -13,13 +13,13 @@ import seedu.address.model.ingredient.UniqueIngredientList;
  * Wraps all data at the inventory level
  * Duplicates are not allowed
  */
-public class Inventory implements ReadOnlyIngredientList {
+public class Inventory implements ReadOnlyInventory {
 
     private final UniqueIngredientList ingredients = new UniqueIngredientList();
 
     public Inventory() {}
 
-    public Inventory(ReadOnlyIngredientList toBeCopied) {
+    public Inventory(ReadOnlyInventory toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -36,7 +36,7 @@ public class Inventory implements ReadOnlyIngredientList {
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      * Called in constructor.
      */
-    public void resetData(ReadOnlyIngredientList newData) {
+    public void resetData(ReadOnlyInventory newData) {
         requireNonNull(newData);
 
         setIngredients(newData.getIngredientList());
@@ -52,8 +52,24 @@ public class Inventory implements ReadOnlyIngredientList {
         return ingredients.contains(ingredient);
     }
 
+    /**
+     * Adds an ingredient to the inventory.
+     * The ingredient must not already exist in the inventory.
+     */
     public void addIngredient(Ingredient ingredient) {
         ingredients.add(ingredient);
+    }
+
+    /**
+     * Replaces the given ingredient {@code target} in the list with {@code editedIngredient}.
+     * {@code target} must exist in the inventory.
+     * The ingredient identity of {@code editedIngredient} must not be the same as another existing ingredient in the
+     * inventory.
+     */
+    public void setIngredient(Ingredient target, Ingredient editedIngredient) {
+        requireNonNull(editedIngredient);
+
+        ingredients.setIngredient(target, editedIngredient);
     }
 
     /**
@@ -66,8 +82,8 @@ public class Inventory implements ReadOnlyIngredientList {
 
     @Override
     public String toString() {
-        // TODO: After implementing Ingredients
-        return "";
+        return ingredients.asUnmodifiableObservableList().size() + " ingredients";
+        // TODO: refine later
     }
 
     public UniqueIngredientList getUniqueIngredientList() {
