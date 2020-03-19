@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
 
@@ -98,11 +99,20 @@ public interface Model {
      */
     void setRecipe(Recipe target, Recipe editedRecipe);
 
+    /**
+     * Replaces the given inventory {@code target} with {@code editedInventory}.
+     * {@code target} can have repeated ingredients for now.
+     */
+    void setInventory(Inventory target, Inventory editedInventory);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Recipe> getFilteredRecipeList();
+
+    /** Returns an unmodifiable view of the filtered Ingredient list */
+    ObservableList<Ingredient> getFilteredIngredientList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

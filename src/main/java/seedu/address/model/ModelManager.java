@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
 
@@ -130,6 +131,12 @@ public class ModelManager implements Model {
         // TODO: implement
         return;
     }
+    @Override
+    public void setInventory(Inventory target, Inventory editedInventory){
+        // TODO: implement
+        return;
+    }
+
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -144,6 +151,12 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Recipe> getFilteredRecipeList() {
+        // TODO: implement
+        return null;
+    }
+
+    @Override
+    public ObservableList<Ingredient> getFilteredIngredientList() {
         // TODO: implement
         return null;
     }

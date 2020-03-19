@@ -15,7 +15,7 @@ import seedu.address.model.ingredient.UniqueIngredientList;
  */
 public class Inventory implements ReadOnlyIngredientList {
 
-    private final UniqueIngredientList ingredients = new UniqueIngredientList();
+    private static final UniqueIngredientList ingredients = new UniqueIngredientList();
 
     public Inventory() {}
 
@@ -70,7 +70,7 @@ public class Inventory implements ReadOnlyIngredientList {
         return "";
     }
 
-    public UniqueIngredientList getUniqueIngredientList() {
+    public static UniqueIngredientList getUniqueIngredientList() {
         return ingredients;
     }
 
