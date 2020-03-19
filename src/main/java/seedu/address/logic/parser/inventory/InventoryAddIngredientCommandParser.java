@@ -33,19 +33,6 @@ public class InventoryAddIngredientCommandParser implements Parser<InventoryComm
     public InventoryAddIngredientCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        if (containsIngredient(args)) {
-            return parseAddIngredient(args);
-        } else {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecipeAddCommand.MESSAGE_USAGE));
-        }
-    }
-
-    /**
-     * Parses the given {@code String} of arguments in the context of the RecipeAddIngredientCommand
-     * and returns a RecipeAddIngredientCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    private InventoryAddIngredientCommand parseAddIngredient(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
 
@@ -63,11 +50,6 @@ public class InventoryAddIngredientCommandParser implements Parser<InventoryComm
         Ingredient ingredient = new Ingredient(ingredientName, ingredientQuantity);
 
         return new InventoryAddIngredientCommand(ingredient);
-    }
-
-    private boolean containsIngredient(String args) {
-        return args.contains(PREFIX_INGREDIENT_NAME.toString())
-                && args.contains(PREFIX_INGREDIENT_QUANTITY.toString());
     }
 
     /**
