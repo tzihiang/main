@@ -12,6 +12,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.model.person.Name;
+import seedu.address.model.recipe.RecipeDescription;
+import seedu.address.model.recipe.RecipeName;
+import seedu.address.model.step.Step;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -50,6 +53,36 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String recipeName} into a {@code RecipeName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code recipeName} is invalid.
+     */
+    public static RecipeName parseRecipeName(String recipeName) throws ParseException {
+        requireNonNull(recipeName);
+        String trimmedRecipeName = recipeName.trim();
+        if (!Name.isValidName(trimmedRecipeName)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new RecipeName(trimmedRecipeName);
+    }
+
+    /**
+     * Parses a {@code String recipeDescription} into a {@code RecipeDescription}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code recipeDescription} is invalid.
+     */
+    public static RecipeDescription parseRecipeDescription(String recipeDescription) throws ParseException {
+        requireNonNull(recipeDescription);
+        String trimmedRecipeDescription = recipeDescription.trim();
+        if (!Name.isValidName(trimmedRecipeDescription)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new RecipeDescription(trimmedRecipeDescription);
+    }
+
+    /**
      * Parses an {@code String ingredientName} into an {@code IngredientName}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -78,6 +111,22 @@ public class ParserUtil {
         }
         return new IngredientQuantity(trimmedIngredientQuantity);
     }
+
+    /**
+     * Parses an {@code String stepDescription} into an {@code Step}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Step} is invalid.
+     */
+    public static Step parseStep(String stepDescription) throws ParseException {
+        requireNonNull(stepDescription);
+        String trimmedStepDescription = stepDescription.trim();
+        if (!Step.isValidStep(trimmedStepDescription)) {
+            throw new ParseException(Step.MESSAGE_CONSTRAINTS);
+        }
+        return new Step(trimmedStepDescription);
+    }
+
 
     /**
      * Parses a {@code String tag} into a {@code Tag}.

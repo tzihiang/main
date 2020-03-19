@@ -22,6 +22,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
+import seedu.address.model.step.Step;
 
 /**
  * Parses input arguments and creates a new RecipeAddCommand object
@@ -85,9 +86,30 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public RecipeAddStepCommand parseAddStep(String args) throws ParseException {
-        // TODO: implement
-        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                RecipeAddCommand.MESSAGE_USAGE));
+        ArgumentMultimap argMultimap =
+            ArgumentTokenizer.tokenize(args, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION);
+
+        Index recipeIndex;
+
+        try {
+            recipeIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RecipeAddCommand.MESSAGE_USAGE), pe);
+        }
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RecipeAddCommand.MESSAGE_USAGE));
+        }
+
+        Index stepIndex = ParserUtil.parseIndex(argMultimap
+                .getValue(PREFIX_STEP_INDEX).get());
+        Step toAdd = ParserUtil.parseStep(argMultimap
+                .getValue(PREFIX_STEP_DESCRIPTION).get());
+
+        return new RecipeAddStepCommand(recipeIndex, stepIndex, toAdd);
     }
 
     private boolean containsIngredient(String args) {

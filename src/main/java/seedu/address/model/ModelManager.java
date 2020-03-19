@@ -24,6 +24,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Ingredient> filteredIngredients;
+    private final FilteredList<Recipe> filteredRecipes;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -37,6 +39,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredIngredients = new FilteredList<>(this.addressBook.getIngredientList());
+        filteredRecipes = new FilteredList<>(this.addressBook.getRecipeList());
     }
 
     public ModelManager() {
@@ -98,13 +102,19 @@ public class ModelManager implements Model {
 
     @Override
     public boolean hasRecipe(Recipe recipe) {
-        // TODO: implement
+        requireNonNull(recipe);
         return false;
     }
 
     @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
+    }
+
+    @Override
+    public void removeRecipe(Recipe target) {
+        // TODO: implement
+        return;
     }
 
     @Override
@@ -115,8 +125,8 @@ public class ModelManager implements Model {
 
     @Override
     public void addRecipe(Recipe recipe) {
-        // TODO: implement
-        return;
+        addressBook.addRecipe(recipe);
+        updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
     }
 
     @Override
@@ -150,9 +160,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Recipe> getFilteredRecipeList() {
-        // TODO: implement
-        return null;
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersons.setPredicate(predicate);
     }
 
     @Override
@@ -163,14 +173,24 @@ public class ModelManager implements Model {
 
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
+        return filteredIngredients;
+    }
+
+    @Override
+    public void updateFilteredIngredientList(Predicate<Ingredient> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredIngredients.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Recipe> getFilteredRecipeList() {
+        return filteredRecipes;
     }
 
     @Override
     public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
-        // TODO: implement
-        return;
+        requireNonNull(predicate);
+        filteredRecipes.setPredicate(predicate);
     }
 
     @Override
