@@ -5,8 +5,6 @@ import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
 
-import java.util.List;
-
 /**
  * Unmodifiable view of an address book
  */
