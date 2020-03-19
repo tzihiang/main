@@ -1,104 +1,27 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
-
-import javafx.collections.ObservableList;
-
-import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.ingredient.UniqueIngredientList;
-
 /**
  * Wraps all data at the cart level
  * Duplicates are not allowed
  */
-public class Cart implements ReadOnlyCart {
-
-    private final UniqueIngredientList ingredients = new UniqueIngredientList();
+public class Cart extends IngredientList implements ReadOnlyCart {
 
     public Cart() {}
 
     public Cart(ReadOnlyCart toBeCopied) {
-        this();
-        resetData(toBeCopied);
-    }
-
-    /**
-     * Replaces the contents of the ingredient list with {@code ingredients}.
-     * {@code ingredients} must not contain duplicate ingredients.
-     */
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients.setIngredients(ingredients);
-    }
-
-    /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
-     * Called in constructor.
-     */
-    public void resetData(ReadOnlyCart newData) {
-        requireNonNull(newData);
-
-        setIngredients(newData.getIngredientList());
-    }
-
-    // For ingredient level:
-
-    /**
-     * Returns true if an ingredient with the same identity as {@code ingredient} exists in the cart.
-     */
-    public boolean hasIngredient(Ingredient ingredient) {
-        requireNonNull(ingredient);
-        return ingredients.contains(ingredient);
-    }
-
-    /**
-     * Adds an ingredient to the inventory.
-     * The ingredient must not already exist in the inventory.
-     */
-    public void addIngredient(Ingredient ingredient) {
-        ingredients.add(ingredient);
-    }
-
-    /**
-     * Replaces the given ingredient {@code target} in the list with {@code editedIngredient}.
-     * {@code target} must exist in the inventory.
-     * The ingredient identity of {@code editedIngredient} must not be the same as another existing ingredient in the
-     * cart.
-     */
-    public void setIngredient(Ingredient target, Ingredient editedIngredient) {
-        requireNonNull(editedIngredient);
-
-        ingredients.setIngredient(target, editedIngredient);
-    }
-
-    /**
-     * Removes {@code key} from this {@code Cart}.
-     * {@code key} must exist in the cart.
-     */
-    public void removeIngredient(Ingredient key) {
-        ingredients.remove(key);
+        super(toBeCopied);
     }
 
     @Override
     public String toString() {
-        return ingredients.asUnmodifiableObservableList().size() + " ingredients";
+        return getIngredientList().size() + " ingredients";
         // TODO: refine later
-    }
-
-    public UniqueIngredientList getUniqueIngredientList() {
-        return ingredients;
-    }
-
-    @Override
-    public ObservableList<Ingredient> getIngredientList() {
-        return ingredients.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Cart // instanceof handles nulls
-                && ingredients.equals(((Cart) other).ingredients));
+                && this.getUniqueIngredientList().equals(((Cart) other).getUniqueIngredientList()));
     }
 }
