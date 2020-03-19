@@ -32,8 +32,8 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private RecipeListPanel recipeListPanel;
-    private IngredientListPanel ingredientListPanel;
-    private IngredientListPanel ingredientListPanel1;
+    private IngredientListPanel inventoryIngredientListPanel;
+    private IngredientListPanel cartIngredientListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -47,10 +47,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane recipeListPanelPlaceholder;
 
     @FXML
-    private StackPane ingredientListPanelPlaceHolder;
+    private StackPane inventoryIngredientListPanelPlaceHolder;
 
     @FXML
-    private StackPane ingredientListPanelPlaceHolder1;
+    private StackPane cartIngredientListPanelPlaceHolder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -116,16 +116,16 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
+        recipeListPanel = new RecipeListPanel(logic.getFilteredCookbookRecipeList());
         recipeListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
 
-        // Temporary, will replace with CartIngredientListPanel
-        ingredientListPanel = new IngredientListPanel(logic.getFilteredIngredientList());
-        ingredientListPanelPlaceHolder.getChildren().add(ingredientListPanel.getRoot());
+        // Temporary, will replace with InventoryIngredientListPanel
+        inventoryIngredientListPanel = new IngredientListPanel(logic.getFilteredInventoryIngredientList());
+        inventoryIngredientListPanelPlaceHolder.getChildren().add(inventoryIngredientListPanel.getRoot());
 
         // Temporary, will replace with CartIngredientListPanel
-        ingredientListPanel1 = new IngredientListPanel(logic.getFilteredIngredientList());
-        ingredientListPanelPlaceHolder1.getChildren().add(ingredientListPanel1.getRoot());
+        cartIngredientListPanel = new IngredientListPanel(logic.getFilteredCartIngredientList());
+        cartIngredientListPanelPlaceHolder.getChildren().add(cartIngredientListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -181,12 +181,12 @@ public class MainWindow extends UiPart<Stage> {
         return recipeListPanel;
     }
 
-    public IngredientListPanel getIngredientListPanel() {
-        return ingredientListPanel;
+    public IngredientListPanel getInventoryIngredientListPanel() {
+        return inventoryIngredientListPanel;
     }
 
-    public IngredientListPanel getIngredientListPanel1() {
-        return ingredientListPanel1;
+    public IngredientListPanel getCartIngredientListPanel1() {
+        return cartIngredientListPanel;
     }
 
     /**
@@ -198,7 +198,8 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandText);
+            // resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
@@ -211,7 +212,8 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            resultDisplay.setFeedbackToUser(commandText);
+            // resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }

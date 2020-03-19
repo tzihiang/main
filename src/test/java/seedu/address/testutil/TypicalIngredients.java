@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.model.Cart;
+import seedu.address.model.Inventory;
 import seedu.address.model.ingredient.Ingredient;
 
 /**
@@ -37,6 +39,28 @@ public class TypicalIngredients {
     public static final String KEYWORD_MATCHING_APPLE = "Apple"; // A keyword that matches APPLE
 
     private TypicalIngredients() {} // prevents instantiation
+
+    /**
+     * Returns an {@code Inventory} with all the typical ingredients.
+     */
+    public static Inventory getTypicalInventory() {
+        Inventory inventory = new Inventory();
+        for (Ingredient ingredient : getTypicalIngredients()) {
+            inventory.addIngredient(ingredient);
+        }
+        return inventory;
+    }
+
+    /**
+     * Returns a {@code Cart} with all the typical Ingredients.
+     */
+    public static Cart getTypicalCart() {
+        Cart cart = new Cart();
+        for (Ingredient ingredient : getTypicalIngredients()) {
+            cart.addIngredient(ingredient);
+        }
+        return cart;
+    }
 
     public static List<Ingredient> getTypicalIngredients() {
         return new ArrayList<>(Arrays.asList(APPLE, BUTTER, CHICKEN, DUCK, EGG, FLOUR, GARLIC));
