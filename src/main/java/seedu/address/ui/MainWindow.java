@@ -31,7 +31,9 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private RecipeListPanel recipeListPanel;
+    private IngredientListPanel ingredientListPanel;
+    private IngredientListPanel ingredientListPanel1;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -42,7 +44,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane recipeListPanelPlaceholder;
+
+    @FXML
+    private StackPane ingredientListPanelPlaceHolder;
+
+    @FXML
+    private StackPane ingredientListPanelPlaceHolder1;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -75,6 +83,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -107,8 +116,16 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
+        recipeListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
+
+        // Temporary, will replace with CartIngredientListPanel
+        ingredientListPanel = new IngredientListPanel(logic.getFilteredIngredientList());
+        ingredientListPanelPlaceHolder.getChildren().add(ingredientListPanel.getRoot());
+
+        // Temporary, will replace with CartIngredientListPanel
+        ingredientListPanel1 = new IngredientListPanel(logic.getFilteredIngredientList());
+        ingredientListPanelPlaceHolder1.getChildren().add(ingredientListPanel1.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -160,8 +177,16 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public RecipeListPanel getRecipeListPanel() {
+        return recipeListPanel;
+    }
+
+    public IngredientListPanel getIngredientListPanel() {
+        return ingredientListPanel;
+    }
+
+    public IngredientListPanel getIngredientListPanel1() {
+        return ingredientListPanel1;
     }
 
     /**

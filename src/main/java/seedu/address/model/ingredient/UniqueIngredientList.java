@@ -46,6 +46,38 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Replaces the ingredient {@code target} in the list with {@code editedIngredient}.
+     * {@code target} must exist in the list.
+     * The ingredient identity of {@code editedIngredient} must not be the same as another existing ingredient in the
+     * list.
+     */
+    public void setIngredient(Ingredient target, Ingredient editedIngredient) {
+        requireAllNonNull(target, editedIngredient);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new IngredientNotFoundException();
+        }
+
+        if (!target.isSameIngredient(editedIngredient) && contains(editedIngredient)) {
+            throw new DuplicateIngredientException();
+        }
+
+        internalList.set(index, editedIngredient);
+    }
+
+    /**
+     * Removes the equivalent ingredient from the list.
+     * The ingredient must exist in the list.
+     */
+    public void remove(Ingredient toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new IngredientNotFoundException();
+        }
+    }
+
     public void setIngredients(UniqueIngredientList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -65,22 +97,11 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
     }
 
     /**
-     * Removes the ingredient from the list, provided it exists.
-     */
-    public void remove(Ingredient toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new IngredientNotFoundException();
-        }
-    }
-
-    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Ingredient> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
-
 
     @Override
     public Iterator<Ingredient> iterator() {

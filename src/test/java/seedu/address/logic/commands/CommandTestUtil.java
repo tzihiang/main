@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -23,10 +25,24 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_ALMOND = "Almonds";
-    public static final String VALID_NAME_BANANA = "Bananas";
-    public static final String VALID_QUANTITY_ALMOND = "50 g";
-    public static final String VALID_QUANTITY_BANANA = "3";
+    public static final String VALID_INGREDIENT_NAME_ALMOND = "Almonds";
+    public static final String VALID_INGREDIENT_NAME_BANANA = "Bananas";
+    public static final String VALID_INGREDIENT_QUANTITY_ALMOND = "50 g";
+    public static final String VALID_INGREDIENT_QUANTITY_BANANA = "3";
+
+    public static final String INGREDIENT_NAME_DESC_ALMOND = " " + PREFIX_INGREDIENT_NAME
+            + VALID_INGREDIENT_NAME_ALMOND;
+    public static final String INGREDIENT_NAME_DESC_BANANA = " " + PREFIX_INGREDIENT_NAME
+            + VALID_INGREDIENT_NAME_BANANA;
+    public static final String INGREDIENT_QUANTITY_DESC_ALMOND = " " + PREFIX_INGREDIENT_QUANTITY
+            + VALID_INGREDIENT_QUANTITY_ALMOND;
+    public static final String INGREDIENT_QUANTITY_DESC_BANANA = " " + PREFIX_INGREDIENT_QUANTITY
+            + VALID_INGREDIENT_QUANTITY_BANANA;
+
+    public static final String INVALID_INGREDIENT_NAME_DESC = " " + PREFIX_INGREDIENT_NAME
+            + "Rice&"; // '&' not allowed in names
+    public static final String INVALID_INGREDIENT_QUANTITY_DESC = " " + PREFIX_INGREDIENT_QUANTITY
+            + "halal*"; // '*' not allowed in tags
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";

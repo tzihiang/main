@@ -45,7 +45,7 @@ public class Inventory implements ReadOnlyIngredientList {
     // For ingredient level:
 
     /**
-     * Returns true if an ingredient with the same identity as {@code ingredient} exists in the address book.
+     * Returns true if an ingredient with the same identity as {@code ingredient} exists in the inventory.
      */
     public boolean hasIngredient(Ingredient ingredient) {
         requireNonNull(ingredient);
@@ -57,8 +57,8 @@ public class Inventory implements ReadOnlyIngredientList {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code inventory}.
+     * {@code key} must exist in the inventory.
      */
     public void removeIngredient(Ingredient key) {
         ingredients.remove(key);
@@ -68,6 +68,10 @@ public class Inventory implements ReadOnlyIngredientList {
     public String toString() {
         // TODO: After implementing Ingredients
         return "";
+    }
+
+    public UniqueIngredientList getUniqueIngredientList() {
+        return ingredients;
     }
 
     @Override

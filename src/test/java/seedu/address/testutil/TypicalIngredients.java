@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALMOND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BANANA;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_ALMOND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_BANANA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_NAME_ALMOND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_NAME_BANANA;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_QUANTITY_ALMOND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_QUANTITY_BANANA;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,10 +29,10 @@ public class TypicalIngredients {
     public static final Ingredient ICECUBES = new IngredientBuilder().withName("Ice cubes").build();
 
     // Manually added - Ingredient's details found in {@code CommandTestUtil}
-    public static final Ingredient ALMOND = new IngredientBuilder().withName(VALID_NAME_ALMOND)
-            .withQuantity(VALID_QUANTITY_ALMOND).build();
-    public static final Ingredient BANANA = new IngredientBuilder().withName(VALID_NAME_BANANA)
-            .withQuantity(VALID_QUANTITY_BANANA).build();
+    public static final Ingredient ALMOND = new IngredientBuilder().withName(VALID_INGREDIENT_NAME_ALMOND)
+            .withQuantity(VALID_INGREDIENT_QUANTITY_ALMOND).build();
+    public static final Ingredient BANANA = new IngredientBuilder().withName(VALID_INGREDIENT_NAME_BANANA)
+            .withQuantity(VALID_INGREDIENT_QUANTITY_BANANA).build();
 
     public static final String KEYWORD_MATCHING_APPLE = "Apple"; // A keyword that matches APPLE
 
