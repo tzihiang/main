@@ -61,7 +61,7 @@ public class ParserUtil {
     public static RecipeName parseRecipeName(String recipeName) throws ParseException {
         requireNonNull(recipeName);
         String trimmedRecipeName = recipeName.trim();
-        if (!Name.isValidName(trimmedRecipeName)) {
+        if (!RecipeName.isValidRecipeName(trimmedRecipeName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new RecipeName(trimmedRecipeName);
@@ -76,7 +76,7 @@ public class ParserUtil {
     public static RecipeDescription parseRecipeDescription(String recipeDescription) throws ParseException {
         requireNonNull(recipeDescription);
         String trimmedRecipeDescription = recipeDescription.trim();
-        if (!Name.isValidName(trimmedRecipeDescription)) {
+        if (!RecipeDescription.isValidRecipeDescription(trimmedRecipeDescription)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new RecipeDescription(trimmedRecipeDescription);
