@@ -92,6 +92,16 @@ public class UniqueStepList implements Iterable<Step> {
         }
     }
 
+    /**
+     * Removes the step from given index  in the list.
+     * The step must exist in the list.
+     */
+    public Step remove(Index index) {
+        requireNonNull(index);
+        Step toRemove = internalList.remove(index.getZeroBased());
+        return toRemove;
+    }
+
     public void setSteps(UniqueStepList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
