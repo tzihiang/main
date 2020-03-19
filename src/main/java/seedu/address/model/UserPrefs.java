@@ -15,6 +15,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path cookbookFilePath = Paths.get("data" , "cookbook.json");
+    private Path inventoryFilePath = Paths.get("data" , "inventory.json");
+    private Path cartFilePath = Paths.get("data" , "cart.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +39,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setCookbookFilePath(newUserPrefs.getCookbookFilePath());
+        setInventoryFilePath(newUserPrefs.getInventoryFilePath());
+        setCartFilePath(newUserPrefs.getCartFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -56,6 +62,33 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
+    public Path getCookbookFilePath() {
+        return cookbookFilePath;
+    }
+
+    public void setCookbookFilePath(Path cookbookFilePath) {
+        requireNonNull(cookbookFilePath);
+        this.cookbookFilePath = cookbookFilePath;
+    }
+
+    public Path getInventoryFilePath() {
+        return inventoryFilePath;
+    }
+
+    public void setInventoryFilePath(Path inventoryFilePath) {
+        requireNonNull(inventoryFilePath);
+        this.inventoryFilePath = inventoryFilePath;
+    }
+
+    public Path getCartFilePath() {
+        return cartFilePath;
+    }
+
+    public void setCartFilePath(Path cartFilePath) {
+        requireNonNull(cartFilePath);
+        this.cartFilePath = cartFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -68,12 +101,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && addressBookFilePath.equals(o.addressBookFilePath)
+                && cookbookFilePath.equals(o.cookbookFilePath)
+                && inventoryFilePath.equals(o.inventoryFilePath)
+                && cartFilePath.equals(o.cartFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, addressBookFilePath, cookbookFilePath, inventoryFilePath, cartFilePath);
     }
 
     @Override
@@ -81,6 +117,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + cookbookFilePath);
+        sb.append("\nLocal data file location : " + inventoryFilePath);
+        sb.append("\nLocal data file location : " + cartFilePath);
         return sb.toString();
     }
 
