@@ -105,12 +105,6 @@ public interface Model {
      */
     void setRecipe(Recipe target, Recipe editedRecipe);
 
-    /**
-     * Replaces the given inventory {@code target} with {@code editedInventory}.
-     * {@code target} can have repeated ingredients for now.
-     */
-    void setInventory(Inventory target, Inventory editedInventory);
-
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 

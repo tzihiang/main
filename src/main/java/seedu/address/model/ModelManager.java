@@ -141,12 +141,6 @@ public class ModelManager implements Model {
         // TODO: implement
         return;
     }
-    @Override
-    public void setInventory(Inventory target, Inventory editedInventory) {
-        // TODO: implement
-        return;
-    }
-
 
     //=========== Filtered Person List Accessors =============================================================
 
