@@ -1,11 +1,14 @@
 package seedu.address.testutil;
 
-import seedu.address.model.step.Step;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.model.step.Step;
+
+/**
+ * A utility class containing a list of {@code Step} objects to be used in tests.
+ */
 public class TypicalSteps {
 
     public static final Step CARBONARA_ONE = new Step("Boil the pasta");
