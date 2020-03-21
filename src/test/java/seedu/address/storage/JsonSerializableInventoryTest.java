@@ -15,11 +15,11 @@ import seedu.address.testutil.TypicalIngredients;
 
 public class JsonSerializableInventoryTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableInventoryTest");
-    private static final Path TYPICAL_INGREDIENTS_FILE = TEST_DATA_FOLDER.resolve("typicalIngredientsInventory.json");
-    private static final Path INVALID_INGREDIENT_FILE = TEST_DATA_FOLDER.resolve("invalidIngredientInventory.json");
-    private static final Path DUPLICATE_INGREDIENTS_FILE = TEST_DATA_FOLDER
-            .resolve("duplicateIngredientsInventory.json");
+    private static final Path TEST_DATA_FOLDER = Paths
+            .get("src", "test", "data", "JsonSerializableIngredientListTest");
+    private static final Path TYPICAL_INGREDIENTS_FILE = TEST_DATA_FOLDER.resolve("typicalIngredients.json");
+    private static final Path INVALID_INGREDIENT_FILE = TEST_DATA_FOLDER.resolve("invalidIngredient.json");
+    private static final Path DUPLICATE_INGREDIENTS_FILE = TEST_DATA_FOLDER.resolve("duplicateIngredients.json");
 
     @Test
     public void toModelType_typicalIngredientsFile_success() throws Exception {
