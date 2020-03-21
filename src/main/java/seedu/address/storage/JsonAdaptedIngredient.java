@@ -15,25 +15,25 @@ class JsonAdaptedIngredient {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Ingredient's %s field is missing!";
 
-    private final String ingredientName;
-    private final String ingredientQuantity;
+    private final String name;
+    private final String quantity;
 
     /**
-     * Constructs a {@code JsonAdaptedIngredient} with the given {@code ingredientName} and {@code ingredientQuantity}.
+     * Constructs a {@code JsonAdaptedIngredient} with the given {@code name} and {@code quantity}.
      */
     @JsonCreator
-    public JsonAdaptedIngredient(@JsonProperty("name") String ingredientName,
-            @JsonProperty("quantity") String ingredientQuantity) {
-        this.ingredientName = ingredientName;
-        this.ingredientQuantity = ingredientQuantity;
+    public JsonAdaptedIngredient(@JsonProperty("name") String name,
+            @JsonProperty("quantity") String quantity) {
+        this.name = name;
+        this.quantity = quantity;
     }
 
     /**
      * Converts a given {@code Ingredient} into this class for Jackson use.
      */
     public JsonAdaptedIngredient(Ingredient source) {
-        ingredientName = source.getName().toString();
-        ingredientQuantity = source.getQuantity().toString();
+        name = source.getName().toString();
+        quantity = source.getQuantity().toString();
     }
 
     /**
@@ -42,20 +42,20 @@ class JsonAdaptedIngredient {
      * @throws IllegalValueException if there were any data constraints violated in the adapted ingredient.
      */
     public Ingredient toModelType() throws IllegalValueException {
-        if (ingredientName == null) {
+        if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     IngredientName.class.getSimpleName()));
-        } else if (ingredientQuantity == null) {
+        } else if (quantity == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     IngredientQuantity.class.getSimpleName()));
-        } else if (!IngredientName.isValidIngredientName(ingredientName)) {
+        } else if (!IngredientName.isValidIngredientName(name)) {
             throw new IllegalValueException(IngredientName.MESSAGE_CONSTRAINTS);
-        } else if (!IngredientQuantity.isValidIngredientQuantity(ingredientQuantity)) {
+        } else if (!IngredientQuantity.isValidIngredientQuantity(quantity)) {
             throw new IllegalValueException(IngredientQuantity.MESSAGE_CONSTRAINTS);
         }
 
-        final IngredientName modelIngredientName = new IngredientName(ingredientName);
-        final IngredientQuantity modelIngredientQuantity = new IngredientQuantity(ingredientQuantity);
+        final IngredientName modelIngredientName = new IngredientName(name);
+        final IngredientQuantity modelIngredientQuantity = new IngredientQuantity(quantity);
         return new Ingredient(modelIngredientName, modelIngredientQuantity);
     }
 
