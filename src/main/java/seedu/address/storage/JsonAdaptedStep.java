@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.step.Step;
 
 /**
@@ -46,5 +45,4 @@ class JsonAdaptedStep {
 
         return new Step(stepDescription);
     }
-
 }
