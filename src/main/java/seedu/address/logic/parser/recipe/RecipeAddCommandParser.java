@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
@@ -69,8 +70,7 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
                     RecipeAddCommand.MESSAGE_USAGE), pe);
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INGREDIENT_NAME)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_INGREDIENT_NAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RecipeAddCommand.MESSAGE_USAGE));
         }
@@ -103,8 +103,8 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
                     RecipeAddCommand.MESSAGE_USAGE), pe);
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION)) {
+            System.out.println("cfm is here 2");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RecipeAddCommand.MESSAGE_USAGE));
         }
@@ -135,8 +135,7 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
                     RecipeAddCommand.MESSAGE_USAGE), pe);
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TAG)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_TAG)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RecipeAddCommand.MESSAGE_USAGE));
         }

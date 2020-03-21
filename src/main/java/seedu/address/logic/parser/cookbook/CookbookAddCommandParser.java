@@ -32,9 +32,8 @@ public class CookbookAddCommandParser implements Parser<CookbookAddCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION);
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_RECIPE_NAME)
-                || !argMultimap.getPreamble().isEmpty()) {
+        
+        if (!arePrefixesPresent(argMultimap, PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     CookbookAddCommand.MESSAGE_USAGE));
         }
