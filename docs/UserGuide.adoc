@@ -281,6 +281,14 @@ or to clear the cart after completing the purchase.
 * `cart clear` +
     Clears the cart of all items.
 
+==== View the cart
+This command allows you to view your current cart of ingredients to buy.
+
+- Format: `cart view`
+- Example:
+* `cart view` +
+Displays the entire cart.
+
 === Calendar Commands [v2.0]
 Calendar commands are commands that allow you to plan your meal preparations ahead and view the
 ingredients needed for a specified date or time period.
