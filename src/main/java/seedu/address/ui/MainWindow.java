@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Cart;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -33,7 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private RecipeListPanel recipeListPanel;
     private IngredientListPanel inventoryIngredientListPanel;
-    private IngredientListPanel cartIngredientListPanel;
+    private CartPanel cartIngredientListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -124,7 +125,7 @@ public class MainWindow extends UiPart<Stage> {
         inventoryIngredientListPanelPlaceHolder.getChildren().add(inventoryIngredientListPanel.getRoot());
 
         // Temporary, will replace with CartIngredientListPanel
-        cartIngredientListPanel = new IngredientListPanel(logic.getFilteredCartIngredientList());
+        cartIngredientListPanel = new CartPanel(logic.getFilteredCartIngredientList());
         cartIngredientListPanelPlaceHolder.getChildren().add(cartIngredientListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -185,7 +186,7 @@ public class MainWindow extends UiPart<Stage> {
         return inventoryIngredientListPanel;
     }
 
-    public IngredientListPanel getCartIngredientListPanel1() {
+    public CartPanel getCartIngredientListPanel1() {
         return cartIngredientListPanel;
     }
 
@@ -198,8 +199,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandText);
-            // resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
