@@ -10,6 +10,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.inventory.InventoryAddIngredientCommand;
 import seedu.address.logic.commands.inventory.InventoryCommand;
 import seedu.address.logic.commands.inventory.InventoryRemoveIngredientCommand;
+import seedu.address.logic.commands.inventory.InventoryViewCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -42,6 +43,8 @@ public class InventoryCommandParser implements Parser<InventoryCommand> {
             return new InventoryAddIngredientCommandParser().parse(arguments);
         case InventoryRemoveIngredientCommand.COMMAND_WORD:
             return new InventoryRemoveIngredientCommandParser().parse(arguments);
+        case InventoryViewCommand.COMMAND_WORD:
+            return new InventoryViewCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
