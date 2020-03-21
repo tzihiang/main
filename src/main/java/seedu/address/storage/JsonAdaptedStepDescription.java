@@ -19,7 +19,7 @@ class JsonAdaptedStepDescription {
      * Constructs a {@code JsonAdaptedStep} with the given {@code stepDescription}.
      */
     @JsonCreator
-    public JsonAdaptedStepDescription(@JsonProperty("description") String stepDescription) {
+    public JsonAdaptedStepDescription(String stepDescription) {
         this.stepDescription = stepDescription;
     }
 
