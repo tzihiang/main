@@ -73,9 +73,20 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
      */
     public void remove(Ingredient toRemove) {
         requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+        int index = internalList.indexOf(toRemove);
+
+        if (index == -1) {
             throw new IngredientNotFoundException();
         }
+
+        Ingredient curr = internalList.get(index);
+        IngredientQuantity updated = curr.getQuantity().subtract(toRemove.getQuantity());
+
+        if (updated.equals((internalList.get(index).getQuantity()))) {
+            internalList.remove(toRemove);
+        }
+
+        setIngredient(toRemove, new Ingredient(toRemove.getName(), updated));
     }
 
     public void setIngredients(UniqueIngredientList replacement) {
