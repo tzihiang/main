@@ -28,7 +28,7 @@ public class TypicalIngredients {
 
     // Manually added
     public static final Ingredient HAZELNUT = new IngredientBuilder().withName("Hazelnuts").build();
-    public static final Ingredient ICECUBES = new IngredientBuilder().withName("Ice cubes").build();
+    public static final Ingredient ICECREAM = new IngredientBuilder().withName("Ice cream").build();
 
     // Manually added - Ingredient's details found in {@code CommandTestUtil}
     public static final Ingredient ALMOND = new IngredientBuilder().withName(VALID_INGREDIENT_NAME_ALMOND)
