@@ -6,6 +6,9 @@ import seedu.address.model.Model;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Creates a new InventoryViewCommand and views all items currently in inventory.
+ */
 public class InventoryViewCommand extends InventoryCommand {
 
     public static final String COMMAND_WORD = "view";

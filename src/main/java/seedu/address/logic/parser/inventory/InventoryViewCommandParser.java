@@ -1,6 +1,5 @@
 package seedu.address.logic.parser.inventory;
 
-
 import seedu.address.logic.commands.inventory.InventoryCommand;
 import seedu.address.logic.commands.inventory.InventoryViewCommand;
 import seedu.address.logic.parser.Parser;

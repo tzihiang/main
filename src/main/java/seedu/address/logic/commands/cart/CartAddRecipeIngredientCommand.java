@@ -1,11 +1,10 @@
 package seedu.address.logic.commands.cart;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.ingredient.Ingredient;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Adds all the ingredients from the indexed recipe to cart
@@ -21,7 +20,7 @@ public class CartAddRecipeIngredientCommand extends CartCommand {
             + "Example: " + COMMAND_CATEGORY + " "
             + COMMAND_WORD + "1\n";
 
-    private final int recipeToAdd;
+    final int recipeToAdd;
 
     /**
      * Creates a CartAddIngredientCommand to add the specified {@code Ingredient} to the cart
@@ -31,8 +30,10 @@ public class CartAddRecipeIngredientCommand extends CartCommand {
         this.recipeToAdd = recipeToAdd;
     }
 
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        // TODO: Implement method.
         return null;
     }
 }

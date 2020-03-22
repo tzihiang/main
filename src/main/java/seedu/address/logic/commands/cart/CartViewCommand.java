@@ -1,11 +1,14 @@
 package seedu.address.logic.commands.cart;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Creates a new CartViewCommand and views all the ingredients currently in cart.
+ */
 public class CartViewCommand extends CartCommand {
 
     public static final String COMMAND_WORD = "view";

@@ -5,6 +5,9 @@ import seedu.address.logic.commands.cart.CartViewCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Returns a new CartViewCommand object
+ */
 public class CartViewCommandParser implements Parser<CartCommand> {
 
     /**
