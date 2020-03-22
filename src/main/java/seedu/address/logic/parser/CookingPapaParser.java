@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.cookbook.CookbookCommand;
 import seedu.address.logic.commands.inventory.InventoryCommand;
@@ -51,6 +52,12 @@ public class CookingPapaParser {
 
         case InventoryCommand.COMMAND_CATEGORY:
             return new InventoryCommandParser().parse(arguments);
+
+        case ExitCommand.COMMAND_CATEGORY:
+            return new ExitCommand();
+
+        case HelpCommand.COMMAND_CATEGORY:
+            return new HelpCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

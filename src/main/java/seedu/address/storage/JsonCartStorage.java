@@ -9,7 +9,9 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyCart;
 
 /**
@@ -43,7 +45,18 @@ public class JsonCartStorage implements CartStorage {
     public Optional<ReadOnlyCart> readCart(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        return Optional.empty();
+        Optional<JsonSerializableCart> jsonCart = JsonUtil.readJsonFile(
+                filePath, JsonSerializableCart.class);
+        if (!jsonCart.isPresent()) {
+            return Optional.empty();
+        }
+
+        try {
+            return Optional.of(jsonCart.get().toModelType());
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
     }
 
     @Override
@@ -61,7 +74,7 @@ public class JsonCartStorage implements CartStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        //JsonUtil.saveJsonFile(new JsonSerializableCart(cart), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableCart(cart), filePath);
     }
 
 }

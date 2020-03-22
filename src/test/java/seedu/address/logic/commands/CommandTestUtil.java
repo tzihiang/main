@@ -40,9 +40,9 @@ public class CommandTestUtil {
             + VALID_INGREDIENT_QUANTITY_BANANA;
 
     public static final String INVALID_INGREDIENT_NAME_DESC = " " + PREFIX_INGREDIENT_NAME
-            + "Rice&"; // '&' not allowed in names
+            + "R!ce"; // '!' not allowed in names
     public static final String INVALID_INGREDIENT_QUANTITY_DESC = " " + PREFIX_INGREDIENT_QUANTITY
-            + "halal*"; // '*' not allowed in tags
+            + "*halal"; // '*' not allowed in tags
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
