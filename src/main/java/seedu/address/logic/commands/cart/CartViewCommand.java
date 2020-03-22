@@ -20,9 +20,11 @@ public class CartViewCommand extends CartCommand {
     /**
      * Creates a CartViewCommand to view the entire cart
      */
+    /*
     public CartViewCommand() {
         //TODO: Implement this method.
     }
+    */
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

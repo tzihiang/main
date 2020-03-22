@@ -1,17 +1,30 @@
 package seedu.address.logic.commands.inventory;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
 
 /**
  * Removes an ingredient to the inventory
  */
 
-public class InventoryRemoveIngredientCommand {
+public class InventoryRemoveIngredientCommand extends InventoryCommand {
 
     public static final String COMMAND_WORD = "remove";
     public static final String MESSAGE_SUCCESS = "Ingredient removed: %1$s";
+    public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
+            + ": This commands allows you to remove ingredients to your inventory.\n"
+            + "Parameters for removing an ingredient into your inventory is as follows: \n"
+            + PREFIX_INGREDIENT_NAME + "INGREDIENT "
+            + PREFIX_INGREDIENT_QUANTITY + "QUANTITY\n"
+            + "Example: " + COMMAND_CATEGORY + " "
+            + COMMAND_WORD + " "
+            + PREFIX_INGREDIENT_NAME + "Eggs";
 
     private final Ingredient toRemove;
 
@@ -32,4 +45,8 @@ public class InventoryRemoveIngredientCommand {
                 && toRemove.equals(((InventoryRemoveIngredientCommand) other).toRemove));
     }
 
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        return null;
+    }
 }
