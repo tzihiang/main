@@ -7,10 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.cart.CartAddIngredientCommand;
-import seedu.address.logic.commands.cart.CartCommand;
-import seedu.address.logic.commands.cart.CartRemoveIngredientCommand;
-import seedu.address.logic.commands.cart.CartViewCommand;
+import seedu.address.logic.commands.cart.*;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -44,6 +41,8 @@ public class CartCommandParser implements Parser<CartCommand> {
             return new CartRemoveIngredientCommandParser().parse(arguments);
         case CartViewCommand.COMMAND_WORD:
             return new CartViewCommandParser().parse(arguments);
+        case CartAddRecipeIngredientCommand.COMMAND_WORD:
+            return new CartAddRecipeIngredientCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
