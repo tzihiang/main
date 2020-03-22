@@ -20,7 +20,7 @@ public class CartAddRecipeIngredientCommand extends CartCommand {
             + "Example: " + COMMAND_CATEGORY + " "
             + COMMAND_WORD + "1\n";
 
-    final int recipeToAdd;
+    private final int recipeToAdd;
 
     /**
      * Creates a CartAddIngredientCommand to add the specified {@code Ingredient} to the cart
@@ -34,6 +34,6 @@ public class CartAddRecipeIngredientCommand extends CartCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         // TODO: Implement method.
-        return null;
+        return new CommandResult(String.format(MESSAGE_SUCCESS, recipeToAdd));
     }
 }
