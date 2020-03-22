@@ -6,7 +6,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.cookbook.CookbookAddCommand;
 import seedu.address.logic.commands.cookbook.CookbookCommand;
 import seedu.address.logic.commands.cookbook.CookbookRemoveCommand;
@@ -20,7 +19,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class CookbookCommandParser implements Parser<CookbookCommand> {
 
     private static final Pattern COOKBOOK_COMMAND_ARGUMENT_FORMAT = Pattern
-            .compile("(?<commandWord>\\S+) (?<arguments>.*)");
+            .compile(" *(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of a CookbookCommand
@@ -31,7 +30,7 @@ public class CookbookCommandParser implements Parser<CookbookCommand> {
         final Matcher matcher = COOKBOOK_COMMAND_ARGUMENT_FORMAT.matcher(args.trim());
 
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT));
         }
 
         final String commandWord = matcher.group("commandWord");
