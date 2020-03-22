@@ -18,16 +18,16 @@ public abstract class CartCommand extends Command {
     /**
      * Stores the details to edit the cart with.
      */
-    public static class EditCartDescriptor {
+    public static class EditIngredientDescriptor {
         private UniqueIngredientList ingredients;
 
-        public EditCartDescriptor() {}
+        public EditIngredientDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditCartDescriptor(EditCartDescriptor toCopy) {
+        public EditIngredientDescriptor(EditIngredientDescriptor toCopy) {
             setIngredients(toCopy.ingredients);
         }
 
@@ -35,7 +35,7 @@ public abstract class CartCommand extends Command {
          * Creates and returns a {@code Cart} with the details of {@code CartToEdit}
          * edited with {@code editCartDescriptor}.
          */
-        public static Cart createEditedCart(Cart cartToEdit, EditCartDescriptor editCartDescriptor) {
+        public static Cart createEditedCart(Cart cartToEdit, EditIngredientDescriptor editCartDescriptor) {
             assert cartToEdit != null;
 
             UniqueIngredientList updatedIngredients = editCartDescriptor.getIngredients()
@@ -66,12 +66,12 @@ public abstract class CartCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof CartCommand.EditCartDescriptor)) {
+            if (!(other instanceof CartCommand.EditIngredientDescriptor)) {
                 return false;
             }
 
             // state check
-            EditCartDescriptor e = (EditCartDescriptor) other;
+            EditIngredientDescriptor e = (EditIngredientDescriptor) other;
 
             return getIngredients().equals(e.getIngredients());
         }
