@@ -34,19 +34,17 @@ public class CartRemoveIngredientCommand extends CartCommand {
         this.toRemove = toRemove;
     }
 
-    // TODO: Implement Remove method
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+        // TODO: Implement this model to remove ingredient from cart
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));
+    }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CartRemoveIngredientCommand // instanceof handles nulls
                 && toRemove.equals(((CartRemoveIngredientCommand) other).toRemove));
-    }
-
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        // TODO: Implement this model
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));
     }
 }

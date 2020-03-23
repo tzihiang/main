@@ -232,15 +232,6 @@ Remove all eggs from your inventory.
 * `inventory remove i/Butter q/200g` +
 Removes 200g of butter from your inventory.
 
-==== View the inventory
-This command allows you to view your current inventory of owned ingredients.
-
-- Format: `inventory view`
-- Examples:
-* `inventory view` +
-Displays the entire inventory
-
-
 === Cart Commands
 Cart commands are commands that allow you to easily add ingredients needed for a recipe
 into a shopping cart. This provides convenience for your grocery shopping needs.
@@ -280,14 +271,6 @@ or to clear the cart after completing the purchase.
 - Example:
 * `cart clear` +
     Clears the cart of all items.
-
-==== View the cart
-This command allows you to view your current cart of ingredients to buy.
-
-- Format: `cart view`
-- Example:
-* `cart view` +
-Displays the entire cart.
 
 === Calendar Commands [v2.0]
 Calendar commands are commands that allow you to plan your meal preparations ahead and view the

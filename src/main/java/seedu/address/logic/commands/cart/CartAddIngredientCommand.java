@@ -37,19 +37,17 @@ public class CartAddIngredientCommand extends CartCommand {
         this.toAdd = toAdd;
     }
 
-    // TODO: Implement add method
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+        // TODO: Implement this model to add ingredient to cart
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CartAddIngredientCommand // instanceof handles nulls
                 && toAdd.equals(((CartAddIngredientCommand) other).toAdd));
-    }
-
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        // TODO: Implement this model
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 }
