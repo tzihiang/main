@@ -38,6 +38,10 @@ public class Step {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public String getStepDescription() {
+        return stepDescription;
+    }
+
     @Override
     public String toString() {
         return stepDescription;
