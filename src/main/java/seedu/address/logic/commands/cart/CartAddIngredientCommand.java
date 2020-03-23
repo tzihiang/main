@@ -40,7 +40,8 @@ public class CartAddIngredientCommand extends CartCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        // TODO: Implement this model to add ingredient to cart
+
+        model.addInventoryIngredient(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

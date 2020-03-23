@@ -37,7 +37,8 @@ public class CartRemoveIngredientCommand extends CartCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        // TODO: Implement this model to remove ingredient from cart
+
+        model.removeInventoryIngredient(toRemove);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));
     }
 
