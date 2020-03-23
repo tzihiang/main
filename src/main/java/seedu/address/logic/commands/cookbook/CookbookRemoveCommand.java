@@ -19,8 +19,8 @@ public class CookbookRemoveCommand extends CookbookCommand {
     public static final String COMMAND_WORD = "remove";
 
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
-            + ": Removes the recipe identified by the index number used in the displayed recipe list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "\n: removes the recipe identified by the index number used in the displayed recipe list.\n\n"
+            + "Parameters: INDEX (must be a positive integer)\n\n"
             + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_REMOVE_RECIPE_SUCCESS = "Deleted Recipe: %1$s";
