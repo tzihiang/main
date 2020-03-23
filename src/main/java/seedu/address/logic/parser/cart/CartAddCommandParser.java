@@ -21,7 +21,9 @@ import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 
-
+/**
+ * Parses input arguments and creates a new CartAddCommand object
+ */
 public class CartAddCommandParser implements Parser<CartAddCommand> {
 
     public static final String RECIPE_STRING = "recipe";
@@ -97,7 +99,7 @@ public class CartAddCommandParser implements Parser<CartAddCommand> {
     }
 
     private String removeRecipePrefix(String args) {
-        return args.split(" ",2)[1];
+        return args.split(" ", 2)[1];
     }
 
     private boolean containsRecipe(String args) {
@@ -111,7 +113,7 @@ public class CartAddCommandParser implements Parser<CartAddCommand> {
 
     private static boolean hasOnlyRecipePrefixAndIndex(String args) {
         String trim = args.trim();
-        return trim.split("\\s+").length == 2 && args.split(" ",2)[0].toLowerCase().equals("recipe");
+        return trim.split("\\s+").length == 2 && args.split(" ", 2)[0].toLowerCase().equals("recipe");
     }
 
     /**
