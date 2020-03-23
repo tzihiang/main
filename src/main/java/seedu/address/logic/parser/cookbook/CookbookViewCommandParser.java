@@ -1,6 +1,6 @@
 package seedu.address.logic.parser.cookbook;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.cookbook.CookbookViewCommand;
@@ -23,8 +23,8 @@ public class CookbookViewCommandParser implements Parser<CookbookViewCommand> {
             Index index = ParserUtil.parseIndex(args);
             return new CookbookViewCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CookbookViewCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX + "\n"
+                    + CookbookViewCommand.MESSAGE_USAGE);
         }
     }
 
