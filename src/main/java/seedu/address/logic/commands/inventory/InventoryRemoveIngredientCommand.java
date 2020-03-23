@@ -52,8 +52,4 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
                 && toRemove.equals(((InventoryRemoveIngredientCommand) other).toRemove));
     }
 
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
-        return null;
-    }
 }
