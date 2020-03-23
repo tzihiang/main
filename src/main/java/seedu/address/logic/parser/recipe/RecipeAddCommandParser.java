@@ -103,7 +103,6 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION)) {
-            System.out.println("cfm is here 2");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RecipeAddCommand.MESSAGE_USAGE));
         }
