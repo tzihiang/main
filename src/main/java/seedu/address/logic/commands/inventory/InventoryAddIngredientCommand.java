@@ -34,10 +34,17 @@ public class InventoryAddIngredientCommand extends InventoryCommand {
      */
     public InventoryAddIngredientCommand(Ingredient toAdd) {
         requireNonNull(toAdd);
+
         this.toAdd = toAdd;
     }
 
-    // TODO: Implement add method
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        model.addInventoryIngredient(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -46,11 +53,6 @@ public class InventoryAddIngredientCommand extends InventoryCommand {
                 && toAdd.equals(((InventoryAddIngredientCommand) other).toAdd));
     }
 
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        // TODO: Implement this model
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-    }
+
 
 }
