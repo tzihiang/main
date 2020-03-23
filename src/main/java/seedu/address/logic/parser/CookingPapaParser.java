@@ -9,9 +9,11 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.cart.CartCommand;
 import seedu.address.logic.commands.cookbook.CookbookCommand;
 import seedu.address.logic.commands.inventory.InventoryCommand;
 import seedu.address.logic.commands.recipe.RecipeCommand;
+import seedu.address.logic.parser.cart.CartCommandParser;
 import seedu.address.logic.parser.cookbook.CookbookCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.inventory.InventoryCommandParser;
@@ -52,6 +54,9 @@ public class CookingPapaParser {
 
         case InventoryCommand.COMMAND_CATEGORY:
             return new InventoryCommandParser().parse(arguments);
+
+        case CartCommand.COMMAND_CATEGORY:
+            return new CartCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_CATEGORY:
             return new ExitCommand();
