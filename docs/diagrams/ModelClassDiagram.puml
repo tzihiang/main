@@ -5,23 +5,58 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyCookbook <<Interface>>
+Interface ReadOnlyInventory <<Interface>>
+Interface ReadOnlyCart <<Interface>>
+Interface ReadOnlyIngredientList <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class CookingPapa
+Class ReadOnlyCookbook
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class ReadOnlyCart
+Class ReadOnlyIngredientList
+Class ReadOnlyInventory
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Package Cart {
+Class Cart
+Class UniqueIngredientList
+}
+
+Package Inventory {
+Class Inventory
+Class UniqueIngredientList
+}
+
+Package Ingredient {
+Class IngredientName
+Class Ingredient
+Class IngredientQuantity
+}
+
+Package Cookbook {
+Class UniqueRecipeList
+Class Cookbook
+}
+
+Package Recipe {
+Class Recipe
+Class Tag
+Class UniqueStepList
+Class RecipeName
+Class RecipeDescription
+Class UniqueIngredientList
+}
+
+Package UniqueIngredientList {
+Class UniqueIngredientList
+}
+
+Package Step {
+Class Step
 }
 
 Package Tag {
@@ -32,25 +67,33 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
-
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" Cookbook
+ModelManager o--> "1" Cart
+ModelManager o--> "1" Inventory
+
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Cookbook .left--> UniqueRecipeList
+Cookbook .up.|> ReadOnlyCookbook
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Inventory .right--> UniqueIngredientList
+Inventory .up.|> ReadOnlyInventory
 
-ModelManager -->"1" Person : filtered list
+Cart --> UniqueIngredientList
+Cart .up.|> ReadOnlyCart
+
+UniqueIngredientList .up.|> ReadOnlyIngredientList
+Recipe --> RecipeName
+Recipe --> RecipeDescription
+Recipe --> UniqueStepList
+Recipe --> Tag
+Recipe -right-> UniqueIngredientList
+
+UniqueStepList o--> "*" Step
+
+UniqueIngredientList o--> "*" Ingredient
+UniqueRecipeList o--> "*" Recipe
 @enduml
