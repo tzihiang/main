@@ -234,7 +234,6 @@ public class ModelManager implements Model {
     @Override
     public void setInventoryIngredient(Ingredient target, Ingredient editedIngredient) {
         requireAllNonNull(target, editedIngredient);
-
         inventory.setIngredient(target, editedIngredient);
     }
 
@@ -258,7 +257,6 @@ public class ModelManager implements Model {
     @Override
     public void setCartIngredient(Ingredient target, Ingredient editedIngredient) {
         requireAllNonNull(target, editedIngredient);
-
         cart.setIngredient(target, editedIngredient);
     }
 

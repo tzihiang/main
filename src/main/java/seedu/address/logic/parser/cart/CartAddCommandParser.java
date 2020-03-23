@@ -1,21 +1,26 @@
 package seedu.address.logic.parser.cart;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
+
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.cart.CartAddCommand;
 import seedu.address.logic.commands.cart.CartAddIngredientCommand;
 import seedu.address.logic.commands.cart.CartAddRecipeIngredientCommand;
 import seedu.address.logic.commands.recipe.RecipeAddCommand;
-import seedu.address.logic.parser.*;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 
-import java.util.stream.Stream;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 
 public class CartAddCommandParser implements Parser<CartAddCommand> {
 
@@ -39,6 +44,11 @@ public class CartAddCommandParser implements Parser<CartAddCommand> {
         }
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the CartAddIngredientCommand
+     * and returns a CartAddIngredientCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public CartAddIngredientCommand parseAddIngredient(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
@@ -60,12 +70,17 @@ public class CartAddCommandParser implements Parser<CartAddCommand> {
 
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the CartAddRecipeIngredientCommand
+     * and returns a CartAddRecipeIngredientCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public CartAddRecipeIngredientCommand parseAddRecipeIngredient(String args) throws
             NumberFormatException, ParseException {
 
         int recipeNumber;
 
-        if (!hasOnlyRecipePrefixAndIndex(args)){
+        if (!hasOnlyRecipePrefixAndIndex(args)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     CartAddCommand.MESSAGE_USAGE));
         }
@@ -94,7 +109,7 @@ public class CartAddCommandParser implements Parser<CartAddCommand> {
                 && args.contains(PREFIX_INGREDIENT_QUANTITY.toString());
     }
 
-    private static boolean hasOnlyRecipePrefixAndIndex(String args){
+    private static boolean hasOnlyRecipePrefixAndIndex(String args) {
         String trim = args.trim();
         return trim.split("\\s+").length == 2 && args.split(" ",2)[0].toLowerCase().equals("recipe");
     }
