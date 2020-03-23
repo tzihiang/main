@@ -2,13 +2,16 @@ package seedu.address.logic.commands.inventory;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
 
 /**
  * Removes an ingredient to the inventory
  */
 
-public class InventoryRemoveIngredientCommand {
+public class InventoryRemoveIngredientCommand extends InventoryRemoveCommand {
 
     public static final String COMMAND_WORD = "remove";
     public static final String MESSAGE_SUCCESS = "Ingredient removed: %1$s";
@@ -23,7 +26,13 @@ public class InventoryRemoveIngredientCommand {
         this.toRemove = toRemove;
     }
 
-    // TODO: Implement Remove method
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        model.removeInventoryIngredient(toRemove);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));
+    }
 
     @Override
     public boolean equals(Object other) {
