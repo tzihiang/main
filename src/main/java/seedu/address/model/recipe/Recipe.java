@@ -125,7 +125,7 @@ public class Recipe {
                 .append(getDescription())
                 .append("\nIngredients: ")
                 .append(getIngredients())
-                .append("\nPreparation Steps: ")
+                .append("\nPreparation Steps:\n")
                 .append(getSteps())
                 .append("\nTags: ");
         getTags().forEach(builder::append);

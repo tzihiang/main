@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.step.exceptions.DuplicateStepException;
 import seedu.address.model.step.exceptions.StepNotFoundException;
 
@@ -156,5 +157,16 @@ public class UniqueStepList implements Iterable<Step> {
             }
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < internalList.size(); i++) {
+            sb.append(i + 1).append(": ").append(internalList.get(i).toString()).append("\n");
+        }
+
+        return sb.length() - 1 > 0 ? sb.toString().substring(0, sb.length() - 1) : sb.toString();
     }
 }

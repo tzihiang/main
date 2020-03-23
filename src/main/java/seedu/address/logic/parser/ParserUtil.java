@@ -2,9 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -15,6 +14,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.recipe.RecipeDescription;
 import seedu.address.model.recipe.RecipeName;
 import seedu.address.model.step.Step;
+import seedu.address.model.step.UniqueStepList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -153,5 +153,32 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    public static List<IngredientName> parseIngredientNames(List<String> ingredientNames) {
+        requireNonNull(ingredientNames);
+
+        return ingredientNames.stream()
+            .map(IngredientName::new)
+            .collect(Collectors.toList());
+    }
+
+    public static List<IngredientQuantity> parseIngredientQuantities(List<String> ingredientQuantities) {
+        requireNonNull(ingredientQuantities);
+
+        return ingredientQuantities.stream()
+            .map(IngredientQuantity::new)
+            .collect(Collectors.toList());
+    }
+
+    public static UniqueStepList parseSteps(List<String> stepDescriptions) {
+        requireNonNull(stepDescriptions);
+        UniqueStepList steps = new UniqueStepList();
+
+        for (String stepDescription : stepDescriptions) {
+            steps.add(new Step(stepDescription));
+        }
+
+        return steps;
     }
 }

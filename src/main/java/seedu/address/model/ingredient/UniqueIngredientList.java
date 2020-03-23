@@ -151,12 +151,12 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
 
     @Override
     public String toString() {
-        String string = "";
+        StringBuilder sb = new StringBuilder();
 
         for (Ingredient i : internalList) {
-            string += i.toString() + ", ";
+            sb.append(i.toString()).append(", ");
         }
 
-        return string.length() - 3 > 0 ? string.substring(0, string.length() - 3) : string;
+        return sb.length() - 2 > 0 ? sb.toString().substring(0, sb.length() - 2) : sb.toString();
     }
 }
