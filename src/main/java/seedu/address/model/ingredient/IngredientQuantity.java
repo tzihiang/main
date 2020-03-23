@@ -52,7 +52,7 @@ public class IngredientQuantity {
         this.unit = parseUnit(ingredientQuantity);
     }
 
-    private IngredientQuantity(Number value, String unit) {
+    IngredientQuantity(Number value, String unit) {
         requireAllNonNull(value, unit);
         this.value = value;
         this.unit = unit;
@@ -134,7 +134,7 @@ public class IngredientQuantity {
 
         assert newValue != null;
         if (newValue.doubleValue() < 0) {
-            newValue = 0;
+            newValue = value;
         }
 
         return new IngredientQuantity(newValue, unit);

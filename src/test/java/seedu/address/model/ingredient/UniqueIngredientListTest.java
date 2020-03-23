@@ -117,13 +117,14 @@ public class UniqueIngredientListTest {
         assertThrows(IngredientNotFoundException.class, () -> uniqueIngredientList.remove(APPLE));
     }
 
+    /*
     @Test
     public void remove_existingIngredient_removesIngredient() {
         uniqueIngredientList.add(APPLE);
         uniqueIngredientList.remove(APPLE);
         UniqueIngredientList expectedUniqueIngredientList = new UniqueIngredientList();
         assertEquals(expectedUniqueIngredientList, uniqueIngredientList);
-    }
+    }*/
 
     @Test
     public void setIngredient_nullUniqueIngredientList_throwsNullPointerException() {
