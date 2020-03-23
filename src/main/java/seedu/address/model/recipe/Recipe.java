@@ -7,7 +7,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.collections.ObservableList;
+
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.UniqueIngredientList;
+import seedu.address.model.step.Step;
 import seedu.address.model.step.UniqueStepList;
 import seedu.address.model.tag.Tag;
 
@@ -60,12 +64,12 @@ public class Recipe {
         return description;
     }
 
-    public UniqueIngredientList getIngredients() {
-        return ingredients;
+    public ObservableList<Ingredient> getIngredients() {
+        return ingredients.asUnmodifiableObservableList();
     }
 
-    public UniqueStepList getSteps() {
-        return steps;
+    public ObservableList<Step> getSteps() {
+        return steps.asUnmodifiableObservableList();
     }
 
     /**
