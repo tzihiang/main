@@ -8,7 +8,7 @@ import seedu.address.model.step.Step;
 /**
  * Jackson-friendly version of {@link Step}.
  */
-class JsonAdaptedStepDescription {
+class JsonAdaptedStep {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Step's %s field is missing!";
 
@@ -18,14 +18,14 @@ class JsonAdaptedStepDescription {
      * Constructs a {@code JsonAdaptedStep} with the given {@code stepDescription}.
      */
     @JsonCreator
-    public JsonAdaptedStepDescription(String stepDescription) {
+    public JsonAdaptedStep(String stepDescription) {
         this.stepDescription = stepDescription;
     }
 
     /**
      * Converts a given {@code Step} into this class for Jackson use.
      */
-    public JsonAdaptedStepDescription(Step source) {
+    public JsonAdaptedStep(Step source) {
         stepDescription = source.getStepDescription();
     }
 
