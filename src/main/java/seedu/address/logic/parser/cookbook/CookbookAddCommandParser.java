@@ -1,15 +1,19 @@
 package seedu.address.logic.parser.cookbook;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_DIFFERENT_NUMBER_OF_INPUTS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECIPE_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECIPE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.cookbook.CookbookAddCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -17,7 +21,6 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.model.ingredient.UniqueIngredientList;
@@ -57,7 +60,8 @@ public class CookbookAddCommandParser implements Parser<CookbookAddCommand> {
                 ParserUtil.parseIngredientNames(argMultimap.getAllValues(PREFIX_INGREDIENT_NAME));
         List<IngredientQuantity> ingredientQuantities =
                 ParserUtil.parseIngredientQuantities(argMultimap.getAllValues(PREFIX_INGREDIENT_QUANTITY));
-        UniqueIngredientList ingredients = parseIngredients(ingredientNames, ingredientQuantities);
+        UniqueIngredientList ingredients =
+                ParserUtil.parseIngredients(ingredientNames, ingredientQuantities);
 
         UniqueStepList steps = ParserUtil.parseSteps(argMultimap.getAllValues(PREFIX_STEP_DESCRIPTION));
 
@@ -66,23 +70,6 @@ public class CookbookAddCommandParser implements Parser<CookbookAddCommand> {
         return new CookbookAddCommand(new Recipe(recipeName, recipeDescription, ingredients, steps, tags));
     }
 
-    private UniqueIngredientList parseIngredients(List<IngredientName> names, List<IngredientQuantity> quantities)
-            throws ParseException {
-        //TODO include exception where the quantities of both lists are different
-
-        if (names.size() != quantities.size()) {
-            throw new ParseException(
-                String.format(MESSAGE_DIFFERENT_NUMBER_OF_INPUTS, names.size(), quantities.size()));
-        }
-
-        UniqueIngredientList ingredients = new UniqueIngredientList();
-
-        for (int i = 0; i < names.size(); i++) {
-            ingredients.add(new Ingredient(names.get(i), quantities.get(i)));
-        }
-
-        return ingredients;
-    }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix ... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
