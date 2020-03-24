@@ -74,32 +74,14 @@ class JsonAdaptedRecipe {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted recipe object into the model's {@code Recipe} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted recipe.
      */
     public Recipe toModelType() throws IllegalValueException {
         final List<Tag> recipeTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             recipeTags.add(tag.toModelType());
-        }
-
-        final UniqueIngredientList recipeIngredients = new UniqueIngredientList();
-        for (JsonAdaptedIngredient jsonAdaptedIngredient : ingredients) {
-            Ingredient ingredient = jsonAdaptedIngredient.toModelType();
-            if (recipeIngredients.contains(ingredient)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_INGREDIENT);
-            }
-            recipeIngredients.add(ingredient);
-        }
-
-        final UniqueStepList recipeSteps = new UniqueStepList();
-        for (JsonAdaptedStep jsonAdaptedStep : steps) {
-            Step step = jsonAdaptedStep.toModelType();
-            if (recipeSteps.contains(step)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_STEP);
-            }
-            recipeSteps.add(step);
         }
 
         if (recipeName == null) {
@@ -120,9 +102,45 @@ class JsonAdaptedRecipe {
 
         final RecipeName modelName = new RecipeName(recipeName);
         final RecipeDescription modelDescription = new RecipeDescription(recipeDescription);
+        final UniqueIngredientList modelIngredientList = getModelIngredientList();
+        final UniqueStepList modelStepList = getModelStepList();
         final Set<Tag> modelTags = new HashSet<>(recipeTags);
 
-        return new Recipe(modelName, modelDescription, recipeIngredients, recipeSteps, modelTags);
+        return new Recipe(modelName, modelDescription, modelIngredientList, modelStepList, modelTags);
+    }
+
+    /**
+    * Converts Jackson-friendly adapted list of Ingredient objects into the model's {@code UniqueIngredientList} object.
+    *
+    * @throws IllegalValueException if there were any data constraints violated in the adapted ingredient list.
+    */
+    private UniqueIngredientList getModelIngredientList() throws IllegalValueException {
+        final UniqueIngredientList modelIngredientList = new UniqueIngredientList();
+        for (JsonAdaptedIngredient jsonAdaptedIngredient : ingredients) {
+            Ingredient ingredient = jsonAdaptedIngredient.toModelType();
+            if (modelIngredientList.contains(ingredient)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_INGREDIENT);
+            }
+            modelIngredientList.add(ingredient);
+        }
+        return modelIngredientList;
+    }
+
+    /**
+     * Converts Jackson-friendly adapted list of Step objects into the model's {@code UniqueStepList} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted step list.
+     */
+    private UniqueStepList getModelStepList() throws IllegalValueException {
+        final UniqueStepList modelStepList = new UniqueStepList();
+        for (JsonAdaptedStep jsonAdaptedStep : steps) {
+            Step step = jsonAdaptedStep.toModelType();
+            if (modelStepList.contains(step)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_STEP);
+            }
+            modelStepList.add(step);
+        }
+        return modelStepList;
     }
 
 }
