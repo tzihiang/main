@@ -1,16 +1,15 @@
 package seedu.address.logic.parser.cookbook;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DIFFERENT_NUMBER_OF_INPUTS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.*;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.cookbook.CookbookAddCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -25,7 +24,6 @@ import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.RecipeDescription;
 import seedu.address.model.recipe.RecipeName;
-import seedu.address.model.step.Step;
 import seedu.address.model.step.UniqueStepList;
 import seedu.address.model.tag.Tag;
 
@@ -65,13 +63,17 @@ public class CookbookAddCommandParser implements Parser<CookbookAddCommand> {
 
         Set<Tag> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Recipe recipe = new Recipe(recipeName, recipeDescription, ingredients, steps, tags);
-
-        return new CookbookAddCommand(recipe);
+        return new CookbookAddCommand(new Recipe(recipeName, recipeDescription, ingredients, steps, tags));
     }
 
-    private UniqueIngredientList parseIngredients(List<IngredientName> names, List<IngredientQuantity> quantities) {
+    private UniqueIngredientList parseIngredients(List<IngredientName> names, List<IngredientQuantity> quantities)
+            throws ParseException {
         //TODO include exception where the quantities of both lists are different
+
+        if (names.size() != quantities.size()) {
+            throw new ParseException(
+                String.format(MESSAGE_DIFFERENT_NUMBER_OF_INPUTS, names.size(), quantities.size()));
+        }
 
         UniqueIngredientList ingredients = new UniqueIngredientList();
 
