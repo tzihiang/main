@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.HelpCommand;
 
 import seedu.address.logic.commands.cart.CartAddCommand;
+import seedu.address.logic.commands.cart.CartClearCommand;
 import seedu.address.logic.commands.cart.CartCommand;
 import seedu.address.logic.commands.cart.CartRemoveIngredientCommand;
 import seedu.address.logic.parser.Parser;
@@ -34,7 +35,6 @@ public class CartCommandParser implements Parser<CartCommand> {
         }
 
         // For now, implementation will only be done for the whole ingredient, and not quantity
-        // TODO: Implement optional argument for parser.
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
@@ -42,6 +42,8 @@ public class CartCommandParser implements Parser<CartCommand> {
             return new CartAddCommandParser().parse(arguments);
         case CartRemoveIngredientCommand.COMMAND_WORD:
             return new CartRemoveIngredientCommandParser().parse(arguments);
+        case CartClearCommand.COMMAND_WORD:
+            return new CartClearCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

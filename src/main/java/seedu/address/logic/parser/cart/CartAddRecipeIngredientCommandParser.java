@@ -1,9 +1,13 @@
 package seedu.address.logic.parser.cart;
 
+import seedu.address.logic.commands.cart.CartAddCommand;
 import seedu.address.logic.commands.cart.CartAddRecipeIngredientCommand;
 import seedu.address.logic.commands.cart.CartCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses input arguments and creates a new CartAddRecipeIngredientCommand object
@@ -16,6 +20,19 @@ public class CartAddRecipeIngredientCommandParser implements Parser<CartCommand>
      * @throws ParseException if the user input does not conform the expected format
      */
     public CartAddRecipeIngredientCommand parse(String args) throws ParseException {
-        throw new ParseException("Not implemented yet");
+
+        requireNonNull(args);
+
+        int recipeNumber;
+
+        try {
+            recipeNumber = Integer.parseInt(args);
+        } catch (NumberFormatException ne){
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    CartAddCommand.MESSAGE_USAGE));
+        }
+
+        return new CartAddRecipeIngredientCommand(recipeNumber);
     }
+
 }

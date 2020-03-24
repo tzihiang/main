@@ -41,7 +41,7 @@ public class CartAddIngredientCommand extends CartAddCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.addInventoryIngredient(toAdd);
+        model.addCartIngredient(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
