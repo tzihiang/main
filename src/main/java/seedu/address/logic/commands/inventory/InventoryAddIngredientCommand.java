@@ -1,6 +1,8 @@
 package seedu.address.logic.commands.inventory;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -11,10 +13,19 @@ import seedu.address.model.ingredient.Ingredient;
  * Adds an ingredient to the inventory
  */
 
-public class InventoryAddIngredientCommand extends InventoryAddCommand {
+public class InventoryAddIngredientCommand extends InventoryCommand {
 
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_SUCCESS = "New ingredient added: %1$s";
+    public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
+            + ": This commands allows you to add ingredients to your inventory.\n"
+            + "Parameters for adding an ingredient into your inventory is as follows: \n"
+            + PREFIX_INGREDIENT_NAME + "INGREDIENT "
+            + PREFIX_INGREDIENT_QUANTITY + "QUANTITY\n"
+            + "Example: " + COMMAND_CATEGORY + " "
+            + COMMAND_WORD + " "
+            + PREFIX_INGREDIENT_NAME + "Eggs "
+            + PREFIX_INGREDIENT_QUANTITY + "10\n";
 
     private final Ingredient toAdd;
 
@@ -23,10 +34,17 @@ public class InventoryAddIngredientCommand extends InventoryAddCommand {
      */
     public InventoryAddIngredientCommand(Ingredient toAdd) {
         requireNonNull(toAdd);
+
         this.toAdd = toAdd;
     }
 
-    // TODO: Implement add method
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        model.addInventoryIngredient(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -35,11 +53,6 @@ public class InventoryAddIngredientCommand extends InventoryAddCommand {
                 && toAdd.equals(((InventoryAddIngredientCommand) other).toAdd));
     }
 
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        // TODO: Implement this model
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-    }
+
 
 }
