@@ -3,6 +3,9 @@ package seedu.address.logic.commands.cookbook;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEARCH_KEYWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+/**
+ * Searches for a recipe in the cookbook based on inventory/keyword/tag.
+ */
 public abstract class CookbookSearchCommand extends CookbookCommand {
 
     public static final String COMMAND_WORD = "search";

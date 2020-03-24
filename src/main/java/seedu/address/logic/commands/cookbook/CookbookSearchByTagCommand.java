@@ -1,13 +1,12 @@
 package seedu.address.logic.commands.cookbook;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
 import seedu.address.model.tag.Tag;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
