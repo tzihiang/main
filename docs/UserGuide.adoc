@@ -72,16 +72,18 @@ If neither of the details is specified, an empty recipe will be added.
 
 - Format: `cookbook add n/NAME [i/INGREDIENT] [q/QUANTITY] [x/STEP_INDEX] [s/STEP] [t/TAG]`
 - Examples:
-* `cookbook add n/Bacon Carbonara` +
-    Adds a new empty recipe with the name 'Bacon Carbonara'.
-* `cookbook add n/Chicken Ham Sandwich i/Chicken Ham i/White Bread q/2 slices
-      x/1 s/Toast the bread x/2 s/Grill the ham. t/sandwich t/easy` +
-    Adds a new recipe with the name 'Chicken Ham Sandwich' and the following recipe details. +
+* `cookbook add n/Bacon Carbonara d/Italian's finest pasta` +
+    Adds a new empty recipe with the name 'Bacon Carbonara' and description 'Italian's finest pasta'.
+* `cookbook add n/Chicken Ham Sandwich d/Juicy ham sandwiched between crispy toasted bread.
+   i/Chicken Ham q/1 slice i/White Bread q/2 slices x/1 s/Toast the bread x/2 s/Grill the ham.
+   t/sandwich t/easy` +
+    Adds a new recipe with the name 'Chicken Ham Sandwich', description 'Juicy ham sandwiched between
+    crispy toasted bread' and the following recipe details. +
     Tags: sandwich, easy +
     Ingredients: Ham, Bread (2 slices) +
     Preparation Steps: +
     1. Toast the ham +
-    2. Grill the bread
+    2. Grill the bread +
 
 ==== Remove a recipe from the cookbook
 This command allows you to remove a recipe of the specified index from the cookbook.
@@ -94,9 +96,9 @@ This command allows you to remove a recipe of the specified index from the cookb
 ==== Search recipes by keyword
 This command allows you to search for recipes by a keyword, and the search result will be returned along with the respective recipe indices.
 
-- Format: `cookbook search w/KEYWORD`
+- Format: `cookbook search k/KEYWORD`
 - Example:
-* `cookbook search w/Carbonara` +
+* `cookbook search k/Carbonara` +
     Searches the cookbook for recipes with names matching the keyword 'Carbonara'.
 
 ==== Search recipes by tag
@@ -232,15 +234,6 @@ Remove all eggs from your inventory.
 * `inventory remove i/Butter q/200g` +
 Removes 200g of butter from your inventory.
 
-==== View the inventory
-This command allows you to view your current inventory of owned ingredients.
-
-- Format: `inventory view`
-- Examples:
-* `inventory view` +
-Displays the entire inventory
-
-
 === Cart Commands
 Cart commands are commands that allow you to easily add ingredients needed for a recipe
 into a shopping cart. This provides convenience for your grocery shopping needs.
@@ -248,9 +241,9 @@ into a shopping cart. This provides convenience for your grocery shopping needs.
 ==== Add ingredients in a recipe to the cart
 This command allows you to add all the ingredients in a recipe to the cart.
 
-- Format: `cart INDEX`
+- Format: `cart recipe INDEX`
 - Example:
-* `cart 1` +
+* `cart recipe 1` +
     Adds ingredients required of recipe 1 to the cart.
 
 ==== Add ingredients to the cart

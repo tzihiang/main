@@ -36,6 +36,14 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
     }
 
     /**
+     * Returns the ingredient with the same name {@code toFind}.
+     */
+    public Ingredient get(Ingredient toFind) {
+        requireNonNull(toFind);
+        return internalList.stream().filter(toFind::isSameIngredient).findFirst().get();
+    }
+
+    /**
      * Adds an ingredient to the list if it does not yet exist.
      */
     public void add(Ingredient toAdd) {
@@ -73,9 +81,19 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
      */
     public void remove(Ingredient toRemove) {
         requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+
+        if (!contains(toRemove)) {
             throw new IngredientNotFoundException();
         }
+
+        Ingredient curr = get(toRemove);
+        IngredientQuantity updated = curr.getQuantity().subtract(toRemove.getQuantity());
+
+        if (updated.equals((curr.getQuantity()))) {
+            internalList.remove(toRemove);
+        }
+
+        setIngredient(toRemove, new Ingredient(curr.getName(), updated));
     }
 
     public void setIngredients(UniqueIngredientList replacement) {
