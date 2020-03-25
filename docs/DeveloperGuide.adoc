@@ -153,6 +153,52 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Add Recipe to the Cookbook
+==== Implementation
+
+The recipe addition mechanism is facilitated by CookbookAddCommand, which extends the Command abstract class. The format of the command is as follows: `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT_NAME]... [q/INGREDIENT_QUANTITY]... [t/TAG]...`
+
+Below is a step by step sequence of what happens when a user enters this command
+
+. The user enters a recipe adding command using the command line input `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]... [x/STEP_INDEX]... [s/STEP_DESCRIPTION]... [t/TAG]...`.
+. `CookbookAddCommandParser` parsers the user input and checks if `n/NAME` and `d/DESCRIPTION` are provided. It then parses the input into the following fields: recipe name, recipe description, ingredients, and tags. Note that the ingredient names and ingredient quantities provided must be the same, or a `ParseException` will be thrown, likewise for step indices and step descriptions.
+. These fields are then passed as parameters for `Recipe`, which is then passed as the parameter for `CookbookAddCommand` and returned to `LogicManager`.
+. `LogicManager` calls `CookbookAddCommand#execute()` which checks if the cookbook already contains the same recipe with the same name, description, ingredient names, ingredient quantities, and tags using `Model#hasCookbookRecipe()`. If there is a duplicate, a `CommandException` is thrown, stating that the user is attempting to add a duplicate recipe.
+. If `CommandException` is not thrown, `Model#addCookbookRecipe` will be executed, with the recipe to be added as a parameter.
+. `Model#addCookbookRecipe()`then executes `Cookbook#addRecipe()`, which adds the recipe to the cookbook, and the `FilteredList<Recipe>` representing the recipes in the cookbook are updated with `Model#updateFilteredCookbookRecipeList()`
+. A `CommandResult` with the text to display to the user is then returned to `LogicManager`, which can passed back to `MainWindow`, which displays it to the user on the CLI and GUI.
+
+==== Implementation reasoning
+
+This command is implemented this way  to allow a user to add a recipe with optional fields (ingredients, tags) - only the recipe name and recipe description are mandatory fields. This way, a user does not have input all the fields that they may not have at the moment to create a recipe. After creating the skeleton of the recipe, the user can then use the other `Cookbook` methods to add ingredients and steps to the recipe. However, one key point is that should ingredient names be provided, the same number of ingredient quantities have to be provided as well, vice versa, likewise for step indices and step descriptions.
+
+==== Sequence diagram
+INSERT SEQUENCE DIAGRAM HERE
+
+==== How the feature works
+INSERT PICTURES ON THE GUI
+
+==== Design considerations
+===== Aspect: How to parse optional fields
+- Alternative 1 (current choice): Parse each category separately
+* Each category (ingredient name, ingredient quantity, step index, step description, tag) are parsed separately and returned as `List`. If the returned `List` is empty, then it means that that field was not provided in the input, and will be set to an empty `List` in the recipe.
+* Pros: Provides more flexibility for the user, no need to deal with null values
+* Cons: More methods have to be executed which may increase time complexity
+
+- Alternative 2: Parse all the categories together
+* Each category will be parse together in one function
+* Pros: Straightforward, no need to call multiple functions from other classes
+* Cons: Have to deal with null values and include null checks (`ifPresent()` etc.), method will be very long and decreases readability
+
+===== Aspect: String formatting for CommandResult
+- Alternative 1 (current choice): Separate each field with newlines
+* Pros: vastly improves readability
+* Cons: smaller font size to improve fit in `ResultDisplay`
+
+- Alternatve 2: Combine all the fields in one line
+* Pros: bigger font size due to the lack of newlines
+* Cons: difficult to read, difficult for user to extract desired information from the text in `ResultDisplay`
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
