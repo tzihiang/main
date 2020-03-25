@@ -1,6 +1,7 @@
 package seedu.address.model.ingredient;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
@@ -8,50 +9,52 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.ingredient.exceptions.DuplicateIngredientException;
 import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
-
+import seedu.address.model.ingredient.exceptions.NonPositiveIngredientQuantityException;
 
 /**
  * A list of ingredients that enforces uniqueness between its elements and does not allow nulls.
  * An ingredient is considered unique by comparing using {@code Ingredient#isSameIngredient(Ingredient)}. As such,
- * adding and updating of ingredients uses Ingredient#isSameIngredient(Ingredient) for equality so as to ensure
+ * adding and updating of ingredients uses {@code Ingredient#isSameIngredient(Ingredient)} for equality so as to ensure
  * that the ingredient being added or updated is unique in terms of identity in the UniqueIngredientList.
+ *
+ * Supports a minimal set of list operations.
+ *
+ * @see Ingredient#isSameIngredient(Ingredient)
  */
-
 public class UniqueIngredientList implements Iterable<Ingredient> {
 
-    private final ObservableList<Ingredient> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Ingredient> internalUnmodifiableList =
+    protected final ObservableList<Ingredient> internalList = FXCollections.observableArrayList();
+    protected final ObservableList<Ingredient> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Checks if otherIngredient already exists in the list.
-     * @param otherIngredient
-     * @return true is otherIngredient exists, false otherwise.
+     * Returns true if the list contains an ingredient equivalent to the given argument.
      */
-    public boolean contains(Ingredient otherIngredient) {
-        requireNonNull(otherIngredient);
-        return internalList.stream().anyMatch(otherIngredient::isSameIngredient);
+    public boolean contains(Ingredient toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSameIngredient);
     }
 
     /**
-     * Returns the ingredient with the same name {@code toFind}.
+     * Returns an ingredient equivalent to given argument, if the list contains an equivalent ingredient.
      */
-    public Ingredient get(Ingredient toFind) {
-        requireNonNull(toFind);
+    public Ingredient find(Ingredient toFind) {
+        checkArgument(contains(toFind));
         return internalList.stream().filter(toFind::isSameIngredient).findFirst().get();
     }
 
     /**
-     * Adds an ingredient to the list if it does not yet exist.
+     * Adds an ingredient to the list.
      */
     public void add(Ingredient toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateIngredientException();
+            int index = internalList.indexOf(find(toAdd));
+            internalList.set(index, find(toAdd).add(toAdd));
+        } else {
+            internalList.add(toAdd);
         }
-        internalList.add(toAdd);
     }
 
     /**
@@ -69,31 +72,31 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
         }
 
         if (!target.isSameIngredient(editedIngredient) && contains(editedIngredient)) {
-            throw new DuplicateIngredientException();
+            remove(target);
+            add(editedIngredient);
+        } else {
+            internalList.set(index, editedIngredient);
         }
-
-        internalList.set(index, editedIngredient);
     }
 
     /**
-     * Removes the equivalent ingredient from the list.
-     * The ingredient must exist in the list.
+     * Removes the quantity of the ingredient from the list.
+     * The ingredient must exist in the list. If the resulting quantity is not positive, the ingredient will be removed
+     * from the list entirely.
      */
     public void remove(Ingredient toRemove) {
         requireNonNull(toRemove);
-
         if (!contains(toRemove)) {
             throw new IngredientNotFoundException();
         }
+        int index = internalList.indexOf(find(toRemove));
 
-        Ingredient curr = get(toRemove);
-        IngredientQuantity updated = curr.getQuantity().subtract(toRemove.getQuantity());
-
-        if (updated.equals((curr.getQuantity()))) {
-            internalList.remove(toRemove);
+        try {
+            Ingredient subtractedIngredient = find(toRemove).subtract(toRemove);
+            internalList.set(index, subtractedIngredient);
+        } catch (NonPositiveIngredientQuantityException e) {
+            internalList.remove(index);
         }
-
-        setIngredient(toRemove, new Ingredient(curr.getName(), updated));
     }
 
     public void setIngredients(UniqueIngredientList replacement) {
@@ -103,15 +106,13 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
 
     /**
      * Replaces the contents of this list with {@code ingredients}.
-     * {@code persons} must not contain duplicate persons.
      */
     public void setIngredients(List<Ingredient> ingredients) {
         requireAllNonNull(ingredients);
-        if (!ingredientsAreUnique(ingredients)) {
-            throw new DuplicateIngredientException();
+        internalList.clear();
+        for (Ingredient ingredient : ingredients) {
+            add(ingredient);
         }
-
-        internalList.setAll(ingredients);
     }
 
     /**
@@ -130,22 +131,11 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueIngredientList // instanceof handles nulls
-                && internalList.equals(((UniqueIngredientList) other).internalList));
+                        && internalList.equals(((UniqueIngredientList) other).internalList));
     }
 
-    /**
-     * Checks if all the ingredients given in the list are unique and has no repeats.
-     * @param ingredients
-     * @return true if all ingredients are unique, false otherwise.
-     */
-    private boolean ingredientsAreUnique(List<Ingredient> ingredients) {
-        for (int i = 0; i < ingredients.size() - 1; i++) {
-            for (int j = i + 1; j < ingredients.size(); j++) {
-                if (ingredients.get(i).isSameIngredient(ingredients.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
     }
 }
