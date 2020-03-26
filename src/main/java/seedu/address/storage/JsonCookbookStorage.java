@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyCookbook;
 
 /**
@@ -61,7 +62,7 @@ public class JsonCookbookStorage implements CookbookStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        //JsonUtil.saveJsonFile(new JsonSerializableCookbook(cookbook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableCookbook(cookbook), filePath);
     }
 
 }
