@@ -99,7 +99,7 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
         try {
             recipeIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
                     RecipeAddCommand.MESSAGE_USAGE), pe);
         }
 

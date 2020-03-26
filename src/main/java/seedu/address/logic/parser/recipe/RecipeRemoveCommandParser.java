@@ -2,6 +2,7 @@ package seedu.address.logic.parser.recipe;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -68,7 +69,7 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
         try {
             recipeIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
                     RecipeRemoveCommand.MESSAGE_USAGE), pe);
         }
 

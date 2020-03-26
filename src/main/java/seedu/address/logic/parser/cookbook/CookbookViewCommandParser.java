@@ -23,8 +23,8 @@ public class CookbookViewCommandParser implements Parser<CookbookViewCommand> {
             Index index = ParserUtil.parseIndex(args);
             return new CookbookViewCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX + "\n"
-                    + CookbookViewCommand.MESSAGE_USAGE);
+            throw new ParseException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
+                    CookbookViewCommand.MESSAGE_USAGE));
         }
     }
 

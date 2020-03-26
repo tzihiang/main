@@ -37,8 +37,8 @@ public class CookbookViewCommand extends CookbookCommand {
         List<Recipe> lastShownList = model.getFilteredCookbookRecipeList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX + "\n"
-                    + CookbookViewCommand.MESSAGE_USAGE);
+            throw new CommandException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
+                    CookbookViewCommand.MESSAGE_USAGE));
         }
 
         Recipe recipeToView = lastShownList.get(targetIndex.getZeroBased());

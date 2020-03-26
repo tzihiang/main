@@ -27,5 +27,4 @@ public class CookbookRemoveCommandParser implements Parser<CookbookRemoveCommand
                     CookbookRemoveCommand.MESSAGE_USAGE));
         }
     }
-
 }
