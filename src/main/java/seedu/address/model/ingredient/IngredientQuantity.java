@@ -20,7 +20,6 @@ public class IngredientQuantity {
     public static final String MESSAGE_CONSTRAINTS =
             "Ingredient quantities should only contain a value and a unit, where the value can be "
             + "whole numbers, decimals, or fractions, and the unit should only contain alphabets";
-
     private static final String DECIMAL_REGEX = "(([\\p{Digit}]+(\\.[\\p{Digit}]+)?)|(\\.[\\p{Digit}]+))";
     private static final String FRACTION_REGEX = "[\\p{Digit}]+( +[\\p{Digit}]+)?/[\\p{Digit}]+";
     private static final String UNIT_REGEX = "[\\p{Alpha}][\\p{Alpha} ]*";
@@ -36,6 +35,9 @@ public class IngredientQuantity {
     private static final Pattern UNIT_PATTERN = Pattern.compile(UNIT_REGEX);
 
     private static final int LARGEST_DENOMINATOR = 6;
+
+    // Temporary implementation to indicate to RecipeRemoveIngredientCommand that ALL of that ingredient
+    // is to be removed
 
     public final Number value;
     public final String unit;
@@ -134,7 +136,7 @@ public class IngredientQuantity {
 
         assert newValue != null;
         if (newValue.doubleValue() < 0) {
-            newValue = value;
+            newValue = 0;
         }
 
         return new IngredientQuantity(newValue, unit);

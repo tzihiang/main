@@ -20,7 +20,7 @@ import seedu.address.model.recipe.Recipe;
  */
 public class RecipeAddIngredientCommand extends RecipeAddCommand {
 
-    public static final String MESSAGE_SUCCESS = "New ingredient added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New ingredient added for %1$s: %2$s";
     public static final String MESSAGE_INCOMPATIBLE_UNITS = "This ingredient has different units "
             + "from the same ingredient in the recipe";
 
@@ -58,7 +58,7 @@ public class RecipeAddIngredientCommand extends RecipeAddCommand {
         model.setCookbookRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredCookbookRecipeList(PREDICATE_SHOW_ALL_RECIPES);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedRecipe.getName().fullRecipeName, toAdd));
     }
 
     @Override
