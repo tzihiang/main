@@ -3,9 +3,10 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":CookingPapaParser" as CookingPapaParser LOGIC_COLOR
+participant ":InventoryCommandParser" as InventoryCommandParser LOGIC_COLOR
+participant ":InventoryRemoveIngredientCommandParser" as InventoryRemoveIngredientCommandParser LOGIC_COLOR
+participant ":InventoryRemoveIngredientCommand" as InventoryRemoveIngredientCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -13,56 +14,66 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete 1")
+[-> LogicManager : execute("inventory remove i/Eggs q/5")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
-activate AddressBookParser
+LogicManager -> CookingPapaParser : parseCommand("inventory remove i/Eggs q/5")
+activate CookingPapaParser
 
-create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
-activate DeleteCommandParser
+create InventoryCommandParser
+CookingPapaParser -> InventoryCommandParser
+activate InventoryCommandParser
 
-DeleteCommandParser --> AddressBookParser
-deactivate DeleteCommandParser
+InventoryCommandParser -> CookingPapaParser
+deactivate InventoryCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
-activate DeleteCommandParser
+CookingPapaParser -> InventoryCommandParser : parse("inventory remove i/Eggs q/5")
+activate InventoryCommandParser
 
-create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
+create InventoryRemoveIngredientCommandParser
+InventoryCommandParser -> InventoryRemoveIngredientCommandParser :
+activate InventoryRemoveIngredientCommandParser
 
-DeleteCommand --> DeleteCommandParser : d
-deactivate DeleteCommand
+InventoryRemoveIngredientCommandParser -> InventoryCommandParser
+deactivate InventoryRemoveIngredientCommandParser
 
-DeleteCommandParser --> AddressBookParser : d
-deactivate DeleteCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
-destroy DeleteCommandParser
+InventoryCommandParser -> InventoryRemoveIngredientCommandParser : parse("inventory remove i/Eggs q/5")
+activate InventoryRemoveIngredientCommandParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+create InventoryRemoveIngredientCommand
+InventoryRemoveIngredientCommandParser -> InventoryRemoveIngredientCommand
+activate InventoryRemoveIngredientCommand
 
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
+InventoryRemoveIngredientCommand -> InventoryRemoveIngredientCommandParser : command
+deactivate InventoryRemoveIngredientCommand
 
-DeleteCommand -> Model : deletePerson(1)
+InventoryRemoveIngredientCommandParser -> InventoryCommandParser : command
+deactivate InventoryRemoveIngredientCommandParser
+
+InventoryCommandParser -> CookingPapaParser
+deactivate InventoryCommandParser
+
+CookingPapaParser -> LogicManager : command
+deactivate CookingPapaParser
+
+LogicManager -> InventoryRemoveIngredientCommand : execute()
+activate InventoryRemoveIngredientCommand
+
+InventoryRemoveIngredientCommand -> Model : execute()
 activate Model
 
-Model --> DeleteCommand
+Model --> InventoryRemoveIngredientCommand
 deactivate Model
 
 create CommandResult
-DeleteCommand -> CommandResult
+InventoryRemoveIngredientCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteCommand
+CommandResult --> InventoryRemoveIngredientCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
-deactivate DeleteCommand
+InventoryRemoveIngredientCommand --> LogicManager : result
+deactivate InventoryRemoveIngredientCommand
 
 [<--LogicManager
 deactivate LogicManager
