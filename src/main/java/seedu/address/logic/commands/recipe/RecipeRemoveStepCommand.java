@@ -43,7 +43,7 @@ public class RecipeRemoveStepCommand extends RecipeRemoveCommand {
         Recipe recipeToEdit = lastShownList.get(recipeIndex.getZeroBased());
         UniqueStepList targetStepList = recipeToEdit.getSteps();
 
-        if (stepIndex.getZeroBased() > targetStepList.asUnmodifiableObservableList().size()) {
+        if (stepIndex.getZeroBased() >= targetStepList.asUnmodifiableObservableList().size()) {
             // ensure the step index is valid
             throw new CommandException((Messages.MESSAGE_INVALID_STEP_DISPLAYED_INDEX));
         }

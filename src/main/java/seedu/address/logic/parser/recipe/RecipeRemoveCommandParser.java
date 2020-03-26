@@ -72,8 +72,7 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
                     RecipeRemoveCommand.MESSAGE_USAGE), pe);
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_STEP_INDEX)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_STEP_INDEX)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RecipeRemoveCommand.MESSAGE_USAGE));
         }
@@ -102,8 +101,7 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
                     RecipeRemoveCommand.MESSAGE_USAGE), pe);
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TAG)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_TAG)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RecipeRemoveCommand.MESSAGE_USAGE));
         }
