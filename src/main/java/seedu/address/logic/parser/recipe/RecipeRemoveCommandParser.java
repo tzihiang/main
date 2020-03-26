@@ -3,13 +3,19 @@ package seedu.address.logic.parser.recipe;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.recipe.*;
+import seedu.address.logic.commands.recipe.RecipeAddCommand;
+import seedu.address.logic.commands.recipe.RecipeRemoveCommand;
+import seedu.address.logic.commands.recipe.RecipeRemoveIngredientCommand;
+import seedu.address.logic.commands.recipe.RecipeRemoveStepCommand;
+import seedu.address.logic.commands.recipe.RecipeRemoveTagCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -58,8 +64,8 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX
-                    , RecipeAddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
+                    RecipeAddCommand.MESSAGE_USAGE));
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_INGREDIENT_NAME)) {

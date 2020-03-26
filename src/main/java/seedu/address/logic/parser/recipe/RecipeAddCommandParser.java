@@ -66,8 +66,8 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX
-                    , RecipeAddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
+                    RecipeAddCommand.MESSAGE_USAGE));
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_INGREDIENT_NAME)) {
