@@ -9,16 +9,9 @@ import seedu.address.model.Model;
 /**
  * Adds all the ingredients from the indexed recipe to cart
  */
-public class CartAddRecipeIngredientCommand extends CartCommand {
+public class CartAddRecipeIngredientCommand extends CartAddCommand {
 
-    public static final String COMMAND_WORD = "recipe";
-    public static final String MESSAGE_SUCCESS = "All ingredients from recipe %1$s added.";
-    public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
-            + ": This commands allows you to add all the ingredients from a recipe to your cart.\n"
-            + "Parameters for adding all ingredients in the recipe into your cart is as follows: \n"
-            + COMMAND_CATEGORY + " " + COMMAND_WORD + "INDEX\n"
-            + "Example: " + COMMAND_CATEGORY + " "
-            + COMMAND_WORD + "1\n";
+    public static final String MESSAGE_SUCCESS = "Ingredients from recipe %1$ added.";
 
     private final int recipeToAdd;
 
