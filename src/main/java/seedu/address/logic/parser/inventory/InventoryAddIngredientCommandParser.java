@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.inventory.InventoryAddIngredientCommand;
 import seedu.address.logic.commands.inventory.InventoryCommand;
-import seedu.address.logic.commands.recipe.RecipeAddCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -39,7 +38,7 @@ public class InventoryAddIngredientCommandParser implements Parser<InventoryComm
         if (!arePrefixesPresent(argMultimap, PREFIX_INGREDIENT_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    RecipeAddCommand.MESSAGE_USAGE));
+                    InventoryAddIngredientCommand.MESSAGE_USAGE));
         }
 
         IngredientName ingredientName = ParserUtil.parseIngredientName(argMultimap

@@ -241,9 +241,9 @@ into a shopping cart. This provides convenience for your grocery shopping needs.
 ==== Add ingredients in a recipe to the cart
 This command allows you to add all the ingredients in a recipe to the cart.
 
-- Format: `cart recipe INDEX`
+- Format: `cart add recipe INDEX`
 - Example:
-* `cart recipe 1` +
+* `cart add recipe 1` +
     Adds ingredients required of recipe 1 to the cart.
 
 ==== Add ingredients to the cart
