@@ -1,5 +1,6 @@
 package seedu.address.model.ingredient;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -37,6 +38,7 @@ public class Ingredient {
      */
     public Ingredient add(Ingredient toAdd) {
         try {
+            checkArgument(isCompatibleWith(toAdd));
             return new Ingredient(getName(), getQuantity().add(toAdd.getQuantity()));
         } catch (IllegalArgumentException e) {
             throw new IncompatibleIngredientException();
@@ -48,6 +50,7 @@ public class Ingredient {
      */
     public Ingredient subtract(Ingredient toSubtract) {
         try {
+            checkArgument(isCompatibleWith(toSubtract));
             return new Ingredient(getName(), getQuantity().subtract(toSubtract.getQuantity()));
         } catch (IllegalArgumentException e) {
             throw new IncompatibleIngredientException();

@@ -1,6 +1,8 @@
 package seedu.address.model.ingredient;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_NAME_BANANA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_QUANTITY_ALMOND;
@@ -10,9 +12,60 @@ import static seedu.address.testutil.TypicalIngredients.BANANA;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.ingredient.exceptions.IncompatibleIngredientException;
+import seedu.address.model.ingredient.exceptions.NonPositiveIngredientQuantityException;
 import seedu.address.testutil.IngredientBuilder;
 
 public class IngredientTest {
+
+    @Test
+    public void add_compatibleIngredient_success() {
+        Ingredient editedApple = new IngredientBuilder(APPLE).withQuantity(VALID_INGREDIENT_QUANTITY_BANANA).build();
+        Ingredient expectedIngredient = new IngredientBuilder(APPLE)
+                .withQuantity(APPLE.getQuantity().add(editedApple.getQuantity()).toString()).build();
+        assertEquals(expectedIngredient, APPLE.add(editedApple));
+    }
+
+    @Test
+    public void add_ingredientWithDifferentUnit_throwsIncompatibleIngredientException() {
+        Ingredient editedApple = new IngredientBuilder(APPLE).withQuantity(VALID_INGREDIENT_QUANTITY_ALMOND).build();
+        assertThrows(IncompatibleIngredientException.class, () -> APPLE.add(editedApple));
+    }
+
+    @Test
+    public void add_differentIngredient_throwsIncompatibleIngredientException() {
+        assertThrows(IncompatibleIngredientException.class, () -> APPLE.add(BANANA));
+    }
+
+    @Test
+    public void subtract_compatibleIngredient_success() {
+        Ingredient editedApple = new IngredientBuilder(APPLE).withQuantity(VALID_INGREDIENT_QUANTITY_BANANA).build();
+        Ingredient expectedIngredient = new IngredientBuilder(APPLE)
+                .withQuantity(APPLE.getQuantity().subtract(editedApple.getQuantity()).toString()).build();
+        assertEquals(expectedIngredient, APPLE.subtract(editedApple));
+    }
+
+    @Test
+    public void subtract_equalIngredientQuantity_throwsNonPositiveIngredientQuantityException() {
+        assertThrows(NonPositiveIngredientQuantityException.class, () -> APPLE.subtract(APPLE));
+    }
+
+    @Test
+    public void subtract_largerIngredientQuantity_throwsNonPositiveIngredientQuantityException() {
+        Ingredient editedApple = new IngredientBuilder(APPLE).withQuantity(VALID_INGREDIENT_QUANTITY_BANANA).build();
+        assertThrows(NonPositiveIngredientQuantityException.class, () -> editedApple.subtract(APPLE));
+    }
+
+    @Test
+    public void subtract_ingredientWithDifferentUnit_throwsIncompatibleIngredientException() {
+        Ingredient editedApple = new IngredientBuilder(APPLE).withQuantity(VALID_INGREDIENT_QUANTITY_ALMOND).build();
+        assertThrows(IncompatibleIngredientException.class, () -> APPLE.subtract(editedApple));
+    }
+
+    @Test
+    public void subtract_differentIngredient_throwsIncompatibleIngredientException() {
+        assertThrows(IncompatibleIngredientException.class, () -> APPLE.subtract(BANANA));
+    }
 
     @Test
     public void isCompatibleWith() {
