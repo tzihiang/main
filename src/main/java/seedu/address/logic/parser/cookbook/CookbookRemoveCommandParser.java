@@ -23,8 +23,8 @@ public class CookbookRemoveCommandParser implements Parser<CookbookRemoveCommand
             Index index = ParserUtil.parseIndex(args);
             return new CookbookRemoveCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX + "\n"
-                    + CookbookRemoveCommand.MESSAGE_USAGE);
+            throw new ParseException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
+                    CookbookRemoveCommand.MESSAGE_USAGE));
         }
     }
 

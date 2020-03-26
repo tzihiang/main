@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.recipe;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.List;
@@ -42,7 +43,8 @@ public class RecipeAddIngredientCommand extends RecipeAddCommand {
         List<Recipe> lastShownList = model.getFilteredCookbookRecipeList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+            throw new CommandException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
+                    RecipeAddCommand.MESSAGE_USAGE));
         }
 
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
