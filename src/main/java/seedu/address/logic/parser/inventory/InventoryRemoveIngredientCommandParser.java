@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.inventory.InventoryCommand;
 import seedu.address.logic.commands.inventory.InventoryRemoveIngredientCommand;
-import seedu.address.logic.commands.recipe.RecipeAddCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -28,7 +27,7 @@ public class InventoryRemoveIngredientCommandParser implements Parser<InventoryC
 
     /**
      * Parses the given {@code String} of arguments in the context of the InventoryCommand
-     * and returns a InventoryAddCommand object for execution.
+     * and returns a InventoryRemoveIngredientCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public InventoryRemoveIngredientCommand parse(String args) throws ParseException {
@@ -40,7 +39,7 @@ public class InventoryRemoveIngredientCommandParser implements Parser<InventoryC
         if (!arePrefixesPresent(argMultimap, PREFIX_INGREDIENT_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    RecipeAddCommand.MESSAGE_USAGE));
+                    InventoryRemoveIngredientCommand.MESSAGE_USAGE));
         }
 
         IngredientName ingredientName = ParserUtil.parseIngredientName(argMultimap

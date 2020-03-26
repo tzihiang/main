@@ -13,7 +13,7 @@ import seedu.address.model.ingredient.Ingredient;
  * Adds an ingredient to the cart
  */
 
-public class CartAddIngredientCommand extends CartCommand {
+public class CartAddIngredientCommand extends CartAddCommand {
 
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_SUCCESS = "New ingredient added: %1$s";
@@ -40,7 +40,8 @@ public class CartAddIngredientCommand extends CartCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        // TODO: Implement this model to add ingredient to cart
+
+        model.addCartIngredient(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
