@@ -4,6 +4,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:experimental:
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -173,10 +174,23 @@ Below is a step by step sequence of what happens when a user enters this command
 This command is implemented this way  to allow a user to add a recipe with optional fields (ingredients, tags) - only the recipe name and recipe description are mandatory fields. This way, a user does not have input all the fields that they may not have at the moment to create a recipe. After creating the skeleton of the recipe, the user can then use the other `Cookbook` methods to add ingredients and steps to the recipe. However, one key point is that should ingredient names be provided, the same number of ingredient quantities have to be provided as well, vice versa, likewise for step indices and step descriptions.
 
 ==== Sequence diagram
+The following sequence diagram shows how the recipe adding function works:
+
 image::CookbookAddRecipeSequenceDiagram.png[]
 
 ==== How the feature works
-INSERT PICTURES ON THE GUI
+Step 1: Input the command in the command box and hit kbd:[Enter] on the keyboard
+
+image::CookbookAddRecipe1.png[]
+
+Step 2: Results will be parsed and displayed back to the user
+
+image::CookbookAddRecipe2.png[]
+image::CookbookAddRecipe3.png[]
+
+Step 3: The newly added recipe will now appear in the recipes panel, which a brief overview, consisting of its name, description, and tags.
+
+image::CookbookAddRecipe4.png[]
 
 ==== Design considerations
 ===== Aspect: How to parse optional fields
