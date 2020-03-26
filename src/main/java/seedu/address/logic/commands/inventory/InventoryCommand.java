@@ -18,16 +18,16 @@ public abstract class InventoryCommand extends Command {
     /**
      * Stores the details to edit the inventory with.
      */
-    public static class EditInventoryDescriptor {
+    public static class EditIngredientDescriptor {
         private UniqueIngredientList ingredients;
 
-        public EditInventoryDescriptor() {}
+        public EditIngredientDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditInventoryDescriptor(EditInventoryDescriptor toCopy) {
+        public EditIngredientDescriptor(EditIngredientDescriptor toCopy) {
             setIngredients(toCopy.ingredients);
         }
 
@@ -36,7 +36,7 @@ public abstract class InventoryCommand extends Command {
          * edited with {@code editInventoryDescriptor}.
          */
         public static Inventory createEditedInventory(Inventory inventoryToEdit,
-                EditInventoryDescriptor editInventoryDescriptor) {
+                EditIngredientDescriptor editInventoryDescriptor) {
             assert inventoryToEdit != null;
 
             UniqueIngredientList updatedIngredients = editInventoryDescriptor.getIngredients()
@@ -67,12 +67,12 @@ public abstract class InventoryCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof InventoryCommand.EditInventoryDescriptor)) {
+            if (!(other instanceof InventoryCommand.EditIngredientDescriptor)) {
                 return false;
             }
 
             // state check
-            EditInventoryDescriptor e = (EditInventoryDescriptor) other;
+            EditIngredientDescriptor e = (EditIngredientDescriptor) other;
 
             return getIngredients().equals(e.getIngredients());
         }

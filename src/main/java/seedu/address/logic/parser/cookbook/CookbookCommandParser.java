@@ -20,7 +20,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class CookbookCommandParser implements Parser<CookbookCommand> {
 
     private static final Pattern COOKBOOK_COMMAND_ARGUMENT_FORMAT = Pattern
-            .compile("(?<commandWord>\\S+) (?<arguments>.*)");
+            .compile(" *(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of a CookbookCommand

@@ -24,4 +24,5 @@ public class Cart extends IngredientList implements ReadOnlyCart {
                 || (other instanceof Cart // instanceof handles nulls
                 && this.getUniqueIngredientList().equals(((Cart) other).getUniqueIngredientList()));
     }
+
 }
