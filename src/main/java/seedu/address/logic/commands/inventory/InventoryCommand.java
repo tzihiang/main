@@ -6,7 +6,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.Inventory;
 import seedu.address.model.ReadOnlyInventory;
-import seedu.address.model.ingredient.UniqueIngredientList;
+import seedu.address.model.ingredient.CompatibleIngredientList;
 
 /**
  * Represents an inventory command with hidden internal logic and the ability to be executed.
@@ -19,7 +19,7 @@ public abstract class InventoryCommand extends Command {
      * Stores the details to edit the inventory with.
      */
     public static class EditIngredientDescriptor {
-        private UniqueIngredientList ingredients;
+        private CompatibleIngredientList ingredients;
 
         public EditIngredientDescriptor() {}
 
@@ -39,8 +39,8 @@ public abstract class InventoryCommand extends Command {
                 EditIngredientDescriptor editInventoryDescriptor) {
             assert inventoryToEdit != null;
 
-            UniqueIngredientList updatedIngredients = editInventoryDescriptor.getIngredients()
-                    .orElse(inventoryToEdit.getUniqueIngredientList());
+            CompatibleIngredientList updatedIngredients = editInventoryDescriptor.getIngredients()
+                    .orElse(inventoryToEdit.getCompatibleIngredientList());
 
             return new Inventory((ReadOnlyInventory) updatedIngredients);
         }
@@ -51,11 +51,11 @@ public abstract class InventoryCommand extends Command {
             return CollectionUtil.isAnyNonNull(ingredients);
         }
 
-        public void setIngredients(UniqueIngredientList ingredients) {
+        public void setIngredients(CompatibleIngredientList ingredients) {
             this.ingredients = ingredients;
         }
 
-        public Optional<UniqueIngredientList> getIngredients() {
+        public Optional<CompatibleIngredientList> getIngredients() {
             return Optional.ofNullable(ingredients);
         }
 
