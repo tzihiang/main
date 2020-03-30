@@ -99,8 +99,8 @@ public class Ingredient {
         }
 
         Ingredient otherIngredient = (Ingredient) other;
-        return otherIngredient.getName().equals(getName())
-                && otherIngredient.getQuantity().equals(getQuantity());
+        return otherIngredient.getName().equals(getName());
+        // && otherIngredient.getQuantity().equals(getQuantity());
     }
 
     @Override
