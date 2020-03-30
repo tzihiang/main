@@ -8,18 +8,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.cart.CartAddCommand;
-import seedu.address.logic.commands.cart.CartAddIngredientCommand;
-import seedu.address.logic.commands.cart.CartAddRecipeIngredientCommand;
-import seedu.address.logic.commands.recipe.RecipeAddCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.ingredient.IngredientName;
-import seedu.address.model.ingredient.IngredientQuantity;
 
 /**
  * Parses input arguments and creates a new CartAddCommand object
