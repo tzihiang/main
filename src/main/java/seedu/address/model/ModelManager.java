@@ -260,6 +260,10 @@ public class ModelManager implements Model {
         cart.setIngredient(target, editedIngredient);
     }
 
+    public void removeAllCartIngredients() {
+        cart.removeAllCartIngredients();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -321,8 +325,6 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredCartIngredients.setPredicate(predicate);
     }
-
-    public void removeAllCartIngredient() {};
 
     @Override
     public boolean equals(Object obj) {

@@ -303,7 +303,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void removeAllCartIngredient() {
+        public void removeAllCartIngredients() {
             throw new AssertionError("This method should not be called.");
         }
     }

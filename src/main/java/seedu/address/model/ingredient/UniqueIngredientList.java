@@ -154,4 +154,8 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
+    public void removeAllIngredients() {
+        internalList.clear();
+    }
 }

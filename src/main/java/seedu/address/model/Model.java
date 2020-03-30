@@ -248,5 +248,5 @@ public interface Model {
      */
     void updateFilteredCartIngredientList(Predicate<Ingredient> predicate);
 
-    void removeAllCartIngredient();
+    void removeAllCartIngredients();
 }
