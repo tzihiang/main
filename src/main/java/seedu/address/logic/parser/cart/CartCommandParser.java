@@ -36,8 +36,8 @@ public class CartCommandParser implements Parser<CartCommand> {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
-        case CartAddIngredientCommand.COMMAND_WORD:
-            return new CartAddIngredientCommandParser().parse(arguments);
+        case CartAddCommand.COMMAND_WORD:
+            return new CartAddCommandParser().parse(arguments);
         case CartRemoveIngredientCommand.COMMAND_WORD:
             return new CartRemoveIngredientCommandParser().parse(arguments);
         case CartClearCommand.COMMAND_WORD:
