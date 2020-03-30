@@ -20,7 +20,7 @@ public class CartAddRecipeIngredientCommandTest {
     @Test
     public void constructor_validInput() {
         CartAddRecipeIngredientCommand c = new CartAddRecipeIngredientCommand(VALID_RECIPE_INDEX);
-        assertEquals(c, new CartAddRecipeIngredientCommand(15));
+        assertEquals(c, new CartAddRecipeIngredientCommand(VALID_RECIPE_INDEX));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class CartAddRecipeIngredientCommandTest {
         CartAddRecipeIngredientCommand c = new CartAddRecipeIngredientCommand(ZERO_RECIPE_INDEX);
         assertThrows(CommandException.class, () -> c.execute(model));
 
-        // index greater than size of UniqueRecipeList in Cart
+        // index greater than size of UniqueRecipeList in Cookbook
         CartAddRecipeIngredientCommand d = new CartAddRecipeIngredientCommand(VALID_RECIPE_INDEX);
         assertThrows(CommandException.class, () -> d.execute(model));
     }
