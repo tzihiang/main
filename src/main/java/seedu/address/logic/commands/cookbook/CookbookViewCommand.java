@@ -23,7 +23,7 @@ public class CookbookViewCommand extends CookbookCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_REMOVE_RECIPE_SUCCESS = "Selected Recipe %1$s";
+    public static final String MESSAGE_REMOVE_RECIPE_SUCCESS = "Selected recipe %1$s";
 
     private final Index targetIndex;
 

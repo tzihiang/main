@@ -20,6 +20,7 @@ public class IngredientQuantity {
     public static final String MESSAGE_CONSTRAINTS =
             "Ingredient quantities should only contain a value and a unit, where the value can be "
             + "whole numbers, decimals, or fractions, and the unit should only contain alphabets";
+
     private static final String DECIMAL_REGEX = "(([\\p{Digit}]+(\\.[\\p{Digit}]+)?)|(\\.[\\p{Digit}]+))";
     private static final String FRACTION_REGEX = "[\\p{Digit}]+( +[\\p{Digit}]+)?/[\\p{Digit}]+";
     private static final String UNIT_REGEX = "[\\p{Alpha}][\\p{Alpha} ]*";
@@ -35,9 +36,6 @@ public class IngredientQuantity {
     private static final Pattern UNIT_PATTERN = Pattern.compile(UNIT_REGEX);
 
     private static final int LARGEST_DENOMINATOR = 6;
-
-    // Temporary implementation to indicate to RecipeRemoveIngredientCommand that ALL of that ingredient
-    // is to be removed
 
     public final Number value;
     public final String unit;
@@ -68,9 +66,9 @@ public class IngredientQuantity {
     }
 
     /**
-     * Returns true if the specified ingredient quantity can be added to or subtracted from this ingredient quantity.
+     * Returns true if the specified ingredient quantity has the same unit as the ingredient quantity.
      */
-    public boolean isCompatibleWith(IngredientQuantity other) {
+    public boolean hasSameUnitAs(IngredientQuantity other) {
         return this.unit.equals(other.unit);
     }
 
@@ -81,7 +79,7 @@ public class IngredientQuantity {
      * @return a new ingredient quantity with the specified ingredient quantity added.
      */
     public IngredientQuantity add(IngredientQuantity other) {
-        checkArgument(isCompatibleWith(other));
+        checkArgument(hasSameUnitAs(other));
 
         Number newValue = null;
         if (this.value instanceof BigDecimal && other.value instanceof BigDecimal) {
@@ -113,7 +111,7 @@ public class IngredientQuantity {
      * @return a new ingredient quantity with the specified ingredient quantity subtracted.
      */
     public IngredientQuantity subtract(IngredientQuantity other) {
-        checkArgument(isCompatibleWith(other));
+        checkArgument(hasSameUnitAs(other));
 
         Number newValue = null;
         if (this.value instanceof BigDecimal && other.value instanceof BigDecimal) {
@@ -135,8 +133,8 @@ public class IngredientQuantity {
         }
 
         assert newValue != null;
-        if (newValue.doubleValue() < 0) {
-            newValue = 0;
+        if (newValue.doubleValue() <= 0) {
+            throw new NonPositiveIngredientQuantityException();
         }
 
         return new IngredientQuantity(newValue, unit);

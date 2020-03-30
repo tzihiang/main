@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_QUANTITY_ALMOND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_QUANTITY_BANANA;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIngredients.APPLE;
 import static seedu.address.testutil.TypicalIngredients.BANANA;
@@ -14,7 +15,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.ingredient.exceptions.DuplicateIngredientException;
+import seedu.address.model.ingredient.exceptions.IncompatibleIngredientException;
 import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
 import seedu.address.testutil.IngredientBuilder;
 
@@ -39,10 +40,16 @@ public class UniqueIngredientListTest {
     }
 
     @Test
-    public void contains_ingredientWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_ingredientWithSameNameAndSameUnitInList_returnsTrue() {
         uniqueIngredientList.add(APPLE);
-        Ingredient editedApple = new IngredientBuilder(APPLE).withQuantity(VALID_INGREDIENT_QUANTITY_ALMOND)
-                .build();
+        Ingredient editedApple = new IngredientBuilder(APPLE).withQuantity(VALID_INGREDIENT_QUANTITY_BANANA).build();
+        assertTrue(uniqueIngredientList.contains(editedApple));
+    }
+
+    @Test
+    public void contains_ingredientWithSameNameAndDifferentUnitInList_returnsTrue() {
+        uniqueIngredientList.add(APPLE);
+        Ingredient editedApple = new IngredientBuilder(APPLE).withQuantity(VALID_INGREDIENT_QUANTITY_ALMOND).build();
         assertTrue(uniqueIngredientList.contains(editedApple));
     }
 
@@ -52,9 +59,19 @@ public class UniqueIngredientListTest {
     }
 
     @Test
-    public void add_duplicateIngredient_throwsDuplicateIngredientException() {
+    public void add_existingIngredientWithSameUnit_success() {
         uniqueIngredientList.add(APPLE);
-        assertThrows(DuplicateIngredientException.class, () -> uniqueIngredientList.add(APPLE));
+        uniqueIngredientList.add(APPLE);
+        UniqueIngredientList expectedUniqueIngredientList = new UniqueIngredientList();
+        expectedUniqueIngredientList.add(APPLE.add(APPLE));
+        assertEquals(expectedUniqueIngredientList, uniqueIngredientList);
+    }
+
+    @Test
+    public void add_existingIngredientWithDifferentUnit_throwsIncompatibleIngredientException() {
+        uniqueIngredientList.add(APPLE);
+        Ingredient editedApple = new IngredientBuilder(APPLE).withQuantity(VALID_INGREDIENT_QUANTITY_ALMOND).build();
+        assertThrows(IncompatibleIngredientException.class, () -> uniqueIngredientList.add(editedApple));
     }
 
     @Test
@@ -84,7 +101,7 @@ public class UniqueIngredientListTest {
     @Test
     public void setIngredient_editedIngredientHasSameIdentity_success() {
         uniqueIngredientList.add(APPLE);
-        Ingredient editedApple = new IngredientBuilder(APPLE).withQuantity(VALID_INGREDIENT_QUANTITY_ALMOND).build();
+        Ingredient editedApple = new IngredientBuilder(APPLE).withQuantity(VALID_INGREDIENT_QUANTITY_BANANA).build();
         uniqueIngredientList.setIngredient(APPLE, editedApple);
         UniqueIngredientList expectedUniqueIngredientList = new UniqueIngredientList();
         expectedUniqueIngredientList.add(editedApple);
@@ -101,10 +118,13 @@ public class UniqueIngredientListTest {
     }
 
     @Test
-    public void setIngredient_editedIngredientHasNonUniqueIdentity_throwsDuplicateIngredientException() {
+    public void setIngredient_editedIngredientHasNonUniqueIdentity_success() {
         uniqueIngredientList.add(APPLE);
         uniqueIngredientList.add(BANANA);
-        assertThrows(DuplicateIngredientException.class, () -> uniqueIngredientList.setIngredient(APPLE, BANANA));
+        uniqueIngredientList.setIngredient(APPLE, BANANA);
+        UniqueIngredientList expectedUniqueIngredientList = new UniqueIngredientList();
+        expectedUniqueIngredientList.add(BANANA.add(BANANA));
+        assertEquals(expectedUniqueIngredientList, uniqueIngredientList);
     }
 
     @Test
@@ -117,14 +137,13 @@ public class UniqueIngredientListTest {
         assertThrows(IngredientNotFoundException.class, () -> uniqueIngredientList.remove(APPLE));
     }
 
-    /*
     @Test
     public void remove_existingIngredient_removesIngredient() {
         uniqueIngredientList.add(APPLE);
         uniqueIngredientList.remove(APPLE);
         UniqueIngredientList expectedUniqueIngredientList = new UniqueIngredientList();
         assertEquals(expectedUniqueIngredientList, uniqueIngredientList);
-    }*/
+    }
 
     @Test
     public void setIngredient_nullUniqueIngredientList_throwsNullPointerException() {
@@ -157,9 +176,19 @@ public class UniqueIngredientListTest {
     }
 
     @Test
-    public void setIngredients_listWithDuplicateIngredients_throwsDuplicateIngredientException() {
+    public void setIngredients_listWithDuplicateCompatibleIngredients_clearsOwnListAndAddsIngredientsInProvidedList() {
         List<Ingredient> listWithDuplicateIngredients = Arrays.asList(APPLE, APPLE);
-        assertThrows(DuplicateIngredientException.class, () ->
+        uniqueIngredientList.setIngredients(listWithDuplicateIngredients);
+        UniqueIngredientList expectedUniqueIngredientList = new UniqueIngredientList();
+        expectedUniqueIngredientList.add(APPLE.add(APPLE));
+        assertEquals(expectedUniqueIngredientList, uniqueIngredientList);
+    }
+
+    @Test
+    public void setIngredients_listWithDuplicateIncompatibleIngredients_throwsIncompatibleIngredientException() {
+        Ingredient editedApple = new IngredientBuilder(APPLE).withQuantity(VALID_INGREDIENT_QUANTITY_ALMOND).build();
+        List<Ingredient> listWithDuplicateIngredients = Arrays.asList(APPLE, editedApple);
+        assertThrows(IncompatibleIngredientException.class, () ->
                 uniqueIngredientList.setIngredients(listWithDuplicateIngredients));
     }
 
