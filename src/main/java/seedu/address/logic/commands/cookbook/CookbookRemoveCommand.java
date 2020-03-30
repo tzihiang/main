@@ -23,7 +23,7 @@ public class CookbookRemoveCommand extends CookbookCommand {
             + "Parameters: INDEX (must be a positive integer)\n\n"
             + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_REMOVE_RECIPE_SUCCESS = "Deleted Recipe: %1$s";
+    public static final String MESSAGE_REMOVE_RECIPE_SUCCESS = "Deleted recipe: %1$s";
 
     private final Index targetIndex;
 

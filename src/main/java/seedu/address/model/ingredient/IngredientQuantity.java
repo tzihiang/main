@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.fraction.MixedFraction;
+import seedu.address.model.ingredient.exceptions.NonPositiveIngredientQuantityException;
 
 /**
  * Represents the quantity of an ingredient.
