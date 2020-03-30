@@ -25,6 +25,6 @@ public class CartClearCommand extends CartCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         model.removeAllCartIngredient();
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }
