@@ -23,11 +23,12 @@ public class CookbookViewCommand extends CookbookCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_REMOVE_RECIPE_SUCCESS = "Selected recipe %1$s";
+    public static final String MESSAGE_SUCCESS = "Selected recipe %1$s";
 
     private final Index targetIndex;
 
     public CookbookViewCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
 
@@ -42,7 +43,7 @@ public class CookbookViewCommand extends CookbookCommand {
         }
 
         Recipe recipeToView = lastShownList.get(targetIndex.getZeroBased());
-        return new CommandResult(String.format(MESSAGE_REMOVE_RECIPE_SUCCESS, recipeToView));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, recipeToView));
     }
 
     @Override
