@@ -1,15 +1,16 @@
 package seedu.address.logic.commands.cart;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.logic.commands.cart.CartClearCommand.MESSAGE_SUCCESS;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Cart;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.testutil.TypicalIngredients;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.logic.commands.cart.CartClearCommand.MESSAGE_SUCCESS;
 
 public class CartClearCommandTest {
 

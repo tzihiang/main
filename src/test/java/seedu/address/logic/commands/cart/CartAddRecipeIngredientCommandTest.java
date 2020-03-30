@@ -1,15 +1,16 @@
 package seedu.address.logic.commands.cart;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static seedu.address.logic.commands.cart.CartAddRecipeIngredientCommand.MESSAGE_SUCCESS;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.testutil.TypicalRecipes;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.logic.commands.cart.CartAddRecipeIngredientCommand.MESSAGE_SUCCESS;
 
 public class CartAddRecipeIngredientCommandTest {
 
@@ -42,7 +43,7 @@ public class CartAddRecipeIngredientCommandTest {
         Model model = new ModelManager();
 
         // invalid index
-        CartAddRecipeIngredientCommand c= new CartAddRecipeIngredientCommand(ZERO_RECIPE_INDEX);
+        CartAddRecipeIngredientCommand c = new CartAddRecipeIngredientCommand(ZERO_RECIPE_INDEX);
         assertThrows(CommandException.class, () -> c.execute(model));
 
         // index greater than size of UniqueRecipeList in Cart
