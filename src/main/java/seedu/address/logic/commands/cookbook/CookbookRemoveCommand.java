@@ -28,6 +28,7 @@ public class CookbookRemoveCommand extends CookbookCommand {
     private final Index targetIndex;
 
     public CookbookRemoveCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
 

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.cookbook;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.logic.commands.cookbook.CookbookRemoveCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.TypicalRecipes.AGLIO_OLIO;
@@ -39,6 +40,7 @@ public class CookbookRemoveCommandTest {
         assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, AGLIO_OLIO)));
 
         // after adding multiple recipes
+        model.addCookbookRecipe(AGLIO_OLIO);
         model.addCookbookRecipe(CARBONARA);
         model.addCookbookRecipe(SPAGHETTI_BOLOGNESE);
         assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, AGLIO_OLIO)));
@@ -51,5 +53,13 @@ public class CookbookRemoveCommandTest {
         // index greater than size of UniqueRecipeList in Cookbook
         CookbookRemoveCommand c = new CookbookRemoveCommand(OUT_OF_BOUNDS_RECIPE_INDEX);
         assertThrows(CommandException.class, () -> c.execute(model));
+    }
+
+    @Test
+    public void equalsMethod() {
+        CookbookRemoveCommand c = new CookbookRemoveCommand(VALID_RECIPE_INDEX);
+        assertEquals(c, new CookbookRemoveCommand(VALID_RECIPE_INDEX));
+        assertNotEquals(c, new CookbookRemoveCommand(OUT_OF_BOUNDS_RECIPE_INDEX));
+        assertNotEquals(c, null);
     }
 }

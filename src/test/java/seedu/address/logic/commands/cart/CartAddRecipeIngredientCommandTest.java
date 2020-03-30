@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.cart;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.logic.commands.cart.CartAddRecipeIngredientCommand.MESSAGE_SUCCESS;
 
@@ -49,5 +50,13 @@ public class CartAddRecipeIngredientCommandTest {
         // index greater than size of UniqueRecipeList in Cookbook
         CartAddRecipeIngredientCommand d = new CartAddRecipeIngredientCommand(VALID_RECIPE_INDEX);
         assertThrows(CommandException.class, () -> d.execute(model));
+    }
+
+    @Test
+    public void equalsMethod() {
+        CartAddRecipeIngredientCommand c = new CartAddRecipeIngredientCommand(VALID_RECIPE_INDEX);
+        assertEquals(c, new CartAddRecipeIngredientCommand(VALID_RECIPE_INDEX));
+        assertNotEquals(c, new CartAddRecipeIngredientCommand(ZERO_RECIPE_INDEX));
+        assertNotEquals(c, null);
     }
 }

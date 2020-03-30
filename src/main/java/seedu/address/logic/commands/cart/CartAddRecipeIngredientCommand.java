@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.inventory.InventoryRemoveIngredientCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.UniqueIngredientList;
@@ -49,5 +50,12 @@ public class CartAddRecipeIngredientCommand extends CartAddCommand {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, recipeIndex));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CartAddRecipeIngredientCommand // instanceof handles nulls
+                && (recipeIndex == ((CartAddRecipeIngredientCommand) other).recipeIndex));
     }
 }
