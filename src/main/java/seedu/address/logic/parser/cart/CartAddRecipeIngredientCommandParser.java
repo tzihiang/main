@@ -21,7 +21,6 @@ public class CartAddRecipeIngredientCommandParser implements Parser<CartCommand>
      * @throws ParseException if the user input does not conform the expected format
      */
     public CartAddRecipeIngredientCommand parse(String args) throws ParseException {
-
         requireNonNull(args);
 
         int recipeNumber;

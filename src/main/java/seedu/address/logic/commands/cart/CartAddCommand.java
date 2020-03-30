@@ -11,7 +11,7 @@ public abstract class CartAddCommand extends CartCommand {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
-            + ": This commands allows you to add ingredients to your cart.\n"
+            + ": This commands allows you to add an ingredient to your cart.\n"
             + "Parameters for adding an ingredient into your cart is as follows: \n"
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
             + PREFIX_INGREDIENT_QUANTITY + "QUANTITY\n"

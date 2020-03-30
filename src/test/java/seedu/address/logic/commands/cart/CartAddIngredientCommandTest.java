@@ -43,7 +43,7 @@ public class CartAddIngredientCommandTest {
     }
 
     // TODO include test for execute() throws CommandException
-    
+
     @Test
     public void equalsMethod() {
         CartAddIngredientCommand c = new CartAddIngredientCommand(ALMOND);
