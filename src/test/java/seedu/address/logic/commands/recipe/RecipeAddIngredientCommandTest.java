@@ -62,9 +62,13 @@ public class RecipeAddIngredientCommandTest {
     public void execute_invalidInput_throwsCommandException() {
         Model model = new ModelManager();
 
-        // index greater than size of UniqueRecipeList in Cookbook
+        // empty Cookbook
         RecipeAddIngredientCommand c = new RecipeAddIngredientCommand(VALID_RECIPE_INDEX, ALMOND);
         assertThrows(CommandException.class, () -> c.execute(model));
+
+        // index out of bounds
+        RecipeAddIngredientCommand d = new RecipeAddIngredientCommand(OUT_OF_BOUNDS_RECIPE_INDEX, ALMOND);
+        assertThrows(CommandException.class, () -> d.execute(model));
     }
 
     @Test
