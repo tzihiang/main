@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.logic.commands.recipe.RecipeRemoveTagCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalRecipes.AGLIO_OLIO;
 import static seedu.address.testutil.TypicalRecipes.CARBONARA;
 
 import org.junit.jupiter.api.Test;
@@ -41,7 +42,7 @@ public class RecipeRemoveTagCommandTest {
     public void execute_validInput() throws CommandException {
         RecipeRemoveTagCommand c = new RecipeRemoveTagCommand(VALID_RECIPE_INDEX, VALID_TAG_ONE);
         Model model = new ModelManager();
-        model.addCookbookRecipe(CARBONARA);
+        model.addCookbookRecipe(AGLIO_OLIO);
 
         // add a tag to recipe
         new RecipeAddTagCommand(VALID_RECIPE_INDEX, VALID_TAG_ONE).execute(model);
@@ -62,7 +63,7 @@ public class RecipeRemoveTagCommandTest {
         // removing from a non-existent recipe
         assertThrows(CommandException.class, () -> c.execute(model));
 
-        model.addCookbookRecipe(CARBONARA);
+        model.addCookbookRecipe(AGLIO_OLIO);
 
         // removing a non-existent tag
         assertThrows(CommandException.class, () -> c.execute(model));

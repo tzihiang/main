@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.logic.commands.recipe.RecipeRemoveStepCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalRecipes.AGLIO_OLIO;
 import static seedu.address.testutil.TypicalRecipes.CARBONARA;
 import static seedu.address.testutil.TypicalSteps.CARBONARA_ONE;
 
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Cookbook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
@@ -41,12 +43,14 @@ public class RecipeRemoveStepCommandTest {
     public void execute_validInput() throws CommandException {
         RecipeRemoveStepCommand c = new RecipeRemoveStepCommand(VALID_RECIPE_INDEX, VALID_STEP_INDEX);
         Model model = new ModelManager();
-        model.addCookbookRecipe(CARBONARA);
+        model.setCookbook(new Cookbook());
+        model.addCookbookRecipe(AGLIO_OLIO);
+        System.out.println(model.getCookbook().getRecipeList().get(0).toString());
 
         // add a step to recipe
         new RecipeAddStepCommand(VALID_RECIPE_INDEX, VALID_STEP_INDEX, CARBONARA_ONE).execute(model);
         assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS,
-                CARBONARA.getName().fullRecipeName, CARBONARA_ONE)));
+                AGLIO_OLIO.getName().fullRecipeName, CARBONARA_ONE)));
     }
 
     @Test
@@ -63,9 +67,10 @@ public class RecipeRemoveStepCommandTest {
         // removing from a non-existent recipe
         assertThrows(CommandException.class, () -> c.execute(model));
 
-        model.addCookbookRecipe(CARBONARA);
+        model.addCookbookRecipe(AGLIO_OLIO);
 
         // removing a non-existent step/ step index out of bounds
+        System.out.println(model.getCookbook().getRecipeList().get(0).toString());
         assertThrows(CommandException.class, () -> c.execute(model));
 
         // recipe index out of bounds
