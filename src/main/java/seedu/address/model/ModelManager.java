@@ -260,10 +260,6 @@ public class ModelManager implements Model {
         cart.setIngredient(target, editedIngredient);
     }
 
-    public void removeAllCartIngredients() {
-        cart.removeAllCartIngredients();
-    }
-
     //=========== Filtered Person List Accessors =============================================================
 
     /**

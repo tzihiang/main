@@ -94,8 +94,4 @@ public abstract class IngredientList implements ReadOnlyIngredientList {
     public ObservableList<Ingredient> getIngredientList() {
         return ingredients.asUnmodifiableObservableList();
     }
-
-    public void removeAllCartIngredients() {
-        ingredients.removeAllIngredients();
-    }
 }
