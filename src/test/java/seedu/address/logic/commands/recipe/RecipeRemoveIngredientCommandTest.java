@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.recipe;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.logic.commands.recipe.RecipeRemoveIngredientCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.TypicalIngredients.ALMOND;
@@ -72,6 +73,14 @@ public class RecipeRemoveIngredientCommandTest {
         RecipeRemoveIngredientCommand e = new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, BUTTER);
         e.execute(model);
         assertThrows(IngredientNotFoundException.class, () -> e.execute(model));
+    }
+
+    @Test
+    public void equalsMethod() {
+        RecipeRemoveIngredientCommand c = new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, ALMOND);
+        assertEquals(c, new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, ALMOND));
+        assertNotEquals(c, new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, BUTTER));
+        assertNotEquals(c, null);
     }
 }
 

@@ -1,6 +1,8 @@
 package seedu.address.logic.commands.recipe;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.logic.commands.recipe.RecipeAddTagCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.TypicalRecipes.CARBONARA;
 
