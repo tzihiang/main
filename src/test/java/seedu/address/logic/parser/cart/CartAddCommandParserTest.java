@@ -38,6 +38,9 @@ public class CartAddCommandParserTest {
     @Test
     public void parse_invalidInput() {
         assertThrows(ParseException.class, () -> new CartAddCommandParser().parse(INVALID_ARGUMENT));
+        assertThrows(ParseException.class, () ->
+            new CartAddCommandParser().parse(INVALID_INGREDIENT_ARGUMENT_NO_QUANTITY));
+        assertThrows(ParseException.class, () -> new CartAddCommandParser().parse(INVALID_INGREDIENT_ARGUMENT_NO_NAME));
     }
 
     @Test
