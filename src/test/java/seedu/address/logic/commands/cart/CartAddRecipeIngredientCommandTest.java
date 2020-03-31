@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.logic.commands.cart.CartAddRecipeIngredientCommand.MESSAGE_SUCCESS;
+import static seedu.address.testutil.TypicalRecipes.AGLIO_OLIO;
+import static seedu.address.testutil.TypicalRecipes.CARBONARA;
+import static seedu.address.testutil.TypicalRecipes.SCRAMBLED_EGG;
+import static seedu.address.testutil.TypicalRecipes.SPAGHETTI_BOLOGNESE;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +15,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.testutil.TypicalRecipes;
 
 public class CartAddRecipeIngredientCommandTest {
 
@@ -28,13 +31,13 @@ public class CartAddRecipeIngredientCommandTest {
     public void execute_validInput() throws CommandException {
         CartAddRecipeIngredientCommand c = new CartAddRecipeIngredientCommand(VALID_RECIPE_INDEX);
         Model model = new ModelManager();
-        model.addCookbookRecipe(TypicalRecipes.CARBONARA);
+        model.addCookbookRecipe(CARBONARA);
         assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, VALID_RECIPE_INDEX)));
 
         // after adding multiple recipes
-        model.addCookbookRecipe(TypicalRecipes.AGLIO_OLIO);
-        model.addCookbookRecipe(TypicalRecipes.SCRAMBLED_EGG);
-        model.addCookbookRecipe(TypicalRecipes.SPAGHETTI_BOLOGNESE);
+        model.addCookbookRecipe(AGLIO_OLIO);
+        model.addCookbookRecipe(SCRAMBLED_EGG);
+        model.addCookbookRecipe(SPAGHETTI_BOLOGNESE);
         assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, VALID_RECIPE_INDEX)));
 
     }
