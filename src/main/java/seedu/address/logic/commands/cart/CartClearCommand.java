@@ -28,4 +28,10 @@ public class CartClearCommand extends CartCommand {
         model.setCart(new Cart());
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+            || other instanceof CartClearCommand;
+    }
 }
