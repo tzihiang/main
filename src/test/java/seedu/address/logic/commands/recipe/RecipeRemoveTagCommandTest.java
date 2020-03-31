@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.logic.commands.recipe.RecipeRemoveTagCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalRecipes.AGLIO_OLIO;
-import static seedu.address.testutil.TypicalRecipes.CARBONARA;
 
 import org.junit.jupiter.api.Test;
 
