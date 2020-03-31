@@ -50,14 +50,16 @@ image::Ui.png[width="790"]
 [[Features]]
 == Features
 
-====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
+* Words in `UPPER_CASE` are the parameters to be supplied by the user. (e.g. in ``add   i/INGREDIENT``, ``INGREDIENT``
+is a parameter which can be used as ``add i/Bacon``).
+* Items in square brackets are optional. (e.g `recipe add n/NAME [t/TAG]` can be used as `recipe add n/Cheesecake t/Dessert`
+or as `recipe add n/Cheesecake`).
+* Items with `…`​ after them can be used multiple times (e.g. `add [i/INGREDIENT] [q/QUANTITY]...`
+can be used to add multiple ingredients and its' respective quantities in the same command).
+* Parameters can be in any order (e.g. if the command specifies `n/NAME t/TAG i/INGREDIENT q/QUANTITY`,
+`q/QUANTITY t/TAG i/INGREDIENT` is also acceptable).
 
 === Cookbook Commands
 Cookbook commands are commands that allow users to add and remove recipes from the cookbook,
