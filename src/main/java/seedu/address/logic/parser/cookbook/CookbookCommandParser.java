@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.cookbook;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -28,6 +29,7 @@ public class CookbookCommandParser implements Parser<CookbookCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public CookbookCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         final Matcher matcher = COOKBOOK_COMMAND_ARGUMENT_FORMAT.matcher(args.trim());
 
         if (!matcher.matches()) {
