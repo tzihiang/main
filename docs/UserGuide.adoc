@@ -18,11 +18,22 @@ By: `Team F11-4`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-Cooking Papa is for those who prefer to use a desktop app for managing recipes. More importantly,
-Cooking Papa is optimized for those who prefer to work with a Command Line Interface (CLI) while still
-having the benefits of a Graphical User Interface (GUI). If you can type fast, Cooking Papa can help you
-plan and cook meals more easily than traditional GUI apps. Interested?
-Jump to <<Quick Start>> to get started. Enjoy!
+CookingPapa is an all-in-one application that acts as a personalised cookbook with your own favourite recipes!
+CookingPapa is an easy-to-use application that serves to help university students who live alone, to experiment and
+try out new recipes so that they will not always have to eat the same kind of food every day. With CookingPapa,
+users can easily edit recipes, keep track of ingredients they have at home and have a shopping list that can help
+them remember the ingredients they have to buy.
+
+CookingPapa consists of 3 main features:
+
+* *Cookbook*: Stores all your recipes, including the ingredients and steps for each recipe.
+Click here for a list of Cookbook commands
+* *Inventory*: Stores all the stock of ingredients you currently have.
+Click here for a list of Inventory commands
+* *Cart*: Acts as a shopping list for ingredients you are missing for a recipe.
+Click here for a list of Cart commands.
+
+Say goodbye to thick and disorganised cookbooks and start using CookingPapa today!
 
 == Quick Start
 
