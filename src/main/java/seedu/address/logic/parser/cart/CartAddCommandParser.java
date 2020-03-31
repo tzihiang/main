@@ -39,11 +39,13 @@ public class CartAddCommandParser implements Parser<CartAddCommand> {
     }
 
     // TODO improve the parsing method
-    private boolean containsRecipe(String args) {
+    boolean containsRecipe(String args) {
+        requireNonNull(args);
         return args.contains(RECIPE_STRING);
     }
 
-    private boolean containsIngredient(String args) {
+    boolean containsIngredient(String args) {
+        requireNonNull(args);
         return args.contains(PREFIX_INGREDIENT_NAME.toString())
                 && args.contains(PREFIX_INGREDIENT_QUANTITY.toString());
     }
