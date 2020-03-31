@@ -44,11 +44,6 @@ Say goodbye to thick and disorganised cookbooks and start using CookingPapa toda
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it.
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`example`* : include examples
 
 . Refer to <<Features>> for details of each command.
 
