@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.fraction.MixedFraction;
+import seedu.address.model.ingredient.exceptions.NonPositiveIngredientQuantityException;
 
 /**
  * Represents the quantity of an ingredient.
@@ -66,9 +67,9 @@ public class IngredientQuantity {
     }
 
     /**
-     * Returns true if the specified ingredient quantity can be added to or subtracted from this ingredient quantity.
+     * Returns true if the specified ingredient quantity has the same unit as the ingredient quantity.
      */
-    public boolean isCompatibleWith(IngredientQuantity other) {
+    public boolean hasSameUnitAs(IngredientQuantity other) {
         return this.unit.equals(other.unit);
     }
 
@@ -79,7 +80,7 @@ public class IngredientQuantity {
      * @return a new ingredient quantity with the specified ingredient quantity added.
      */
     public IngredientQuantity add(IngredientQuantity other) {
-        checkArgument(isCompatibleWith(other));
+        checkArgument(hasSameUnitAs(other));
 
         Number newValue = null;
         if (this.value instanceof BigDecimal && other.value instanceof BigDecimal) {
@@ -111,7 +112,7 @@ public class IngredientQuantity {
      * @return a new ingredient quantity with the specified ingredient quantity subtracted.
      */
     public IngredientQuantity subtract(IngredientQuantity other) {
-        checkArgument(isCompatibleWith(other));
+        checkArgument(hasSameUnitAs(other));
 
         Number newValue = null;
         if (this.value instanceof BigDecimal && other.value instanceof BigDecimal) {
@@ -133,8 +134,8 @@ public class IngredientQuantity {
         }
 
         assert newValue != null;
-        if (newValue.doubleValue() < 0) {
-            newValue = value;
+        if (newValue.doubleValue() <= 0) {
+            throw new NonPositiveIngredientQuantityException();
         }
 
         return new IngredientQuantity(newValue, unit);

@@ -37,7 +37,6 @@ class JsonSerializableInventory {
      * @param source future changes to this will not affect the created {@code JsonSerializableInventory}.
      */
     public JsonSerializableInventory(ReadOnlyInventory source) {
-        System.out.println(source.getIngredientList());
         ingredients.addAll(source.getIngredientList()
                 .stream()
                 .map(JsonAdaptedIngredient::new)

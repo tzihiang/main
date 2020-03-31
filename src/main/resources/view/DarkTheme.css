@@ -167,7 +167,7 @@
     -fx-background-color: #9d8848;
     -fx-font-family: "Montserrat";
     -fx-font-weight: 400;
-    -fx-font-size: 13pt;
+    -fx-font-size: 11pt;
     -fx-text-fill: black;
 }
 
@@ -285,7 +285,7 @@
 }
 
 .dialog-pane > *.label.content {
-    -fx-font-size: 14px;
+    -fx-font-size: 9pt;
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
@@ -355,6 +355,7 @@
 
 #resultDisplay .content {
     -fx-background-color: #cccb91;
+    -fx-font-size: 9px;
     -fx-background-radius: 0;
 }
 
