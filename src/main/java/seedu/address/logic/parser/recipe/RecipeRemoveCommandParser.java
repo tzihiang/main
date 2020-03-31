@@ -8,10 +8,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.recipe.RecipeAddCommand;
+import seedu.address.logic.commands.recipe.RecipeCommand;
 import seedu.address.logic.commands.recipe.RecipeRemoveCommand;
 import seedu.address.logic.commands.recipe.RecipeRemoveIngredientCommand;
 import seedu.address.logic.commands.recipe.RecipeRemoveStepCommand;
@@ -32,21 +35,33 @@ import seedu.address.model.tag.Tag;
  */
 public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
 
+    private static final Pattern RECIPE_ADD_COMMAND_ARGUMENT_FORMAT = Pattern
+            .compile("(?<index>\\d+) *(?<category>\\S+)(?<arguments>.*)");
+
     /**
      * Parses the given {@code String} of arguments in the context of the RecipeRemoveCommand
      * and returns a RecipeRemoveCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public RecipeRemoveCommand parse(String args) throws ParseException {
-        requireNonNull(args);
-        if (containsIngredient(args)) {
-            return parseRemoveIngredient(args);
-        } else if (containsStep(args)) {
-            return parseRemoveStep(args);
-        } else if (containsTag(args)) {
-            return parseRemoveTag(args);
-        } else {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecipeRemoveCommand.MESSAGE_USAGE));
+        final Matcher matcher = RECIPE_ADD_COMMAND_ARGUMENT_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecipeAddCommand.MESSAGE_USAGE));
+        }
+
+        final String index = matcher.group("index");
+        final String category = matcher.group("category");
+        final String arguments = matcher.group("arguments");
+
+        switch (category) {
+            case RecipeCommand.INGREDIENT_KEYWORD:
+                return parseRemoveIngredient(index + " " + arguments);
+            case RecipeCommand.STEP_KEYWORD:
+                return parseRemoveStep(index + " " + arguments);
+            case RecipeCommand.TAG_KEYWORD:
+                return parseRemoveTag(index + " " + arguments);
+            default:
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecipeAddCommand.MESSAGE_USAGE));
         }
     }
 
@@ -139,18 +154,6 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
                 .getValue(PREFIX_TAG).get());
 
         return new RecipeRemoveTagCommand(recipeIndex, toRemove);
-    }
-
-    private boolean containsIngredient(String args) {
-        return args.contains(PREFIX_INGREDIENT_NAME.toString());
-    }
-
-    private boolean containsStep(String args) {
-        return args.contains(PREFIX_STEP_INDEX.toString());
-    }
-
-    private boolean containsTag(String args) {
-        return args.contains(PREFIX_TAG.toString());
     }
 
     /**

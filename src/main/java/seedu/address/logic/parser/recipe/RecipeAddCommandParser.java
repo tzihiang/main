@@ -1,6 +1,5 @@
 package seedu.address.logic.parser.recipe;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
@@ -9,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
@@ -16,6 +17,8 @@ import seedu.address.logic.commands.recipe.RecipeAddCommand;
 import seedu.address.logic.commands.recipe.RecipeAddIngredientCommand;
 import seedu.address.logic.commands.recipe.RecipeAddStepCommand;
 import seedu.address.logic.commands.recipe.RecipeAddTagCommand;
+import seedu.address.logic.commands.recipe.RecipeCommand;
+import seedu.address.logic.commands.recipe.RecipeRemoveCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -33,21 +36,32 @@ import seedu.address.model.tag.Tag;
  */
 public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
 
+    private static final Pattern RECIPE_ADD_COMMAND_ARGUMENT_FORMAT = Pattern
+            .compile("(?<index>\\d+) *(?<category>\\S+)(?<arguments>.*)");
+
     /**
      * Parses the given {@code String} of arguments in the context of the RecipeAddCommand
      * and returns a RecipeAddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public RecipeAddCommand parse(String args) throws ParseException {
-        requireNonNull(args);
+        final Matcher matcher = RECIPE_ADD_COMMAND_ARGUMENT_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecipeAddCommand.MESSAGE_USAGE));
+        }
 
-        if (containsIngredient(args)) {
-            return parseAddIngredient(args);
-        } else if (containsStep(args)) {
-            return parseAddStep(args);
-        } else if (containsTag(args)) {
-            return parseAddTag(args);
-        } else {
+        final String index = matcher.group("index");
+        final String category = matcher.group("category");
+        final String arguments = matcher.group("arguments");
+
+        switch (category) {
+        case RecipeCommand.INGREDIENT_KEYWORD:
+            return parseAddIngredient(index + " " + arguments);
+        case RecipeCommand.STEP_KEYWORD:
+            return parseAddStep(index + " " + arguments);
+        case RecipeCommand.TAG_KEYWORD:
+            return parseAddTag(index + " " + arguments);
+        default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecipeAddCommand.MESSAGE_USAGE));
         }
     }
@@ -143,20 +157,6 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
                 .getValue(PREFIX_TAG).get());
 
         return new RecipeAddTagCommand(recipeIndex, toAdd);
-    }
-
-    private boolean containsIngredient(String args) {
-        return args.contains(PREFIX_INGREDIENT_NAME.toString())
-                && args.contains(PREFIX_INGREDIENT_QUANTITY.toString());
-    }
-
-    private boolean containsStep(String args) {
-        return args.contains(PREFIX_STEP_INDEX.toString())
-                && args.contains(PREFIX_STEP_DESCRIPTION.toString());
-    }
-
-    private boolean containsTag(String args) {
-        return args.contains(PREFIX_TAG.toString());
     }
 
     /**
