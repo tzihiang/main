@@ -1,17 +1,17 @@
 package seedu.address.logic.commands.recipe;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static seedu.address.logic.commands.recipe.RecipeAddTagCommand.MESSAGE_SUCCESS;
+import static seedu.address.testutil.TypicalRecipes.CARBONARA;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.tag.Tag;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.logic.commands.recipe.RecipeAddTagCommand.MESSAGE_SUCCESS;
-import static seedu.address.testutil.TypicalRecipes.CARBONARA;
 
 public class RecipeAddTagCommandTest {
     private static final Tag VALID_TAG_ONE = new Tag("Easy");
@@ -65,4 +65,12 @@ public class RecipeAddTagCommandTest {
         f.execute(model);
         assertThrows(CommandException.class, () -> f.execute(model));
     }
+
+    @Test
+    public void equalsMethod() {
+        RecipeAddTagCommand c = new RecipeAddTagCommand(VALID_RECIPE_INDEX, VALID_TAG_ONE);
+        assertEquals(c, new RecipeAddTagCommand(VALID_RECIPE_INDEX, VALID_TAG_ONE));
+        assertNotEquals(c, null);
+    }
+
 }
