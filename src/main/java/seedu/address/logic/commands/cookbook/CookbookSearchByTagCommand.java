@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.cart.CartAddRecipeIngredientCommand;
 import seedu.address.model.Model;
 import seedu.address.model.recipe.RecipeContainsTagsPredicate;
 
