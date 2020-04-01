@@ -23,12 +23,11 @@ public class RecipeBuilder {
     private RecipeDescription recipeDescription;
     private UniqueIngredientList ingredients = new UniqueIngredientList();
     private UniqueStepList steps = new UniqueStepList();
-    private Set<Tag> tags;
+    private Set<Tag> tags = new HashSet<>();
 
     public RecipeBuilder() {
         recipeName = new RecipeName(DEFAULT_RECIPE_NAME);
         recipeDescription = new RecipeDescription(DEFAULT_RECIPE_DESCRIPTION);
-        tags = new HashSet<>();
     }
 
     /**
@@ -37,6 +36,8 @@ public class RecipeBuilder {
     public RecipeBuilder(Recipe recipeToCopy) {
         this.recipeName = recipeToCopy.getName();
         this.recipeDescription = recipeToCopy.getDescription();
+        this.ingredients = recipeToCopy.getIngredients();
+        this.steps = recipeToCopy.getSteps();
         this.tags = new HashSet<>(recipeToCopy.getTags());
     }
 

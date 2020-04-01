@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECIPE_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECIPE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -18,6 +20,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -42,7 +46,30 @@ public class CommandTestUtil {
     public static final String INVALID_INGREDIENT_NAME_DESC = " " + PREFIX_INGREDIENT_NAME
             + "R!ce"; // '!' not allowed in names
     public static final String INVALID_INGREDIENT_QUANTITY_DESC = " " + PREFIX_INGREDIENT_QUANTITY
-            + "*halal"; // '*' not allowed in tags
+            + "*halal"; // '*' not allowed in quantity
+
+    public static final String VALID_RECIPE_NAME_HAMBURGER = "Hamburger";
+    public static final String VALID_RECIPE_NAME_SALAD = "Salad";
+    public static final String VALID_RECIPE_DESCRIPTION_HAMBURGER = "Juicy grilled beef patty with toasted buns";
+    public static final String VALID_RECIPE_DESCRIPTION_SALAD = "Lettuce, spinach & guacamole.";
+    public static final String VALID_TAG_BRUNCH = "Brunch";
+    public static final String VALID_TAG_HEALTHY = "Healthy";
+
+    public static final String RECIPE_NAME_DESC_HAMBURGER = " " + PREFIX_RECIPE_NAME + VALID_RECIPE_NAME_HAMBURGER;
+    public static final String RECIPE_NAME_DESC_SALAD = " " + PREFIX_RECIPE_NAME + VALID_RECIPE_NAME_SALAD;
+    public static final String RECIPE_DESCRIPTION_DESC_HAMBURGER = " "
+            + PREFIX_RECIPE_DESCRIPTION + VALID_RECIPE_DESCRIPTION_HAMBURGER;
+    public static final String RECIPE_DESCRIPTION_DESC_SALAD = " "
+            + PREFIX_RECIPE_DESCRIPTION + VALID_RECIPE_DESCRIPTION_SALAD;
+    public static final String TAG_DESC_BRUNCH = " " + PREFIX_TAG + VALID_TAG_BRUNCH;
+    public static final String TAG_DESC_HEALTHY = " " + PREFIX_TAG + VALID_TAG_HEALTHY;
+
+    public static final String INVALID_RECIPE_NAME_DESC = " " + PREFIX_RECIPE_NAME
+            + " "; // recipe names cannot have whitespaces only
+    public static final String INVALID_RECIPE_DESCRIPTION_DESC = " " + PREFIX_RECIPE_DESCRIPTION
+            + " "; // recipe descriptions cannot have whitespaces only
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "p@sta"; // '@' not allowed in tags
+
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
@@ -55,7 +82,6 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -122,6 +148,20 @@ public class CommandTestUtil {
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the recipe at the given {@code targetIndex} in the
+     * {@code model}'s cookbook.
+     */
+    public static void showRecipeAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredCookbookRecipeList().size());
+
+        Recipe recipe = model.getFilteredCookbookRecipeList().get(targetIndex.getZeroBased());
+        final String[] splitName = recipe.getName().fullRecipeName.split("\\s+");
+        model.updateFilteredCookbookRecipeList(new RecipeNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
