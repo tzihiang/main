@@ -7,9 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalRecipes.AGLIO_OLIO;
 import static seedu.address.testutil.TypicalRecipes.CARBONARA;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
 
 public class RecipeNameContainsKeywordsPredicateTest {
     @Test
