@@ -26,10 +26,10 @@ import seedu.address.model.tag.Tag;
 public class RecipeRemoveCommandParserTest {
     private static final Index VALID_RECIPE_INDEX = new Index(0);
     private static final Ingredient VALID_INGREDIENT = new Ingredient(new IngredientName("Ingredient"),
-        new IngredientQuantity("5"));
+            new IngredientQuantity("5"));
     private static final String VALID_REMOVE_INGREDIENT_ARGUMENT = "1 ingredient i/Ingredient q/5";
     private static final String INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_RECIPE_INDEX = "ingredient i/Ingredient "
-        + "q/5";
+            + "q/5";
     private static final String INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME = "1 ingredient q/5";
     private static final String VALID_PARSE_REMOVE_INGREDIENT_ARGUMENT = "1 i/Ingredient q/5";
 
@@ -51,83 +51,83 @@ public class RecipeRemoveCommandParserTest {
     @Test
     public void parse_validInput() throws ParseException {
         assertEquals(new RecipeRemoveCommandParser().parse(VALID_REMOVE_INGREDIENT_ARGUMENT),
-            new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, VALID_INGREDIENT));
+                new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, VALID_INGREDIENT));
         assertEquals(new RecipeRemoveCommandParser().parse(VALID_REMOVE_STEP_ARGUMENT),
-            new RecipeRemoveStepCommand(VALID_RECIPE_INDEX, VALID_STEP_INDEX));
+                new RecipeRemoveStepCommand(VALID_RECIPE_INDEX, VALID_STEP_INDEX));
         assertEquals(new RecipeRemoveCommandParser().parse(VALID_REMOVE_TAG_ARGUMENT),
-            new RecipeRemoveTagCommand(VALID_RECIPE_INDEX, VALID_TAG));
+                new RecipeRemoveTagCommand(VALID_RECIPE_INDEX, VALID_TAG));
     }
 
     @Test
     public void parse_invalidInput() {
         assertThrows(ParseException.class, () ->
-            new RecipeRemoveCommandParser().parse(INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_RECIPE_INDEX));
+                new RecipeRemoveCommandParser().parse(INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_RECIPE_INDEX));
         assertThrows(ParseException.class, () ->
-            new RecipeRemoveCommandParser().parse(INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME));
+                new RecipeRemoveCommandParser().parse(INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME));
         assertThrows(ParseException.class, () ->
-            new RecipeRemoveCommandParser().parse(INVALID_REMOVE_STEP_ARGUMENT_NO_RECIPE_INDEX));
+                new RecipeRemoveCommandParser().parse(INVALID_REMOVE_STEP_ARGUMENT_NO_RECIPE_INDEX));
         assertThrows(ParseException.class, () ->
-            new RecipeRemoveCommandParser().parse(INVALID_REMOVE_STEP_ARGUMENT_NO_STEP_DESCRIPTION));
+                new RecipeRemoveCommandParser().parse(INVALID_REMOVE_STEP_ARGUMENT_NO_STEP_DESCRIPTION));
         assertThrows(ParseException.class, () ->
-            new RecipeRemoveCommandParser().parse(INVALID_REMOVE_STEP_ARGUMENT_NO_STEP_INDEX));
+                new RecipeRemoveCommandParser().parse(INVALID_REMOVE_STEP_ARGUMENT_NO_STEP_INDEX));
         assertThrows(ParseException.class, () ->
-            new RecipeRemoveCommandParser().parse(INVALID_REMOVE_TAG_ARGUMENT_NO_RECIPE_INDEX));
+                new RecipeRemoveCommandParser().parse(INVALID_REMOVE_TAG_ARGUMENT_NO_RECIPE_INDEX));
         assertThrows(ParseException.class, () ->
-            new RecipeRemoveCommandParser().parse(INVALID_REMOVE_TAG_ARGUMENT_NO_TAG));
+                new RecipeRemoveCommandParser().parse(INVALID_REMOVE_TAG_ARGUMENT_NO_TAG));
         assertThrows(ParseException.class, () ->
-            new RecipeRemoveCommandParser().parse(INVALID_ARGUMENT));
+                new RecipeRemoveCommandParser().parse(INVALID_ARGUMENT));
     }
 
     @Test
     public void parseRemoveIngredient_validInput() throws ParseException {
         assertEquals(new RecipeRemoveCommandParser().parseRemoveIngredient(VALID_PARSE_REMOVE_INGREDIENT_ARGUMENT),
-            new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, VALID_INGREDIENT));
+                new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, VALID_INGREDIENT));
     }
 
     @Test
     public void parseRemoveIngredient_invalidInput() {
         assertThrows(ParseException.class, () ->
-            new RecipeRemoveCommandParser().parseRemoveIngredient(INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_RECIPE_INDEX));
+                new RecipeRemoveCommandParser().parseRemoveIngredient(INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_RECIPE_INDEX));
         assertThrows(ParseException.class, () ->
-            new RecipeRemoveCommandParser()
-            .parseRemoveIngredient(INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME));
+                new RecipeRemoveCommandParser()
+                        .parseRemoveIngredient(INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME));
     }
 
     @Test
     public void parseRemoveStep_validInput() throws ParseException {
         assertEquals(new RecipeRemoveCommandParser().parseRemoveStep(VALID_PARSE_REMOVE_STEP_ARGUMENT),
-            new RecipeRemoveStepCommand(VALID_RECIPE_INDEX, VALID_STEP_INDEX));
+                new RecipeRemoveStepCommand(VALID_RECIPE_INDEX, VALID_STEP_INDEX));
     }
 
     @Test
     public void parseRemoveStep_invalidInput() {
         assertThrows(ParseException.class, () ->
-            new RecipeRemoveCommandParser().parseRemoveStep(INVALID_REMOVE_STEP_ARGUMENT_NO_RECIPE_INDEX));
+                new RecipeRemoveCommandParser().parseRemoveStep(INVALID_REMOVE_STEP_ARGUMENT_NO_RECIPE_INDEX));
         assertThrows(ParseException.class, () ->
-            new RecipeRemoveCommandParser().parseRemoveStep(INVALID_REMOVE_STEP_ARGUMENT_NO_STEP_INDEX));
+                new RecipeRemoveCommandParser().parseRemoveStep(INVALID_REMOVE_STEP_ARGUMENT_NO_STEP_INDEX));
         assertThrows(ParseException.class, () ->
-            new RecipeRemoveCommandParser().parseRemoveStep(INVALID_REMOVE_STEP_ARGUMENT_NO_STEP_DESCRIPTION));
+                new RecipeRemoveCommandParser().parseRemoveStep(INVALID_REMOVE_STEP_ARGUMENT_NO_STEP_DESCRIPTION));
     }
 
     @Test
     public void parseRemoveTag_validInput() throws ParseException {
         assertEquals(new RecipeRemoveCommandParser().parseRemoveTag(VALID_PARSE_REMOVE_TAG_ARGUMENT),
-            new RecipeRemoveTagCommand(VALID_RECIPE_INDEX, VALID_TAG));
+                new RecipeRemoveTagCommand(VALID_RECIPE_INDEX, VALID_TAG));
     }
 
     @Test
     public void parseRemoveTag_invalidInput() {
         assertThrows(ParseException.class, () ->
-            new RecipeRemoveCommandParser().parseRemoveTag(INVALID_REMOVE_TAG_ARGUMENT_NO_RECIPE_INDEX));
+                new RecipeRemoveCommandParser().parseRemoveTag(INVALID_REMOVE_TAG_ARGUMENT_NO_RECIPE_INDEX));
         assertThrows(ParseException.class, () ->
-            new RecipeRemoveCommandParser().parseRemoveTag(INVALID_REMOVE_TAG_ARGUMENT_NO_TAG));
+                new RecipeRemoveCommandParser().parseRemoveTag(INVALID_REMOVE_TAG_ARGUMENT_NO_TAG));
     }
 
     @Test
     public void containsIngredient_validInput() {
         assertTrue(new RecipeRemoveCommandParser().containsIngredient(VALID_REMOVE_INGREDIENT_ARGUMENT));
         assertFalse(new RecipeRemoveCommandParser()
-            .containsIngredient(INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME));
+                .containsIngredient(INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME));
     }
 
     @Test
@@ -140,27 +140,5 @@ public class RecipeRemoveCommandParserTest {
     public void containsTag_validInput() {
         assertTrue(new RecipeRemoveCommandParser().containsTag(VALID_REMOVE_TAG_ARGUMENT));
         assertFalse(new RecipeRemoveCommandParser().containsTag(INVALID_REMOVE_TAG_ARGUMENT_NO_TAG));
-    }
-
-    @Test
-    public void arePrefixesPresent_validInput() {
-        assertTrue(RecipeRemoveCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            VALID_REMOVE_INGREDIENT_ARGUMENT, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY),
-            PREFIX_INGREDIENT_NAME));
-        assertFalse(RecipeRemoveCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-                INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME, PREFIX_INGREDIENT_NAME,
-            PREFIX_INGREDIENT_QUANTITY), PREFIX_INGREDIENT_NAME));
-
-        assertTrue(RecipeRemoveCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            VALID_REMOVE_STEP_ARGUMENT, PREFIX_STEP_INDEX),
-            PREFIX_STEP_INDEX));
-        assertFalse(RecipeRemoveCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            INVALID_REMOVE_STEP_ARGUMENT_NO_STEP_DESCRIPTION, PREFIX_STEP_INDEX),
-            PREFIX_STEP_INDEX));
-
-        assertTrue(RecipeRemoveCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            VALID_REMOVE_TAG_ARGUMENT, PREFIX_TAG, PREFIX_STEP_DESCRIPTION), PREFIX_TAG));
-        assertFalse(RecipeRemoveCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            INVALID_REMOVE_TAG_ARGUMENT_NO_TAG, PREFIX_TAG, PREFIX_STEP_DESCRIPTION), PREFIX_TAG));
     }
 }

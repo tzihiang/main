@@ -35,7 +35,7 @@ public class CartAddIngredientCommandParser implements Parser<CartCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INGREDIENT_NAME)
+        if (!argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     CartAddIngredientCommand.MESSAGE_USAGE));
@@ -49,15 +49,5 @@ public class CartAddIngredientCommandParser implements Parser<CartCommand> {
         Ingredient ingredient = new Ingredient(ingredientName, ingredientQuantity);
 
         return new CartAddIngredientCommand(ingredient);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        requireNonNull(argumentMultimap);
-        requireNonNull(prefixes);
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

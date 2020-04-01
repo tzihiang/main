@@ -143,29 +143,4 @@ public class RecipeAddCommandParserTest {
         assertTrue(new RecipeAddCommandParser().containsTag(VALID_ADD_TAG_ARGUMENT));
         assertFalse(new RecipeAddCommandParser().containsTag(INVALID_ADD_TAG_ARGUMENT_NO_TAG));
     }
-
-    @Test
-    public void arePrefixesPresent_validInput() {
-        assertTrue(RecipeAddCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            VALID_ADD_INGREDIENT_ARGUMENT, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY),
-            PREFIX_INGREDIENT_NAME));
-        assertFalse(RecipeAddCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            INVALID_ADD_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME, PREFIX_INGREDIENT_NAME,
-            PREFIX_INGREDIENT_QUANTITY), PREFIX_INGREDIENT_NAME));
-
-        assertTrue(RecipeAddCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            VALID_ADD_STEP_ARGUMENT, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION),
-            PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION));
-        assertFalse(RecipeAddCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            INVALID_ADD_STEP_ARGUMENT_NO_STEP_DESCRIPTION, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION),
-            PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION));
-        assertFalse(RecipeAddCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            INVALID_ADD_STEP_ARGUMENT_NO_STEP_INDEX, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION),
-            PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION));
-
-        assertTrue(RecipeAddCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            VALID_ADD_TAG_ARGUMENT, PREFIX_TAG, PREFIX_STEP_DESCRIPTION), PREFIX_TAG));
-        assertFalse(RecipeAddCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            INVALID_ADD_TAG_ARGUMENT_NO_TAG, PREFIX_TAG, PREFIX_STEP_DESCRIPTION), PREFIX_TAG));
-    }
 }

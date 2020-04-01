@@ -42,27 +42,4 @@ public class InventoryRemoveIngredientCommandParserTest {
         assertThrows(ParseException.class, () ->
             new InventoryRemoveIngredientCommandParser().parse(INVALID_INGREDIENT_ARGUMENT_NO_NAME));
     }
-
-    @Test
-    public void arePrefixesPresent_validInput() {
-        Assertions.assertTrue(InventoryRemoveIngredientCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            VALID_INGREDIENT_ARGUMENT, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY),
-            PREFIX_INGREDIENT_NAME));
-        assertFalse(InventoryRemoveIngredientCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            INVALID_INGREDIENT_ARGUMENT_NO_NAME, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY),
-            PREFIX_INGREDIENT_NAME));
-        assertFalse(InventoryRemoveIngredientCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            INVALID_ARGUMENT, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY),
-            PREFIX_INGREDIENT_NAME));
-    }
-
-    @Test
-    public void arePrefixesPresent_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () ->
-            InventoryRemoveIngredientCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-                    VALID_INGREDIENT_ARGUMENT, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY),
-                    (Prefix[]) null));
-        assertThrows(NullPointerException.class, () ->
-            InventoryRemoveIngredientCommandParser.arePrefixesPresent(null, PREFIX_INGREDIENT_NAME));
-    }
 }

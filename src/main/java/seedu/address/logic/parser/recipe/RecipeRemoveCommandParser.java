@@ -82,7 +82,7 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
                     RecipeAddCommand.MESSAGE_USAGE));
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INGREDIENT_NAME)) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RecipeAddCommand.MESSAGE_USAGE));
         }
@@ -115,7 +115,7 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
                     RecipeRemoveCommand.MESSAGE_USAGE), pe);
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_STEP_INDEX)) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_STEP_INDEX)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RecipeRemoveCommand.MESSAGE_USAGE));
         }
@@ -144,7 +144,7 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
                     RecipeRemoveCommand.MESSAGE_USAGE), pe);
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TAG)) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_TAG)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RecipeRemoveCommand.MESSAGE_USAGE));
         }
@@ -166,13 +166,4 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
     boolean containsTag(String args) {
         return args.contains(PREFIX_TAG.toString());
     }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
 }
