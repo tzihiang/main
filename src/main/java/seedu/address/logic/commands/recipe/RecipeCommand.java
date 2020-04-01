@@ -20,6 +20,10 @@ import seedu.address.model.tag.Tag;
 public abstract class RecipeCommand extends Command {
 
     public static final String COMMAND_CATEGORY = "recipe";
+    public static final String STEP_KEYWORD = "step";
+    public static final String INGREDIENT_KEYWORD = "ingredient";
+    public static final String TAG_KEYWORD = "tag";
+
 
     /**
      * Stores the details to edit the recipe with. Each non-empty field value will replace the
