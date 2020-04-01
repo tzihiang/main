@@ -1,22 +1,23 @@
 package seedu.address.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.storage.JsonAdaptedRecipe.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIngredients.APPLE;
+import static seedu.address.testutil.TypicalRecipes.CARBONARA;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.model.recipe.RecipeDescription;
 import seedu.address.model.recipe.RecipeName;
 import seedu.address.model.step.Step;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.storage.JsonAdaptedRecipe.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIngredients.APPLE;
-import static seedu.address.testutil.TypicalRecipes.CARBONARA;
 
 public class JsonAdaptedRecipeTest {
     private static final String INVALID_INGREDIENT_NAME = "r!ce"; // contains invalid symbol
