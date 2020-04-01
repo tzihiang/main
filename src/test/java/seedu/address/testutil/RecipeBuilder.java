@@ -3,9 +3,11 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.RecipeDescription;
 import seedu.address.model.recipe.RecipeName;
+import seedu.address.model.step.UniqueStepList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -19,6 +21,8 @@ public class RecipeBuilder {
 
     private RecipeName recipeName;
     private RecipeDescription recipeDescription;
+    private UniqueIngredientList ingredients = new UniqueIngredientList();
+    private UniqueStepList steps = new UniqueStepList();
     private Set<Tag> tags;
 
     public RecipeBuilder() {
@@ -41,7 +45,7 @@ public class RecipeBuilder {
      * @param recipeName
      */
     public RecipeBuilder withRecipeName(String recipeName) {
-        this.recipeName = new RecipeName(recipeName.toString());
+        this.recipeName = new RecipeName(recipeName);
         return this;
     }
 
@@ -50,7 +54,7 @@ public class RecipeBuilder {
      * @param recipeDescription
      */
     public RecipeBuilder withRecipeDescription(String recipeDescription) {
-        this.recipeDescription = new RecipeDescription(recipeDescription.toString());
+        this.recipeDescription = new RecipeDescription(recipeDescription);
         return this;
     }
 
@@ -63,6 +67,6 @@ public class RecipeBuilder {
     }
 
     public Recipe build() {
-        return new Recipe(recipeName, recipeDescription);
+        return new Recipe(recipeName, recipeDescription, ingredients, steps, tags);
     }
 }

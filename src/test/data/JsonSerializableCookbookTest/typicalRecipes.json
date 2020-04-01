@@ -2,15 +2,27 @@
   "_comment": "Cookbook save file which contains the same Recipe values as in TypicalRecipes#getTypicalCookbook()",
   "recipes": [ {
     "name": "Aglio Olio",
-    "description": "A traditional Italian pasta dish made with garlic in olive oil, and dried red chili flakes."
+    "description": "A traditional Italian pasta dish made with garlic in olive oil, and dried red chili flakes.",
+    "ingredients": [ ],
+    "steps": [ ],
+    "tagged": [ ]
   }, {
     "name": "Carbonara",
-    "description": "The best dish sold in NUS."
+    "description": "The best dish sold in NUS.",
+    "ingredients": [ ],
+    "steps": [ ],
+    "tagged": [ "Pasta", "Italian", "Simple", "Creamy" ]
   }, {
     "name": "Scrambled Egg",
-    "description": "Gordan Ramsay's famous creamy and fluffly srambled eggs"
+    "description": "Gordan Ramsay's famous creamy and fluffly srambled eggs",
+    "ingredients": [ ],
+    "steps": [ ],
+    "tagged": [ "Simple", "Celebrity" ]
   }, {
     "name": "Spaghetti bolognese",
-    "description": "Jaime Oliver's great version of the classic Italian Bolognese."
+    "description": "Jaime Oliver's great version of the classic Italian Bolognese.",
+    "ingredients": [ ],
+    "steps": [ ],
+    "tagged": [ ]
   } ]
 }

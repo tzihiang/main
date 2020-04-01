@@ -1,6 +1,9 @@
 {
   "recipes": [ {
     "name": "",
-    "description": "This recipe's name is invalid."
+    "description": "This recipe's name is invalid.",
+    "ingredients": [ ],
+    "steps": [ ],
+    "tagged": [ ]
   } ]
 }

@@ -1,5 +1,8 @@
 {
   "recipes": [ {
-    "name": "Invalid Recipe without Description"
+    "name": "Invalid Recipe without Description",
+    "ingredients": [ ],
+    "steps": [ ],
+    "tagged": [ ]
   } ]
 }

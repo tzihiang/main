@@ -1,9 +1,15 @@
 {
   "recipes": [ {
     "name": "Recipe with Invalid Description",
-    "description": ""
+    "description": "",
+    "ingredients": [ ],
+    "steps": [ ],
+    "tagged": [ ]
   }, {
     "name": "Valid Recipe Name",
-    "description": "Valid Description"
+    "description": "Valid Description",
+    "ingredients": [ ],
+    "steps": [ ],
+    "tagged": [ ]
   } ]
 }
