@@ -21,13 +21,16 @@ public class RecipeBuilder {
 
     private RecipeName recipeName;
     private RecipeDescription recipeDescription;
-    private UniqueIngredientList ingredients = new UniqueIngredientList();
-    private UniqueStepList steps = new UniqueStepList();
-    private Set<Tag> tags = new HashSet<>();
+    private UniqueIngredientList ingredients;
+    private UniqueStepList steps;
+    private Set<Tag> tags;
 
     public RecipeBuilder() {
         recipeName = new RecipeName(DEFAULT_RECIPE_NAME);
         recipeDescription = new RecipeDescription(DEFAULT_RECIPE_DESCRIPTION);
+        ingredients = new UniqueIngredientList();
+        steps = new UniqueStepList();
+        tags = new HashSet<>();
     }
 
     /**
