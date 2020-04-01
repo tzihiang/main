@@ -322,8 +322,6 @@ public class ModelManager implements Model {
         filteredCartIngredients.setPredicate(predicate);
     }
 
-    public void removeAllCartIngredient() {};
-
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

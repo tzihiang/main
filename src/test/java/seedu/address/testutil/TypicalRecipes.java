@@ -5,7 +5,16 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.Cookbook;
+import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientName;
+import seedu.address.model.ingredient.IngredientQuantity;
+import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.RecipeDescription;
+import seedu.address.model.recipe.RecipeName;
+import seedu.address.model.step.Step;
+import seedu.address.model.step.UniqueStepList;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class containing a list of {@code Recipe} objects to be used in tests.
@@ -31,6 +40,22 @@ public class TypicalRecipes {
             .withRecipeDescription("Fried fish in batter served with deep-fried chips.").build();
 
     private TypicalRecipes() {} // prevents instantiation
+
+    /**
+     * Returns a {@code Recipe} with sample ingredients, steps, and tags.
+     */
+    public static Recipe getValidRecipe() {
+        UniqueIngredientList ingredients = new UniqueIngredientList();
+        ingredients.add(new Ingredient(new IngredientName("Ingredient"), new IngredientQuantity("5")));
+        UniqueStepList steps = new UniqueStepList();
+        steps.add(new Step("Step"));
+        return new Recipe(
+                new RecipeName("Recipe"),
+                new RecipeDescription("Description"),
+                ingredients,
+                steps,
+                SampleDataUtil.getTagSet("Tag"));
+    }
 
     /**
      * Returns a {@code Cookbook} with all the typical recipes.

@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.cookbook;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 
 import seedu.address.commons.core.index.Index;
@@ -19,6 +20,7 @@ public class CookbookRemoveCommandParser implements Parser<CookbookRemoveCommand
      * @throws ParseException if the user input does not conform the expected format
      */
     public CookbookRemoveCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         try {
             Index index = ParserUtil.parseIndex(args);
             return new CookbookRemoveCommand(index);
