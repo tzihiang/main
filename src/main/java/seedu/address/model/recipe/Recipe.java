@@ -71,6 +71,13 @@ public class Recipe {
         return tags;
     }
 
+    public String getTagsString() {
+        StringBuilder sb = new StringBuilder();
+        getTags().forEach(tag -> sb.append(" ").append(tag.toString()));
+        System.out.println(sb.toString());
+        return sb.toString().trim().replace("[", "").replace("]", " ");
+    }
+
     /**
      * Returns true if both recipes have the same name.
      * This defines a weaker notion of equality between two recipes.
