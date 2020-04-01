@@ -44,6 +44,7 @@ public class JsonCookbookStorage implements CookbookStorage {
      */
     public Optional<ReadOnlyCookbook> readCookbook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
+
         Optional<JsonSerializableCookbook> jsonCookbook = JsonUtil.readJsonFile(
                 filePath, JsonSerializableCookbook.class);
         if (!jsonCookbook.isPresent()) {

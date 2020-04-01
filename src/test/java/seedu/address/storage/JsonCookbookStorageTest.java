@@ -83,7 +83,6 @@ public class JsonCookbookStorageTest {
         jsonCookbookStorage.saveCookbook(original); // file path not specified
         readBack = jsonCookbookStorage.readCookbook().get(); // file path not specified
         assertEquals(original, new Cookbook(readBack));
-
     }
 
     @Test
