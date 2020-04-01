@@ -1,11 +1,11 @@
 package seedu.address.logic.commands.recipe;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -19,7 +19,7 @@ import seedu.address.model.recipe.Recipe;
  */
 public class RecipeAddIngredientCommand extends RecipeAddCommand {
 
-    public static final String MESSAGE_SUCCESS = "New ingredient added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New ingredient added for %1$s: %2$s";
     public static final String MESSAGE_INCOMPATIBLE_UNITS = "This ingredient has different units "
             + "from the same ingredient in the recipe";
 
@@ -42,7 +42,8 @@ public class RecipeAddIngredientCommand extends RecipeAddCommand {
         List<Recipe> lastShownList = model.getFilteredCookbookRecipeList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+            throw new CommandException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
+                    RecipeAddCommand.MESSAGE_USAGE));
         }
 
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
@@ -56,7 +57,7 @@ public class RecipeAddIngredientCommand extends RecipeAddCommand {
         model.setCookbookRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredCookbookRecipeList(PREDICATE_SHOW_ALL_RECIPES);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedRecipe.getName().fullRecipeName, toAdd));
     }
 
     @Override

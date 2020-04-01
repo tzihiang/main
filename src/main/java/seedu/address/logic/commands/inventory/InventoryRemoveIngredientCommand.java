@@ -41,6 +41,7 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        // TODO update result display to show the number of ingredients removed instead of the input
         model.removeInventoryIngredient(toRemove);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));
     }

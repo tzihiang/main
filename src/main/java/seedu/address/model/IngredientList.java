@@ -6,8 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.model.ingredient.CompatibleIngredientList;
 import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.ingredient.UniqueIngredientList;
 
 /**
  * Wraps all data at the ingredient list level
@@ -15,7 +15,7 @@ import seedu.address.model.ingredient.UniqueIngredientList;
  */
 public abstract class IngredientList implements ReadOnlyIngredientList {
 
-    private final UniqueIngredientList ingredients = new UniqueIngredientList();
+    private final CompatibleIngredientList ingredients = new CompatibleIngredientList();
 
     public IngredientList() {}
 
@@ -86,7 +86,7 @@ public abstract class IngredientList implements ReadOnlyIngredientList {
         // TODO: refine later
     }
 
-    public UniqueIngredientList getUniqueIngredientList() {
+    public CompatibleIngredientList getCompatibleIngredientList() {
         return ingredients;
     }
 

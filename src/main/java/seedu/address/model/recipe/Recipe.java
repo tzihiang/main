@@ -2,7 +2,6 @@ package seedu.address.model.recipe;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -68,12 +67,8 @@ public class Recipe {
         return steps;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
     public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+        return tags;
     }
 
     /**
@@ -121,14 +116,14 @@ public class Recipe {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Description: ")
+                .append("\nDescription: ")
                 .append(getDescription())
-                .append(" Ingredients: ")
+                .append("\nIngredients: ")
                 .append(getIngredients())
-                .append(" Preparation Steps: ")
+                .append("\nPreparation Steps:")
                 .append(getSteps())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append("\nTags:");
+        getTags().forEach(tag -> builder.append(" ").append(tag.toString()));
         return builder.toString();
     }
 
