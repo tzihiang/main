@@ -55,7 +55,7 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
      * and returns a RecipeRemoveIngredientCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    private RecipeRemoveIngredientCommand parseRemoveIngredient(String args) throws ParseException {
+    RecipeRemoveIngredientCommand parseRemoveIngredient(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
 
@@ -141,15 +141,15 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
         return new RecipeRemoveTagCommand(recipeIndex, toRemove);
     }
 
-    private boolean containsIngredient(String args) {
+    boolean containsIngredient(String args) {
         return args.contains(PREFIX_INGREDIENT_NAME.toString());
     }
 
-    private boolean containsStep(String args) {
+    boolean containsStep(String args) {
         return args.contains(PREFIX_STEP_INDEX.toString());
     }
 
-    private boolean containsTag(String args) {
+    boolean containsTag(String args) {
         return args.contains(PREFIX_TAG.toString());
     }
 
@@ -157,7 +157,7 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+    static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
