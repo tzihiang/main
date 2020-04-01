@@ -37,7 +37,8 @@ public class TypicalRecipes {
     public static final Recipe CHICKEN_CHOP = new RecipeBuilder().withRecipeName("Chicken Chop")
             .withRecipeDescription("Delicious grilled chicken covered in mushroom sauce.").build();
     public static final Recipe FISH_AND_CHIPS = new RecipeBuilder().withRecipeName("Fish & Chips")
-            .withRecipeDescription("Fried fish in batter served with deep-fried chips.").build();
+            .withRecipeDescription("Fried fish in batter served with deep-fried chips.")
+            .withTags("Western").build();
 
     private TypicalRecipes() {} // prevents instantiation
 
@@ -71,6 +72,6 @@ public class TypicalRecipes {
     }
 
     public static List<Recipe> getTypicalRecipes() {
-        return new ArrayList<>(Arrays.asList(CARBONARA, SCRAMBLED_EGG, AGLIO_OLIO, SPAGHETTI_BOLOGNESE));
+        return new ArrayList<>(Arrays.asList(AGLIO_OLIO, CARBONARA, SCRAMBLED_EGG, SPAGHETTI_BOLOGNESE));
     }
 }
