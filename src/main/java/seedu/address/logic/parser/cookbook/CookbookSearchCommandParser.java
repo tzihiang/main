@@ -96,7 +96,7 @@ public class CookbookSearchCommandParser implements Parser<CookbookSearchCommand
      */
     public CookbookSearchByInventoryCommand parseSearchByInventory(String args) throws ParseException {
         requireNonNull(args);
-        // TODO
+
         return new CookbookSearchByInventoryCommand();
     }
 
