@@ -44,7 +44,6 @@ public class RecipeRemoveStepCommandTest {
         Model model = new ModelManager();
         model.setCookbook(new Cookbook());
         model.addCookbookRecipe(AGLIO_OLIO);
-        System.out.println(model.getCookbook().getRecipeList().get(0).toString());
 
         // add a step to recipe
         new RecipeAddStepCommand(VALID_RECIPE_INDEX, VALID_STEP_INDEX, CARBONARA_ONE).execute(model);
@@ -69,7 +68,6 @@ public class RecipeRemoveStepCommandTest {
         model.addCookbookRecipe(AGLIO_OLIO);
 
         // removing a non-existent step/ step index out of bounds
-        System.out.println(model.getCookbook().getRecipeList().get(0).toString());
         assertThrows(CommandException.class, () -> c.execute(model));
 
         // recipe index out of bounds
