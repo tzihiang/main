@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.cart;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -29,6 +30,8 @@ public class CartCommandParser implements Parser<CartCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public CartCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+
         final Matcher matcher = CART_COMMAND_ARGUMENT_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -37,6 +40,7 @@ public class CartCommandParser implements Parser<CartCommand> {
         // For now, implementation will only be done for the whole ingredient, and not quantity
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
         case CartAddCommand.COMMAND_WORD:
             return new CartAddCommandParser().parse(arguments);
