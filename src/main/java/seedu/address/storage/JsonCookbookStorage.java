@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyCookbook;
@@ -43,8 +44,18 @@ public class JsonCookbookStorage implements CookbookStorage {
      */
     public Optional<ReadOnlyCookbook> readCookbook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
+        Optional<JsonSerializableCookbook> jsonCookbook = JsonUtil.readJsonFile(
+                filePath, JsonSerializableCookbook.class);
+        if (!jsonCookbook.isPresent()) {
+            return Optional.empty();
+        }
 
-        return Optional.empty();
+        try {
+            return Optional.of(jsonCookbook.get().toModelType());
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
     }
 
     @Override
