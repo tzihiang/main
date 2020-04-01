@@ -1,8 +1,8 @@
 package seedu.address.logic.commands.cookbook;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_RECIPES_LISTED_OVERVIEW;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.recipe.RecipeContainsIngredientsPredicate;
@@ -27,7 +27,7 @@ public class CookbookSearchByInventoryCommand extends CookbookSearchCommand {
         model.updateFilteredCookbookRecipeList(
                 new RecipeContainsIngredientsPredicate(model.getInventory().getIngredientNamesString()));
         return new CommandResult(
-                String.format(Messages.MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+                String.format(MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
 }
 

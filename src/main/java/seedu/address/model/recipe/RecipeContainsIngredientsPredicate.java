@@ -21,4 +21,11 @@ public class RecipeContainsIngredientsPredicate implements Predicate<Recipe> {
             .anyMatch(ingredientName ->
                 StringUtil.containsWordIgnoreCase(recipe.getIngredientNameString(), ingredientName));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof RecipeContainsIngredientsPredicate // instanceof handles nulls
+            && ingredientNames.equals(((RecipeContainsIngredientsPredicate) other).ingredientNames)); // state check
+    }
 }
