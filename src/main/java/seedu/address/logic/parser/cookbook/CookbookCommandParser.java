@@ -11,6 +11,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.cookbook.CookbookAddCommand;
 import seedu.address.logic.commands.cookbook.CookbookCommand;
 import seedu.address.logic.commands.cookbook.CookbookRemoveCommand;
+import seedu.address.logic.commands.cookbook.CookbookSearchCommand;
 import seedu.address.logic.commands.cookbook.CookbookViewCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -42,10 +43,12 @@ public class CookbookCommandParser implements Parser<CookbookCommand> {
         switch(commandWord) {
         case CookbookAddCommand.COMMAND_WORD:
             return new CookbookAddCommandParser().parse(arguments);
-        case CookbookViewCommand.COMMAND_WORD:
-            return new CookbookViewCommandParser().parse(arguments);
         case CookbookRemoveCommand.COMMAND_WORD:
             return new CookbookRemoveCommandParser().parse(arguments);
+        case CookbookSearchCommand.COMMAND_WORD:
+            return new CookbookSearchCommandParser().parse(arguments);
+        case CookbookViewCommand.COMMAND_WORD:
+            return new CookbookViewCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

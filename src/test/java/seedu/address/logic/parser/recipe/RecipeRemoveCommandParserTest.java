@@ -26,21 +26,25 @@ import seedu.address.model.tag.Tag;
 public class RecipeRemoveCommandParserTest {
     private static final Index VALID_RECIPE_INDEX = new Index(0);
     private static final Ingredient VALID_INGREDIENT = new Ingredient(new IngredientName("Ingredient"),
-            new IngredientQuantity("5"));
-    private static final String VALID_REMOVE_INGREDIENT_ARGUMENT = "1 i/Ingredient q/5";
-    private static final String INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_RECIPE_INDEX = "i/Ingredient q/5";
-    private static final String INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME = "1 q/5";
+        new IngredientQuantity("5"));
+    private static final String VALID_REMOVE_INGREDIENT_ARGUMENT = "1 ingredient i/Ingredient q/5";
+    private static final String INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_RECIPE_INDEX = "ingredient i/Ingredient "
+        + "q/5";
+    private static final String INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME = "1 ingredient q/5";
+    private static final String VALID_PARSE_REMOVE_INGREDIENT_ARGUMENT = "1 i/Ingredient q/5";
 
     private static final Index VALID_STEP_INDEX = new Index(0);
-    private static final String VALID_REMOVE_STEP_ARGUMENT = "1 x/1";
-    private static final String INVALID_REMOVE_STEP_ARGUMENT_NO_RECIPE_INDEX = "x/1 s/Step";
-    private static final String INVALID_REMOVE_STEP_ARGUMENT_NO_STEP_INDEX = "1 x/s";
-    private static final String INVALID_REMOVE_STEP_ARGUMENT_NO_STEP_DESCRIPTION = "1 s/Step";
+    private static final String VALID_REMOVE_STEP_ARGUMENT = "1 step x/1";
+    private static final String INVALID_REMOVE_STEP_ARGUMENT_NO_RECIPE_INDEX = "step x/1 s/Step";
+    private static final String INVALID_REMOVE_STEP_ARGUMENT_NO_STEP_INDEX = "1 step x/s";
+    private static final String INVALID_REMOVE_STEP_ARGUMENT_NO_STEP_DESCRIPTION = "1 step s/Step";
+    private static final String VALID_PARSE_REMOVE_STEP_ARGUMENT = "1 x/1";
 
     private static final Tag VALID_TAG = new Tag("Tag");
-    private static final String VALID_REMOVE_TAG_ARGUMENT = "1 t/Tag";
-    private static final String INVALID_REMOVE_TAG_ARGUMENT_NO_RECIPE_INDEX = "t/Tag";
-    private static final String INVALID_REMOVE_TAG_ARGUMENT_NO_TAG = "1";
+    private static final String VALID_REMOVE_TAG_ARGUMENT = "1 tag t/Tag";
+    private static final String INVALID_REMOVE_TAG_ARGUMENT_NO_RECIPE_INDEX = "tag t/Tag";
+    private static final String INVALID_REMOVE_TAG_ARGUMENT_NO_TAG = "1 tag";
+    private static final String VALID_PARSE_REMOVE_TAG_ARGUMENT = "1 t/Tag";
 
     private static final String INVALID_ARGUMENT = "Invalid argument";
 
@@ -76,7 +80,7 @@ public class RecipeRemoveCommandParserTest {
 
     @Test
     public void parseRemoveIngredient_validInput() throws ParseException {
-        assertEquals(new RecipeRemoveCommandParser().parseRemoveIngredient(VALID_REMOVE_INGREDIENT_ARGUMENT),
+        assertEquals(new RecipeRemoveCommandParser().parseRemoveIngredient(VALID_PARSE_REMOVE_INGREDIENT_ARGUMENT),
             new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, VALID_INGREDIENT));
     }
 
@@ -91,7 +95,7 @@ public class RecipeRemoveCommandParserTest {
 
     @Test
     public void parseRemoveStep_validInput() throws ParseException {
-        assertEquals(new RecipeRemoveCommandParser().parseRemoveStep(VALID_REMOVE_STEP_ARGUMENT),
+        assertEquals(new RecipeRemoveCommandParser().parseRemoveStep(VALID_PARSE_REMOVE_STEP_ARGUMENT),
             new RecipeRemoveStepCommand(VALID_RECIPE_INDEX, VALID_STEP_INDEX));
     }
 
@@ -107,7 +111,7 @@ public class RecipeRemoveCommandParserTest {
 
     @Test
     public void parseRemoveTag_validInput() throws ParseException {
-        assertEquals(new RecipeRemoveCommandParser().parseRemoveTag(VALID_REMOVE_TAG_ARGUMENT),
+        assertEquals(new RecipeRemoveCommandParser().parseRemoveTag(VALID_PARSE_REMOVE_TAG_ARGUMENT),
             new RecipeRemoveTagCommand(VALID_RECIPE_INDEX, VALID_TAG));
     }
 

@@ -23,31 +23,32 @@ public class RecipeCommandParserTest {
     private static final Index VALID_RECIPE_INDEX = new Index(0);
     private static final Ingredient VALID_INGREDIENT = new Ingredient(new IngredientName("Ingredient"),
             new IngredientQuantity("5"));
-    private static final String VALID_ADD_INGREDIENT_ARGUMENT = "1 add i/Ingredient q/5";
-    private static final String INVALID_ADD_INGREDIENT_ARGUMENT_NO_RECIPE_INDEX = "add i/Ingredient q/5";
-    private static final String INVALID_ADD_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME = "1 add q/5";
-    private static final String VALID_REMOVE_INGREDIENT_ARGUMENT = "1 remove i/Ingredient q/5";
-    private static final String INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_RECIPE_INDEX = "remove i/Ingredient q/5";
-    private static final String INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME = "1 add q/5";
+    private static final String VALID_ADD_INGREDIENT_ARGUMENT = "1 add ingredient i/Ingredient q/5";
+    private static final String INVALID_ADD_INGREDIENT_ARGUMENT_NO_RECIPE_INDEX = "add ingredient i/Ingredient q/5";
+    private static final String INVALID_ADD_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME = "1 add ingredient q/5";
+    private static final String VALID_REMOVE_INGREDIENT_ARGUMENT = "1 remove ingredient i/Ingredient q/5";
+    private static final String INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_RECIPE_INDEX = "remove ingredient i/Ingredient "
+        + "q/5";
+    private static final String INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME = "1 add ingredient q/5";
 
     private static final Step VALID_STEP = new Step("Step");
     private static final Index VALID_STEP_INDEX = new Index(0);
-    private static final String VALID_ADD_STEP_ARGUMENT = "1 add x/1 s/Step";
-    private static final String INVALID_ADD_STEP_ARGUMENT_NO_RECIPE_INDEX = "add x/1 s/Step";
-    private static final String INVALID_ADD_STEP_ARGUMENT_NO_STEP_INDEX = "1 add x/s";
-    private static final String INVALID_ADD_STEP_ARGUMENT_NO_STEP_DESCRIPTION = "1 add s/Step";
-    private static final String VALID_REMOVE_STEP_ARGUMENT = "1 remove x/1";
-    private static final String INVALID_REMOVE_STEP_ARGUMENT_NO_RECIPE_INDEX = "remove x/1 s/Step";
-    private static final String INVALID_REMOVE_STEP_ARGUMENT_NO_STEP_INDEX = "1 remove x/s";
-    private static final String INVALID_REMOVE_STEP_ARGUMENT_NO_STEP_DESCRIPTION = "1 remove s/Step";
+    private static final String VALID_ADD_STEP_ARGUMENT = "1 add step x/1 s/Step";
+    private static final String INVALID_ADD_STEP_ARGUMENT_NO_RECIPE_INDEX = "add step x/1 s/Step";
+    private static final String INVALID_ADD_STEP_ARGUMENT_NO_STEP_INDEX = "1 add step x/s";
+    private static final String INVALID_ADD_STEP_ARGUMENT_NO_STEP_DESCRIPTION = "1 add step s/Step";
+    private static final String VALID_REMOVE_STEP_ARGUMENT = "1 remove step x/1";
+    private static final String INVALID_REMOVE_STEP_ARGUMENT_NO_RECIPE_INDEX = "remove step x/1 s/Step";
+    private static final String INVALID_REMOVE_STEP_ARGUMENT_NO_STEP_INDEX = "1 remove step x/s";
+    private static final String INVALID_REMOVE_STEP_ARGUMENT_NO_STEP_DESCRIPTION = "1 remove step s/Step";
 
     private static final Tag VALID_TAG = new Tag("Tag");
-    private static final String VALID_ADD_TAG_ARGUMENT = "1 add t/Tag";
-    private static final String INVALID_ADD_TAG_ARGUMENT_NO_RECIPE_INDEX = "add t/Tag";
-    private static final String INVALID_ADD_TAG_ARGUMENT_NO_TAG = "1 add";
-    private static final String VALID_REMOVE_TAG_ARGUMENT = "1 remove t/Tag";
-    private static final String INVALID_REMOVE_TAG_ARGUMENT_NO_RECIPE_INDEX = "remove t/Tag";
-    private static final String INVALID_REMOVE_TAG_ARGUMENT_NO_TAG = "1 remove";
+    private static final String VALID_ADD_TAG_ARGUMENT = "1 add tag t/Tag";
+    private static final String INVALID_ADD_TAG_ARGUMENT_NO_RECIPE_INDEX = "add tag t/Tag";
+    private static final String INVALID_ADD_TAG_ARGUMENT_NO_TAG = "1 add tag";
+    private static final String VALID_REMOVE_TAG_ARGUMENT = "1 remove tag t/Tag";
+    private static final String INVALID_REMOVE_TAG_ARGUMENT_NO_RECIPE_INDEX = "remove tag t/Tag";
+    private static final String INVALID_REMOVE_TAG_ARGUMENT_NO_TAG = "1 remove tag";
 
     private static final String INVALID_ARGUMENT = "Invalid argument";
 

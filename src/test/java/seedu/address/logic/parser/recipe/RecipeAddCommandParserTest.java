@@ -28,21 +28,25 @@ public class RecipeAddCommandParserTest {
     private static final Index VALID_RECIPE_INDEX = new Index(0);
     private static final Ingredient VALID_INGREDIENT = new Ingredient(new IngredientName("Ingredient"),
         new IngredientQuantity("5"));
-    private static final String VALID_ADD_INGREDIENT_ARGUMENT = "1 i/Ingredient q/5";
-    private static final String INVALID_ADD_INGREDIENT_ARGUMENT_NO_RECIPE_INDEX = "i/Ingredient q/5";
-    private static final String INVALID_ADD_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME = "1 q/5";
+    private static final String VALID_ADD_INGREDIENT_ARGUMENT = "1 ingredient i/Ingredient q/5";
+    private static final String INVALID_ADD_INGREDIENT_ARGUMENT_NO_RECIPE_INDEX = "ingredient i/Ingredient q/5";
+    private static final String INVALID_ADD_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME = "1 ingredient q/5";
+    private static final String VALID_PARSE_ADD_INGREDIENT_ARGUMENT = "1 i/Ingredient q/5";
 
     private static final Step VALID_STEP = new Step("Step");
     private static final Index VALID_STEP_INDEX = new Index(0);
-    private static final String VALID_ADD_STEP_ARGUMENT = "1 x/1 s/Step";
-    private static final String INVALID_ADD_STEP_ARGUMENT_NO_RECIPE_INDEX = "x/1 s/Step";
-    private static final String INVALID_ADD_STEP_ARGUMENT_NO_STEP_INDEX = "1 x/s";
-    private static final String INVALID_ADD_STEP_ARGUMENT_NO_STEP_DESCRIPTION = "1 s/Step";
+    private static final String VALID_ADD_STEP_ARGUMENT = "1 step x/1 s/Step";
+    private static final String INVALID_ADD_STEP_ARGUMENT_NO_RECIPE_INDEX = "step x/1 s/Step";
+    private static final String INVALID_ADD_STEP_ARGUMENT_NO_STEP_INDEX = "1 step x/s";
+    private static final String INVALID_ADD_STEP_ARGUMENT_NO_STEP_DESCRIPTION = "1 step s/Step";
+    private static final String VALID_PARSE_ADD_STEP_ARGUMENT = "1 x/1 s/Step";
+
 
     private static final Tag VALID_TAG = new Tag("Tag");
-    private static final String VALID_ADD_TAG_ARGUMENT = "1 t/Tag";
-    private static final String INVALID_ADD_TAG_ARGUMENT_NO_RECIPE_INDEX = "t/Tag";
-    private static final String INVALID_ADD_TAG_ARGUMENT_NO_TAG = "1";
+    private static final String VALID_ADD_TAG_ARGUMENT = "1 tag t/Tag";
+    private static final String INVALID_ADD_TAG_ARGUMENT_NO_RECIPE_INDEX = "tag t/Tag";
+    private static final String INVALID_ADD_TAG_ARGUMENT_NO_TAG = "1 tag";
+    private static final String VALID_PARSE_ADD_TAG_ARGUMENT = "1 t/Tag";
 
     private static final String INVALID_ARGUMENT = "Invalid argument";
 
@@ -78,7 +82,7 @@ public class RecipeAddCommandParserTest {
 
     @Test
     public void parseAddIngredient_validInput() throws ParseException {
-        assertEquals(new RecipeAddCommandParser().parseAddIngredient(VALID_ADD_INGREDIENT_ARGUMENT),
+        assertEquals(new RecipeAddCommandParser().parseAddIngredient(VALID_PARSE_ADD_INGREDIENT_ARGUMENT),
             new RecipeAddIngredientCommand(VALID_RECIPE_INDEX, VALID_INGREDIENT));
     }
 
@@ -92,7 +96,7 @@ public class RecipeAddCommandParserTest {
 
     @Test
     public void parseAddStep_validInput() throws ParseException {
-        assertEquals(new RecipeAddCommandParser().parseAddStep(VALID_ADD_STEP_ARGUMENT),
+        assertEquals(new RecipeAddCommandParser().parseAddStep(VALID_PARSE_ADD_STEP_ARGUMENT),
             new RecipeAddStepCommand(VALID_RECIPE_INDEX, VALID_STEP_INDEX, VALID_STEP));
     }
 
@@ -108,7 +112,7 @@ public class RecipeAddCommandParserTest {
 
     @Test
     public void parseAddTag_validInput() throws ParseException {
-        assertEquals(new RecipeAddCommandParser().parseAddTag(VALID_ADD_TAG_ARGUMENT),
+        assertEquals(new RecipeAddCommandParser().parseAddTag(VALID_PARSE_ADD_TAG_ARGUMENT),
             new RecipeAddTagCommand(VALID_RECIPE_INDEX, VALID_TAG));
     }
 
