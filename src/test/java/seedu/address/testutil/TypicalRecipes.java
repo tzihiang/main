@@ -28,7 +28,7 @@ public class TypicalRecipes {
             .withRecipeDescription("The best dish sold in NUS.")
             .withTags("Pasta", "Italian", "Simple", "Creamy").build();
     public static final Recipe SCRAMBLED_EGG = new RecipeBuilder().withRecipeName("Scrambled Egg")
-            .withRecipeDescription("Gordan Ramsay's famous creamy and fluffly srambled eggs")
+            .withRecipeDescription("Gordan Ramsay's famous creamy and fluffy scrambled eggs")
             .withTags("Simple", "Celebrity").build();
     public static final Recipe SPAGHETTI_BOLOGNESE = new RecipeBuilder().withRecipeName("Spaghetti bolognese")
             .withRecipeDescription("Jaime Oliver's great version of the classic Italian Bolognese.").build();

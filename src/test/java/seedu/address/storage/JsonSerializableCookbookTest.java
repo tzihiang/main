@@ -14,11 +14,12 @@ import seedu.address.model.Cookbook;
 import seedu.address.testutil.TypicalRecipes;
 
 public class JsonSerializableCookbookTest {
+
     private static final Path TEST_DATA_FOLDER = Paths
             .get("src", "test", "data", "JsonSerializableCookbookTest");
-    private static final Path DUPLICATE_RECIPES_FILE = TEST_DATA_FOLDER.resolve("duplicateRecipes.json");
-    private static final Path INVALID_RECIPE_FILE = TEST_DATA_FOLDER.resolve("invalidRecipe.json");
     private static final Path TYPICAL_RECIPES_FILE = TEST_DATA_FOLDER.resolve("typicalRecipes.json");
+    private static final Path INVALID_RECIPE_FILE = TEST_DATA_FOLDER.resolve("invalidRecipe.json");
+    private static final Path DUPLICATE_RECIPES_FILE = TEST_DATA_FOLDER.resolve("duplicateRecipes.json");
 
     @Test
     public void toModelType_typicalRecipesFile_success() throws Exception {
