@@ -1,6 +1,5 @@
 package seedu.address.logic.parser.recipe;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
@@ -19,7 +18,6 @@ import seedu.address.logic.commands.recipe.RecipeAddIngredientCommand;
 import seedu.address.logic.commands.recipe.RecipeAddStepCommand;
 import seedu.address.logic.commands.recipe.RecipeAddTagCommand;
 import seedu.address.logic.commands.recipe.RecipeCommand;
-import seedu.address.logic.commands.recipe.RecipeRemoveCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;

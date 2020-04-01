@@ -1,6 +1,5 @@
 package seedu.address.logic.parser.recipe;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
@@ -54,14 +53,14 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
         final String arguments = matcher.group("arguments");
 
         switch (category) {
-            case RecipeCommand.INGREDIENT_KEYWORD:
-                return parseRemoveIngredient(index + " " + arguments);
-            case RecipeCommand.STEP_KEYWORD:
-                return parseRemoveStep(index + " " + arguments);
-            case RecipeCommand.TAG_KEYWORD:
-                return parseRemoveTag(index + " " + arguments);
-            default:
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecipeAddCommand.MESSAGE_USAGE));
+        case RecipeCommand.INGREDIENT_KEYWORD:
+            return parseRemoveIngredient(index + " " + arguments);
+        case RecipeCommand.STEP_KEYWORD:
+            return parseRemoveStep(index + " " + arguments);
+        case RecipeCommand.TAG_KEYWORD:
+            return parseRemoveTag(index + " " + arguments);
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecipeAddCommand.MESSAGE_USAGE));
         }
     }
 
