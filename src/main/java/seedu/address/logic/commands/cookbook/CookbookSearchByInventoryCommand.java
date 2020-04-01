@@ -27,7 +27,7 @@ public class CookbookSearchByInventoryCommand extends CookbookSearchCommand {
         model.updateFilteredCookbookRecipeList(
                 new RecipeContainsIngredientsPredicate(model.getInventory().getIngredientNamesString()));
         return new CommandResult(
-                String.format(MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+                String.format(MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredCookbookRecipeList().size()));
     }
 }
 
