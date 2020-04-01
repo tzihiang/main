@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SEARCH_KEYWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.cookbook.CookbookSearchByInventoryCommand;
 import seedu.address.logic.commands.cookbook.CookbookSearchByKeywordCommand;
@@ -16,7 +15,6 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
 import seedu.address.model.tag.Tag;

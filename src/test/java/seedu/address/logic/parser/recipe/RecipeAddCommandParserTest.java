@@ -4,11 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +11,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.recipe.RecipeAddIngredientCommand;
 import seedu.address.logic.commands.recipe.RecipeAddStepCommand;
 import seedu.address.logic.commands.recipe.RecipeAddTagCommand;
-import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;

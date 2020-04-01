@@ -1,22 +1,11 @@
 package seedu.address.logic.parser.cookbook;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RECIPE_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RECIPE_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.cookbook.CookbookAddCommand;
-import seedu.address.logic.parser.ArgumentTokenizer;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.TypicalRecipes;
