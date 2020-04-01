@@ -16,7 +16,7 @@ public abstract class RecipeAddCommand extends RecipeCommand {
     public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": adds an ingredient, a step or a tag to a recipe with the given INDEX. "
             + "\nParameters for adding an ingredient: "
-            + "INDEX (must be a positive integer)"
+            + "INDEX (must be a positive integer) "
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
             + PREFIX_INGREDIENT_QUANTITY + "QUANTITY\n"
             + "Example: " + COMMAND_CATEGORY + " 1 "
