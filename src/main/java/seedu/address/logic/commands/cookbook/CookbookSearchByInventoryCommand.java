@@ -13,7 +13,8 @@ import seedu.address.model.recipe.RecipeContainsIngredientsPredicate;
  */
 public class CookbookSearchByInventoryCommand extends CookbookSearchCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all recipes whose recipe names contain any of "
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD + ": Finds all recipes "
+            + "whose recipe names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " bacon carbonara";
@@ -28,6 +29,12 @@ public class CookbookSearchByInventoryCommand extends CookbookSearchCommand {
                 new RecipeContainsIngredientsPredicate(model.getInventory().getIngredientNamesString()));
         return new CommandResult(
                 String.format(MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredCookbookRecipeList().size()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || other instanceof CookbookSearchByInventoryCommand;
     }
 }
 

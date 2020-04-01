@@ -24,7 +24,7 @@ public class RecipeContainsTagsPredicate implements Predicate<Recipe> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof RecipeContainsTagsPredicate // instanceof handles nulls
-                && tags.equals(((RecipeContainsTagsPredicate) other).tags)); // state check
+            || (other instanceof RecipeContainsTagsPredicate // instanceof handles nulls
+            && tags.equals(((RecipeContainsTagsPredicate) other).tags)); // state check
     }
 }

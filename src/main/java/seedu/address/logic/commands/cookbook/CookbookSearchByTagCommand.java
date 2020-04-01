@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.cart.CartAddRecipeIngredientCommand;
 import seedu.address.model.Model;
 import seedu.address.model.recipe.RecipeContainsTagsPredicate;
 
@@ -14,7 +15,8 @@ import seedu.address.model.recipe.RecipeContainsTagsPredicate;
  */
 public class CookbookSearchByTagCommand extends CookbookSearchCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all recipes whose recipe names contain any of "
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD + ": Finds all recipes "
+            + "whose recipe names contain any of "
             + "the specified tags (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: " + PREFIX_TAG + "TAG\n"
             + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + "breakfast";
@@ -35,8 +37,9 @@ public class CookbookSearchByTagCommand extends CookbookSearchCommand {
 
     @Override
     public boolean equals(Object other) {
-        // TODO
-        return false;
+        return other == this // short circuit if same object
+            || (other instanceof CookbookSearchByTagCommand // instanceof handles nulls
+            && (predicate.equals(((CookbookSearchByTagCommand) other).predicate)));
     }
 }
 

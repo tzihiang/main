@@ -14,7 +14,8 @@ import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
  */
 public class CookbookSearchByKeywordCommand extends CookbookSearchCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all recipes whose recipe names contain any of "
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD + ": Finds all recipes "
+            + "whose recipe names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: " + PREFIX_SEARCH_KEYWORD + "KEYWORD\n"
             + "Example: " + COMMAND_WORD + " bacon carbonara";
@@ -36,8 +37,8 @@ public class CookbookSearchByKeywordCommand extends CookbookSearchCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CookbookSearchByKeywordCommand
-                && predicate.equals(((CookbookSearchByKeywordCommand) other).predicate));
+            || (other instanceof CookbookSearchByKeywordCommand
+            && predicate.equals(((CookbookSearchByKeywordCommand) other).predicate));
     }
 }
 
