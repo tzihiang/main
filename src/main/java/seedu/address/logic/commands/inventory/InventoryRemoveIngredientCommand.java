@@ -52,5 +52,4 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
                 || (other instanceof InventoryRemoveIngredientCommand // instanceof handles nulls
                 && toRemove.equals(((InventoryRemoveIngredientCommand) other).toRemove));
     }
-
 }

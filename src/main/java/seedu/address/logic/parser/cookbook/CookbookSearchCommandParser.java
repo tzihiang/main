@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SEARCH_KEYWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.cookbook.CookbookSearchByInventoryCommand;
 import seedu.address.logic.commands.cookbook.CookbookSearchByKeywordCommand;
@@ -16,7 +15,6 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
 import seedu.address.model.tag.Tag;
@@ -57,7 +55,7 @@ public class CookbookSearchCommandParser implements Parser<CookbookSearchCommand
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_SEARCH_KEYWORD);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_SEARCH_KEYWORD)
+        if (!argMultimap.arePrefixesPresent(PREFIX_SEARCH_KEYWORD)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     CookbookSearchByKeywordCommand.MESSAGE_USAGE));
@@ -80,7 +78,7 @@ public class CookbookSearchCommandParser implements Parser<CookbookSearchCommand
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TAG)
+        if (!argMultimap.arePrefixesPresent(PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     CookbookSearchByTagCommand.MESSAGE_USAGE));
@@ -122,13 +120,4 @@ public class CookbookSearchCommandParser implements Parser<CookbookSearchCommand
     private boolean containsInventoryKeyword(String args) {
         return args.contains(CookbookSearchByInventoryCommand.SEARCH_INVENTORY_COMMAND);
     }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
 }

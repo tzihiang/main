@@ -135,6 +135,22 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
     }
 
     @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        if (internalList.size() > 0) {
+            int i;
+            for (i = 0; i < internalList.size() - 1; i++) {
+                sb.append(internalList.get(i).toString()).append(", ");
+            }
+
+            sb.append(internalList.get(i).toString());
+        }
+
+        return sb.toString();
+    }
+
+    @Override
     public int hashCode() {
         return internalList.hashCode();
     }

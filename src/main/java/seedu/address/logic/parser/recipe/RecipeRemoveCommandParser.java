@@ -1,6 +1,5 @@
 package seedu.address.logic.parser.recipe;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
@@ -10,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.recipe.RecipeAddCommand;
@@ -23,7 +21,6 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
@@ -54,14 +51,14 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
         final String arguments = matcher.group("arguments");
 
         switch (category) {
-            case RecipeCommand.INGREDIENT_KEYWORD:
-                return parseRemoveIngredient(index + " " + arguments);
-            case RecipeCommand.STEP_KEYWORD:
-                return parseRemoveStep(index + " " + arguments);
-            case RecipeCommand.TAG_KEYWORD:
-                return parseRemoveTag(index + " " + arguments);
-            default:
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecipeAddCommand.MESSAGE_USAGE));
+        case RecipeCommand.INGREDIENT_KEYWORD:
+            return parseRemoveIngredient(index + " " + arguments);
+        case RecipeCommand.STEP_KEYWORD:
+            return parseRemoveStep(index + " " + arguments);
+        case RecipeCommand.TAG_KEYWORD:
+            return parseRemoveTag(index + " " + arguments);
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecipeAddCommand.MESSAGE_USAGE));
         }
     }
 
@@ -70,7 +67,7 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
      * and returns a RecipeRemoveIngredientCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    private RecipeRemoveIngredientCommand parseRemoveIngredient(String args) throws ParseException {
+    RecipeRemoveIngredientCommand parseRemoveIngredient(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
 
@@ -83,7 +80,7 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
                     RecipeAddCommand.MESSAGE_USAGE));
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INGREDIENT_NAME)) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RecipeAddCommand.MESSAGE_USAGE));
         }
@@ -116,7 +113,7 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
                     RecipeRemoveCommand.MESSAGE_USAGE), pe);
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_STEP_INDEX)) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_STEP_INDEX)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RecipeRemoveCommand.MESSAGE_USAGE));
         }
@@ -145,7 +142,7 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
                     RecipeRemoveCommand.MESSAGE_USAGE), pe);
         }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TAG)) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_TAG)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RecipeRemoveCommand.MESSAGE_USAGE));
         }
@@ -156,12 +153,15 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
         return new RecipeRemoveTagCommand(recipeIndex, toRemove);
     }
 
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    boolean containsIngredient(String args) {
+        return args.contains(PREFIX_INGREDIENT_NAME.toString());
     }
 
+    boolean containsStep(String args) {
+        return args.contains(PREFIX_STEP_INDEX.toString());
+    }
+
+    boolean containsTag(String args) {
+        return args.contains(PREFIX_TAG.toString());
+    }
 }
