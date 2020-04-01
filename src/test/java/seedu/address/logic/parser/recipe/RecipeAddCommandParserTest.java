@@ -44,7 +44,7 @@ public class RecipeAddCommandParserTest {
     private static final String INVALID_ADD_TAG_ARGUMENT_NO_RECIPE_INDEX = "t/Tag";
     private static final String INVALID_ADD_TAG_ARGUMENT_NO_TAG = "1";
 
-
+    private static final String INVALID_ARGUMENT = "Invalid argument";
 
     @Test
     public void parse_validInput() throws ParseException {
@@ -54,6 +54,26 @@ public class RecipeAddCommandParserTest {
             new RecipeAddStepCommand(VALID_RECIPE_INDEX, VALID_STEP_INDEX, VALID_STEP));
         assertEquals(new RecipeAddCommandParser().parse(VALID_ADD_TAG_ARGUMENT),
             new RecipeAddTagCommand(VALID_RECIPE_INDEX, VALID_TAG));
+    }
+
+    @Test
+    public void parse_invalidInput() {
+        assertThrows(ParseException.class, () ->
+            new RecipeAddCommandParser().parse(INVALID_ADD_INGREDIENT_ARGUMENT_NO_RECIPE_INDEX));
+        assertThrows(ParseException.class, () ->
+            new RecipeAddCommandParser().parse(INVALID_ADD_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME));
+        assertThrows(ParseException.class, () ->
+            new RecipeAddCommandParser().parse(INVALID_ADD_STEP_ARGUMENT_NO_RECIPE_INDEX));
+        assertThrows(ParseException.class, () ->
+            new RecipeAddCommandParser().parse(INVALID_ADD_STEP_ARGUMENT_NO_STEP_INDEX));
+        assertThrows(ParseException.class, () ->
+            new RecipeAddCommandParser().parse(INVALID_ADD_STEP_ARGUMENT_NO_STEP_DESCRIPTION));
+        assertThrows(ParseException.class, () ->
+            new RecipeAddCommandParser().parse(INVALID_ADD_TAG_ARGUMENT_NO_TAG));
+        assertThrows(ParseException.class, () ->
+            new RecipeAddCommandParser().parse(INVALID_ADD_TAG_ARGUMENT_NO_RECIPE_INDEX));
+        assertThrows(ParseException.class, () ->
+            new RecipeAddCommandParser().parse(INVALID_ARGUMENT));
     }
 
     @Test
