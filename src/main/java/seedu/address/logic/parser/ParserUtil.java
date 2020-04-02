@@ -16,7 +16,6 @@ import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.model.ingredient.UniqueIngredientList;
-import seedu.address.model.person.Name;
 import seedu.address.model.recipe.RecipeDescription;
 import seedu.address.model.recipe.RecipeName;
 import seedu.address.model.step.Step;
@@ -44,21 +43,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code name} is invalid.
-     */
-    public static Name parseName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
-        }
-        return new Name(trimmedName);
-    }
-
-    /**
      * Parses a {@code String recipeName} into a {@code RecipeName}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -68,7 +52,7 @@ public class ParserUtil {
         requireNonNull(recipeName);
         String trimmedRecipeName = recipeName.trim();
         if (!RecipeName.isValidRecipeName(trimmedRecipeName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(RecipeName.MESSAGE_CONSTRAINTS);
         }
         return new RecipeName(trimmedRecipeName);
     }
@@ -83,7 +67,7 @@ public class ParserUtil {
         requireNonNull(recipeDescription);
         String trimmedRecipeDescription = recipeDescription.trim();
         if (!RecipeDescription.isValidRecipeDescription(trimmedRecipeDescription)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(RecipeName.MESSAGE_CONSTRAINTS);
         }
         return new RecipeDescription(trimmedRecipeDescription);
     }

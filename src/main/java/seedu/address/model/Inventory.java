@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.List;
+
 /**
  * Wraps all data at the inventory level
  * Duplicates are not allowed
@@ -10,6 +12,11 @@ public class Inventory extends IngredientList implements ReadOnlyInventory {
 
     public Inventory(ReadOnlyInventory toBeCopied) {
         super(toBeCopied);
+    }
+
+    @Override
+    public List<String> getIngredientNamesString() {
+        return getCompatibleIngredientList().getIngredientNamesString();
     }
 
     @Override

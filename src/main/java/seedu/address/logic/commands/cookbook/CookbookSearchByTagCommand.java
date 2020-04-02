@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.recipe.RecipeContainsTagsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -14,27 +14,31 @@ import seedu.address.model.tag.Tag;
  */
 public class CookbookSearchByTagCommand extends CookbookSearchCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all recipes whose recipe names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD + ": Finds all recipes "
+            + "whose recipe names contain any of "
+            + "the specified tags (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: " + PREFIX_TAG + "TAG\n"
             + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + "breakfast";
 
-    public CookbookSearchByTagCommand(Tag toSearch) {
-        // TODO
+    private final RecipeContainsTagsPredicate predicate;
+
+    public CookbookSearchByTagCommand(RecipeContainsTagsPredicate predicate) {
+        this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model) {
-        // TODO
         requireNonNull(model);
+        model.updateFilteredCookbookRecipeList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+            String.format(Messages.MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredCookbookRecipeList().size()));
     }
 
     @Override
     public boolean equals(Object other) {
-        // TODO
-        return false;
+        return other == this // short circuit if same object
+            || (other instanceof CookbookSearchByTagCommand // instanceof handles nulls
+            && (predicate.equals(((CookbookSearchByTagCommand) other).predicate)));
     }
 }
 

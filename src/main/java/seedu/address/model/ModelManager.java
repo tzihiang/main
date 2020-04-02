@@ -36,8 +36,9 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(cookbook, inventory, cart, userPrefs);
 
-        logger.fine("Initializing with cookbook, inventory and cart: " + cookbook + " " + inventory + " "
-                + cart + " and user prefs " + userPrefs);
+        logger.fine("Initializing with cookbook: " + cookbook + ", inventory: " + inventory + ", cart: " + cart
+                + ", and user prefs: " + userPrefs);
+
         this.cookbook = new Cookbook(cookbook);
         this.inventory = new Inventory(inventory);
         this.cart = new Cart(cart);
@@ -268,9 +269,11 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return cookbook.equals(other.cookbook)
-                && userPrefs.equals(other.userPrefs)
                 && inventory.equals(other.inventory)
-                && cart.equals(other.cart);
+                && cart.equals(other.cart)
+                && userPrefs.equals(other.userPrefs)
+                && filteredCookbookRecipes.equals(other.filteredCookbookRecipes)
+                && filteredInventoryIngredients.equals(other.filteredInventoryIngredients)
+                && filteredCartIngredients.equals(other.filteredCartIngredients);
     }
-
 }

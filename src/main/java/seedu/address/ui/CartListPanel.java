@@ -27,7 +27,7 @@ public class CartListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of an {@code Ingredient} using a {@code CartCard}.
      */
     class CartViewCell extends ListCell<Ingredient> {
         @Override
