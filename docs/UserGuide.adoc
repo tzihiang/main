@@ -112,20 +112,20 @@ This command allows you to view a recipe, the ingredients required, and the step
 This command allows you to add and store a new recipe with the specified recipe name to the cookbook.
 If neither of the details is specified, an empty recipe will be added.
 
-- Format: `cookbook add n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY] [x/STEP_INDEX] [s/STEP] [t/TAG]`
+- Format: `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY] [x/STEP_INDEX] [s/STEP] [t/TAG]`
 - Examples:
 |===
 |Parameters | Result
 
-|`cookbook add recipe n/Bacon Carbonara d/Italian's finest pasta`
+|`cookbook add recipe n/Bacon Carbonara d/Best cream pasta made in Italy`
 | Adds a new empty recipe to the cookbook with the following details: +
 ``New recipe added: Bacon Carbonara`` +
-``Description: Italian's finest pasta`` +
+``Description: Best cream pasta made in Italy`` +
 ``Ingredients:`` +
 ``Preparation Steps:`` +
 ``Tags:``
 
-|`cookbook add n/Chicken Ham Sandwich d/Juicy ham sandwiched between crispy toasted bread.
+|`cookbook add recipe n/Chicken Ham Sandwich d/Juicy ham sandwiched between crispy toasted bread.
 i/Chicken Ham q/1 slice i/White Bread q/2 slices x/1 s/Toast the bread x/2 s/Grill the ham.
 t/sandwich t/easy`
 |Adds a new recipe to the cookbook with the following details: +
@@ -141,7 +141,7 @@ t/sandwich t/easy`
 ==== Remove a recipe from the cookbook
 This command allows you to remove a recipe of the specified index from the cookbook.
 
-- Format: `cookbook remove INDEX`
+- Format: `cookbook remove recipe INDEX`
 - Example:
 |===
 | Parameters | Result
