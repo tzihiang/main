@@ -10,13 +10,13 @@
     "description" : "The best dish sold in NUS.",
     "ingredients" : [ ],
     "steps" : [ ],
-    "tagged" : [ "Italian", "Pasta", "Creamy", "Simple" ]
+    "tagged" : [ "Pasta", "Italian", "Simple", "Creamy" ]
   }, {
     "name" : "Scrambled Egg",
     "description" : "Gordan Ramsay's famous creamy and fluffy scrambled eggs",
     "ingredients" : [ ],
     "steps" : [ ],
-    "tagged" : [ "Celebrity", "Simple" ]
+    "tagged" : [ "Simple", "Celebrity" ]
   }, {
     "name" : "Spaghetti bolognese",
     "description" : "Jaime Oliver's great version of the classic Italian Bolognese.",
