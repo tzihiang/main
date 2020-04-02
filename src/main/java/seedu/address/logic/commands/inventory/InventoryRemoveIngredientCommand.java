@@ -16,7 +16,7 @@ import seedu.address.model.ingredient.Ingredient;
 
 public class InventoryRemoveIngredientCommand extends InventoryCommand {
 
-    public static final String COMMAND_WORD = "remove";
+    public static final String COMMAND_WORD = "remove ingredient";
     public static final String MESSAGE_SUCCESS = "Ingredient removed: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": This commands allows you to remove ingredients to your inventory.\n"

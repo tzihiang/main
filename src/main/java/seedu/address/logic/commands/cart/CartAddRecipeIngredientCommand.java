@@ -4,20 +4,25 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAY
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.UniqueIngredientList;
+import seedu.address.model.recipe.Recipe;
 
 /**
  * Adds all the ingredients from the indexed recipe to cart
  */
 public class CartAddRecipeIngredientCommand extends CartAddCommand {
 
-    public static final String COMMAND_WORD = "add";
-    public static final String MESSAGE_SUCCESS = "Ingredients from recipe %1$d added.";
-    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD
+    public static final String COMMAND_WORD = "recipe";
+    public static final String MESSAGE_SUCCESS = "Ingredients from recipe %1$s added.";
+    public static final String MESSAGE_USAGE = "\n"
+            + COMMAND_CATEGORY + " "
+            + CartAddCommand.COMMAND_WORD + " "
+            + COMMAND_WORD
             + ": This commands allows you to add all the ingredients from a recipe to your cart.\n"
             + "Parameters for adding an ingredient into your cart is as follows: \n"
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
@@ -26,35 +31,38 @@ public class CartAddRecipeIngredientCommand extends CartAddCommand {
             + PREFIX_INGREDIENT_NAME + "Eggs "
             + PREFIX_INGREDIENT_QUANTITY + "10\n";
 
-    private final int recipeIndex;
+    private final Index recipeIndex;
 
     /**
      * Creates a CartAddIngredientCommand to add the specified {@code Ingredient} to the cart
      */
-    public CartAddRecipeIngredientCommand(int recipeIndex) {
+    public CartAddRecipeIngredientCommand(Index recipeIndex) {
         this.recipeIndex = recipeIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        if (recipeIndex <= 0 || recipeIndex > model.getCookbook().getRecipeList().size()) {
+        if (recipeIndex.getZeroBased() >= model.getCookbook().getRecipeList().size()) {
             throw new CommandException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
                     MESSAGE_USAGE));
         }
 
-        UniqueIngredientList ingredients = model.getCookbook().getRecipeList().get(recipeIndex - 1).getIngredients();
+        Recipe targetedRecipe = model.getCookbook()
+                .getRecipeList().get(recipeIndex.getZeroBased());
+
+        UniqueIngredientList ingredients = targetedRecipe.getIngredients();
 
         for (Ingredient i : ingredients) {
             model.addCartIngredient(i);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, recipeIndex));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, targetedRecipe.getName()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CartAddRecipeIngredientCommand // instanceof handles nulls
-                && (recipeIndex == ((CartAddRecipeIngredientCommand) other).recipeIndex));
+                && (recipeIndex.equals(((CartAddRecipeIngredientCommand) other).recipeIndex)));
     }
 }

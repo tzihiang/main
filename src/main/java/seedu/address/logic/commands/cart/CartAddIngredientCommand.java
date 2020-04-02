@@ -15,7 +15,7 @@ import seedu.address.model.ingredient.Ingredient;
 
 public class CartAddIngredientCommand extends CartAddCommand {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "ingredient";
     public static final String MESSAGE_SUCCESS = "New ingredient added: %1$s";
     public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": This commands allows you to add ingredients to your cart.\n"
