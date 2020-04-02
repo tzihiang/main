@@ -16,7 +16,7 @@ import seedu.address.model.recipe.Recipe;
  */
 public class CookbookRemoveCommand extends CookbookCommand {
 
-    public static final String COMMAND_WORD = "remove";
+    public static final String COMMAND_WORD = "remove recipe";
 
     public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": removes the recipe identified by the index number used in the displayed recipe list.\n\n"
