@@ -36,7 +36,7 @@ Cart commands can be seen here: <<Cart>>
 
 Say goodbye to thick and disorganised cookbooks and start using CookingPapa today!
 
-== Quick Start
+== Quick Start and use of application
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `cookingpapa.jar` link:{repoURL}/releases[here].
@@ -45,10 +45,19 @@ Say goodbye to thick and disorganised cookbooks and start using CookingPapa toda
 +
 .CookingPapa User Interface
 image::Ui.png[width="790"]
-[caption="Figure 1: ]
-+
 
-. Refer to <<Features>> for details of each command.
+. CookingPapa uses the *command window* for all of its commands. You can see a comprehensive view of all
+the commands given in <<Features>>.
++
+.CookingPapa User Interface, marked with command window
+image::Example1.png[width="790"]
+
+. Whenever a command is entered, feedback will be given in the *display window*, depending on the type of
+command given by the user.
++
+.CookingPapa User Interface, marked with display window
+image::Example2.png[width="790"]
+
 
 [[Features]]
 == Features
