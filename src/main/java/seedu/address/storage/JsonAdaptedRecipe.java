@@ -28,8 +28,8 @@ class JsonAdaptedRecipe {
     public static final String MESSAGE_DUPLICATE_INGREDIENT = "Recipe contains duplicate ingredient(s).";
     public static final String MESSAGE_DUPLICATE_STEP = "Recipe contains duplicate step(s).";
 
-    private final String recipeName;
-    private final String recipeDescription;
+    private final String name;
+    private final String description;
     private final List<JsonAdaptedIngredient> ingredients = new ArrayList<>();
     private final List<JsonAdaptedStep> steps = new ArrayList<>();
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -38,13 +38,13 @@ class JsonAdaptedRecipe {
      * Constructs a {@code JsonAdaptedRecipe} with the given recipe details.
      */
     @JsonCreator
-    public JsonAdaptedRecipe(@JsonProperty("recipeName") String recipeName,
-                             @JsonProperty("recipeDescription") String recipeDescription,
+    public JsonAdaptedRecipe(@JsonProperty("name") String name,
+                             @JsonProperty("description") String description,
                              @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients,
                              @JsonProperty("steps") List<JsonAdaptedStep> steps,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
-        this.recipeName = recipeName;
-        this.recipeDescription = recipeDescription;
+        this.name = name;
+        this.description = description;
         if (ingredients != null) {
             this.ingredients.addAll(ingredients);
         }
@@ -60,8 +60,8 @@ class JsonAdaptedRecipe {
      * Converts a given {@code Recipe} into this class for Jackson use.
      */
     public JsonAdaptedRecipe(Recipe source) {
-        recipeName = source.getName().fullRecipeName;
-        recipeDescription = source.getDescription().fullRecipeDescription;
+        name = source.getName().fullRecipeName;
+        description = source.getDescription().fullRecipeDescription;
         ingredients.addAll(source.getIngredients().asUnmodifiableObservableList().stream()
                 .map(JsonAdaptedIngredient::new)
                 .collect(Collectors.toList()));
@@ -84,24 +84,24 @@ class JsonAdaptedRecipe {
             recipeTags.add(tag.toModelType());
         }
 
-        if (recipeName == null) {
+        if (name == null) {
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, RecipeName.class.getSimpleName()));
         }
-        if (!RecipeName.isValidRecipeName(recipeName)) {
+        if (!RecipeName.isValidRecipeName(name)) {
             throw new IllegalValueException(RecipeName.MESSAGE_CONSTRAINTS);
         }
 
-        if (recipeDescription == null) {
+        if (description == null) {
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, RecipeDescription.class.getSimpleName()));
         }
-        if (!RecipeDescription.isValidRecipeDescription(recipeDescription)) {
+        if (!RecipeDescription.isValidRecipeDescription(description)) {
             throw new IllegalValueException(RecipeDescription.MESSAGE_CONSTRAINTS);
         }
 
-        final RecipeName modelName = new RecipeName(recipeName);
-        final RecipeDescription modelDescription = new RecipeDescription(recipeDescription);
+        final RecipeName modelName = new RecipeName(name);
+        final RecipeDescription modelDescription = new RecipeDescription(description);
         final UniqueIngredientList modelIngredientList = getModelIngredientList();
         final UniqueStepList modelStepList = getModelStepList();
         final Set<Tag> modelTags = new HashSet<>(recipeTags);
