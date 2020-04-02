@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.step.Step;
@@ -18,7 +19,7 @@ class JsonAdaptedStep {
      * Constructs a {@code JsonAdaptedStep} with the given {@code stepDescription}.
      */
     @JsonCreator
-    public JsonAdaptedStep(String stepDescription) {
+    public JsonAdaptedStep(@JsonProperty("stepDescription") String stepDescription) {
         this.stepDescription = stepDescription;
     }
 
@@ -27,10 +28,6 @@ class JsonAdaptedStep {
      */
     public JsonAdaptedStep(Step source) {
         stepDescription = source.getStepDescription();
-    }
-
-    public String getStepDescription() {
-        return stepDescription;
     }
 
     /**

@@ -37,7 +37,10 @@ class JsonSerializableCookbook {
      * @param source future changes to this will not affect the created {@code JsonSerializableCookbook}.
      */
     public JsonSerializableCookbook(ReadOnlyCookbook source) {
-        recipes.addAll(source.getRecipeList().stream().map(JsonAdaptedRecipe::new).collect(Collectors.toList()));
+        recipes.addAll(source.getRecipeList()
+                .stream()
+                .map(JsonAdaptedRecipe::new)
+                .collect(Collectors.toList()));
     }
 
     /**

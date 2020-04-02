@@ -28,6 +28,7 @@ public class IngredientNameTest {
         // invalid ingredient name
         assertFalse(IngredientName.isValidIngredientName("")); // empty string
         assertFalse(IngredientName.isValidIngredientName(" ")); // spaces only
+        assertFalse(IngredientName.isValidIngredientName("r!ce")); // contains invalid symbol
 
         // valid ingredient name
         assertTrue(IngredientName.isValidIngredientName("eggs")); // lower case alphabets only

@@ -21,17 +21,24 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class TypicalRecipes {
 
+    public static final Recipe AGLIO_OLIO = new RecipeBuilder().withRecipeName("Aglio Olio")
+            .withRecipeDescription("A traditional Italian pasta dish made with garlic in olive oil,"
+                    + " and dried red chili flakes.").build();
     public static final Recipe CARBONARA = new RecipeBuilder().withRecipeName("Carbonara")
             .withRecipeDescription("The best dish sold in NUS.")
             .withTags("Pasta", "Italian", "Simple", "Creamy").build();
     public static final Recipe SCRAMBLED_EGG = new RecipeBuilder().withRecipeName("Scrambled Egg")
-            .withRecipeDescription("Gordan Ramsay's famous creamy and fluffly srambled eggs")
+            .withRecipeDescription("Gordan Ramsay's famous creamy and fluffy scrambled eggs")
             .withTags("Simple", "Celebrity").build();
-    public static final Recipe AGLIO_OLIO = new RecipeBuilder().withRecipeName("Aglio Olio")
-            .withRecipeDescription("A traditional Italian pasta dish made with garlic in olive oil,"
-                    + " and dried red chili flakes.").build();
     public static final Recipe SPAGHETTI_BOLOGNESE = new RecipeBuilder().withRecipeName("Spaghetti bolognese")
             .withRecipeDescription("Jaime Oliver's great version of the classic Italian Bolognese.").build();
+
+    // Manually added
+    public static final Recipe CHICKEN_CHOP = new RecipeBuilder().withRecipeName("Chicken Chop")
+            .withRecipeDescription("Delicious grilled chicken covered in mushroom sauce.").build();
+    public static final Recipe FISH_AND_CHIPS = new RecipeBuilder().withRecipeName("Fish & Chips")
+            .withRecipeDescription("Fried fish in batter served with deep-fried chips.")
+            .withTags("Western").build();
 
     private TypicalRecipes() {} // prevents instantiation
 
@@ -65,6 +72,6 @@ public class TypicalRecipes {
     }
 
     public static List<Recipe> getTypicalRecipes() {
-        return new ArrayList<>(Arrays.asList(CARBONARA, SCRAMBLED_EGG, AGLIO_OLIO, SPAGHETTI_BOLOGNESE));
+        return new ArrayList<>(Arrays.asList(AGLIO_OLIO, CARBONARA, SCRAMBLED_EGG, SPAGHETTI_BOLOGNESE));
     }
 }

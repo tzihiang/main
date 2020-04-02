@@ -22,7 +22,7 @@ public abstract class CartAddCommand extends CartCommand {
             + COMMAND_CATEGORY + " " + COMMAND_WORD + "recipe INDEX"
             + ": This commands allows you to add all the ingredients from a recipe to your cart.\n"
             + "Parameters for adding all ingredients in the recipe into your cart is as follows: \n"
-            + COMMAND_CATEGORY + " " + COMMAND_WORD + " recipe INDEX\n"
-            + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + "recipe 1\n";
+            + COMMAND_CATEGORY + " " + COMMAND_WORD + "recipe INDEX\n"
+            + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " recipe 1\n";
 
 }
