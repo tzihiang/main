@@ -16,8 +16,13 @@ public class RecipeContainsInventoryIngredientsPredicate implements Predicate<Re
 
     @Override
     public boolean test(Recipe recipe) {
+        if (recipe.getIngredientNamesString().length() == 0) {
+            System.out.println(recipe.getIngredientNamesString());
+            return false;
+        }
+
         return inventory.getIngredientList().stream().anyMatch(ingredient ->
-            StringUtil.containsWordIgnoreCase(recipe.getIngredientNameString(), ingredient.getName().ingredientName));
+            StringUtil.containsWordIgnoreCase(recipe.getIngredientNamesString(), ingredient.getName().ingredientName));
     }
 
     @Override
