@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
  */
 public abstract class CookbookSearchCommand extends CookbookCommand {
 
-    public static final String COMMAND_WORD = "search";
+    public static final String COMMAND_WORD = "search recipe";
     public static final String SEARCH_INVENTORY_COMMAND = "inventory";
 
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
