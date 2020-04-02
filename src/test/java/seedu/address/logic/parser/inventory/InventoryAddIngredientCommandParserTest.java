@@ -1,16 +1,11 @@
 package seedu.address.logic.parser.inventory;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.inventory.InventoryAddIngredientCommand;
-import seedu.address.logic.parser.ArgumentTokenizer;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
@@ -41,28 +36,5 @@ public class InventoryAddIngredientCommandParserTest {
             -> new InventoryAddIngredientCommandParser().parse(INVALID_INGREDIENT_ARGUMENT_NO_NAME));
         assertThrows(ParseException.class, ()
             -> new InventoryAddIngredientCommandParser().parse(INVALID_ARGUMENT));
-    }
-
-    @Test
-    public void arePrefixesPresent_validInput() {
-        Assertions.assertTrue(InventoryAddIngredientCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            VALID_INGREDIENT_ARGUMENT, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY),
-            PREFIX_INGREDIENT_NAME));
-        assertFalse(InventoryAddIngredientCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            INVALID_INGREDIENT_ARGUMENT_NO_NAME, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY),
-            PREFIX_INGREDIENT_NAME));
-        assertFalse(InventoryAddIngredientCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-            INVALID_ARGUMENT, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY),
-            PREFIX_INGREDIENT_NAME));
-    }
-
-    @Test
-    public void arePrefixesPresent_null_throwNullPointerException() {
-        assertThrows(NullPointerException.class, () ->
-            InventoryAddIngredientCommandParser.arePrefixesPresent(ArgumentTokenizer.tokenize(
-                VALID_INGREDIENT_ARGUMENT, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY),
-                (Prefix[]) null));
-        assertThrows(NullPointerException.class, () ->
-            InventoryAddIngredientCommandParser.arePrefixesPresent(null, PREFIX_INGREDIENT_NAME));
     }
 }

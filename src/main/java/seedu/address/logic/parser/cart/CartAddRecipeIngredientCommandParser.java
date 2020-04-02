@@ -33,7 +33,7 @@ public class CartAddRecipeIngredientCommandParser implements Parser<CartCommand>
             args = removeRecipePrefix(args);
             recipeNumber = Integer.parseInt(args);
         } catch (NumberFormatException e) {
-            throw new NumberFormatException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     CartAddCommand.MESSAGE_USAGE));
         }
 

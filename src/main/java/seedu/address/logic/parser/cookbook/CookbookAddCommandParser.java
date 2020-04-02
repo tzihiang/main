@@ -12,14 +12,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.cookbook.CookbookAddCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
@@ -46,7 +44,7 @@ public class CookbookAddCommandParser implements Parser<CookbookAddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION, PREFIX_INGREDIENT_NAME,
                     PREFIX_INGREDIENT_QUANTITY, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION)
+        if (!argMultimap.arePrefixesPresent(PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     CookbookAddCommand.MESSAGE_USAGE));
@@ -68,10 +66,5 @@ public class CookbookAddCommandParser implements Parser<CookbookAddCommand> {
         Set<Tag> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         return new CookbookAddCommand(new Recipe(recipeName, recipeDescription, ingredients, steps, tags));
-    }
-
-
-    static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
