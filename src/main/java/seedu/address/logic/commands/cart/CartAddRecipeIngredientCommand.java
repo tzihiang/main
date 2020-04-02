@@ -47,11 +47,10 @@ public class CartAddRecipeIngredientCommand extends CartAddCommand {
                     MESSAGE_USAGE));
         }
 
-        UniqueIngredientList ingredients = model.getCookbook().getRecipeList()
-                .get(recipeIndex.getZeroBased())
-                .getIngredients();
         Recipe targetedRecipe = model.getCookbook()
                 .getRecipeList().get(recipeIndex.getZeroBased());
+
+        UniqueIngredientList ingredients = targetedRecipe.getIngredients();
 
         for (Ingredient i : ingredients) {
             model.addCartIngredient(i);
