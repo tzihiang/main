@@ -78,7 +78,7 @@ public class Recipe {
         return sb.toString().trim().replace("[", "").replace("]", " ");
     }
 
-    public String getIngredientNameString() {
+    public String getIngredientNamesString() {
         StringBuilder sb = new StringBuilder();
 
         for (Ingredient i : getIngredients()) {
