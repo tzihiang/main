@@ -22,7 +22,7 @@ public class CookingPapaParserTest {
     @Test
     public void parseCommand_cookbookAdd() throws Exception {
         Recipe recipe = new RecipeBuilder().withRecipeName("Recipe").withRecipeDescription("test").build();
-        CookbookAddCommand command = (CookbookAddCommand) parser.parseCommand("cookbook add n/Recipe d/test");
+        CookbookAddCommand command = (CookbookAddCommand) parser.parseCommand("cookbook add recipe n/Recipe d/test");
         assertEquals(new CookbookAddCommand(recipe), command);
     }
 

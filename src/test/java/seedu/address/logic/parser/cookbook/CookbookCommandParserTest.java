@@ -15,13 +15,14 @@ import seedu.address.testutil.TypicalRecipes;
 
 public class CookbookCommandParserTest {
     private static final Index VALID_INDEX = new Index(0);
-    private static final String VALID_ADD_ARGUMENT = " add n/Recipe d/Description i/Ingredient q/5 x/1 s/Step t/Tag";
-    private static final String VALID_VIEW_INDEX_STRING = " view 1";
-    private static final String VALID_REMOVE_INDEX_STRING = " remove 1";
+    private static final String VALID_ADD_ARGUMENT = " add recipe n/Recipe "
+            + "d/Description i/Ingredient q/5 x/1 s/Step t/Tag";
+    private static final String VALID_VIEW_INDEX_STRING = " view recipe 1";
+    private static final String VALID_REMOVE_INDEX_STRING = " remove recipe 1";
     private static final Recipe VALID_RECIPE = TypicalRecipes.getValidRecipe();
-    private static final String INVALID_ARGUMENT_NO_RECIPE_NAME = " add d/Description i/Ingredient q/5 x/1 "
+    private static final String INVALID_ARGUMENT_NO_RECIPE_NAME = " add recipe d/Description i/Ingredient q/5 x/1 "
             + "s/Step t/Tag";
-    private static final String INVALID_ARGUMENT_NO_RECIPE_DESCRIPTION = " add n/Recipe i/Ingredient q/5 "
+    private static final String INVALID_ARGUMENT_NO_RECIPE_DESCRIPTION = " add recipe n/Recipe i/Ingredient q/5 "
             + "x/1 s/Step t/Tag";
     private static final String INVALID_ARGUMENT = "Invalid argument";
 

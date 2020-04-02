@@ -1,13 +1,16 @@
 package seedu.address.logic.parser.cart;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.address.commons.core.index.Index;
 
 import seedu.address.logic.commands.cart.CartAddCommand;
 import seedu.address.logic.commands.cart.CartAddRecipeIngredientCommand;
 import seedu.address.logic.commands.cart.CartCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -21,31 +24,17 @@ public class CartAddRecipeIngredientCommandParser implements Parser<CartCommand>
      * @throws ParseException if the user input does not conform the expected format
      */
     public CartAddRecipeIngredientCommand parse(String args) throws ParseException {
-        requireNonNull(args);
-        int recipeNumber;
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
-        if (!hasOnlyRecipePrefixAndIndex(args)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    CartAddCommand.MESSAGE_USAGE));
-        }
+        Index recipeIndex;
 
         try {
-            args = removeRecipePrefix(args);
-            recipeNumber = Integer.parseInt(args);
-        } catch (NumberFormatException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    CartAddCommand.MESSAGE_USAGE));
+            recipeIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
+                    CartAddCommand.MESSAGE_USAGE), pe);
         }
 
-        return new CartAddRecipeIngredientCommand(recipeNumber);
-    }
-
-    private static boolean hasOnlyRecipePrefixAndIndex(String args) {
-        String[] split = args.trim().split(" ");
-        return (split.length == 2) && (split[0].toLowerCase().equals("recipe"));
-    }
-
-    private String removeRecipePrefix(String args) {
-        return args.trim().split(" ", 2)[1];
+        return new CartAddRecipeIngredientCommand(recipeIndex);
     }
 }
