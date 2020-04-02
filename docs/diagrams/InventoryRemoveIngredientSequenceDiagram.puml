@@ -14,10 +14,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("inventory remove i/Eggs q/5")
+[-> LogicManager : execute("inventory remove ingredient i/Eggs q/5")
 activate LogicManager
 
-LogicManager -> CookingPapaParser : parseCommand("inventory remove i/Eggs q/5")
+LogicManager -> CookingPapaParser : parseCommand("inventory remove ingredient i/Eggs q/5")
 activate CookingPapaParser
 
 create InventoryCommandParser
@@ -27,7 +27,7 @@ activate InventoryCommandParser
 InventoryCommandParser -> CookingPapaParser
 deactivate InventoryCommandParser
 
-CookingPapaParser -> InventoryCommandParser : parse("inventory remove i/Eggs q/5")
+CookingPapaParser -> InventoryCommandParser : parse("remove ingredient i/Eggs q/5")
 activate InventoryCommandParser
 
 create InventoryRemoveIngredientCommandParser
@@ -37,7 +37,7 @@ activate InventoryRemoveIngredientCommandParser
 InventoryRemoveIngredientCommandParser -> InventoryCommandParser
 deactivate InventoryRemoveIngredientCommandParser
 
-InventoryCommandParser -> InventoryRemoveIngredientCommandParser : parse("inventory remove i/Eggs q/5")
+InventoryCommandParser -> InventoryRemoveIngredientCommandParser : parse("i/Eggs q/5")
 activate InventoryRemoveIngredientCommandParser
 
 create InventoryRemoveIngredientCommand
@@ -59,7 +59,7 @@ deactivate CookingPapaParser
 LogicManager -> InventoryRemoveIngredientCommand : execute()
 activate InventoryRemoveIngredientCommand
 
-InventoryRemoveIngredientCommand -> Model : execute()
+InventoryRemoveIngredientCommand -> Model : removeInventoryIngredient(ingredient)
 activate Model
 
 Model --> InventoryRemoveIngredientCommand
