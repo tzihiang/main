@@ -34,7 +34,6 @@ public class InventoryAddIngredientCommand extends InventoryCommand {
      */
     public InventoryAddIngredientCommand(Ingredient toAdd) {
         requireNonNull(toAdd);
-
         this.toAdd = toAdd;
     }
 
@@ -52,7 +51,5 @@ public class InventoryAddIngredientCommand extends InventoryCommand {
                 || (other instanceof InventoryAddIngredientCommand // instanceof handles nulls
                 && toAdd.equals(((InventoryAddIngredientCommand) other).toAdd));
     }
-
-
 
 }

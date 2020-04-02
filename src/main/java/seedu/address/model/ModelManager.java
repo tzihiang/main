@@ -12,21 +12,18 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the CookingPapa's data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
     private final Cookbook cookbook;
     private final Inventory inventory;
     private final Cart cart;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
     private final FilteredList<Recipe> filteredCookbookRecipes;
     private final FilteredList<Ingredient> filteredInventoryIngredients;
     private final FilteredList<Ingredient> filteredCartIngredients;
@@ -34,26 +31,24 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given cookbook, inventory, cart, and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyCookbook cookbook, ReadOnlyInventory inventory,
+    public ModelManager(ReadOnlyCookbook cookbook, ReadOnlyInventory inventory,
             ReadOnlyCart cart, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(cookbook, inventory, cart, userPrefs);
 
-        logger.fine("Initializing with cookbook: " + cookbook + " and user prefs " + userPrefs);
-
-        this.addressBook = new AddressBook(addressBook);
+        logger.fine("Initializing with cookbook, inventory and cart: " + cookbook + " " + inventory + " "
+                + cart + " and user prefs " + userPrefs);
         this.cookbook = new Cookbook(cookbook);
         this.inventory = new Inventory(inventory);
         this.cart = new Cart(cart);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredCookbookRecipes = new FilteredList<>(this.cookbook.getRecipeList());
         filteredInventoryIngredients = new FilteredList<>(this.inventory.getIngredientList());
         filteredCartIngredients = new FilteredList<>(this.cart.getIngredientList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new Cookbook(), new Inventory(), new Cart(), new UserPrefs());
+        this(new Cookbook(), new Inventory(), new Cart(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -78,17 +73,6 @@ public class ModelManager implements Model {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
-    }
-
-    @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
     @Override
@@ -124,18 +108,6 @@ public class ModelManager implements Model {
         userPrefs.setCartFilePath(cartFilePath);
     }
 
-    //=========== AddressBook ================================================================================
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
-    }
-
     @Override
     public void setCookbook(ReadOnlyCookbook cookbook) {
         this.cookbook.resetData(cookbook);
@@ -164,30 +136,6 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyCart getCart() {
         return cart;
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
     }
 
     @Override
@@ -260,23 +208,6 @@ public class ModelManager implements Model {
         cart.setIngredient(target, editedIngredient);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-
     /**
      * Returns an unmodifiable view of the list of {@code Recipe} backed by the internal list of
      * {@code versionedCookbook}
@@ -338,9 +269,10 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return cookbook.equals(other.cookbook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && inventory.equals(other.inventory)
+                && cart.equals(other.cart);
     }
 
 }

@@ -13,8 +13,6 @@ import seedu.address.model.recipe.Recipe;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Recipe> PREDICATE_SHOW_ALL_RECIPES = unused -> true;
@@ -41,16 +39,6 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
-
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
-
-    /**
-     * Sets the user prefs' address book file path.
-     */
-    void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
      * Returns the user prefs' cookbook file path.
@@ -83,14 +71,6 @@ public interface Model {
     void setCartFilePath(Path cartFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
-     */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
-
-    /**
      * Replaces cookbook data with the data in {@code cookbook}.
      */
     void setCookbook(ReadOnlyCookbook cookbook);
@@ -113,30 +93,6 @@ public interface Model {
 
     /** Returns the Cart */
     ReadOnlyCart getCart();
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
-     * Deletes the given person.
-     * The person must exist in the address book.
-     */
-    void deletePerson(Person target);
-
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addPerson(Person person);
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    void setPerson(Person target, Person editedPerson);
 
     /**
      * Returns true if a recipe with the same identity as {@code recipe} exists in the cookbook.
@@ -212,15 +168,6 @@ public interface Model {
      */
     void setCartIngredient(Ingredient target, Ingredient editedIngredient);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
-
     /** Returns an unmodifiable view of the filtered cookbook recipe list */
     ObservableList<Recipe> getFilteredCookbookRecipeList();
 
@@ -248,5 +195,9 @@ public interface Model {
      */
     void updateFilteredCartIngredientList(Predicate<Ingredient> predicate);
 
+    /**
+     * Removes all ingredients in the cart, does not take in any parameters.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
     void removeAllCartIngredient();
 }
