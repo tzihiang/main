@@ -45,7 +45,7 @@ public class CartAddCommandParserTest {
         assertThrows(ParseException.class, () ->
             new CartAddCommandParser().parse(INVALID_INGREDIENT_ARGUMENT_NO_QUANTITY));
         assertThrows(ParseException.class, () -> new CartAddCommandParser().parse(INVALID_INGREDIENT_ARGUMENT_NO_NAME));
-
-        assertThrows(ParseException.class, () -> new CartAddCommandParser().parse(INVALID_RECIPE_INDEX_ARGUMENT_NO_RECIPE));
+        assertThrows(ParseException.class, ()
+            -> new CartAddCommandParser().parse(INVALID_RECIPE_INDEX_ARGUMENT_NO_RECIPE));
     }
 }
