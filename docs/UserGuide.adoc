@@ -209,21 +209,6 @@ This command allows you to add ingredients to a recipe.
 |Adds 200 ml of milk to the 2nd recipe's list of ingredients.
 |===
 
-==== Edit an ingredient in a recipe
-If you want to change the quantity of an ingredient after some experimentation, this command will help you achieve that.
-
-- Format: `recipe INDEX edit i/INGREDIENT q/QUANTITY`
-- Examples:
-|===
-| Parameters | Result
-
-| `recipe 1 edit i/Egg q/2`
-|Changes the quantity of eggs to 3 in the 1st recipe's list of ingredients.
-
-|`recipe 2 edit i/Milk q/100 ml`
-|Changes the quantity of milk to 100 ml in the 2nd recipe's list of ingredients.
-|===
-
 ==== Remove an ingredient from a recipe
 You can remove ingredients that spoil the taste of the dish using this command.
 If the quantity to be removed is not specified, all of the ingredient will be removed.
@@ -408,9 +393,63 @@ or to clear the cart after completing the purchase.
 |Clears the cart of all items.
 |===
 
+=== Edit an ingredient in a recipe [v2.0]
+If you want to change the quantity of an ingredient after some experimentation, this command will help you achieve that.
+
+- Format: `recipe INDEX edit i/INGREDIENT q/QUANTITY`
+- Examples:
+|===
+| Parameters | Result
+
+| `recipe 1 edit i/Egg q/2`
+|Changes the quantity of eggs to 3 in the 1st recipe's list of ingredients.
+
+|`recipe 2 edit i/Milk q/100 ml`
+|Changes the quantity of milk to 100 ml in the 2nd recipe's list of ingredients.
+|===
+
 === Calendar Commands [v2.0]
-Calendar commands are commands that allow you to plan your meal preparations ahead and view the
-ingredients needed for a specified date or time period.
+Calendar commands are commands that allow you to set date-related commands, such as reminders and
+recipe of the day
+
+==== Add a recipe to cook on a certain day
+Reminds the user to cook a certain recipe on a certain day
+
+- Format: ``calendar set DD-MM-YYYY cook recipe INDEX``
+- Example:
+|===
+| Parameters | Result
+
+| `calendar set 10-10-2010 cook recipe 1`
+|Adds recipe 1 to your calendar to cook
+|===
+
+==== View recipes to cook on a certain day
+User can view the recipes they were supposed to cook on a certain day. The date input can
+be replaced with 'today' for the current date.
+
+- Format: ``calendar view recipes DD-MM-YYYY``
+- Example:
+|===
+| Parameters | Result
+
+| `calendar view recipes 10-10-2010`
+|Shows the recipes scheduled to cook on 10th October 2010.
+| `calendar view recipes today`
+|Shows the recipes scheduled to cook on the current day of use.
+|===
+
+=== Recipe of the day generator [v2.0]
+CookingPapa can generate a recipe of the day to cook based on the recipes currently in their cookbook.
+
+- Format: ``generate recipe of the day``
+- Example:
+|===
+| Parameters | Result
+
+| `generate recipe of the day`
+|Displays the recipe of the day
+|===
 
 == FAQ
 
