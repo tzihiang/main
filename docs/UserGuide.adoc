@@ -89,48 +89,64 @@ are covered in <<Recipe commands>>.
 ==== View a recipe from the cookbook
 This command allows you to view a recipe, the ingredients required, and the steps to cook it.
 
-- Format: `cookbook view INDEX`
+- Format: `cookbook view recipe INDEX`
 - Example:
 |===
 | Parameters | Result
 
-|`cookbook view 1`
-|Views the details of recipe 1.
+|`cookbook view recipe 1`
+|Views the details of recipe 1 in the following format: +
+``Selected recipe <NAME>`` +
+``Description: <DESCRIPTION>`` +
+``Ingredients: <INGREDIENTS>`` +
+``Preparation Steps:`` +
+``1: <STEP_1>`` +
+``2: <STEP_2>`` +
+``.`` +
+``.`` +
+``.`` +
+``Tags: [<tag1>] [<tag2>]...``
 |===
 
 ==== Add a new recipe to the cookbook
 This command allows you to add and store a new recipe with the specified recipe name to the cookbook.
 If neither of the details is specified, an empty recipe will be added.
 
-- Format: `cookbook add n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY] [x/STEP_INDEX] [s/STEP] [t/TAG]`
+- Format: `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY] [x/STEP_INDEX] [s/STEP] [t/TAG]`
 - Examples:
 |===
 |Parameters | Result
 
-|`cookbook add n/Bacon Carbonara + d/Italian's finest pasta`
-| Adds a new empty recipe with the name 'Bacon Carbonara' and description 'Italian's finest pasta'.
+|`cookbook add recipe n/Bacon Carbonara d/Best cream pasta made in Italy`
+| Adds a new empty recipe to the cookbook with the following details: +
+``New recipe added: Bacon Carbonara`` +
+``Description: Best cream pasta made in Italy`` +
+``Ingredients:`` +
+``Preparation Steps:`` +
+``Tags:``
 
-|`cookbook add n/Chicken Ham Sandwich d/Juicy ham sandwiched between crispy toasted bread.
+|`cookbook add recipe n/Chicken Ham Sandwich d/Juicy ham sandwiched between crispy toasted bread.
 i/Chicken Ham q/1 slice i/White Bread q/2 slices x/1 s/Toast the bread x/2 s/Grill the ham.
 t/sandwich t/easy`
-|Adds a new recipe with the name 'Chicken Ham Sandwich', description 'Juicy ham sandwiched between
-crispy toasted bread' and the following recipe details. +
-Tags: sandwich, easy +
-Ingredients: Ham, Bread (2 slices) +
-Preparation Steps: +
-1. Toast the ham +
-2. Grill the bread +
+|Adds a new recipe to the cookbook with the following details: +
+``New recipe added: Chicken Ham Sandwich`` +
+``Description: Juicy ham sandwiched between crispy toasted bread.`` +
+``Ingredients: 1 slice Chicken Ham, 2 slices White Bread`` +
+``Preparation Steps:`` +
+``1: Toast the bread`` +
+``2: Grill the ham.`` +
+``Tags: [sandwich] [easy]``
 |===
 
 ==== Remove a recipe from the cookbook
 This command allows you to remove a recipe of the specified index from the cookbook.
 
-- Format: `cookbook remove INDEX`
+- Format: `cookbook remove recipe INDEX`
 - Example:
 |===
 | Parameters | Result
 
-|`cookbook remove 1`
+|`cookbook remove recipe 1`
 |Removes recipe 1 from the cookbook.
 |===
 
@@ -181,46 +197,31 @@ You can also write preparation steps for your recipes.
 ==== Add an ingredient to a recipe
 This command allows you to add ingredients to a recipe.
 
-- Format: `recipe INDEX add i/INGREDIENT q/QUANTITY`
+- Format: `recipe INDEX add ingredient i/INGREDIENT q/QUANTITY`
 - Examples:
 |===
 | Parameters | Result
 
-|`recipe 1 add i/Egg q/2`
+|`recipe 1 add ingredient i/Egg q/2`
 |Adds 2 eggs to the 1st recipe's list of ingredients.
 
-|`recipe 2 add i/Milk q/200 ml`
+|`recipe 2 add i/Milk ingredient q/200 ml`
 |Adds 200 ml of milk to the 2nd recipe's list of ingredients.
-|===
-
-==== Edit an ingredient in a recipe
-If you want to change the quantity of an ingredient after some experimentation, this command will help you achieve that.
-
-- Format: `recipe INDEX edit i/INGREDIENT q/QUANTITY`
-- Examples:
-|===
-| Parameters | Result
-
-| `recipe 1 edit i/Egg q/2`
-|Changes the quantity of eggs to 3 in the 1st recipe's list of ingredients.
-
-|`recipe 2 edit i/Milk q/100 ml`
-|Changes the quantity of milk to 100 ml in the 2nd recipe's list of ingredients.
 |===
 
 ==== Remove an ingredient from a recipe
 You can remove ingredients that spoil the taste of the dish using this command.
 If the quantity to be removed is not specified, all of the ingredient will be removed.
 
-- Format: `recipe INDEX remove i/INGREDIENT [q/QUANTITY]`
+- Format: `recipe INDEX remove ingredient i/INGREDIENT q/QUANTITY`
 - Examples:
 |===
 | Parameters | Result
 
-| `recipe 1 remove i/Egg q/2`
+| `recipe 1 remove ingredient i/Egg q/2`
 |Removes 1 egg from the list of ingredients in recipe 1.
 
-|`recipe 2 edit i/Milk`
+|`recipe 2 remove ingredient i/Milk`
 |Removes milk from the list of ingredients in recipe 2.
 |===
 
@@ -230,15 +231,15 @@ This command allows you to add a preparation step to the selected recipe.
 Requires a valid index in the list of recipes and the cooking step.
 You may also use 'next' instead of an index to add to the step as the current last step.
 
-- Format: `recipe INDEX add x/STEP_INDEX s/STEP_DESCRIPTION`
+- Format: `recipe INDEX add step x/STEP_INDEX s/STEP_DESCRIPTION`
 - Examples:
 |===
 | Parameters | Result
 
-| `recipe 1 add x/2 s/Bring the water to boil`
+| `recipe 1 add step x/2 s/Bring the water to boil`
 |Adds a preparation step 2 (Bring water to boil) to recipe 1.
 
-|`recipe 2 add x/next s/Add a teaspoon of salt in the soup`
+|`recipe 2 add step x/next s/Add a teaspoon of salt in the soup`
 |Adds the next preparation step (Add a teaspoon of salt in the soup) to recipe 2.
 |===
 
@@ -247,12 +248,12 @@ You may also use 'next' instead of an index to add to the step as the current la
 This command allows you to remove a preparation step from the selected recipe.
 Requires a valid index in the list of recipes and the cooking step.
 
-- Format: `recipe INDEX remove x/STEP_INDEX`
+- Format: `recipe INDEX remove step x/STEP_INDEX`
 - Example:
 |===
 | Parameters | Result
 
-|`recipe 1 remove x/2`
+|`recipe 1 remove step x/2`
 |Removes preparation step 2 in recipe 1.
 |===
 
@@ -274,12 +275,12 @@ Requires a valid index in the list of recipes and the cooking step
 This command allows you to add a tag to the selected recipe.
 Requires a valid index in the list of recipes.
 
-- Format: `recipe INDEX add t/TAG`
+- Format: `recipe INDEX add tag t/TAG`
 - Example:
 |===
 | Parameters | Result
 
-|`recipe 1 add t/Pasta`
+|`recipe 1 add tag t/Pasta`
 |Adds a tag (Pasta) to the recipe 1.
 |===
 
@@ -288,12 +289,12 @@ Requires a valid index in the list of recipes.
 This command allows you to remove a tag from the selected recipe.
 Requires a valid index in the list of recipes.
 
-- Format: `recipe INDEX remove t/TAG`
+- Format: `recipe INDEX remove tag t/TAG`
 - Example:
 |===
 | Parameters | Result
 
-|`recipe 1 remove t/Beef`
+|`recipe 1 remove tag t/Beef`
 |Removes the tag 'Beef' from the recipe 1.
 |===
 
@@ -305,15 +306,15 @@ These commands include adding, remove and viewing the current inventory database
 ==== Add an ingredient to the inventory
 This commands allows you to add ingredients to your inventory.
 
-- Format: `inventory add i/INGREDIENT q/QUANTITY`
+- Format: `inventory add ingredient i/INGREDIENT q/QUANTITY`
 - Examples:
 |===
 | Parameters | Result
 
-|`inventory add i/Egg q/10`
+|`inventory add ingredient i/Egg q/10`
 |Adds 10 eggs into your inventory.
 
-|`inventory add i/Butter q/200g`
+|`inventory add ingredient i/Butter q/200g`
 |Adds 200g of butter into your inventory.
 |===
 
@@ -322,15 +323,15 @@ This command allows you to remove ingredients from your inventory. You may add i
 an additional argument for the quantity you wish to remove. If no additional argument for quantity
 is supplied, that instance of the ingredient will be removed entirely.
 
-- Format: `inventory remove i/INGREDIENT [q/QUANTITY]`
+- Format: `inventory remove ingredient i/INGREDIENT q/QUANTITY`
 - Examples:
 |===
 | Parameters | Result
 
-|`inventory remove i/Egg q/10`
+|`inventory remove ingredient i/Egg q/10`
 |Removes 10 eggs into your inventory.
 
-|`inventory remove i/Butter q/200g`
+|`inventory remove ingredient i/Butter q/200g`
 |Removes 200g of butter into your inventory.
 |===
 
@@ -354,12 +355,12 @@ This command allows you to add all the ingredients in a recipe to the cart.
 ==== Add ingredients to the cart
 This command allows you to add ingredients to the cart.
 
-- Format: `cart add i/INGREDIENT q/QUANTITY`
+- Format: `cart add ingredient i/INGREDIENT q/QUANTITY`
 - Example:
 |===
 | Parameters | Result
 
-|`cart add i/Eggs q/5`
+|`cart add ingredient i/Eggs q/5`
 |Adds 5 eggs to the cart.
 |===
 
@@ -368,12 +369,12 @@ This command allows you to add ingredients to the cart.
 This command allows you to remove ingredients from the cart.
 If the quantity to be removed is not specified, all of the specified ingredient will be removed.
 
-- Format: `cart remove i/INGREDIENT [q/QUANTITY]`
+- Format: `cart remove ingredient i/INGREDIENT q/QUANTITY`
 - Example:
 |===
 | Parameters | Result
 
-|`cart remove i/Egg q/1`
+|`cart remove ingredient i/Egg q/1`
 |Removes 1 egg from the cart
 |`cart remove i/Milk q/200ml`
 |Removes 200ml of milk from the cart.
@@ -392,9 +393,63 @@ or to clear the cart after completing the purchase.
 |Clears the cart of all items.
 |===
 
+=== Edit an ingredient in a recipe [v2.0]
+If you want to change the quantity of an ingredient after some experimentation, this command will help you achieve that.
+
+- Format: `recipe INDEX edit i/INGREDIENT q/QUANTITY`
+- Examples:
+|===
+| Parameters | Result
+
+| `recipe 1 edit i/Egg q/2`
+|Changes the quantity of eggs to 3 in the 1st recipe's list of ingredients.
+
+|`recipe 2 edit i/Milk q/100 ml`
+|Changes the quantity of milk to 100 ml in the 2nd recipe's list of ingredients.
+|===
+
 === Calendar Commands [v2.0]
-Calendar commands are commands that allow you to plan your meal preparations ahead and view the
-ingredients needed for a specified date or time period.
+Calendar commands are commands that allow you to set date-related commands, such as reminders and
+recipe of the day
+
+==== Add a recipe to cook on a certain day
+Reminds the user to cook a certain recipe on a certain day
+
+- Format: ``calendar set DD-MM-YYYY cook recipe INDEX``
+- Example:
+|===
+| Parameters | Result
+
+| `calendar set 10-10-2010 cook recipe 1`
+|Adds recipe 1 to your calendar to cook
+|===
+
+==== View recipes to cook on a certain day
+User can view the recipes they were supposed to cook on a certain day. The date input can
+be replaced with 'today' for the current date.
+
+- Format: ``calendar view recipes DD-MM-YYYY``
+- Example:
+|===
+| Parameters | Result
+
+| `calendar view recipes 10-10-2010`
+|Shows the recipes scheduled to cook on 10th October 2010.
+| `calendar view recipes today`
+|Shows the recipes scheduled to cook on the current day of use.
+|===
+
+=== Recipe of the day generator [v2.0]
+CookingPapa can generate a recipe of the day to cook based on the recipes currently in their cookbook.
+
+- Format: ``generate recipe of the day``
+- Example:
+|===
+| Parameters | Result
+
+| `generate recipe of the day`
+|Displays the recipe of the day
+|===
 
 == FAQ
 
@@ -407,49 +462,49 @@ ingredients needed for a specified date or time period.
 |===
 | Category | Addtional Parameters | Result
 .6+|cookbook
-|view INDEX
+|view recipe INDEX
 |Shows recipe at given INDEX
-|remove INDEX
+|remove recipe INDEX
 |Remove recipe at given INDEX
 |search k/KEYWORD
 |Search for recipes by a keyword
 |search t/TAG
 |Search for recipes by a keyword
-|add n/NAME d/DESCRIPTION
+|add recipe n/NAME d/DESCRIPTION
 |Adds a new empty recipe with the given NAME and DESCRIPTION
 |search inventory
 |Gives recipes whose ingredients are available in the inventory.
 
 .8+|recipe
-|INDEX add i/INGREDIENT q/QUANTITY
+|INDEX add ingredient i/INGREDIENT q/QUANTITY
 |Add ingredients to a recipe at given INDEX
 |INDEX edit i/INGREDIENT q/QUANTITY
 |Edit ingredients to a recipe at given INDEX
-|INDEX remove i/INGREDIENT q/QUANTITY
+|INDEX remove ingredient i/INGREDIENT q/QUANTITY
 |Removes the ingredient and the specified quantity from recipe at given INDEX
-|INDEX add x/STEP_INDEX s/STEP_DESCRIPTION
+|INDEX add step x/STEP_INDEX s/STEP_DESCRIPTION
 |Adds a step at STEP_INDEX with STEP_DESCRIPTION to the recipe at given INDEX
-|INDEX remove x/STEP_INDEX
+|INDEX remove step x/STEP_INDEX
 |Remove a step at STEP_INDEX from the recipe at given INDEX
 |INDEX edit x/STEP_INDEX s/STEP_DESCRIPTION
 |Edit a step at STEP_INDEX from the recipe at given INDEX
-|INDEX add t/TAG
+|INDEX add tag t/TAG
 |Adds a tag 'TAG' to the recipe at given INDEX
-|INDEX remove t/TAG
+|INDEX remove tag t/TAG
 |Removes a tag 'TAG' to the recipe at given INDEX
 
 .2+|inventory
-|add i/INGREDIENT q/QUANTITY
+|add ingredient  i/INGREDIENT q/QUANTITY
 |Adds QUANTITY of INGREDIENTS into your inventory.
-|remove i/INGREDIENT q/QUANTITY
+|remove ingredient i/INGREDIENT q/QUANTITY
 |Removes QUANTITY of INGREDIENTS from your inventory.
 
 .4+|cart
 |add recipe INDEX
 |Adds all ingredients required of recipe at given INDEX to the cart.
-|add i/INGREDIENT q/QUANTITY
+|add ingredient i/INGREDIENT q/QUANTITY
 |Adds QUANTITY of INGREDIENTS into your cart.
-|remove i/INGREDIENT q/QUANTITY
+|remove ingredient i/INGREDIENT q/QUANTITY
 |Removes QUANTITY of INGREDIENTS from your cart.
 |clear
 |Clears the cart of all items.
