@@ -15,7 +15,6 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Cart;
 import seedu.address.model.Cookbook;
 import seedu.address.model.Inventory;
@@ -45,7 +44,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 2, 1, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -121,7 +120,7 @@ public class MainApp extends Application {
             initialCart = new Cart();
         }
 
-        return new ModelManager(new AddressBook(), initialCookbook, initialInventory, initialCart, userPrefs);
+        return new ModelManager(initialCookbook, initialInventory, initialCart, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -199,6 +198,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting Cooking Papa " + MainApp.VERSION);
+        primaryStage.setResizable(false);
         ui.start(primaryStage);
     }
 

@@ -7,12 +7,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCart;
 import seedu.address.model.ReadOnlyCookbook;
 import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -27,13 +25,6 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
-
-    /**
-     * Returns the AddressBook.
-     *
-     * @see seedu.address.model.Model#getAddressBook()
-     */
-    ReadOnlyAddressBook getAddressBook();
 
     /**
      * Returns the Cookbook.
@@ -56,9 +47,6 @@ public interface Logic {
      */
     ReadOnlyCart getCart();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
-
     /** Returns an unmodifiable view of the filtered list of cookbook recipes */
     ObservableList<Recipe> getFilteredCookbookRecipeList();
 
@@ -70,11 +58,6 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered cart */
     ObservableList<Ingredient> getFilteredCart();
-
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
 
     /**
      * Returns the user prefs' cookbook file path.

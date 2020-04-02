@@ -1,20 +1,25 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DIFFERENT_NUMBER_OF_INPUTS;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
-import seedu.address.model.person.Name;
+import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.recipe.RecipeDescription;
 import seedu.address.model.recipe.RecipeName;
 import seedu.address.model.step.Step;
+import seedu.address.model.step.UniqueStepList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -38,21 +43,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code name} is invalid.
-     */
-    public static Name parseName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
-        }
-        return new Name(trimmedName);
-    }
-
-    /**
      * Parses a {@code String recipeName} into a {@code RecipeName}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -62,7 +52,7 @@ public class ParserUtil {
         requireNonNull(recipeName);
         String trimmedRecipeName = recipeName.trim();
         if (!RecipeName.isValidRecipeName(trimmedRecipeName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(RecipeName.MESSAGE_CONSTRAINTS);
         }
         return new RecipeName(trimmedRecipeName);
     }
@@ -77,7 +67,7 @@ public class ParserUtil {
         requireNonNull(recipeDescription);
         String trimmedRecipeDescription = recipeDescription.trim();
         if (!RecipeDescription.isValidRecipeDescription(trimmedRecipeDescription)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(RecipeName.MESSAGE_CONSTRAINTS);
         }
         return new RecipeDescription(trimmedRecipeDescription);
     }
@@ -153,5 +143,63 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses {@code List<String> ingredientNames} into a {@code List<IngredientName>}.
+     */
+    public static List<IngredientName> parseIngredientNames(List<String> ingredientNames) {
+        requireNonNull(ingredientNames);
+
+        return ingredientNames.stream()
+            .map(IngredientName::new)
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * Parses {@code List<String ingredientQuantities} into a {@code List<IngredientQuantity>}.
+     */
+    public static List<IngredientQuantity> parseIngredientQuantities(List<String> ingredientQuantities) {
+        requireNonNull(ingredientQuantities);
+
+        return ingredientQuantities.stream()
+            .map(IngredientQuantity::new)
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * Parses the given {@code List<IngredientName> names} and {@code List<IngredientQuantity> quantities}
+     * into a {@code UniqueIngredientList}.
+     * @throws ParseException if the size of the two lists are different.
+     */
+    public static UniqueIngredientList parseIngredients(List<IngredientName> names, List<IngredientQuantity> quantities)
+            throws ParseException {
+
+        if (names.size() != quantities.size()) {
+            throw new ParseException(
+                    String.format(MESSAGE_DIFFERENT_NUMBER_OF_INPUTS, names.size(), quantities.size()));
+        }
+
+        UniqueIngredientList ingredients = new UniqueIngredientList();
+
+        for (int i = 0; i < names.size(); i++) {
+            ingredients.add(new Ingredient(names.get(i), quantities.get(i)));
+        }
+
+        return ingredients;
+    }
+
+    /**
+     * Parses {@code List<String> stepDescriptions} into a {@code UniqueStepList}.
+     */
+    public static UniqueStepList parseSteps(List<String> stepDescriptions) {
+        requireNonNull(stepDescriptions);
+        UniqueStepList steps = new UniqueStepList();
+
+        for (String stepDescription : stepDescriptions) {
+            steps.add(new Step(stepDescription));
+        }
+
+        return steps;
     }
 }

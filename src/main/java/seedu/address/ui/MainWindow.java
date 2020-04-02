@@ -33,7 +33,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private RecipeListPanel recipeListPanel;
     private IngredientListPanel inventoryIngredientListPanel;
-    private CartPanel cartIngredientListPanel;
+    private CartListPanel cartIngredientListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -124,13 +124,13 @@ public class MainWindow extends UiPart<Stage> {
         inventoryIngredientListPanelPlaceHolder.getChildren().add(inventoryIngredientListPanel.getRoot());
 
         // Temporary, will replace with CartIngredientListPanel
-        cartIngredientListPanel = new CartPanel(logic.getFilteredCartIngredientList());
+        cartIngredientListPanel = new CartListPanel(logic.getFilteredCartIngredientList());
         cartIngredientListPanelPlaceHolder.getChildren().add(cartIngredientListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getCookbookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -185,7 +185,7 @@ public class MainWindow extends UiPart<Stage> {
         return inventoryIngredientListPanel;
     }
 
-    public CartPanel getCartIngredientListPanel1() {
+    public CartListPanel getCartIngredientListPanel1() {
         return cartIngredientListPanel;
     }
 

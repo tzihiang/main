@@ -14,7 +14,6 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path cookbookFilePath = Paths.get("data" , "cookbook.json");
     private Path inventoryFilePath = Paths.get("data" , "inventory.json");
     private Path cartFilePath = Paths.get("data" , "cart.json");
@@ -38,7 +37,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
         setCookbookFilePath(newUserPrefs.getCookbookFilePath());
         setInventoryFilePath(newUserPrefs.getInventoryFilePath());
         setCartFilePath(newUserPrefs.getCartFilePath());
@@ -51,15 +49,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         this.guiSettings = guiSettings;
-    }
-
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
-    }
-
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
     }
 
     public Path getCookbookFilePath() {
@@ -101,7 +90,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath)
                 && cookbookFilePath.equals(o.cookbookFilePath)
                 && inventoryFilePath.equals(o.inventoryFilePath)
                 && cartFilePath.equals(o.cartFilePath);
@@ -109,14 +97,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, cookbookFilePath, inventoryFilePath, cartFilePath);
+        return Objects.hash(guiSettings, cookbookFilePath, inventoryFilePath, cartFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
         sb.append("\nLocal data file location : " + cookbookFilePath);
         sb.append("\nLocal data file location : " + inventoryFilePath);
         sb.append("\nLocal data file location : " + cartFilePath);

@@ -157,4 +157,15 @@ public class UniqueStepList implements Iterable<Step> {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < internalList.size(); i++) {
+            sb.append("\n").append(i + 1).append(": ").append(internalList.get(i).toString());
+        }
+
+        return sb.toString();
+    }
 }
