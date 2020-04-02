@@ -11,6 +11,7 @@ import static seedu.address.testutil.TypicalRecipes.SPAGHETTI_BOLOGNESE;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -18,8 +19,8 @@ import seedu.address.model.ModelManager;
 
 public class CartAddRecipeIngredientCommandTest {
 
-    private static final int VALID_RECIPE_INDEX = 1;
-    private static final int ZERO_RECIPE_INDEX = 0;
+    private static final Index VALID_RECIPE_INDEX = new Index(1);
+    private static final Index ZERO_RECIPE_INDEX = new Index(0);
 
     @Test
     public void constructor_validInput() {
