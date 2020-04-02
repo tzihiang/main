@@ -13,7 +13,7 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_STEPS = "This step already exists in the recipe";
     public static final String MESSAGE_DUPLICATE_TAG = "This tag already exists in the recipe";
     public static final String MESSAGE_INVALID_TAG = "The Tag provided is invalid";
-    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
+    public static final String MESSAGE_RECIPES_LISTED_OVERVIEW = "%1$d recipe(s) listed!";
 
     public static final String MESSAGE_DIFFERENT_NUMBER_OF_INPUTS = "The number of ingredient names provided (%d)"
             + " should be equal to the number of ingredient quantities (%d) provided.";

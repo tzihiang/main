@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.cookbook.CookbookAddCommand;
 import seedu.address.logic.commands.cookbook.CookbookCommand;
+import seedu.address.logic.commands.cookbook.CookbookListCommand;
 import seedu.address.logic.commands.cookbook.CookbookRemoveCommand;
 import seedu.address.logic.commands.cookbook.CookbookSearchCommand;
 import seedu.address.logic.commands.cookbook.CookbookViewCommand;
@@ -49,6 +50,8 @@ public class CookbookCommandParser implements Parser<CookbookCommand> {
             return new CookbookSearchCommandParser().parse(arguments);
         case CookbookViewCommand.COMMAND_WORD:
             return new CookbookViewCommandParser().parse(arguments);
+        case CookbookListCommand.COMMAND_WORD:
+            return new CookbookListCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
