@@ -58,7 +58,7 @@ public class UniqueRecipeListTest {
     }
 
     @Test
-    public void setPerson_editedRecipeIsSameRecipe_success() {
+    public void setRecipe_editedRecipeIsSameRecipe_success() {
         uniqueRecipeList.add(CARBONARA);
         uniqueRecipeList.setRecipe(CARBONARA, CARBONARA);
         UniqueRecipeList expectedUniqueRecipeList = new UniqueRecipeList();
