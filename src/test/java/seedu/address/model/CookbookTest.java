@@ -82,7 +82,7 @@ public class CookbookTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyCookbook whose persons list can violate interface constraints.
      */
     private static class CookbookStub implements ReadOnlyCookbook {
         private final ObservableList<Recipe> recipes = FXCollections.observableArrayList();
