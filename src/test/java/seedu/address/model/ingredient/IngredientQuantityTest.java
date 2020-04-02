@@ -7,6 +7,8 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.ingredient.exceptions.NonPositiveIngredientQuantityException;
+
 public class IngredientQuantityTest {
 
     @Test
@@ -49,28 +51,28 @@ public class IngredientQuantityTest {
     }
 
     @Test
-    public void isCompatibleWith() {
+    public void hasSameUnitAs() {
         IngredientQuantity a = new IngredientQuantity("1 cup");
         IngredientQuantity b = new IngredientQuantity("0.25 cup");
         IngredientQuantity c = new IngredientQuantity("1/2 cup");
         IngredientQuantity d = new IngredientQuantity("100 ml");
 
-        assertTrue(a.isCompatibleWith(a));
-        assertTrue(a.isCompatibleWith(b));
-        assertTrue(a.isCompatibleWith(c));
-        assertTrue(b.isCompatibleWith(a));
-        assertTrue(b.isCompatibleWith(b));
-        assertTrue(b.isCompatibleWith(c));
-        assertTrue(c.isCompatibleWith(a));
-        assertTrue(c.isCompatibleWith(b));
-        assertTrue(c.isCompatibleWith(c));
-        assertTrue(d.isCompatibleWith(d));
-        assertFalse(a.isCompatibleWith(d));
-        assertFalse(b.isCompatibleWith(d));
-        assertFalse(c.isCompatibleWith(d));
-        assertFalse(d.isCompatibleWith(a));
-        assertFalse(d.isCompatibleWith(b));
-        assertFalse(d.isCompatibleWith(c));
+        assertTrue(a.hasSameUnitAs(a));
+        assertTrue(a.hasSameUnitAs(b));
+        assertTrue(a.hasSameUnitAs(c));
+        assertTrue(b.hasSameUnitAs(a));
+        assertTrue(b.hasSameUnitAs(b));
+        assertTrue(b.hasSameUnitAs(c));
+        assertTrue(c.hasSameUnitAs(a));
+        assertTrue(c.hasSameUnitAs(b));
+        assertTrue(c.hasSameUnitAs(c));
+        assertTrue(d.hasSameUnitAs(d));
+        assertFalse(a.hasSameUnitAs(d));
+        assertFalse(b.hasSameUnitAs(d));
+        assertFalse(c.hasSameUnitAs(d));
+        assertFalse(d.hasSameUnitAs(a));
+        assertFalse(d.hasSameUnitAs(b));
+        assertFalse(d.hasSameUnitAs(c));
     }
 
     @Test
@@ -140,26 +142,24 @@ public class IngredientQuantityTest {
         assertThrows(IllegalArgumentException.class, () -> f.subtract(e));
 
         assertEquals("0.75 cup", a.subtract(b).toString());
-        //assertEquals("0 cup", a.subtract(c).toString());
+        assertThrows(NonPositiveIngredientQuantityException.class, () -> a.subtract(c).toString());
         assertEquals("1/4 cup", a.subtract(d).toString());
-        //assertEquals("0 cup", a.subtract(e).toString());
+        assertThrows(NonPositiveIngredientQuantityException.class, () -> a.subtract(e).toString());
 
-        /*
-        assertEquals("0 cup", b.subtract(a).toString());
-        assertEquals("0 cup", b.subtract(c).toString());
-        assertEquals("0 cup", b.subtract(d).toString());
-        assertEquals("0 cup", b.subtract(e).toString());
-        */
+        assertThrows(NonPositiveIngredientQuantityException.class, () -> b.subtract(a).toString());
+        assertThrows(NonPositiveIngredientQuantityException.class, () -> b.subtract(c).toString());
+        assertThrows(NonPositiveIngredientQuantityException.class, () -> b.subtract(d).toString());
+        assertThrows(NonPositiveIngredientQuantityException.class, () -> b.subtract(e).toString());
 
         assertEquals("0.2 cup", c.subtract(a).toString());
         assertEquals("0.95 cup", c.subtract(b).toString());
         assertEquals("0.45 cup", c.subtract(d).toString());
-        //assertEquals("0 cup", c.subtract(e).toString());
+        assertThrows(NonPositiveIngredientQuantityException.class, () -> c.subtract(e).toString());
 
-        //assertEquals("0 cup", d.subtract(a).toString());
+        assertThrows(NonPositiveIngredientQuantityException.class, () -> d.subtract(a).toString());
         assertEquals("1/2 cup", d.subtract(b).toString());
-        //assertEquals("0 cup", d.subtract(c).toString());
-        //assertEquals("0 cup", d.subtract(e).toString());
+        assertThrows(NonPositiveIngredientQuantityException.class, () -> d.subtract(c).toString());
+        assertThrows(NonPositiveIngredientQuantityException.class, () -> d.subtract(e).toString());
 
         assertEquals("1 1/2 cup", e.subtract(a).toString());
         assertEquals("2 1/4 cup", e.subtract(b).toString());

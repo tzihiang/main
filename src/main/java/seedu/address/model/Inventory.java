@@ -22,6 +22,6 @@ public class Inventory extends IngredientList implements ReadOnlyInventory {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Inventory // instanceof handles nulls
-                && this.getUniqueIngredientList().equals(((Inventory) other).getUniqueIngredientList()));
+                && this.getCompatibleIngredientList().equals(((Inventory) other).getCompatibleIngredientList()));
     }
 }

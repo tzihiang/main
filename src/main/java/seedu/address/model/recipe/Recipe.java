@@ -116,14 +116,14 @@ public class Recipe {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Description: ")
+                .append("\nDescription: ")
                 .append(getDescription())
-                .append(" Ingredients: ")
+                .append("\nIngredients: ")
                 .append(getIngredients())
-                .append(" Preparation Steps: ")
+                .append("\nPreparation Steps:")
                 .append(getSteps())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append("\nTags:");
+        getTags().forEach(tag -> builder.append(" ").append(tag.toString()));
         return builder.toString();
     }
 
