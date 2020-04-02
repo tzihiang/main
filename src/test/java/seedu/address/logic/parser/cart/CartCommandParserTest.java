@@ -16,13 +16,13 @@ import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 
 public class CartCommandParserTest {
-    private static final String VALID_ADD_INGREDIENT_ARGUMENT = " add i/Ingredient q/5";
+    private static final String VALID_ADD_INGREDIENT_ARGUMENT = " add ingredient i/Ingredient q/5";
     private static final Ingredient VALID_INGREDIENT = new Ingredient(new IngredientName("Ingredient"),
             new IngredientQuantity("5"));
-    private static final Index VALID_RECIPE_INDEX = new Index(1);
+    private static final Index VALID_RECIPE_INDEX = new Index(0);
     private static final String VALID_ADD_RECIPE_ARGUMENT = "add recipe 1";
-    private static final String VALID_CLEAR_ARGUMENT = "clear";
-    private static final String VALID_REMOVE_INGREDIENT_ARGUMENT = "remove i/Ingredient q/5";
+    private static final String VALID_CLEAR_ARGUMENT = "clear recipe";
+    private static final String VALID_REMOVE_INGREDIENT_ARGUMENT = "remove ingredient i/Ingredient q/5";
     private static final String INVALID_ARGUMENT = "Invalid argument";
 
     @Test

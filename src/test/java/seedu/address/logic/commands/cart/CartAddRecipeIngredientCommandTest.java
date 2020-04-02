@@ -19,8 +19,8 @@ import seedu.address.model.ModelManager;
 
 public class CartAddRecipeIngredientCommandTest {
 
-    private static final Index VALID_RECIPE_INDEX = new Index(1);
-    private static final Index ZERO_RECIPE_INDEX = new Index(0);
+    private static final Index VALID_RECIPE_INDEX = new Index(0);
+    private static final Index INVALID_RECIPE_INDEX = new Index(100000);
 
     @Test
     public void constructor_validInput() {
@@ -33,13 +33,13 @@ public class CartAddRecipeIngredientCommandTest {
         CartAddRecipeIngredientCommand c = new CartAddRecipeIngredientCommand(VALID_RECIPE_INDEX);
         Model model = new ModelManager();
         model.addCookbookRecipe(CARBONARA);
-        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, VALID_RECIPE_INDEX)));
+        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, CARBONARA.getName())));
 
         // after adding multiple recipes
         model.addCookbookRecipe(AGLIO_OLIO);
         model.addCookbookRecipe(SCRAMBLED_EGG);
         model.addCookbookRecipe(SPAGHETTI_BOLOGNESE);
-        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, VALID_RECIPE_INDEX)));
+        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, CARBONARA.getName())));
 
     }
 
@@ -48,7 +48,7 @@ public class CartAddRecipeIngredientCommandTest {
         Model model = new ModelManager();
 
         // invalid index
-        CartAddRecipeIngredientCommand c = new CartAddRecipeIngredientCommand(ZERO_RECIPE_INDEX);
+        CartAddRecipeIngredientCommand c = new CartAddRecipeIngredientCommand(INVALID_RECIPE_INDEX);
         assertThrows(CommandException.class, () -> c.execute(model));
 
         // index greater than size of UniqueRecipeList in Cookbook
@@ -60,7 +60,7 @@ public class CartAddRecipeIngredientCommandTest {
     public void equalsMethod() {
         CartAddRecipeIngredientCommand c = new CartAddRecipeIngredientCommand(VALID_RECIPE_INDEX);
         assertEquals(c, new CartAddRecipeIngredientCommand(VALID_RECIPE_INDEX));
-        assertNotEquals(c, new CartAddRecipeIngredientCommand(ZERO_RECIPE_INDEX));
+        assertNotEquals(c, new CartAddRecipeIngredientCommand(INVALID_RECIPE_INDEX));
         assertNotEquals(c, null);
     }
 }

@@ -63,6 +63,6 @@ public class CartAddRecipeIngredientCommand extends CartAddCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CartAddRecipeIngredientCommand // instanceof handles nulls
-                && (recipeIndex == ((CartAddRecipeIngredientCommand) other).recipeIndex));
+                && (recipeIndex.equals(((CartAddRecipeIngredientCommand) other).recipeIndex)));
     }
 }

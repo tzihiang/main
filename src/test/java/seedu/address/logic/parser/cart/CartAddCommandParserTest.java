@@ -17,11 +17,11 @@ import seedu.address.model.ingredient.IngredientQuantity;
 public class CartAddCommandParserTest {
     private static final Ingredient VALID_INGREDIENT = new Ingredient(new IngredientName("Ingredient"),
             new IngredientQuantity("5"));
-    private static final Index VALID_RECIPE_INDEX = new Index(1);
-    private static final String VALID_INGREDIENT_ARGUMENT = " i/Ingredient q/5";
+    private static final Index VALID_RECIPE_INDEX = new Index(0);
+    private static final String VALID_INGREDIENT_ARGUMENT = "ingredient i/Ingredient q/5";
     private static final String INVALID_INGREDIENT_ARGUMENT_NO_NAME = " q/5";
     private static final String INVALID_INGREDIENT_ARGUMENT_NO_QUANTITY = " i/Ingredient";
-    private static final String VALID_RECIPE_INDEX_ARGUMENT = "1";
+    private static final String VALID_RECIPE_INDEX_ARGUMENT = "recipe 1";
     private static final String INVALID_RECIPE_INDEX_ARGUMENT_NO_RECIPE = "word";
     private static final String INVALID_ARGUMENT = " Invalid argument";
 
@@ -30,7 +30,6 @@ public class CartAddCommandParserTest {
         CartAddCommandParser c = new CartAddCommandParser();
         assertEquals(c.parse(VALID_INGREDIENT_ARGUMENT), new CartAddIngredientCommand(VALID_INGREDIENT));
         assertEquals(c.parse(VALID_RECIPE_INDEX_ARGUMENT), new CartAddRecipeIngredientCommand(VALID_RECIPE_INDEX));
-
     }
 
     @Test
