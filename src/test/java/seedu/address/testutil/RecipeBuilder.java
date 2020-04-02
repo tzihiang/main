@@ -3,9 +3,11 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.RecipeDescription;
 import seedu.address.model.recipe.RecipeName;
+import seedu.address.model.step.UniqueStepList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -19,11 +21,15 @@ public class RecipeBuilder {
 
     private RecipeName recipeName;
     private RecipeDescription recipeDescription;
+    private UniqueIngredientList ingredients;
+    private UniqueStepList steps;
     private Set<Tag> tags;
 
     public RecipeBuilder() {
         recipeName = new RecipeName(DEFAULT_RECIPE_NAME);
         recipeDescription = new RecipeDescription(DEFAULT_RECIPE_DESCRIPTION);
+        ingredients = new UniqueIngredientList();
+        steps = new UniqueStepList();
         tags = new HashSet<>();
     }
 
@@ -33,6 +39,8 @@ public class RecipeBuilder {
     public RecipeBuilder(Recipe recipeToCopy) {
         this.recipeName = recipeToCopy.getName();
         this.recipeDescription = recipeToCopy.getDescription();
+        this.ingredients = recipeToCopy.getIngredients();
+        this.steps = recipeToCopy.getSteps();
         this.tags = new HashSet<>(recipeToCopy.getTags());
     }
 
@@ -41,7 +49,7 @@ public class RecipeBuilder {
      * @param recipeName
      */
     public RecipeBuilder withRecipeName(String recipeName) {
-        this.recipeName = new RecipeName(recipeName.toString());
+        this.recipeName = new RecipeName(recipeName);
         return this;
     }
 
@@ -50,7 +58,7 @@ public class RecipeBuilder {
      * @param recipeDescription
      */
     public RecipeBuilder withRecipeDescription(String recipeDescription) {
-        this.recipeDescription = new RecipeDescription(recipeDescription.toString());
+        this.recipeDescription = new RecipeDescription(recipeDescription);
         return this;
     }
 
@@ -63,6 +71,6 @@ public class RecipeBuilder {
     }
 
     public Recipe build() {
-        return new Recipe(recipeName, recipeDescription);
+        return new Recipe(recipeName, recipeDescription, ingredients, steps, tags);
     }
 }
