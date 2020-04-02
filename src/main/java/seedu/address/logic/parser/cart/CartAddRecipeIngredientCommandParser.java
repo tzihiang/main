@@ -21,14 +21,18 @@ public class CartAddRecipeIngredientCommandParser implements Parser<CartCommand>
      * @throws ParseException if the user input does not conform the expected format
      */
     public CartAddRecipeIngredientCommand parse(String args) throws ParseException {
-
         requireNonNull(args);
-
         int recipeNumber;
 
+        if (!hasOnlyRecipePrefixAndIndex(args)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    CartAddCommand.MESSAGE_USAGE));
+        }
+
         try {
+            args = removeRecipePrefix(args);
             recipeNumber = Integer.parseInt(args);
-        } catch (NumberFormatException ne) {
+        } catch (NumberFormatException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     CartAddCommand.MESSAGE_USAGE));
         }
@@ -36,4 +40,12 @@ public class CartAddRecipeIngredientCommandParser implements Parser<CartCommand>
         return new CartAddRecipeIngredientCommand(recipeNumber);
     }
 
+    private static boolean hasOnlyRecipePrefixAndIndex(String args) {
+        String[] split = args.trim().split(" ");
+        return (split.length == 2) && (split[0].toLowerCase().equals("recipe"));
+    }
+
+    private String removeRecipePrefix(String args) {
+        return args.trim().split(" ", 2)[1];
+    }
 }

@@ -51,7 +51,6 @@ public class RecipeRemoveIngredientCommand extends RecipeRemoveCommand {
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
         UniqueIngredientList ingredients = recipeToEdit.getIngredients();
         ingredients.remove(toRemove);
-        System.out.println(ingredients);
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
         editRecipeDescriptor.setIngredients(ingredients);
         Recipe editedRecipe = EditRecipeDescriptor.createEditedRecipe(recipeToEdit, editRecipeDescriptor);

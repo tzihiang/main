@@ -27,5 +27,4 @@ public class RecipeNameContainsKeywordsPredicate implements Predicate<Recipe> {
                 || (other instanceof RecipeNameContainsKeywordsPredicate // instanceof handles nulls
                 && keywords.equals(((RecipeNameContainsKeywordsPredicate) other).keywords)); // state check
     }
-
 }

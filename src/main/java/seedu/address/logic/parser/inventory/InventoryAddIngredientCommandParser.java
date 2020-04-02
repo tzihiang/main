@@ -5,15 +5,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 
-import java.util.stream.Stream;
-
 import seedu.address.logic.commands.inventory.InventoryAddIngredientCommand;
 import seedu.address.logic.commands.inventory.InventoryCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
@@ -35,7 +32,7 @@ public class InventoryAddIngredientCommandParser implements Parser<InventoryComm
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INGREDIENT_NAME)
+        if (!argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     InventoryAddIngredientCommand.MESSAGE_USAGE));
@@ -49,13 +46,5 @@ public class InventoryAddIngredientCommandParser implements Parser<InventoryComm
         Ingredient ingredient = new Ingredient(ingredientName, ingredientQuantity);
 
         return new InventoryAddIngredientCommand(ingredient);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

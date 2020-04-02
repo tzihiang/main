@@ -8,51 +8,35 @@ Package Model <<Rectangle>>{
 Interface ReadOnlyCookbook <<Interface>>
 Interface ReadOnlyInventory <<Interface>>
 Interface ReadOnlyCart <<Interface>>
-Interface ReadOnlyIngredientList <<Interface>>
+Interface ReadOnlyUserPrefs <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class CookingPapa
+Class Cookbook
 Class ReadOnlyCookbook
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
-Class ReadOnlyCart
-Class ReadOnlyIngredientList
-Class ReadOnlyInventory
-
-Package Cart {
-Class Cart
-Class UniqueIngredientList
-}
-
-Package Inventory {
 Class Inventory
-Class UniqueIngredientList
-}
-
-Package Ingredient {
-Class IngredientName
-Class Ingredient
-Class IngredientQuantity
-}
-
-Package Cookbook {
-Class UniqueRecipeList
-Class Cookbook
-}
+Class ReadOnlyInventory
+Class Cart
+Class ReadOnlyCart
+Class IngredientList
 
 Package Recipe {
 Class Recipe
-Class Tag
-Class UniqueStepList
-Class RecipeName
 Class RecipeDescription
+Class RecipeName
+Class UniqueRecipeList
 Class UniqueIngredientList
+Class UniqueStepList
 }
 
-Package UniqueIngredientList {
-Class UniqueIngredientList
+Package Ingredient {
+Class CompatibleIngredientList
+Class Ingredient
+Class IngredientName
+Class IngredientQuantity
 }
 
 Package Step {
@@ -67,33 +51,41 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o--> "1" Cookbook
-ModelManager o--> "1" Cart
-ModelManager o--> "1" Inventory
-
-ModelManager o-left-> "1" UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
-
-Cookbook .left--> UniqueRecipeList
 Cookbook .up.|> ReadOnlyCookbook
-
-Inventory .right--> UniqueIngredientList
 Inventory .up.|> ReadOnlyInventory
-
-Cart --> UniqueIngredientList
 Cart .up.|> ReadOnlyCart
 
-UniqueIngredientList .up.|> ReadOnlyIngredientList
-Recipe --> RecipeName
-Recipe --> RecipeDescription
-Recipe --> UniqueStepList
-Recipe --> Tag
-Recipe -right-> UniqueIngredientList
+ModelManager .up.|> Model
+Model .right.> ObservableList
+ModelManager o-down-> "1" Cookbook
+ModelManager o-left-> "1" UserPrefs
+UserPrefs .up.|> ReadOnlyUserPrefs
+ModelManager o-down-> "1" Inventory
+ModelManager o-down-> "1" Cart
 
-UniqueStepList o--> "*" Step
+Cookbook -[hidden]up-> UserPrefs
 
-UniqueIngredientList o--> "*" Ingredient
+Cookbook *--> "1" UniqueRecipeList
 UniqueRecipeList o--> "*" Recipe
+Recipe *--> RecipeName
+Recipe *--> RecipeDescription
+Recipe *--> UniqueIngredientList
+Recipe *--> UniqueStepList
+Recipe *--> "*" Tag
+
+RecipeName -[hidden]right-> RecipeDescription
+RecipeDescription -[hidden]right-> UniqueStepList
+UniqueStepList -[hidden]right-> UniqueIngredientList
+
+Inventory --|> IngredientList
+Cart --|> IngredientList
+IngredientList *--> "1" CompatibleIngredientList
+CompatibleIngredientList *--> "*" Ingredient
+UniqueIngredientList *--> "*" Ingredient
+Ingredient *--> IngredientName
+Ingredient *--> IngredientQuantity
+
+UniqueStepList *--> "*" Step
+
+ModelManager -->"1" Recipe : filtered list
 @enduml

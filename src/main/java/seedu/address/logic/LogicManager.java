@@ -14,12 +14,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CookingPapaParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyCart;
 import seedu.address.model.ReadOnlyCookbook;
 import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.storage.Storage;
 
@@ -60,11 +58,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
-
-    @Override
     public ReadOnlyCookbook getCookbook() {
         return model.getCookbook();
     }
@@ -77,11 +70,6 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyCart getCart() {
         return model.getCart();
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
     }
 
     @Override
@@ -102,11 +90,6 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Ingredient> getFilteredCart() {
         return model.getFilteredCartIngredientList();
-    }
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
     }
 
     @Override

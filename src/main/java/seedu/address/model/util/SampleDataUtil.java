@@ -14,8 +14,6 @@ import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.model.ingredient.UniqueIngredientList;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.RecipeDescription;
 import seedu.address.model.recipe.RecipeName;
@@ -26,18 +24,6 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code CookingPapa} with sample data.
  */
 public class SampleDataUtil {
-
-    public static Person[] getSamplePersons() {
-        return new Person[]{
-            new Person(new Name("Alex Yeoh"), getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), getTagSet("neighbours")),
-            new Person(new Name("David Li"), getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), getTagSet("colleagues"))
-        };
-    }
-
     public static ReadOnlyCookbook getSampleCookbook() {
         Cookbook sampleCookbook = new Cookbook();
         for (Recipe sampleRecipe : getSampleRecipes()) {
