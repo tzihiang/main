@@ -47,7 +47,8 @@ public class JsonCookbookStorage implements CookbookStorage {
 
         Optional<JsonSerializableCookbook> jsonCookbook = JsonUtil.readJsonFile(
                 filePath, JsonSerializableCookbook.class);
-        if (!jsonCookbook.isPresent()) {
+
+        if (jsonCookbook.isEmpty()) {
             return Optional.empty();
         }
 

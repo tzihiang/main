@@ -1,9 +1,9 @@
 package seedu.address.logic.commands.cookbook;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_RECIPES_LISTED_OVERVIEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEARCH_KEYWORD;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
@@ -14,7 +14,8 @@ import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
  */
 public class CookbookSearchByKeywordCommand extends CookbookSearchCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all recipes whose recipe names contain any of "
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD + ": Finds all recipes "
+            + "whose recipe names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: " + PREFIX_SEARCH_KEYWORD + "KEYWORD\n"
             + "Example: " + COMMAND_WORD + " bacon carbonara";
@@ -30,14 +31,14 @@ public class CookbookSearchByKeywordCommand extends CookbookSearchCommand {
         requireNonNull(model);
         model.updateFilteredCookbookRecipeList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+                String.format(MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredCookbookRecipeList().size()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CookbookSearchByKeywordCommand
-                && predicate.equals(((CookbookSearchByKeywordCommand) other).predicate));
+            || (other instanceof CookbookSearchByKeywordCommand
+            && predicate.equals(((CookbookSearchByKeywordCommand) other).predicate));
     }
 }
 

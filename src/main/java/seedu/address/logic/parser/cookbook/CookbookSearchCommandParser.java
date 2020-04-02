@@ -14,10 +14,9 @@ import seedu.address.logic.commands.cookbook.CookbookSearchCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.recipe.RecipeContainsTagsPredicate;
 import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
-import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new CookbookSearchCommand object
@@ -84,9 +83,10 @@ public class CookbookSearchCommandParser implements Parser<CookbookSearchCommand
                     CookbookSearchByTagCommand.MESSAGE_USAGE));
         }
 
-        Tag toSearch = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
+        String trimmedArgs = argMultimap.getValue(PREFIX_TAG).get();
+        String[] recipeTags = trimmedArgs.split("\\s+");
 
-        return new CookbookSearchByTagCommand(toSearch);
+        return new CookbookSearchByTagCommand(new RecipeContainsTagsPredicate(Arrays.asList(recipeTags)));
     }
 
     /**
@@ -96,7 +96,7 @@ public class CookbookSearchCommandParser implements Parser<CookbookSearchCommand
      */
     public CookbookSearchByInventoryCommand parseSearchByInventory(String args) throws ParseException {
         requireNonNull(args);
-        // TODO
+
         return new CookbookSearchByInventoryCommand();
     }
 

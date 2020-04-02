@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.step.UniqueStepList;
 import seedu.address.model.tag.Tag;
@@ -69,6 +70,22 @@ public class Recipe {
 
     public Set<Tag> getTags() {
         return tags;
+    }
+
+    public String getTagsString() {
+        StringBuilder sb = new StringBuilder();
+        getTags().forEach(tag -> sb.append(" ").append(tag.toString()));
+        return sb.toString().trim().replace("[", "").replace("]", " ");
+    }
+
+    public String getIngredientNameString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (Ingredient i : getIngredients()) {
+            sb.append(i.getName().ingredientName).append(" ");
+        }
+
+        return sb.toString();
     }
 
     /**

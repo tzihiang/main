@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -153,5 +154,15 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    public List<String> getIngredientNamesString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (Ingredient i : internalList) {
+            sb.append(i.getName().ingredientName).append(" ");
+        }
+
+        return Arrays.asList(sb.toString().split("\\s+"));
     }
 }
