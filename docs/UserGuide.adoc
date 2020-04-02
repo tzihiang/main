@@ -96,13 +96,16 @@ This command allows you to view a recipe, the ingredients required, and the step
 
 |`cookbook view recipe 1`
 |Views the details of recipe 1 in the following format: +
-``Selected recipe <NAME> +
-Description: <DESCRIPTION> +
-Ingredients: <INGREDIENTS> +
-Preparation Steps: +
-1: <STEP_1> +
-2: <STEP_2> +
-Tags: [<tag1>] [<tag2>]``
+``Selected recipe <NAME>`` +
+``Description: <DESCRIPTION>`` +
+``Ingredients: <INGREDIENTS>`` +
+``Preparation Steps:`` +
+``1: <STEP_1>`` +
+``2: <STEP_2>`` +
+``.`` +
+``.`` +
+``.`` +
+``Tags: [<tag1>] [<tag2>]``
 |===
 
 ==== Add a new recipe to the cookbook
@@ -116,23 +119,23 @@ If neither of the details is specified, an empty recipe will be added.
 
 |`cookbook add recipe n/Bacon Carbonara d/Italian's finest pasta`
 | Adds a new empty recipe to the cookbook with the following details: +
-``New recipe added: Bacon Carbonara +
-Description: Italian's finest pasta +
-Ingredients: +
-Preparation Steps: +
-Tags:``
+``New recipe added: Bacon Carbonara`` +
+``Description: Italian's finest pasta`` +
+``Ingredients:`` +
+``Preparation Steps:`` +
+``Tags:``
 
 |`cookbook add n/Chicken Ham Sandwich d/Juicy ham sandwiched between crispy toasted bread.
 i/Chicken Ham q/1 slice i/White Bread q/2 slices x/1 s/Toast the bread x/2 s/Grill the ham.
 t/sandwich t/easy`
 |Adds a new recipe to the cookbook with the following details: +
-``New recipe added: Chicken Ham Sandwich +
-Description: Juicy ham sandwiched between crispy toasted bread. +
-Ingredients: 1 slice Chicken Ham, 2 slices White Bread +
-Preparation Steps: +
-1: Toast the bread +
-2: Grill the ham. +
-Tags: [sandwich] [easy]``
+``New recipe added: Chicken Ham Sandwich`` +
+``Description: Juicy ham sandwiched between crispy toasted bread.`` +
+``Ingredients: 1 slice Chicken Ham, 2 slices White Bread`` +
+``Preparation Steps:`` +
+``1: Toast the bread`` +
+``2: Grill the ham.`` +
+``Tags: [sandwich] [easy]``
 |===
 
 ==== Remove a recipe from the cookbook
