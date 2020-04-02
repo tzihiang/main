@@ -6,8 +6,6 @@ package seedu.address.logic.parser;
 public class CliSyntax {
 
     /* Prefix definitions */
-    public static final Prefix PREFIX_NAME = new Prefix("n/"); // AddressBook Person's (TO BE REMOVED)
-
     public static final Prefix PREFIX_SEARCH_KEYWORD = new Prefix("k/");
 
     public static final Prefix PREFIX_RECIPE_NAME = new Prefix("n/");

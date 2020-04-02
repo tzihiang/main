@@ -5,7 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_RECIPES_LISTED_OVERVIE
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.recipe.RecipeContainsIngredientsPredicate;
+import seedu.address.model.recipe.RecipeContainsInventoryIngredientsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -26,7 +26,7 @@ public class CookbookSearchByInventoryCommand extends CookbookSearchCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredCookbookRecipeList(
-                new RecipeContainsIngredientsPredicate(model.getInventory().getIngredientNamesString()));
+                new RecipeContainsInventoryIngredientsPredicate(model.getInventory()));
         return new CommandResult(
                 String.format(MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredCookbookRecipeList().size()));
     }
