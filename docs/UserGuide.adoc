@@ -95,7 +95,14 @@ This command allows you to view a recipe, the ingredients required, and the step
 | Parameters | Result
 
 |`cookbook view recipe 1`
-|Views the details of recipe 1.
+|Views the details of recipe 1 in the following format: +
+``Selected recipe <NAME> +
+Description: <DESCRIPTION> +
+Ingredients: <INGREDIENTS> +
+Preparation Steps: +
+1: <STEP_1> +
+2: <STEP_2> +
+Tags: [<tag1>] [<tag2>]``
 |===
 
 ==== Add a new recipe to the cookbook
@@ -107,19 +114,25 @@ If neither of the details is specified, an empty recipe will be added.
 |===
 |Parameters | Result
 
-|`cookbook add recipe n/Bacon Carbonara + d/Italian's finest pasta`
-| Adds a new empty recipe with the name 'Bacon Carbonara' and description 'Italian's finest pasta'.
+|`cookbook add recipe n/Bacon Carbonara d/Italian's finest pasta`
+| Adds a new empty recipe to the cookbook with the following details: +
+``New recipe added: Bacon Carbonara +
+Description: Italian's finest pasta +
+Ingredients: +
+Preparation Steps: +
+Tags:``
 
 |`cookbook add n/Chicken Ham Sandwich d/Juicy ham sandwiched between crispy toasted bread.
 i/Chicken Ham q/1 slice i/White Bread q/2 slices x/1 s/Toast the bread x/2 s/Grill the ham.
 t/sandwich t/easy`
-|Adds a new recipe with the name 'Chicken Ham Sandwich', description 'Juicy ham sandwiched between
-crispy toasted bread' and the following recipe details. +
-Tags: sandwich, easy +
-Ingredients: Ham, Bread (2 slices) +
+|Adds a new recipe to the cookbook with the following details: +
+``New recipe added: Chicken Ham Sandwich +
+Description: Juicy ham sandwiched between crispy toasted bread. +
+Ingredients: 1 slice Chicken Ham, 2 slices White Bread +
 Preparation Steps: +
-1. Toast the ham +
-2. Grill the bread +
+1: Toast the bread +
+2: Grill the ham. +
+Tags: [sandwich] [easy]``
 |===
 
 ==== Remove a recipe from the cookbook
@@ -212,7 +225,7 @@ If you want to change the quantity of an ingredient after some experimentation, 
 You can remove ingredients that spoil the taste of the dish using this command.
 If the quantity to be removed is not specified, all of the ingredient will be removed.
 
-- Format: `recipe INDEX remove ingredient i/INGREDIENT [q/QUANTITY]`
+- Format: `recipe INDEX remove ingredient i/INGREDIENT q/QUANTITY`
 - Examples:
 |===
 | Parameters | Result
@@ -322,7 +335,7 @@ This command allows you to remove ingredients from your inventory. You may add i
 an additional argument for the quantity you wish to remove. If no additional argument for quantity
 is supplied, that instance of the ingredient will be removed entirely.
 
-- Format: `inventory remove ingredient i/INGREDIENT [q/QUANTITY]`
+- Format: `inventory remove ingredient i/INGREDIENT q/QUANTITY`
 - Examples:
 |===
 | Parameters | Result
@@ -368,7 +381,7 @@ This command allows you to add ingredients to the cart.
 This command allows you to remove ingredients from the cart.
 If the quantity to be removed is not specified, all of the specified ingredient will be removed.
 
-- Format: `cart remove ingredient i/INGREDIENT [q/QUANTITY]`
+- Format: `cart remove ingredient i/INGREDIENT q/QUANTITY`
 - Example:
 |===
 | Parameters | Result
