@@ -20,7 +20,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class InventoryCommandParser implements Parser<InventoryCommand> {
 
     private static final Pattern INVENTORY_COMMAND_ARGUMENT_FORMAT = Pattern
-            .compile(" *(?<commandWord>\\S+)(?<arguments>.*)");
+            .compile(" *(?<commandWord>\\S+\\singredient)(?<arguments>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of a InventoryCommand
