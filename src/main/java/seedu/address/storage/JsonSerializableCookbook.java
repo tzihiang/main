@@ -24,7 +24,7 @@ class JsonSerializableCookbook {
     private final List<JsonAdaptedRecipe> recipes = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given recipes.
+     * Constructs a {@code JsonSerializableCookbook} with the given recipes.
      */
     @JsonCreator
     public JsonSerializableCookbook(@JsonProperty("recipes") List<JsonAdaptedRecipe> recipes) {
@@ -32,16 +32,19 @@ class JsonSerializableCookbook {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyCookbook} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableCookbook}.
      */
     public JsonSerializableCookbook(ReadOnlyCookbook source) {
-        recipes.addAll(source.getRecipeList().stream().map(JsonAdaptedRecipe::new).collect(Collectors.toList()));
+        recipes.addAll(source.getRecipeList()
+                .stream()
+                .map(JsonAdaptedRecipe::new)
+                .collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this cookbook into the model's {@code Cookbook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

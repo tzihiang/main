@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -14,7 +13,7 @@
 
 <?import javafx.scene.layout.BorderPane?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Cooking Papa" minWidth="1200" minHeight="600" onCloseRequest="#handleExit">
+         title="Cooking Papa" minWidth="1000" maxWidth="1000" minHeight="700" onCloseRequest="#handleExit">
     <icons>
         <Image url="@/images/gordon_ramsay_icon.png"/>
     </icons>
@@ -26,7 +25,7 @@
             </stylesheets>
 
             <VBox>
-                <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+                <MenuBar fx:id="menuBar" VBox.vgrow="NEVER" maxWidth="1000">
                     <Menu mnemonicParsing="false" text="File">
                         <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
                     </Menu>
@@ -39,22 +38,22 @@
                     <left>
                         <VBox>
                             <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border"
-                                       minWidth="800" prefWidth="800" maxWidth="800">
+                                       minWidth="600" prefWidth="600" maxWidth="600">
                                 <padding>
                                     <Insets top="5" right="10" bottom="5" left="10"/>
                                 </padding>
                             </StackPane>
 
                             <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                                       minHeight="100" prefHeight="100" maxHeight="100" minWidth="800" prefWidth="800"
-                                       maxWidth="800">
+                                       minHeight="160" prefHeight="160" maxHeight="160" minWidth="600" prefWidth="600"
+                                       maxWidth="600">
                                 <padding>
                                     <Insets top="5" right="10" bottom="5" left="10"/>
                                 </padding>
                             </StackPane>
 
-                            <VBox fx:id="personList" styleClass="pane-with-border" minWidth="800" prefWidth="800"
-                                  maxWidth="800" VBox.vgrow="ALWAYS">
+                            <VBox fx:id="personList" styleClass="pane-with-border" minWidth="600" prefWidth="600"
+                                  maxWidth="600" VBox.vgrow="ALWAYS">
                                 <padding>
                                     <Insets top="10" right="10" bottom="10" left="10"/>
                                 </padding>
@@ -83,10 +82,8 @@
                         </VBox>
                     </right>
                 </BorderPane>
-
                 <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
             </VBox>
-
         </Scene>
     </scene>
 </fx:root>

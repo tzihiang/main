@@ -14,10 +14,10 @@ import seedu.address.model.recipe.Recipe;
  */
 public class CookbookAddCommand extends CookbookCommand {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "add recipe";
 
-    public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
-            + ": Adds a new recipe to the cookbook. "
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD
+            + ": Adds a new recipe to the cookbook.\n"
             + "Parameters: "
             + PREFIX_RECIPE_NAME + "NAME "
             + PREFIX_RECIPE_DESCRIPTION + "DESCRIPTION\n"
@@ -28,7 +28,7 @@ public class CookbookAddCommand extends CookbookCommand {
             + " and bacon topped with salty Parmesan cheese.";
 
     public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This recipe already exists in the cookbook.";
+    public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the cookbook.";
 
     private final Recipe toAdd;
 
@@ -45,7 +45,7 @@ public class CookbookAddCommand extends CookbookCommand {
         requireNonNull(model);
 
         if (model.hasCookbookRecipe(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_RECIPE);
         }
 
         model.addCookbookRecipe(toAdd);

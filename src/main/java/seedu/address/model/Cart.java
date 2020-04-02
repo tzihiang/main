@@ -22,7 +22,7 @@ public class Cart extends IngredientList implements ReadOnlyCart {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Cart // instanceof handles nulls
-                && this.getUniqueIngredientList().equals(((Cart) other).getUniqueIngredientList()));
+                && this.getCompatibleIngredientList().equals(((Cart) other).getCompatibleIngredientList()));
     }
 
 }

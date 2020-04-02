@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-F11-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-CS2103T-F11-4`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
@@ -47,8 +47,8 @@ The following class plays an important role at the architecture level:
 
 The rest of the App consists of four components.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Ui,*`UI`*>>: Controls the user interface of the App.
+* <<Design-Logic,*`Logic`*>>: Executes the commands of the App.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
@@ -65,9 +65,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `cookbook remove recipe 2`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `cookbook remove recipe 2` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -99,16 +99,16 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `CookingPapaParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a recipe).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("cookbook remove recipe 2")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `cookbook remove recipe 2` Command
+image::CookbookRemoveRecipeSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -123,12 +123,12 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Cookbook data.
+* exposes an unmodifiable `ObservableList<Recipe>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Cookbook`, which `Recipe` can reference. This would allow `Cookbook` to only require one `Tag` object per unique `Tag`, instead of each `Recipe` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -179,18 +179,18 @@ The following sequence diagram shows how the recipe adding function works (full 
 image::CookbookAddRecipeSequenceDiagram.png[]
 
 ==== How the feature works
-Step 1: Input the command in the command box and hit kbd:[Enter] on the keyboard.
+Step 1: Input the command in the command box, then hit kbd:[Enter] on the keyboard. The command is as follows:
+`cookbook add recipe n/Recipe name d/Recipe description i/Ingredient 1 q/1 piece i/Ingredient 2 q/20 ml x/1 s/Do step 1 x/2 s/Do step 2 t/This t/Is t/A t/Tag`.
 
 image::CookbookAddRecipe1.png[]
 
 Step 2: Results will be parsed and displayed back to the user.
 
 image::CookbookAddRecipe2.png[]
-image::CookbookAddRecipe3.png[]
 
 Step 3: The newly added recipe will now appear in the recipes panel, which a brief overview, consisting of its name, description, and tags.
 
-image::CookbookAddRecipe4.png[]
+image::CookbookAddRecipe3.png[]
 
 ==== Design considerations
 ===== Aspect: How to parse optional fields

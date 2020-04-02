@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.step.UniqueStepList;
 import seedu.address.model.tag.Tag;
@@ -71,6 +72,22 @@ public class Recipe {
         return tags;
     }
 
+    public String getTagsString() {
+        StringBuilder sb = new StringBuilder();
+        getTags().forEach(tag -> sb.append(" ").append(tag.toString()));
+        return sb.toString().trim().replace("[", "").replace("]", " ");
+    }
+
+    public String getIngredientNamesString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (Ingredient i : getIngredients()) {
+            sb.append(i.getName().ingredientName).append(" ");
+        }
+
+        return sb.toString();
+    }
+
     /**
      * Returns true if both recipes have the same name.
      * This defines a weaker notion of equality between two recipes.
@@ -116,14 +133,14 @@ public class Recipe {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Description: ")
+                .append("\nDescription: ")
                 .append(getDescription())
-                .append(" Ingredients: ")
+                .append("\nIngredients: ")
                 .append(getIngredients())
-                .append(" Preparation Steps: ")
+                .append("\nPreparation Steps:")
                 .append(getSteps())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append("\nTags:");
+        getTags().forEach(tag -> builder.append(" ").append(tag.toString()));
         return builder.toString();
     }
 

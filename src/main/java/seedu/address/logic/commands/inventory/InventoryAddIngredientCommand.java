@@ -15,7 +15,7 @@ import seedu.address.model.ingredient.Ingredient;
 
 public class InventoryAddIngredientCommand extends InventoryCommand {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "add ingredient";
     public static final String MESSAGE_SUCCESS = "New ingredient added: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": This commands allows you to add ingredients to your inventory.\n"
@@ -42,6 +42,7 @@ public class InventoryAddIngredientCommand extends InventoryCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        // TODO create separate message for when a duplicate ingredient is added/updated
         model.addInventoryIngredient(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

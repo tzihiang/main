@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.inventory;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -19,7 +20,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class InventoryCommandParser implements Parser<InventoryCommand> {
 
     private static final Pattern INVENTORY_COMMAND_ARGUMENT_FORMAT = Pattern
-            .compile(" *(?<commandWord>\\S+)(?<arguments>.*)");
+            .compile(" *(?<commandWord>\\S+\\singredient)(?<arguments>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of a InventoryCommand
@@ -27,6 +28,8 @@ public class InventoryCommandParser implements Parser<InventoryCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public InventoryCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+
         final Matcher matcher = INVENTORY_COMMAND_ARGUMENT_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));

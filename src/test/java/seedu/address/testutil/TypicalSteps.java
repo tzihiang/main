@@ -11,9 +11,9 @@ import seedu.address.model.step.Step;
  */
 public class TypicalSteps {
 
-    public static final Step CARBONARA_ONE = new Step("Boil the pasta");
+    public static final Step CARBONARA_ONE = new Step("Boil the pasta.");
     public static final Step CARBONARA_TWO = new Step("Fry pancetta in oil in a frying pan for a few mins "
-            + "until golden and crisp. Add garlic, fry for 1 min, ");
+            + "until golden and crisp. Add garlic, fry for 1 min.");
     public static final Step CARBONARA_THREE = new Step("Turn off the heat.");
     public static final Step CARBONARA_FOUR = new Step("Briefly whisk egg and yolks with most of the Parmesan "
             + "and some seasoning.");

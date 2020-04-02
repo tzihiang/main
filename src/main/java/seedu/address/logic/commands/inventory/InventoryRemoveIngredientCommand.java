@@ -16,7 +16,7 @@ import seedu.address.model.ingredient.Ingredient;
 
 public class InventoryRemoveIngredientCommand extends InventoryCommand {
 
-    public static final String COMMAND_WORD = "remove";
+    public static final String COMMAND_WORD = "remove ingredient";
     public static final String MESSAGE_SUCCESS = "Ingredient removed: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": This commands allows you to remove ingredients to your inventory.\n"
@@ -41,6 +41,7 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        // TODO update result display to show the number of ingredients removed instead of the input
         model.removeInventoryIngredient(toRemove);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));
     }
@@ -51,5 +52,4 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
                 || (other instanceof InventoryRemoveIngredientCommand // instanceof handles nulls
                 && toRemove.equals(((InventoryRemoveIngredientCommand) other).toRemove));
     }
-
 }

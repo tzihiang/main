@@ -73,7 +73,7 @@ public class UniqueStepListTest {
     }
 
     @Test
-    public void setPerson_editedStepHasDifferentDescription_success() {
+    public void setStep_editedStepHasDifferentDescription_success() {
         uniqueStepList.add(TESTSTEP);
         uniqueStepList.setStep(TESTSTEP, TESTSTEP2);
         UniqueStepList expectedUniqueStepList = new UniqueStepList();

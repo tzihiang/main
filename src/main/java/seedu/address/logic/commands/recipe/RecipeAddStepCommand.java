@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.recipe;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import seedu.address.model.step.UniqueStepList;
  */
 public class RecipeAddStepCommand extends RecipeAddCommand {
 
-    public static final String MESSAGE_SUCCESS = "New step added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New step added for %1$s: %2$s";
 
     private final Index recipeIndex;
     private final Index stepIndex;
@@ -40,7 +41,8 @@ public class RecipeAddStepCommand extends RecipeAddCommand {
         List<Recipe> lastShownList = model.getFilteredCookbookRecipeList();
 
         if (recipeIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
+            throw new CommandException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
+                    RecipeAddCommand.MESSAGE_USAGE));
         }
 
         Recipe recipeToEdit = lastShownList.get(recipeIndex.getZeroBased());
@@ -63,7 +65,7 @@ public class RecipeAddStepCommand extends RecipeAddCommand {
         model.setCookbookRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredCookbookRecipeList(PREDICATE_SHOW_ALL_RECIPES);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedRecipe.getName().fullRecipeName, toAdd));
     }
 
     @Override
