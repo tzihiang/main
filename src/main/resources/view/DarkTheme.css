@@ -172,7 +172,7 @@
 
 .result-display {
     -fx-background-color: #f2f2f2;
-    -fx-font-family: "Montserrat";
+    -fx-font-family: "Consolas";
     -fx-font-weight: 400;
     -fx-font-size: 11pt;
     -fx-text-fill: black;
@@ -183,7 +183,7 @@
 }
 
 .status-bar .label {
-    -fx-font-family: "Montserrat";
+    -fx-font-family: "Consolas";
     -fx-text-fill: black;
     -fx-font-weight: 400;
     -fx-padding: 4px;
@@ -224,7 +224,7 @@
 
 .menu-bar .label {
     -fx-font-size: 14pt;
-    -fx-font-family: "Montserrat";
+    -fx-font-family: "Consolas";
     -fx-font-weight: 400;
     -fx-text-fill: black;
     -fx-opacity: 0.9;
@@ -244,20 +244,20 @@
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-background-color: #ebebeb;
-    -fx-font-family: "Montserrat", Helvetica, Arial, sans-serif;
-    -fx-font-size: 11pt;
-    -fx-text-fill: #d8d8d8;
+    -fx-background-color: #defdff;
+    -fx-font-family: "Consolas";
+    -fx-font-size: 9pt;
+    -fx-text-fill: black;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
 .button:hover {
-    -fx-background-color: #ebebeb;
+    -fx-background-color: #9ab7d3;
 }
 
 .button:pressed, .button:default:hover:pressed {
-  -fx-background-color: #ebebeb;
-  -fx-text-fill: #1d1d1d;
+  -fx-background-color: #9ab7d3;
+  -fx-text-fill: black;
 }
 
 .button:focused {
@@ -350,7 +350,7 @@
     -fx-border-color: #383838 #383838 #ffffff #383838;
     -fx-border-insets: 0;
     -fx-border-width: 1;
-    -fx-font-family: "Montserrat";
+    -fx-font-family: "Consolas";
     -fx-font-weight: 400;
     -fx-font-size: 13pt;
     -fx-text-fill: black;
