@@ -62,9 +62,7 @@ public class RecipeAddStepCommand extends RecipeAddCommand {
             }
             targetStepList.add(stepIndex.get(), toAdd);
         } else {
-            newStepIndex = new Index(targetStepList
-                    .asUnmodifiableObservableList().size());
-            targetStepList.add(newStepIndex, toAdd);
+            targetStepList.add(toAdd);
         }
 
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();

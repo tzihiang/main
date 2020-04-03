@@ -104,8 +104,6 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
      */
     public RecipeAddStepCommand parseAddStep(String args) throws ParseException {
         Index recipeIndex;
-        Optional<Index> stepIndex;
-        Step toAdd;
 
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION);
@@ -122,6 +120,8 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
                     RecipeAddCommand.MESSAGE_USAGE));
         }
 
+        Optional<Index> stepIndex = Optional.empty();
+        Step toAdd;
         String stepVariable = argMultimap.getValue(PREFIX_STEP_INDEX).get();
 
         if (!stepVariable.equals("next")) {
@@ -131,8 +131,6 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
                 throw new ParseException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
                         RecipeAddCommand.MESSAGE_USAGE), pe);
             }
-        } else {
-            stepIndex = Optional.empty();
         }
 
         toAdd = ParserUtil.parseStep(argMultimap
