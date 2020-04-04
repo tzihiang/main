@@ -139,6 +139,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Ingredient findCartIngredient(Ingredient ingredient) {
+        return this.cart.find(ingredient);
+    }
+
+    @Override
     public boolean hasCookbookRecipe(Recipe recipe) {
         requireNonNull(recipe);
         return cookbook.hasRecipe(recipe);

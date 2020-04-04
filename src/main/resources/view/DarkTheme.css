@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=latin-ext,vietnamese');
-@import url('https://fonts.googleapis.com/css?family=Rock+Salt:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=latin-ext,vietnamese');
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=latin-ext,vietnamese');
+@import url('https://fonts.googleapis.com/css?family=Lato:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=latin-ext,vietnamese');
 
 .background {
 
@@ -9,7 +10,7 @@
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Montserrat";
+    -fx-font-family: "Lato";
     -fx-font-weight: 400;
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
@@ -17,7 +18,7 @@
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Montserrat";
+    -fx-font-family: "Lato";
     -fx-font-weight: 400;
     -fx-text-fill: black;
     -fx-opacity: 1;
@@ -25,7 +26,7 @@
 
 .label-header {
     -fx-font-size: 32pt;
-    -fx-font-family: "Montserrat";
+    -fx-font-family: "Lato";
     -fx-font-weight: 400;
     -fx-text-fill: black;
     -fx-opacity: 1;
@@ -33,7 +34,7 @@
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Montserrat";
+    -fx-font-family: "Lato";
     -fx-font-weight: 400;
 }
 
@@ -75,7 +76,7 @@
 
 .table-view .column-header .label {
     -fx-font-size: 20pt;
-    -fx-font-family: "Montserrat";
+    -fx-font-family: "Lato";
     -fx-font-weight: 400;
     -fx-text-fill: black;
     -fx-alignment: center-left;
@@ -134,23 +135,23 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Montserrat";
-    -fx-font-size: 14px;
+    -fx-font-family: "Lato";
+    -fx-font-size: 18px;
     -fx-text-fill: black;
 }
 
 .cell_small_label {
-    -fx-font-family: "Montserrat";
-    -fx-font-size: 12px;
+    -fx-font-family: "Lato";
+    -fx-font-size: 14px;
     -fx-font-weight: 400;
     -fx-text-fill: black;
     -fx-font-style: italic;
 }
 
 .cell_header_label {
-    -fx-font-family: "Rock Salt";
-    -fx-font-weight: 900;
-    -fx-font-size: 17px;
+    -fx-font-family: "Permanent Marker";
+    -fx-font-weight: 400;
+    -fx-font-size: 30px;
     -fx-text-fill: black;
     -text-alignment: center;
 }

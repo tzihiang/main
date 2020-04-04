@@ -166,6 +166,10 @@ public interface Model {
      */
     void setCartIngredient(Ingredient target, Ingredient editedIngredient);
 
+    /**
+     * Finds the ingredient with the same ingredient name as the input ingredient.
+     */
+    public Ingredient findCartIngredient(Ingredient ingredient);
     /** Returns an unmodifiable view of the filtered cookbook recipe list */
     ObservableList<Recipe> getFilteredCookbookRecipeList();
 

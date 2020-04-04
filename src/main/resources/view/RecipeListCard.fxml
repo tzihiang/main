@@ -43,6 +43,7 @@
                             <Label fx:id="description" text="\$second" wrapText="true"
                                    styleClass="cell_small_label"/>
                         </VBox>
+                        <Label/>
                         <FlowPane fx:id="tags"/>
                     </VBox>
                 </center>
