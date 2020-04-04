@@ -14,7 +14,7 @@ import seedu.address.model.recipe.Recipe;
  */
 public class CookbookAddCommand extends CookbookCommand {
 
-    public static final String COMMAND_WORD = "add recipe";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": Adds a new recipe to the cookbook.\n"
