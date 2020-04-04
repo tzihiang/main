@@ -16,7 +16,7 @@ import seedu.address.model.recipe.Recipe;
  */
 public class CookbookViewCommand extends CookbookCommand {
 
-    public static final String COMMAND_WORD = "view recipe";
+    public static final String COMMAND_WORD = "view";
 
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": views the recipe identified by the index number used in the displayed recipe list.\n"

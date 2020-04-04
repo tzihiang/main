@@ -11,7 +11,7 @@ import seedu.address.model.Model;
  */
 public class CookbookListCommand extends CookbookCommand {
 
-    public static final String COMMAND_WORD = "list recipe";
+    public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": Shows the list of recipes in the cookbook.\n"
