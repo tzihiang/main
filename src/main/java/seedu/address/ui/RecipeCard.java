@@ -28,7 +28,7 @@ public class RecipeCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public Recipe recipe;
+    private Recipe recipe;
     private boolean isFullyDisplayed;
 
     @FXML
@@ -57,6 +57,9 @@ public class RecipeCard extends UiPart<Region> {
         }
     }
 
+    /**
+     * Initializes the creation of a {@code RecipeCard}.
+     */
     public void init(Recipe recipe, int displayedIndex) {
         this.recipe = recipe;
         id.setText(displayedIndex + ". ");
