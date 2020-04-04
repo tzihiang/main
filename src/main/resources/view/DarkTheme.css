@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=latin-ext,vietnamese');
+@import url('https://fonts.googleapis.com/css?family=Rock+Salt:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=latin-ext,vietnamese');
 
 .background {
 
@@ -134,22 +135,22 @@
 
 .cell_big_label {
     -fx-font-family: "Montserrat";
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
     -fx-text-fill: black;
 }
 
 .cell_small_label {
     -fx-font-family: "Montserrat";
-    -fx-font-size: 13px;
+    -fx-font-size: 12px;
     -fx-font-weight: 400;
     -fx-text-fill: black;
     -fx-font-style: italic;
 }
 
 .cell_header_label {
-    -fx-font-family: "Montserrat";
+    -fx-font-family: "Rock Salt";
     -fx-font-weight: 900;
-    -fx-font-size: 20px;
+    -fx-font-size: 17px;
     -fx-text-fill: black;
     -text-alignment: center;
 }
@@ -167,7 +168,7 @@
 }
 
 .status-bar {
-    -fx-background-color: #9ab7d3;
+    -fx-background-color: #bdd0c4;
 }
 
 .result-display {
@@ -240,15 +241,14 @@
  * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
  */
 .button {
-    -fx-padding: 5 22 5 22;
-    -fx-border-color: #e2e2e2;
-    -fx-border-width: 2;
+    -fx-padding: 5 5 5 5;
     -fx-background-radius: 0;
-    -fx-background-color: #defdff;
+    -fx-background-color: transparent;
     -fx-font-family: "Consolas";
     -fx-font-size: 9pt;
     -fx-text-fill: black;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
+    -fx-background-radius: 12.5em;
 }
 
 .button:hover {
@@ -261,10 +261,9 @@
 }
 
 .button:focused {
-    -fx-border-color: white, white;
-    -fx-border-width: 1, 1;
-    -fx-border-style: solid, segments(1, 1);
-    -fx-border-radius: 0, 0;
+    -fx-border-color: white;
+    -fx-border-radius:12.5em;
+    -fx-border-style: solid;
     -fx-border-insets: 1 1 1 1, 0;
 }
 

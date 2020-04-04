@@ -47,7 +47,6 @@ public class RecipeListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 int newIndex = getIndex() + 1;
-                System.out.println(newIndex + " " + recipeIndex);
                 if (newIndex == recipeIndex) {
                     setGraphic(new RecipeCard(recipe, newIndex, true).getRoot());
                 } else {
