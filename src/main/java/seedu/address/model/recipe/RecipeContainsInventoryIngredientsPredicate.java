@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.fraction.MixedFraction;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.ReadOnlyInventory;
@@ -37,7 +36,11 @@ public class RecipeContainsInventoryIngredientsPredicate implements Predicate<Re
      * @return MixedFraction
      */
     public MixedFraction calculateSimilarity(Recipe recipe){
-        // This will filter the available ingredients that particular recipe has that is in the inventory
+        //This is to handle a scenario if the recipe has no ingredients.
+        if (recipe.getIngredients().asUnmodifiableObservableList().size() == 0) {
+            return new MixedFraction(0,1);
+        }
+        //This will filter the available ingredients that particular recipe has that is in the inventory
         List<Ingredient> availableIngredients = recipe.getIngredients()
                 .asUnmodifiableObservableList().stream()
                 .filter(recipeIngredient -> inventory.getIngredientList().stream()
