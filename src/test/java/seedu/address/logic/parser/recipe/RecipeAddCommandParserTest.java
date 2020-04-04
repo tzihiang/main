@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -28,7 +30,7 @@ public class RecipeAddCommandParserTest {
     private static final String VALID_PARSE_ADD_INGREDIENT_ARGUMENT = "1 i/Ingredient q/5";
 
     private static final Step VALID_STEP = new Step("Step");
-    private static final Index VALID_STEP_INDEX = new Index(0);
+    private static final Optional<Index> VALID_STEP_INDEX = Optional.of(new Index(0));
     private static final String VALID_ADD_STEP_ARGUMENT = "1 step x/1 s/Step";
     private static final String INVALID_ADD_STEP_ARGUMENT_NO_RECIPE_INDEX = "step x/1 s/Step";
     private static final String INVALID_ADD_STEP_ARGUMENT_NO_STEP_INDEX = "1 step x/s";

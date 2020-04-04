@@ -16,17 +16,19 @@ import seedu.address.model.recipe.RecipeContainsTagsPredicate;
 import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
 
 public class CookbookSearchCommandParserTest {
-    private static final String VALID_KEYWORDS_STRING = " k/key words";
+    private static final String VALID_KEYWORDS_STRING = "recipe k/key words";
+    private static final String VALID_KEYWORDS_ARGUMENTS = " k/key words";
     private static final List<String> VALID_KEYWORDS_ONE = Arrays.asList("key", "words");
     private static final RecipeNameContainsKeywordsPredicate VALID_KEYWORD_PREDICATE_ONE =
             new RecipeNameContainsKeywordsPredicate(VALID_KEYWORDS_ONE);
 
-    private static final String VALID_TAGS_STRING = " t/easy difficult";
+    private static final String VALID_TAGS_STRING = "tag t/easy difficult";
+    private static final String VALID_TAGS_ARGUMENTS = " t/easy difficult";
     private static final List<String> VALID_TAGS_ONE = Arrays.asList("easy", "difficult");
     private static final RecipeContainsTagsPredicate VALID_TAG_PREDICATE_ONE =
             new RecipeContainsTagsPredicate(VALID_TAGS_ONE);
 
-    private static final String VALID_INVENTORY_STRING = " inventory";
+    private static final String VALID_INVENTORY_STRING = "inventory";
 
     // TODO add tests for invalid cases (throw ParseException)
 
@@ -47,7 +49,7 @@ public class CookbookSearchCommandParserTest {
 
     @Test
     public void parseSearchByKeyword_validInput() throws ParseException {
-        assertEquals(new CookbookSearchCommandParser().parseSearchByKeyword(VALID_KEYWORDS_STRING),
+        assertEquals(new CookbookSearchCommandParser().parseSearchByKeyword(VALID_KEYWORDS_ARGUMENTS),
             new CookbookSearchByKeywordCommand(VALID_KEYWORD_PREDICATE_ONE));
     }
 
@@ -58,7 +60,7 @@ public class CookbookSearchCommandParserTest {
 
     @Test
     public void parseSearchByTag_validInput() throws ParseException {
-        assertEquals(new CookbookSearchCommandParser().parseSearchByTag(VALID_TAGS_STRING),
+        assertEquals(new CookbookSearchCommandParser().parseSearchByTag(VALID_TAGS_ARGUMENTS),
             new CookbookSearchByTagCommand(VALID_TAG_PREDICATE_ONE));
     }
 

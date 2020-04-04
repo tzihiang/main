@@ -11,7 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 public class CookbookViewCommandParserTest {
     private static final Index VALID_INDEX = new Index(0);
-    private static final String VALID_INDEX_STRING = "1";
+    private static final String VALID_INDEX_STRING = "recipe 1";
     private static final String INVALID_INDEX_STRING = "Invalid index string";
 
     @Test
