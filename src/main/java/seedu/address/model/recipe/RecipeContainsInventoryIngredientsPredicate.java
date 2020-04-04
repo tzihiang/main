@@ -35,10 +35,10 @@ public class RecipeContainsInventoryIngredientsPredicate implements Predicate<Re
      * @param recipe
      * @return MixedFraction
      */
-    public MixedFraction calculateSimilarity(Recipe recipe){
+    public MixedFraction calculateSimilarity(Recipe recipe) {
         //This is to handle a scenario if the recipe has no ingredients.
         if (recipe.getIngredients().asUnmodifiableObservableList().size() == 0) {
-            return new MixedFraction(0,1);
+            return new MixedFraction(0, 1);
         }
         //This will filter the available ingredients that particular recipe has that is in the inventory
         List<Ingredient> availableIngredients = recipe.getIngredients()

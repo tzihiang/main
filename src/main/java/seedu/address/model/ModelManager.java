@@ -254,6 +254,7 @@ public class ModelManager implements Model {
         filteredCartIngredients.setPredicate(predicate);
     }
 
+    // TODO: Update method
     @Override
     public MixedFraction calculateSimilarity(Recipe recipe) {
         return null;
