@@ -27,7 +27,7 @@ public class CookbookAddCommand extends CookbookCommand {
             + PREFIX_RECIPE_DESCRIPTION + "An Italian classic pasta dish with creamy egg sauce"
             + " and bacon topped with salty Parmesan cheese.";
 
-    public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New recipe (index %2$d) added: %1$s";
     public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the cookbook.";
 
     private final Recipe toAdd;
@@ -49,7 +49,8 @@ public class CookbookAddCommand extends CookbookCommand {
         }
 
         model.addCookbookRecipe(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName().fullRecipeName,
+                model.getCookbook().getRecipeList().size()));
     }
 
     @Override
