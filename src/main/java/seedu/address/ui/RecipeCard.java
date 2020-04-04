@@ -52,12 +52,32 @@ public class RecipeCard extends UiPart<Region> {
         displayRecipeOverview();
     }
 
-    private void displayRecipeOverview() {
+    public RecipeCard(Recipe recipe, int displayedIndex, boolean isViewRecipe) {
+        super(FXML);
+        this.recipe = recipe;
+        id.setText(displayedIndex + ". ");
+        recipe.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        displayRecipeOverview();
+
+        if (isViewRecipe) {
+            displayRecipeComplete();
+        }
+    }
+
+    /**
+     * Sets the {@code RecipeCard} to display a brief overview of its {@code Recipe}.
+     */
+    public void displayRecipeOverview() {
         isFullyDisplayed = false;
         name.setText(recipe.getName().fullRecipeName);
         description.setText(recipe.getDescription().fullRecipeDescription);
     }
 
+    /**
+     * Sets the {@code RecipeCard} to display a full overview of its {@code Recipe} when the view button is pressed.
+     */
     @FXML
     private void handleViewButtonAction(ActionEvent event) {
         if (isFullyDisplayed) {
