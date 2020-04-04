@@ -142,6 +142,11 @@ public interface Model {
     void setInventoryIngredient(Ingredient target, Ingredient editedIngredient);
 
     /**
+     * Finds the ingredient with the same ingredient name as the input ingredient.
+     */
+    Ingredient findInventoryIngredient(Ingredient toRemove);
+
+    /**
      * Returns true if an ingredient with the same identity as {@code ingredient} exists in the cart.
      */
     boolean hasCartIngredient(Ingredient ingredient);
@@ -170,6 +175,7 @@ public interface Model {
      * Finds the ingredient with the same ingredient name as the input ingredient.
      */
     public Ingredient findCartIngredient(Ingredient ingredient);
+
     /** Returns an unmodifiable view of the filtered cookbook recipe list */
     ObservableList<Recipe> getFilteredCookbookRecipeList();
 

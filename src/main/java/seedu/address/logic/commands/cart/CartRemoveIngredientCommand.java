@@ -15,7 +15,7 @@ import seedu.address.model.ingredient.IngredientQuantity;
 public class CartRemoveIngredientCommand extends CartCommand {
 
     public static final String COMMAND_WORD = "remove";
-    public static final String MESSAGE_SUCCESS = "Ingredient removed: %1$s of %2$s";
+    public static final String MESSAGE_SUCCESS = "Ingredient removed from cart: %1$s of %2$s";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
             + "This commands allows you to remove ingredients from your cart.\n"
             + "Parameters for removing an ingredient into your cart is as follows: \n"
