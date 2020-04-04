@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_RECIPES_LISTED_OVERVIE
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.RecipeContainsInventoryIngredientsPredicate;
 
 /**
