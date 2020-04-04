@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -102,10 +103,10 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public RecipeAddStepCommand parseAddStep(String args) throws ParseException {
+        Index recipeIndex;
+
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION);
-
-        Index recipeIndex;
 
         try {
             recipeIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -119,9 +120,20 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
                     RecipeAddCommand.MESSAGE_USAGE));
         }
 
-        Index stepIndex = ParserUtil.parseIndex(argMultimap
-                .getValue(PREFIX_STEP_INDEX).get());
-        Step toAdd = ParserUtil.parseStep(argMultimap
+        Optional<Index> stepIndex = Optional.empty();
+        Step toAdd;
+        String stepVariable = argMultimap.getValue(PREFIX_STEP_INDEX).get();
+
+        if (!stepVariable.equals("next")) {
+            try {
+                stepIndex = Optional.of(ParserUtil.parseIndex(stepVariable));
+            } catch (ParseException pe) {
+                throw new ParseException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
+                        RecipeAddCommand.MESSAGE_USAGE), pe);
+            }
+        }
+
+        toAdd = ParserUtil.parseStep(argMultimap
                 .getValue(PREFIX_STEP_DESCRIPTION).get());
 
         return new RecipeAddStepCommand(recipeIndex, stepIndex, toAdd);
@@ -133,10 +145,11 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public RecipeAddTagCommand parseAddTag(String args) throws ParseException {
+        Tag toAdd;
+        Index recipeIndex;
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TAG);
-
-        Index recipeIndex;
 
         try {
             recipeIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -150,7 +163,7 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
                     RecipeAddCommand.MESSAGE_USAGE));
         }
 
-        Tag toAdd = ParserUtil.parseTag(argMultimap
+        toAdd = ParserUtil.parseTag(argMultimap
                 .getValue(PREFIX_TAG).get());
 
         return new RecipeAddTagCommand(recipeIndex, toAdd);
