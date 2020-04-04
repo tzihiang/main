@@ -95,15 +95,11 @@
 
 /* useless */
 .split-pane {
-    -fx-border-radius: 1;
-    -fx-border-width: 1;
     -fx-background-color: #dbdbdb;
 }
 
-/* useless */
+/* for list views */
 .list-view {
-    -fx-background-insets: 0;
-    -fx-padding: 0;
     -fx-background-color: #ffffed;
 }
 
@@ -158,14 +154,30 @@
 
 /* useless */
 .stack-pane {
-     -fx-background-color: #dbdbdb;
+    -fx-background-color: #dbdbdb;
 }
 
 /* overall background */
-.pane-with-border {
+.pane-with-border-command-result {
      -fx-background-color: #defdff;
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
+     -fx-border-color: #bdd0c4;
+     -fx-border-width: 0 4 0 0;
+}
+
+.pane-with-border-recipe {
+     -fx-background-color: #defdff;
+     -fx-border-color: #bdd0c4;
+     -fx-border-width: 4 4 0 0;
+}
+
+.pane-with-border-inventory {
+     -fx-background-color: #defdff;
+     -fx-border-color: #bdd0c4;
+     -fx-border-width: 0 0 4 0;
+}
+
+.pane-without-border {
+     -fx-background-color: #defdff;
 }
 
 .status-bar {
@@ -243,7 +255,6 @@
  */
 .button {
     -fx-padding: 5 5 5 5;
-    -fx-background-radius: 0;
     -fx-background-color: transparent;
     -fx-font-family: "Consolas";
     -fx-font-size: 9pt;
@@ -347,7 +358,7 @@
 #commandTextField {
     -fx-background-color: #ffffed;
     -fx-background-insets: 0;
-    -fx-border-color: #383838 #383838 #ffffff #383838;
+    -fx-border-color: #defdff #defdff #616161 #defdff;
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: "Consolas";
