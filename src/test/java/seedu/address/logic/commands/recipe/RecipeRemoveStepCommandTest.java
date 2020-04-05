@@ -70,9 +70,6 @@ public class RecipeRemoveStepCommandTest {
 
         model.addCookbookRecipe(AGLIO_OLIO);
 
-        // removing a non-existent step/ step index out of bounds
-        assertThrows(CommandException.class, () -> c.execute(model));
-
         // recipe index out of bounds
         RecipeRemoveStepCommand d = new RecipeRemoveStepCommand(OUT_OF_BOUNDS_RECIPE_INDEX, VALID_REMOVE_STEP_INDEX);
         assertThrows(CommandException.class, () -> d.execute(model));
