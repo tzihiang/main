@@ -16,7 +16,6 @@ public class InventoryRemoveIngredientCommandParserTest {
         new IngredientQuantity("5"));
     private static final String VALID_INGREDIENT_ARGUMENT = " i/Ingredient q/5";
     private static final String INVALID_INGREDIENT_ARGUMENT_NO_NAME = " q/5";
-    private static final String INVALID_INGREDIENT_ARGUMENT_NO_QUANTITY = " i/Ingredient";
     private static final String INVALID_ARGUMENT = "Invalid argument";
 
     @Test
@@ -37,7 +36,5 @@ public class InventoryRemoveIngredientCommandParserTest {
         assertThrows(ParseException.class, () -> new InventoryRemoveIngredientCommandParser().parse(INVALID_ARGUMENT));
         assertThrows(ParseException.class, () ->
             new InventoryRemoveIngredientCommandParser().parse(INVALID_INGREDIENT_ARGUMENT_NO_NAME));
-        assertThrows(ParseException.class, () ->
-            new InventoryRemoveIngredientCommandParser().parse(INVALID_INGREDIENT_ARGUMENT_NO_QUANTITY));
     }
 }

@@ -87,8 +87,9 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
 
         IngredientName ingredientName = ParserUtil.parseIngredientName(argMultimap
                 .getValue(PREFIX_INGREDIENT_NAME).get());
-        IngredientQuantity ingredientQuantity = ParserUtil.parseIngredientQuantity(argMultimap
-                .getValue(PREFIX_INGREDIENT_QUANTITY).get());
+        IngredientQuantity ingredientQuantity = argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_QUANTITY)
+                ? ParserUtil.parseIngredientQuantity(argMultimap.getValue(PREFIX_INGREDIENT_QUANTITY).get())
+                : IngredientQuantity.getDummyQuantity();
 
         Ingredient ingredient = new Ingredient(ingredientName, ingredientQuantity);
 
