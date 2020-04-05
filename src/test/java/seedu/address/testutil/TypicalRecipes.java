@@ -101,7 +101,7 @@ public class TypicalRecipes {
             .withStep(new StepBuilder("When ice cream is softly frozen, serve immediately or place a "
                     + "piece of plastic wrap directly on the ice cream and place in "
                     + "freezer to ripen, 2 to 3 hours.").build())
-            .withTags("Ice Cream","Beginner")
+            .withTags("Ice Cream", "Beginner")
             .build();
     public static final Recipe SPAGHETTI_BOLOGNESE = new RecipeBuilder().withRecipeName("Spaghetti Bolognese")
             .withRecipeDescription("Jaime Oliver's great version of the classic Italian Bolognese.")
@@ -117,7 +117,7 @@ public class TypicalRecipes {
                     + "of olive oil and once hot add the beef mince and a pinch of salt and pepper. "
                     + "Cook the mince until well browned over a medium high heat. Be careful not to burn the mince. "
                     + "It just needs to be a dark brown colour. Once browned, transfer the "
-                    +"mince to a bowl and set aside.").build())
+                    + "mince to a bowl and set aside.").build())
             .withStep(new StepBuilder("Add another tablespoon of oil to the saucepan you browned the mince "
                     + "in and turn the heat to medium. Add the onions and a pinch of salt and fry gently for "
                     + "5 to 6 minutes, or until softened and translucent. Add the garlic and cook for another "
@@ -127,7 +127,7 @@ public class TypicalRecipes {
                     + "bring to a simmer and then reduce the temperature to simmer gently for 45 minutes,"
                     + "or until the sauce is thick and rich. Taste and adjust the seasoning as necessary.").build())
             .withStep(new StepBuilder("When ready to cook the spaghetti, heat a large saucepan of water "
-                    +"and add a pinch of salt. Cook according to the packet instructions. Once the spaghetti is "
+                    + "and add a pinch of salt. Cook according to the packet instructions. Once the spaghetti is "
                     + "cooked through, drain and add to the pan with the bolognese sauce. "
                     + "Mix well and serve.").build())
             .build();
