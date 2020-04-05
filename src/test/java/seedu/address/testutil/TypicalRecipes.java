@@ -30,18 +30,18 @@ public class TypicalRecipes {
             .withIngredients(new IngredientBuilder().withName("Red Pepper flakes").withQuantity("1 tsp").build())
             .withIngredients(new IngredientBuilder().withName("Parsley").withQuantity("1 Serving").build())
             .withIngredients(new IngredientBuilder().withName("Cheese").withQuantity("200 g").build())
-            .withStep(new StepBuilder("Bring a large pot of lightly salted water to a boil. " +
-                    "Cook spaghetti in the boiling water, stirring occasionally until cooked through " +
-                    "but firm to the bite, about 12 minutes. Drain and transfer to a pasta bowl.").build())
-            .withStep(new StepBuilder("Combine garlic and olive oil in a cold skillet. " +
-                    "Cook over medium heat to slowly toast garlic, about 10 minutes. " +
-                    "Reduce heat to medium-low when olive oil begins to bubble. " +
-                    "Cook and stir until garlic is golden brown, about another 5 minutes. " +
-                    "Remove from heat.").build())
-            .withStep(new StepBuilder("Stir red pepper flakes, black pepper, and salt into the pasta. " +
-                    "Pour in olive oil and garlic, and sprinkle on Italian parsley " +
-                    "and half of the cheese; " +
-                    "stir until combined.").build())
+            .withStep(new StepBuilder("Bring a large pot of lightly salted water to a boil. "
+                    + "Cook spaghetti in the boiling water, stirring occasionally until cooked through "
+                    + "but firm to the bite, about 12 minutes. Drain and transfer to a pasta bowl.").build())
+            .withStep(new StepBuilder("Combine garlic and olive oil in a cold skillet. "
+                    + "Cook over medium heat to slowly toast garlic, about 10 minutes. "
+                    + "Reduce heat to medium-low when olive oil begins to bubble. "
+                    + "Cook and stir until garlic is golden brown, about another 5 minutes. "
+                    + "Remove from heat.").build())
+            .withStep(new StepBuilder("Stir red pepper flakes, black pepper, and salt into the pasta. "
+                    + "Pour in olive oil and garlic, and sprinkle on Italian parsley "
+                    + "and half of the cheese; "
+                    + "stir until combined.").build())
             .withStep(new StepBuilder("Serve pasta topped with the remaining cheese.").build())
             .build();
     public static final Recipe CARBONARA = new RecipeBuilder().withRecipeName("Carbonara")
@@ -53,34 +53,34 @@ public class TypicalRecipes {
             .withIngredients(new IngredientBuilder().withName("Eggs").withQuantity("4").build())
             .withIngredients(new IngredientBuilder().withName("Cheese").withQuantity("200 g").build())
             .withIngredients(new IngredientBuilder().withName("Parsley").withQuantity("1 Serving").build())
-            .withStep(new StepBuilder("In a large pot of boiling salted water, cook spaghetti pasta " +
-                    "until al dente. Drain well. Toss with 1 tablespoon of olive oil, and set aside.").build())
-            .withStep(new StepBuilder("Meanwhile in a large skillet, cook chopped bacon until " +
-                    "slightly crisp; remove and drain onto paper towels. Reserve 2 tablespoons of bacon fat; " +
-                    "add remaining 1 tablespoon olive oil, and heat in reused large skillet. " +
-                    "Add chopped onion, and cook over medium heat until onion is translucent. " +
-                    "Add minced garlic, and cook 1 minute more. Add wine if desired; cook one more minute.").build())
-            .withStep(new StepBuilder("Return cooked bacon to pan; add cooked and drained spaghetti. " +
-                    "Toss to coat and heat through, adding more olive oil if it seems dry or is sticking together. " +
-                    "Add beaten eggs and cook, tossing constantly with tongs or large fork until eggs are barely set. " +
-                    "Quickly add 1/2 cup cheese, and toss again. Add salt and pepper to taste " +
-                    "(remember that bacon and cheese are very salty).").build())
-            .withStep(new StepBuilder("Serve immediately with chopped parsley sprinkled on top, " +
-                    "and extra Parmesan cheese at table.").build())
+            .withStep(new StepBuilder("In a large pot of boiling salted water, cook spaghetti pasta "
+                    + "until al dente. Drain well. Toss with 1 tablespoon of olive oil, and set aside.").build())
+            .withStep(new StepBuilder("Meanwhile in a large skillet, cook chopped bacon until "
+                    + "slightly crisp; remove and drain onto paper towels. Reserve 2 tablespoons of bacon fat; "
+                    + "add remaining 1 tablespoon olive oil, and heat in reused large skillet. "
+                    + "Add chopped onion, and cook over medium heat until onion is translucent. "
+                    + "Add minced garlic, and cook 1 minute more. Add wine if desired; cook one more minute.").build())
+            .withStep(new StepBuilder("Return cooked bacon to pan; add cooked and drained spaghetti. "
+                    + "Toss to coat and heat through, adding more olive oil if it seems dry or is sticking together. "
+                    + "Add beaten eggs and cook, tossing constantly with tongs or large fork "
+                    + "until eggs are barely set. Quickly add 1/2 cup cheese, and toss again. "
+                    + "Add salt and pepper to taste. (remember that bacon and cheese are very salty).").build())
+            .withStep(new StepBuilder("Serve immediately with chopped parsley sprinkled on top, "
+                    + "and extra Parmesan cheese at table.").build())
             .withTags("Pasta", "Italian", "Simple", "Creamy").build();
     public static final Recipe SCRAMBLED_EGG = new RecipeBuilder().withRecipeName("Scrambled Egg")
             .withRecipeDescription("Gordan Ramsay's famous creamy and fluffy scrambled eggs")
             .withIngredients(new IngredientBuilder().withName("Eggs").withQuantity("4").build())
             .withIngredients(new IngredientBuilder().withName("Milk").withQuantity("100ml").build())
             .withIngredients(new IngredientBuilder().withName("Butter").withQuantity("30g").build())
-            .withStep(new StepBuilder("Beat eggs, milk, salt and pepper " +
-                    "in medium bowl until blended.").build())
-            .withStep(new StepBuilder("Heat butter in large nonstick skillet over medium heat until hot. " +
-                    "Pour in egg mixture. As eggs begin to set, gently PULL the eggs across the pan with a spatula, " +
-                    "forming large soft curds.").build())
-            .withStep(new StepBuilder("Continue cooking—pulling, lifting and folding eggs—until thickened " +
-                    "and no visible liquid egg remains. Do not stir constantly. " +
-                    "Remove from heat. Serve immediately.").build())
+            .withStep(new StepBuilder("Beat eggs, milk, salt and pepper "
+                    + "in medium bowl until blended.").build())
+            .withStep(new StepBuilder("Heat butter in large nonstick skillet over medium heat until hot. "
+                    + "Pour in egg mixture. As eggs begin to set, gently PULL the eggs across the pan with a spatula, "
+                    + "forming large soft curds.").build())
+            .withStep(new StepBuilder("Continue cooking—pulling, lifting and folding eggs—until thickened "
+                    + "and no visible liquid egg remains. Do not stir constantly. "
+                    + "Remove from heat. Serve immediately.").build())
             .withTags("Simple", "Celebrity").build();
     public static final Recipe VANILLA_ICE_CREAM = new RecipeBuilder().withRecipeName("Vanilla Ice Cream")
             .withRecipeDescription("A simple and easy to make Vanilla Ice cream recipe anybody can make"
@@ -102,6 +102,34 @@ public class TypicalRecipes {
                     "piece of plastic wrap directly on the ice cream and place in " +
                     "freezer to ripen, 2 to 3 hours.").build())
             .withTags("Ice Cream","Beginner")
+            .build();
+    public static final Recipe SPAGHETTI_BOLOGNESE = new RecipeBuilder().withRecipeName("Spaghetti Bolognese")
+            .withRecipeDescription("Jaime Oliver's great version of the classic Italian Bolognese.")
+            .withIngredients(new IngredientBuilder().withName("Olive Oil").withQuantity("2 tbsp").build())
+            .withIngredients(new IngredientBuilder().withName("Beef").withQuantity("400 g").build())
+            .withIngredients(new IngredientBuilder().withName("Onion").withQuantity("1").build())
+            .withIngredients(new IngredientBuilder().withName("Garlic").withQuantity("2 cloves").build())
+            .withIngredients(new IngredientBuilder().withName("Carrot").withQuantity("100 g").build())
+            .withIngredients(new IngredientBuilder().withName("Tomatoes").withQuantity("800 g").build())
+            .withIngredients(new IngredientBuilder().withName("Beef Stock Cube").withQuantity("1").build())
+            .withIngredients(new IngredientBuilder().withName("Spaghetti").withQuantity("1 Serving").build())
+            .withStep(new StepBuilder("Heat a large saucepan over a medium heat. Add a tablespoon "
+                    + "of olive oil and once hot add the beef mince and a pinch of salt and pepper. "
+                    + "Cook the mince until well browned over a medium high heat. Be careful not to burn the mince. "
+                    + "It just needs to be a dark brown colour. Once browned, transfer the "
+                    +"mince to a bowl and set aside.").build())
+            .withStep(new StepBuilder("Add another tablespoon of oil to the saucepan you browned the mince "
+                    + "in and turn the heat to medium. Add the onions and a pinch of salt and fry gently for "
+                    + "5 to 6 minutes, or until softened and translucent. Add the garlic and cook for another "
+                    + "2 minutes. Add the grated carrot then pour the mince and any juices in the bowl "
+                    + "back into the saucepan.").build())
+            .withStep(new StepBuilder("Add the tomatoes to the pan and stir well to mix. Pour in the stock,"
+                    + "bring to a simmer and then reduce the temperature to simmer gently for 45 minutes,"
+                    + "or until the sauce is thick and rich. Taste and adjust the seasoning as necessary.").build())
+            .withStep(new StepBuilder("When ready to cook the spaghetti, heat a large saucepan of water "
+                    +"and add a pinch of salt. Cook according to the packet instructions. Once the spaghetti is "
+                    + "cooked through, drain and add to the pan with the bolognese sauce. "
+                    + "Mix well and serve.").build())
             .build();
 
     // Manually added
