@@ -33,7 +33,7 @@ public class InventoryRemoveIngredientCommandParser implements Parser<InventoryC
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME)
+        if (!argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     InventoryRemoveIngredientCommand.MESSAGE_USAGE));
