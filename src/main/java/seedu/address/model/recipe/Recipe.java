@@ -81,11 +81,11 @@ public class Recipe {
         return sb.toString().trim().replace("[", "").replace("]", " ");
     }
 
-    public String getIngredientNamesString() {
+    public String getNoWhitespaceIngredientNamesString() {
         StringBuilder sb = new StringBuilder();
 
         for (Ingredient i : getIngredients()) {
-            sb.append(i.getName().ingredientName).append(" ");
+            sb.append(i.getName().ingredientName.replace(" ", "")).append(" ");
         }
 
         return sb.toString();
