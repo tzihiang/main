@@ -89,18 +89,18 @@ public class TypicalRecipes {
             .withIngredients(new IngredientBuilder().withName("Sugar").withQuantity("1 Cup").build())
             .withIngredients(new IngredientBuilder().withName("Half-and-half-cream").withQuantity("2 Cups").build())
             .withIngredients(new IngredientBuilder().withName("Vanilla extract").withQuantity("2 tsp").build())
-            .withStep(new StepBuilder("Stir sugar, cream, and milk into a saucepan over low heat " +
-                    "until sugar has dissolved. Heat just until mix is hot and a " +
-                    "small ring of foam appears around the edge.").build())
-            .withStep(new StepBuilder("Transfer cream mixture to a pourable container such as a large " +
-                    "measuring cup. Stir in vanilla extract and chill mix thoroughly, at least 2 hours. " +
-                    "(Overnight is best.)").build())
-            .withStep(new StepBuilder("Pour cold ice cream mix into an ice cream maker, " +
-                    "turn on the machine, and churn according to manufacturer's directions, " +
-                    "20 to 25 minutes.").build())
-            .withStep(new StepBuilder("When ice cream is softly frozen, serve immediately or place a " +
-                    "piece of plastic wrap directly on the ice cream and place in " +
-                    "freezer to ripen, 2 to 3 hours.").build())
+            .withStep(new StepBuilder("Stir sugar, cream, and milk into a saucepan over low heat "
+                    + "until sugar has dissolved. Heat just until mix is hot and a "
+                    + "small ring of foam appears around the edge.").build())
+            .withStep(new StepBuilder("Transfer cream mixture to a pourable container such as a large "
+                    + "measuring cup. Stir in vanilla extract and chill mix thoroughly, at least 2 hours. "
+                    + "(Overnight is best.)").build())
+            .withStep(new StepBuilder("Pour cold ice cream mix into an ice cream maker, "
+                    + "turn on the machine, and churn according to manufacturer's directions, "
+                    + "20 to 25 minutes.").build())
+            .withStep(new StepBuilder("When ice cream is softly frozen, serve immediately or place a "
+                    + "piece of plastic wrap directly on the ice cream and place in "
+                    + "freezer to ripen, 2 to 3 hours.").build())
             .withTags("Ice Cream","Beginner")
             .build();
     public static final Recipe SPAGHETTI_BOLOGNESE = new RecipeBuilder().withRecipeName("Spaghetti Bolognese")

@@ -19,6 +19,9 @@ public class StepBuilder {
         this.stepName = DEFAULT_STEP_NAME;
     }
 
+    /**
+     * Sets the {@code stepName} to this step's stepName.
+     */
     public StepBuilder editStep(String stepName) {
         this.stepName = stepName;
         return this;
