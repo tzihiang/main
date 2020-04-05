@@ -17,6 +17,7 @@ import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.RecipeDescription;
 import seedu.address.model.recipe.RecipeName;
+import seedu.address.model.step.Step;
 import seedu.address.model.step.UniqueStepList;
 import seedu.address.model.tag.Tag;
 
@@ -24,6 +25,7 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code CookingPapa} with sample data.
  */
 public class SampleDataUtil {
+
     public static ReadOnlyCookbook getSampleCookbook() {
         Cookbook sampleCookbook = new Cookbook();
         for (Recipe sampleRecipe : getSampleRecipes()) {
@@ -66,10 +68,24 @@ public class SampleDataUtil {
     }
 
     public static Recipe[] getSampleRecipes() {
+
+        UniqueIngredientList scrambledEggsIngredients = new UniqueIngredientList();
+        UniqueStepList scrambledEggsSteps = new UniqueStepList();
+        scrambledEggsIngredients.add(new Ingredient(new IngredientName("Eggs"), new IngredientQuantity("4")));
+        scrambledEggsIngredients.add(new Ingredient(new IngredientName("Butter"), new IngredientQuantity("20 g")));
+        scrambledEggsIngredients.add(new Ingredient(new IngredientName("Milk"), new IngredientQuantity("200 ml")));
+        scrambledEggsSteps.add(new Step("Beat eggs, milk, salt and pepper in medium bowl until blended."));
+        scrambledEggsSteps.add(new Step("Heat butter in large nonstick skillet over medium heat until hot. " +
+                "Pour in egg mixture. As eggs begin to set, gently PULL the eggs across the pan with a spatula, " +
+                "forming large soft curds."));
+        scrambledEggsSteps.add(new Step("CONTINUE cooking—pulling, lifting and folding eggs—until thickened " +
+                "and no visible liquid egg remains. Do not stir constantly. " +
+                "Remove from heat. SERVE immediately."));
+
         return new Recipe[]{
             new Recipe(new RecipeName("Scrambled eggs"),
                 new RecipeDescription("Gordan Ramsay's famous creamy and fluffy scrambled eggs."),
-                new UniqueIngredientList(), new UniqueStepList(),
+                    scrambledEggsIngredients, scrambledEggsSteps,
                 getTagSet("Simple", "Celebrity")),
             new Recipe(new RecipeName("Carbonara"),
                 new RecipeDescription("The best dish sold in NUS."),
@@ -95,5 +111,7 @@ public class SampleDataUtil {
                 .map(Tag::new)
                 .collect(Collectors.toSet());
     }
+
+
 
 }
