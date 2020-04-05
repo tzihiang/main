@@ -10,13 +10,11 @@ import static seedu.address.testutil.TypicalIngredients.BUTTER;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
 
 public class CartRemoveIngredientCommandTest {
-
     @Test
     public void constructor_validInput() {
         CartRemoveIngredientCommand c = new CartRemoveIngredientCommand(ALMOND);
@@ -29,13 +27,14 @@ public class CartRemoveIngredientCommandTest {
     }
 
     @Test
-    public void execute_validInput() throws CommandException {
+    public void execute_validInput() {
         CartRemoveIngredientCommand c = new CartRemoveIngredientCommand(ALMOND);
         Model model = new ModelManager();
         model.addCartIngredient(ALMOND);
 
         // removing existing ingredient
-        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, ALMOND)));
+        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS,
+                ALMOND.getQuantity().toString(), ALMOND.getName().ingredientName)));
     }
 
     @Test

@@ -37,22 +37,23 @@
                 <BorderPane>
                     <left>
                         <VBox>
-                            <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border"
+                            <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border-command-result"
                                        minWidth="600" prefWidth="600" maxWidth="600">
                                 <padding>
                                     <Insets top="5" right="10" bottom="5" left="10"/>
                                 </padding>
                             </StackPane>
 
-                            <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                                       minHeight="160" prefHeight="160" maxHeight="160" minWidth="600" prefWidth="600"
+                            <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder"
+                                       styleClass="pane-with-border-command-result"
+                                       minHeight="120" prefHeight="120" maxHeight="120" minWidth="600" prefWidth="600"
                                        maxWidth="600">
                                 <padding>
                                     <Insets top="5" right="10" bottom="5" left="10"/>
                                 </padding>
                             </StackPane>
 
-                            <VBox fx:id="personList" styleClass="pane-with-border" minWidth="600" prefWidth="600"
+                            <VBox fx:id="personList" styleClass="pane-with-border-recipe" minWidth="600" prefWidth="600"
                                   maxWidth="600" VBox.vgrow="ALWAYS">
                                 <padding>
                                     <Insets top="10" right="10" bottom="10" left="10"/>
@@ -64,15 +65,15 @@
 
                     <right>
                         <VBox>
-                            <VBox fx:id="inventoryIngredientList" styleClass="pane-with-border" minWidth="390"
-                                  prefWidth="390" maxWidth="390" VBox.vgrow="ALWAYS">
+                            <VBox fx:id="inventoryIngredientList" styleClass="pane-with-border-inventory" minWidth="390"
+                                  prefWidth="350" maxWidth="390" VBox.vgrow="ALWAYS">
                                 <padding>
                                     <Insets top="10" right="10" bottom="10" left="10"/>
                                 </padding>
                                 <StackPane fx:id="inventoryIngredientListPanelPlaceHolder" HBox.hgrow="ALWAYS"/>
                             </VBox>
 
-                            <VBox fx:id="cartIngredientList1" styleClass="pane-with-border" minWidth="390"
+                            <VBox fx:id="cartIngredientList1" styleClass="pane-without-border" minWidth="390"
                                   prefWidth="390" maxWidth="390" VBox.vgrow="ALWAYS">
                                 <padding>
                                     <Insets top="10" right="10" bottom="10" left="10"/>

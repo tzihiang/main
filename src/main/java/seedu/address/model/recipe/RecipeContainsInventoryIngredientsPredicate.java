@@ -17,7 +17,6 @@ public class RecipeContainsInventoryIngredientsPredicate implements Predicate<Re
     @Override
     public boolean test(Recipe recipe) {
         if (recipe.getIngredientNamesString().length() == 0) {
-            System.out.println(recipe.getIngredientNamesString());
             return false;
         }
 
