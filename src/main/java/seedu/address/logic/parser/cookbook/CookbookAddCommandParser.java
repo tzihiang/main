@@ -12,6 +12,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.cookbook.CookbookAddCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -33,6 +35,8 @@ import seedu.address.model.tag.Tag;
  */
 public class CookbookAddCommandParser implements Parser<CookbookAddCommand> {
 
+    private static final Pattern COOKBOOK_ADD_COMMAND_ARGUMENT_FORMAT = Pattern
+            .compile(" *recipe(?<arguments>.*)");
     /**
      * Parses the given {@code String} of arguments in the context of the CookbookAddCommand
      * and returns a CookbookAddCommand object for execution.
@@ -40,12 +44,19 @@ public class CookbookAddCommandParser implements Parser<CookbookAddCommand> {
      */
     public CookbookAddCommand parse(String args) throws ParseException {
         requireNonNull(args);
+        final Matcher matcher = COOKBOOK_ADD_COMMAND_ARGUMENT_FORMAT.matcher(args.trim());
+
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    CookbookAddCommand.MESSAGE_USAGE));
+        }
+
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION, PREFIX_INGREDIENT_NAME,
                     PREFIX_INGREDIENT_QUANTITY, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION, PREFIX_TAG);
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     CookbookAddCommand.MESSAGE_USAGE));
         }

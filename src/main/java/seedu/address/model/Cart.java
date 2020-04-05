@@ -12,6 +12,7 @@ public class Cart extends IngredientList implements ReadOnlyCart {
         super(toBeCopied);
     }
 
+
     @Override
     public String toString() {
         return getIngredientList().size() + " ingredients";

@@ -5,9 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientQuantity;
 
 /**
  * Removes an ingredient from the cart
@@ -15,7 +15,7 @@ import seedu.address.model.ingredient.Ingredient;
 public class CartRemoveIngredientCommand extends CartCommand {
 
     public static final String COMMAND_WORD = "remove";
-    public static final String MESSAGE_SUCCESS = "Ingredient removed: %1$s";
+    public static final String MESSAGE_SUCCESS = "Ingredient removed from cart: %1$s of %2$s";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
             + "This commands allows you to remove ingredients from your cart.\n"
             + "Parameters for removing an ingredient into your cart is as follows: \n"
@@ -35,11 +35,29 @@ public class CartRemoveIngredientCommand extends CartCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
 
+        Ingredient originalIngredient = null;
+        if (model.getCart().getCompatibleIngredientList().contains(toRemove)) {
+            originalIngredient = model.findCartIngredient(toRemove);
+        }
+
         model.removeCartIngredient(toRemove);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));
+
+        assert originalIngredient != null;
+        IngredientQuantity originalQuantity = originalIngredient.getQuantity();
+        String quantityRemoved;
+
+        if (model.getCart().getCompatibleIngredientList().contains(toRemove)) {
+            IngredientQuantity finalQuantity;
+            finalQuantity = model.findCartIngredient(toRemove).getQuantity();
+            quantityRemoved = originalQuantity.subtract(finalQuantity).toString();
+        } else {
+            quantityRemoved = originalQuantity.toString();
+        }
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, quantityRemoved, toRemove.getName().ingredientName));
     }
 
     @Override

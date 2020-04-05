@@ -129,6 +129,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Ingredient findInventoryIngredient(Ingredient ingredient) {
+        return this.inventory.find(ingredient);
+    }
+
+    @Override
     public void setCart(ReadOnlyCart cart) {
         this.cart.resetData(cart);
     }
@@ -136,6 +141,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyCart getCart() {
         return cart;
+    }
+
+    @Override
+    public Ingredient findCartIngredient(Ingredient ingredient) {
+        return this.cart.find(ingredient);
     }
 
     @Override

@@ -5,9 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientQuantity;
 
 /**
  * Removes an ingredient to the inventory
@@ -17,7 +17,7 @@ import seedu.address.model.ingredient.Ingredient;
 public class InventoryRemoveIngredientCommand extends InventoryCommand {
 
     public static final String COMMAND_WORD = "remove ingredient";
-    public static final String MESSAGE_SUCCESS = "Ingredient removed: %1$s";
+    public static final String MESSAGE_SUCCESS = "Ingredient removed from inventory: %1$s of %2$s";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": This commands allows you to remove ingredients to your inventory.\n"
             + "Parameters for removing an ingredient into your inventory is as follows: \n"
@@ -38,12 +38,29 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        // TODO update result display to show the number of ingredients removed instead of the input
+        Ingredient originalIngredient = null;
+        if (model.getInventory().getCompatibleIngredientList().contains(toRemove)) {
+            originalIngredient = model.findInventoryIngredient(toRemove);
+        }
+
         model.removeInventoryIngredient(toRemove);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));
+
+        assert originalIngredient != null;
+        IngredientQuantity originalQuantity = originalIngredient.getQuantity();
+        String quantityRemoved;
+
+        if (model.getInventory().getCompatibleIngredientList().contains(toRemove)) {
+            IngredientQuantity finalQuantity;
+            finalQuantity = model.findInventoryIngredient(toRemove).getQuantity();
+            quantityRemoved = originalQuantity.subtract(finalQuantity).toString();
+        } else {
+            quantityRemoved = originalQuantity.toString();
+        }
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, quantityRemoved, toRemove.getName().ingredientName));
     }
 
     @Override

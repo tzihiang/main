@@ -3,7 +3,6 @@ package seedu.address.logic.commands.inventory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.logic.commands.inventory.InventoryRemoveIngredientCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.TypicalIngredients.ALMOND;
 import static seedu.address.testutil.TypicalIngredients.BUTTER;
 
@@ -32,7 +31,10 @@ public class InventoryRemoveIngredientCommandTest {
         InventoryRemoveIngredientCommand c = new InventoryRemoveIngredientCommand(ALMOND);
         Model model = new ModelManager();
         model.addInventoryIngredient(ALMOND);
-        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, ALMOND)));
+
+        // removing existing ingredient
+        assertEquals(c.execute(model), new CommandResult(String.format(InventoryRemoveIngredientCommand.MESSAGE_SUCCESS,
+                ALMOND.getQuantity().toString(), ALMOND.getName().ingredientName)));
 
         // error thrown after removing ALMOND
         assertThrows(IngredientNotFoundException.class, () -> c.execute(model));
