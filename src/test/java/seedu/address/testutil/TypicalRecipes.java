@@ -30,6 +30,7 @@ public class TypicalRecipes {
             .withIngredients(new IngredientBuilder().withName("Red Pepper flakes").withQuantity("1 tsp").build())
             .withIngredients(new IngredientBuilder().withName("Parsley").withQuantity("1 Serving").build())
             .withIngredients(new IngredientBuilder().withName("Cheese").withQuantity("200 g").build())
+            /*
             .withStep(new StepBuilder("Bring a large pot of lightly salted water to a boil. "
                     + "Cook spaghetti in the boiling water, stirring occasionally until cooked through "
                     + "but firm to the bite, about 12 minutes. Drain and transfer to a pasta bowl.").build())
@@ -43,6 +44,7 @@ public class TypicalRecipes {
                     + "and half of the cheese; "
                     + "stir until combined.").build())
             .withStep(new StepBuilder("Serve pasta topped with the remaining cheese.").build())
+             */
             .build();
     public static final Recipe CARBONARA = new RecipeBuilder().withRecipeName("Carbonara")
             .withRecipeDescription("The best dish sold in NUS.")
@@ -53,6 +55,7 @@ public class TypicalRecipes {
             .withIngredients(new IngredientBuilder().withName("Eggs").withQuantity("4").build())
             .withIngredients(new IngredientBuilder().withName("Cheese").withQuantity("200 g").build())
             .withIngredients(new IngredientBuilder().withName("Parsley").withQuantity("1 Serving").build())
+            /*
             .withStep(new StepBuilder("In a large pot of boiling salted water, cook spaghetti pasta "
                     + "until al dente. Drain well. Toss with 1 tablespoon of olive oil, and set aside.").build())
             .withStep(new StepBuilder("Meanwhile in a large skillet, cook chopped bacon until "
@@ -67,12 +70,14 @@ public class TypicalRecipes {
                     + "Add salt and pepper to taste. (remember that bacon and cheese are very salty).").build())
             .withStep(new StepBuilder("Serve immediately with chopped parsley sprinkled on top, "
                     + "and extra Parmesan cheese at table.").build())
+             */
             .withTags("Pasta", "Italian", "Simple", "Creamy").build();
     public static final Recipe SCRAMBLED_EGG = new RecipeBuilder().withRecipeName("Scrambled Egg")
             .withRecipeDescription("Gordan Ramsay's famous creamy and fluffy scrambled eggs")
             .withIngredients(new IngredientBuilder().withName("Eggs").withQuantity("4").build())
             .withIngredients(new IngredientBuilder().withName("Milk").withQuantity("100ml").build())
             .withIngredients(new IngredientBuilder().withName("Butter").withQuantity("30g").build())
+            /*
             .withStep(new StepBuilder("Beat eggs, milk, salt and pepper "
                     + "in medium bowl until blended.").build())
             .withStep(new StepBuilder("Heat butter in large nonstick skillet over medium heat until hot. "
@@ -81,6 +86,7 @@ public class TypicalRecipes {
             .withStep(new StepBuilder("Continue cooking—pulling, lifting and folding eggs—until thickened "
                     + "and no visible liquid egg remains. Do not stir constantly. "
                     + "Remove from heat. Serve immediately.").build())
+             */
             .withTags("Simple", "Celebrity").build();
     public static final Recipe VANILLA_ICE_CREAM = new RecipeBuilder().withRecipeName("Vanilla Ice Cream")
             .withRecipeDescription("A simple and easy to make Vanilla Ice cream recipe anybody can make"
@@ -89,6 +95,7 @@ public class TypicalRecipes {
             .withIngredients(new IngredientBuilder().withName("Sugar").withQuantity("1 Cup").build())
             .withIngredients(new IngredientBuilder().withName("Half-and-half-cream").withQuantity("2 Cups").build())
             .withIngredients(new IngredientBuilder().withName("Vanilla extract").withQuantity("2 tsp").build())
+            /*
             .withStep(new StepBuilder("Stir sugar, cream, and milk into a saucepan over low heat "
                     + "until sugar has dissolved. Heat just until mix is hot and a "
                     + "small ring of foam appears around the edge.").build())
@@ -101,6 +108,7 @@ public class TypicalRecipes {
             .withStep(new StepBuilder("When ice cream is softly frozen, serve immediately or place a "
                     + "piece of plastic wrap directly on the ice cream and place in "
                     + "freezer to ripen, 2 to 3 hours.").build())
+             */
             .withTags("Ice Cream", "Beginner")
             .build();
     public static final Recipe SPAGHETTI_BOLOGNESE = new RecipeBuilder().withRecipeName("Spaghetti Bolognese")
@@ -113,6 +121,7 @@ public class TypicalRecipes {
             .withIngredients(new IngredientBuilder().withName("Tomatoes").withQuantity("800 g").build())
             .withIngredients(new IngredientBuilder().withName("Beef Stock Cube").withQuantity("1").build())
             .withIngredients(new IngredientBuilder().withName("Spaghetti").withQuantity("1 Serving").build())
+            /*
             .withStep(new StepBuilder("Heat a large saucepan over a medium heat. Add a tablespoon "
                     + "of olive oil and once hot add the beef mince and a pinch of salt and pepper. "
                     + "Cook the mince until well browned over a medium high heat. Be careful not to burn the mince. "
@@ -129,7 +138,8 @@ public class TypicalRecipes {
             .withStep(new StepBuilder("When ready to cook the spaghetti, heat a large saucepan of water "
                     + "and add a pinch of salt. Cook according to the packet instructions. Once the spaghetti is "
                     + "cooked through, drain and add to the pan with the bolognese sauce. "
-                    + "Mix well and serve.").build())
+                    + "Mix well and serve.").build())\
+             */
             .build();
 
     // Manually added
