@@ -41,10 +41,15 @@ public class RecipeAddStepCommandTest {
     @Test
     public void execute_validInput() throws CommandException {
         RecipeAddStepCommand c = new RecipeAddStepCommand(VALID_RECIPE_INDEX, VALID_STEP_INDEX, CARBONARA_ONE);
+
         Model model = new ModelManager();
         model.addCookbookRecipe(CARBONARA);
-        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS,
-                CARBONARA.getName().fullRecipeName, CARBONARA_ONE)));
+
+        CommandResult one = c.execute(model);
+        CommandResult two = new CommandResult(String.format(MESSAGE_SUCCESS,
+                CARBONARA.getName().fullRecipeName, CARBONARA_ONE));
+
+        assertEquals(one, two);
     }
 
     @Test

@@ -21,6 +21,13 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class TypicalRecipes {
 
+    private static final Recipe[] TYPICAL_RECIPES = SampleDataUtil.getSampleRecipes();
+    public static final Recipe SCRAMBLED_EGG = TYPICAL_RECIPES[0];
+    public static final Recipe CARBONARA = TYPICAL_RECIPES[1];
+    public static final Recipe AGLIO_OLIO = TYPICAL_RECIPES[2];
+    public static final Recipe SPAGHETTI_BOLOGNESE = TYPICAL_RECIPES[3];
+
+    /*
     public static final Recipe AGLIO_OLIO = new RecipeBuilder().withRecipeName("Aglio Olio")
             .withRecipeDescription("A traditional Italian pasta dish made with garlic in olive oil,"
                     + " and dried red chili flakes.")
@@ -142,6 +149,7 @@ public class TypicalRecipes {
     public static final Recipe FISH_AND_CHIPS = new RecipeBuilder().withRecipeName("Fish & Chips")
             .withRecipeDescription("Fried fish in batter served with deep-fried chips.")
             .withTags("Western").build();
+     */
 
 
     private TypicalRecipes() {} // prevents instantiation
