@@ -59,6 +59,10 @@ public class IngredientQuantity {
         this.unit = unit;
     }
 
+    public static IngredientQuantity getDummyQuantity() {
+        return new DummyIngredientQuantity();
+    }
+
     /**
      * Returns true if a given string is a valid ingredient quantity.
      */
@@ -70,6 +74,9 @@ public class IngredientQuantity {
      * Returns true if the specified ingredient quantity has the same unit as the ingredient quantity.
      */
     public boolean hasSameUnitAs(IngredientQuantity other) {
+        if (other instanceof DummyIngredientQuantity) {
+            return true;
+        }
         return this.unit.equals(other.unit);
     }
 
@@ -81,6 +88,9 @@ public class IngredientQuantity {
      */
     public IngredientQuantity add(IngredientQuantity other) {
         checkArgument(hasSameUnitAs(other));
+        if (other instanceof DummyIngredientQuantity) {
+            return this;
+        }
 
         Number newValue = null;
         if (this.value instanceof BigDecimal && other.value instanceof BigDecimal) {
@@ -113,6 +123,9 @@ public class IngredientQuantity {
      */
     public IngredientQuantity subtract(IngredientQuantity other) {
         checkArgument(hasSameUnitAs(other));
+        if (other instanceof DummyIngredientQuantity) {
+            throw new NonPositiveIngredientQuantityException();
+        }
 
         Number newValue = null;
         if (this.value instanceof BigDecimal && other.value instanceof BigDecimal) {
@@ -204,4 +217,41 @@ public class IngredientQuantity {
         return Objects.hash(value, unit);
     }
 
+    /**
+     * Represents a dummy {@code IngredientQuantity}.
+     */
+    private static class DummyIngredientQuantity extends IngredientQuantity {
+        private DummyIngredientQuantity() {
+            super(0, "");
+        }
+
+        public boolean hasSameUnitAs(IngredientQuantity other) {
+            return true;
+        }
+
+        @Override
+        public IngredientQuantity add(IngredientQuantity other) {
+            return other;
+        }
+
+        @Override
+        public IngredientQuantity subtract(IngredientQuantity other) {
+            return this;
+        }
+
+        @Override
+        public String toString() {
+            return "";
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            return other instanceof DummyIngredientQuantity;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(DummyIngredientQuantity.class);
+        }
+    }
 }

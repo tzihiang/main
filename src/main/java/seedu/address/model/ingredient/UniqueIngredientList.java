@@ -7,6 +7,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -90,14 +92,20 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
         if (!contains(toRemove)) {
             throw new IngredientNotFoundException();
         }
-        int index = internalList.indexOf(find(toRemove));
 
-        try {
-            Ingredient subtractedIngredient = find(toRemove).subtract(toRemove);
-            internalList.set(index, subtractedIngredient);
-        } catch (NonPositiveIngredientQuantityException e) {
-            internalList.remove(index);
-        }
+        this.setIngredients(internalList.stream()
+                .flatMap(ingredient -> {
+                    if (ingredient.isCompatibleWith(toRemove)) {
+                        try {
+                            Ingredient subtractedIngredient = ingredient.subtract(toRemove);
+                            return Stream.of(subtractedIngredient);
+                        } catch (NonPositiveIngredientQuantityException e) {
+                            return Stream.empty();
+                        }
+                    }
+                    return Stream.of(ingredient);
+                })
+                .collect(Collectors.toList()));
     }
 
     public void setIngredients(UniqueIngredientList replacement) {
