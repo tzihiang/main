@@ -224,7 +224,7 @@ This command allows you to add ingredients to a recipe.
 You can remove ingredients that spoil the taste of the dish using this command.
 If the quantity to be removed is not specified, all of the ingredient will be removed.
 
-- Format: `recipe INDEX remove ingredient i/INGREDIENT [q/QUANTITY]`
+- Format: `recipe INDEX remove ingredient i/INGREDIENT q/QUANTITY`
 - Examples:
 |===
 | Parameters | Result
@@ -334,7 +334,7 @@ This command allows you to remove ingredients from your inventory. You may add i
 an additional argument for the quantity you wish to remove. If no additional argument for quantity
 is supplied, that instance of the ingredient will be removed entirely.
 
-- Format: `inventory remove ingredient i/INGREDIENT [q/QUANTITY]`
+- Format: `inventory remove ingredient i/INGREDIENT q/QUANTITY`
 - Examples:
 |===
 | Parameters | Result
@@ -342,8 +342,8 @@ is supplied, that instance of the ingredient will be removed entirely.
 |`inventory remove ingredient i/Egg q/10`
 |Removes 10 eggs into your inventory.
 
-|`inventory remove ingredient i/Butter`
-|Removes all butter into your inventory.
+|`inventory remove ingredient i/Butter q/200g`
+|Removes 200g of butter into your inventory.
 |===
 
 [[Cart]]
@@ -380,15 +380,15 @@ This command allows you to add ingredients to the cart.
 This command allows you to remove ingredients from the cart.
 If the quantity to be removed is not specified, all of the specified ingredient will be removed.
 
-- Format: `cart remove ingredient i/INGREDIENT [q/QUANTITY]`
+- Format: `cart remove ingredient i/INGREDIENT q/QUANTITY`
 - Example:
 |===
 | Parameters | Result
 
 |`cart remove ingredient i/Egg q/1`
 |Removes 1 egg from the cart
-|`cart remove i/Milk`
-|Removes all milk from the cart.
+|`cart remove i/Milk q/200ml`
+|Removes 200ml of milk from the cart.
 |===
 
 ==== Clear all the items in the cart
