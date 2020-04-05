@@ -41,9 +41,8 @@ public class CartRemoveIngredientCommandParser implements Parser<CartCommand> {
 
         IngredientName ingredientName = ParserUtil.parseIngredientName(argMultimap
                 .getValue(PREFIX_INGREDIENT_NAME).get());
-        IngredientQuantity ingredientQuantity = argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_QUANTITY)
-                ? ParserUtil.parseIngredientQuantity(argMultimap.getValue(PREFIX_INGREDIENT_QUANTITY).get())
-                : IngredientQuantity.getDummyQuantity();
+        IngredientQuantity ingredientQuantity = ParserUtil.parseIngredientQuantity(argMultimap
+                .getValue(PREFIX_INGREDIENT_QUANTITY).get());
 
         Ingredient ingredient = new Ingredient(ingredientName, ingredientQuantity);
 
