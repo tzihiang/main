@@ -217,7 +217,7 @@ This command allows you to add ingredients to a recipe.
 |`recipe 1 add ingredient i/Egg q/2`
 |Adds 2 eggs to the 1st recipe's list of ingredients.
 
-|`recipe 2 add i/Milk ingredient q/200 ml`
+|`recipe 2 add ingredient i/Milk  q/200 ml`
 |Adds 200 ml of milk to the 2nd recipe's list of ingredients.
 |===
 
