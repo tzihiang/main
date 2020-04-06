@@ -80,6 +80,8 @@ can be used to add multiple ingredients and its respective quantities in the sam
 * Parameters can be in any order. +
 (e.g. if the command specifies `n/NAME t/TAG i/INGREDIENT q/QUANTITY`,
 `q/QUANTITY t/TAG i/INGREDIENT` is also acceptable).
+* Commands formats given in the lowercase are case-sensitive. (eg `cookbook` is given as all lowercase. `Cookbook` or `COOKBOOK` will not work.)
+Please follow the format given carefully for a seamless experience!
 
 [[Cookbook]]
 === Cookbook Commands
