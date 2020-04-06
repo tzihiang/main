@@ -375,7 +375,7 @@ Please ensure that the unit specified corresponds accordingly.
 
 |`cart remove ingredient i/Egg q/1`
 |Removes 1 egg from the cart
-|`cart remove i/Milk q/200ml`
+|`cart remove ingredient i/Milk q/200ml`
 |Removes 200ml of milk from the cart.
 _(If your cart had 500 ml of milk, it will be subtracted and updated to 300 ml of milk)_
 |===
