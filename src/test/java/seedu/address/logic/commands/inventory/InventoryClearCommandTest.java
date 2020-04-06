@@ -1,16 +1,16 @@
 package seedu.address.logic.commands.inventory;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static seedu.address.logic.commands.inventory.InventoryClearCommand.MESSAGE_SUCCESS;
+
+import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.testutil.TypicalIngredients;
-
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static seedu.address.logic.commands.inventory.InventoryClearCommand.MESSAGE_SUCCESS;
 
 public class InventoryClearCommandTest {
 

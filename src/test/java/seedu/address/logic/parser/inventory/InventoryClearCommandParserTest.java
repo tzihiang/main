@@ -1,12 +1,12 @@
 package seedu.address.logic.parser.inventory;
 
-import seedu.address.logic.commands.inventory.InventoryClearCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.Assert.assertThrows;
+import seedu.address.logic.commands.inventory.InventoryClearCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 public class InventoryClearCommandParserTest {
     private static final String VALID_ARGUMENT = "";
