@@ -169,6 +169,7 @@ public class ModelManagerTest {
         modelManager = new ModelManager(new Cookbook(), new Inventory(), new Cart(), userPrefs);
         ModelManager modelManagerCopy = new ModelManager(new Cookbook(), new Inventory(), new Cart(),
                 userPrefs);
+
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -179,10 +180,6 @@ public class ModelManagerTest {
 
         // different types -> returns false
         assertFalse(modelManager.equals(5));
-
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(new Cookbook(), new Inventory(),
-                new Cart(), userPrefs)));
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
