@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 /**
  * This command moves all ingredients from the cart to inventory
  */
-public class CartMoveCommand extends CartCommand{
+public class CartMoveCommand extends CartCommand {
 
     public static final String COMMAND_WORD = "move";
     public static final String MESSAGE_SUCCESS = "All ingredients from cart successfully added to your inventory!";
