@@ -153,6 +153,8 @@ This command allows you to remove a recipe of the specified index from the cookb
 
 ==== Search recipes by keyword
 This command allows you to search for recipes by a keyword. The search result will be returned along with the respective recipe indices.
+Adding more tags will not narrow the search results, but would expand the search results to return any recipe that contains the given tags.
+
 
 - Format: `cookbook search recipe k/KEYWORD`
 - Example:
