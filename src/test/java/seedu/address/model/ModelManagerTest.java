@@ -158,7 +158,7 @@ public class ModelManagerTest {
     @Test
     public void getFilteredCookbookRecipeList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class,
-                () -> modelManager.getFilteredCookbookRecipeList().remove(0));
+            () -> modelManager.getFilteredCookbookRecipeList().remove(0));
     }
 
     @Test
