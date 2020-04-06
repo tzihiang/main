@@ -158,7 +158,6 @@ public class ModelManager implements Model {
     @Override
     public void setCookbookRecipe(Recipe target, Recipe editedRecipe) {
         requireAllNonNull(target, editedRecipe);
-
         cookbook.setRecipe(target, editedRecipe);
     }
 
@@ -251,6 +250,12 @@ public class ModelManager implements Model {
     public void updateFilteredCartIngredientList(Predicate<Ingredient> predicate) {
         requireNonNull(predicate);
         filteredCartIngredients.setPredicate(predicate);
+    }
+
+    @Override
+    public void cartMoveIngredients() {
+        cart.getCompatibleIngredientList().forEach(ingredient -> inventory.addIngredient(ingredient));
+        this.setCart(new Cart());
     }
 
     @Override
