@@ -10,12 +10,15 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
         </columnConstraints>
-        <VBox minHeight="95" GridPane.columnIndex="0">
+        <VBox minHeight="60" GridPane.columnIndex="0">
             <padding>
                 <Insets top="5" right="5" bottom="5" left="15"/>
             </padding>
@@ -33,12 +36,26 @@
                 <center>
                     <VBox>
                         <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
-                        <Label fx:id="description" text="\$second" wrapText="true" styleClass="cell_small_label"/>
+                        <VBox>
+                            <padding>
+                                <Insets left="8"/>
+                            </padding>
+                            <Label fx:id="description" text="\$second" wrapText="true"
+                                   styleClass="cell_small_label"/>
+                        </VBox>
+                        <Label/>
+                        <FlowPane fx:id="tags"/>
                     </VBox>
                 </center>
-            </BorderPane>
 
-            <FlowPane fx:id="tags"/>
+                <right>
+                    <HBox minHeight="60" alignment="CENTER">
+                        <Button fx:id="button" onAction="#handleViewButtonAction" alignment="CENTER"
+                                maxWidth="25" maxHeight="25">
+                        </Button>
+                    </HBox>
+                </right>
+            </BorderPane>
         </VBox>
     </GridPane>
 </HBox>

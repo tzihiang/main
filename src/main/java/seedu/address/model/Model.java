@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.fraction.MixedFraction;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.Recipe;
 
@@ -142,6 +143,11 @@ public interface Model {
     void setInventoryIngredient(Ingredient target, Ingredient editedIngredient);
 
     /**
+     * Finds the ingredient with the same ingredient name as the input ingredient.
+     */
+    Ingredient findInventoryIngredient(Ingredient toRemove);
+
+    /**
      * Returns true if an ingredient with the same identity as {@code ingredient} exists in the cart.
      */
     boolean hasCartIngredient(Ingredient ingredient);
@@ -165,6 +171,11 @@ public interface Model {
      * cart.
      */
     void setCartIngredient(Ingredient target, Ingredient editedIngredient);
+
+    /**
+     * Finds the ingredient with the same ingredient name as the input ingredient.
+     */
+    public Ingredient findCartIngredient(Ingredient ingredient);
 
     /** Returns an unmodifiable view of the filtered cookbook recipe list */
     ObservableList<Recipe> getFilteredCookbookRecipeList();
@@ -197,4 +208,10 @@ public interface Model {
      * Updates the inventory with the ingredients in the cart.
      */
     void cartMoveIngredients();
+
+    /**
+     * Returns the MixedFraction value based on the similarity of the recipe.
+     */
+    MixedFraction calculateSimilarity(Recipe recipe);
+
 }

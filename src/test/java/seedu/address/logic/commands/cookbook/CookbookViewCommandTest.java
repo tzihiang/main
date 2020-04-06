@@ -37,12 +37,14 @@ public class CookbookViewCommandTest {
         CookbookViewCommand c = new CookbookViewCommand(VALID_RECIPE_INDEX);
         Model model = new ModelManager();
         model.addCookbookRecipe(AGLIO_OLIO);
-        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, AGLIO_OLIO)));
+        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS,
+                VALID_RECIPE_INDEX.getOneBased(), true, VALID_RECIPE_INDEX)));
 
         // after adding multiple recipes
         model.addCookbookRecipe(CARBONARA);
         model.addCookbookRecipe(SPAGHETTI_BOLOGNESE);
-        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, AGLIO_OLIO)));
+        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS,
+            VALID_RECIPE_INDEX.getOneBased(), true, VALID_RECIPE_INDEX)));
     }
 
     @Test

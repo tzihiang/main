@@ -166,13 +166,13 @@ This command allows you to search for recipes by a keyword. The search result wi
 ==== Search recipes by tag
 This command allows you to search for recipes by tags, and the search result will be returned along with the respective recipe indices.
 
-- Format: `cookbook search recipe t/TAG…`
+- Format: `cookbook search tag t/TAG…`
 - Examples:
 |===
 | Parameters | Result
 
-|`cookbook search recipe t/Easy`
-|Searches the cookbook for recipes with tags matching 'Easy'.
+|`cookbook search tag t/Easy`
+|Searches the cookbook for recipes wisth tags matching 'Easy'.
 
 |`cookbook search recipe t/Pasta t/Cream t/Easy`
 |Searches the cookbook for recipes with tags matching 'Pasta', 'Cream', and 'Easy'.
@@ -187,6 +187,17 @@ This command allows you to see what you can cook with your current inventory of 
 
 |`cookbook search recipe inventory`
 |Searches the cookbook for recipes whose ingredients are available in the inventory.
+|===
+==== List all recipes in the cookbook
+This commands allows you to view the whole collections of recipe in the cookbook.
+
+- Format: `cookbook list`
+- Example:
+|===
+| Parameters | Result
+
+|`cookbook list`
+|Lists all recipes in the cookbook
 |===
 
 [[Recipe]]

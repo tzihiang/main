@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -119,11 +120,9 @@ public class MainWindow extends UiPart<Stage> {
         recipeListPanel = new RecipeListPanel(logic.getFilteredCookbookRecipeList());
         recipeListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
 
-        // Temporary, will replace with InventoryIngredientListPanel
         inventoryIngredientListPanel = new IngredientListPanel(logic.getFilteredInventoryIngredientList());
         inventoryIngredientListPanelPlaceHolder.getChildren().add(inventoryIngredientListPanel.getRoot());
 
-        // Temporary, will replace with CartIngredientListPanel
         cartIngredientListPanel = new CartListPanel(logic.getFilteredCartIngredientList());
         cartIngredientListPanelPlaceHolder.getChildren().add(cartIngredientListPanel.getRoot());
 
@@ -177,6 +176,13 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    @FXML
+    private void handleViewRecipe(Index recipeIndex) {
+        recipeListPanel = new RecipeListPanel(logic.getFilteredCookbookRecipeList());
+        recipeListPanel.handleViewRecipe(recipeIndex);
+        recipeListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
+    }
+
     public RecipeListPanel getRecipeListPanel() {
         return recipeListPanel;
     }
@@ -202,6 +208,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isViewRecipe()) {
+                handleViewRecipe(commandResult.getRecipeIndex());
             }
 
             if (commandResult.isExit()) {
