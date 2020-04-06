@@ -470,7 +470,19 @@ CookingPapa can generate a recipe of the day to cook based on the recipes curren
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CookingPapa folder.
+
+*Q*: Where can I install the latest version of CookingPapa? +
+*A*: You can find the latest releases at: https://github.com/AY1920S2-CS2103T-F11-4/main/releases. You only have to download the latest version of CookingPapa.jar
+
+*Q*: Do I need to be connected to the internet to access this application? +
+*A*: All information is stored locally in your own computer. No internet connection is required.
+
+*Q*: Something is not working as expected. Who can I contact? +
+*A*: You may report your bugs to: https://github.com/AY1920S2-CS2103T-F11-4/main/issues. Bug reports are highly appreciated!
+
+*Q*: Is this application free? +
+*A*: Yes! This application is open-source under the MIT license. You may feel free to modify, contribute and share this application with any community!
 
 == Command Summary
 
