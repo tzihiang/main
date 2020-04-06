@@ -94,13 +94,6 @@ public abstract class IngredientList implements ReadOnlyIngredientList {
         return ingredients.asUnmodifiableObservableList().size() + " ingredients";
         // TODO: refine later
     }
-    /**
-     * Returns an ingredient equivalent to given argument, if the list contains an equivalent ingredient.
-     */
-
-    public Ingredient find(Ingredient toFind) {
-        return ingredients.find(toFind);
-    }
 
     @Override
     public CompatibleIngredientList getCompatibleIngredientList() {
