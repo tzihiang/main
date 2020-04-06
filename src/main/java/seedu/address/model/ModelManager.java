@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.fraction.MixedFraction;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -185,6 +186,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void removeInventoryIngredient(IngredientName target) {
+        inventory.removeIngredient(target);
+    }
+
+    @Override
     public void addInventoryIngredient(Ingredient ingredient) {
         inventory.addIngredient(ingredient);
         updateFilteredInventoryIngredientList(PREDICATE_SHOW_ALL_INGREDIENTS);
@@ -204,6 +210,11 @@ public class ModelManager implements Model {
 
     @Override
     public void removeCartIngredient(Ingredient target) {
+        cart.removeIngredient(target);
+    }
+
+    @Override
+    public void removeCartIngredient(IngredientName target) {
         cart.removeIngredient(target);
     }
 

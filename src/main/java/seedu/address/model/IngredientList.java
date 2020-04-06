@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.ingredient.CompatibleIngredientList;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientName;
 
 /**
  * Wraps all data at the ingredient list level
@@ -77,6 +78,14 @@ public abstract class IngredientList implements ReadOnlyIngredientList {
      * {@code key} must exist in the list of ingredients.
      */
     public void removeIngredient(Ingredient key) {
+        ingredients.remove(key);
+    }
+
+    /**
+     * Removes ingredients with the name {@code key} from this {@code ingredientList}.
+     * {@code key} must exist in the list of ingredients.
+     */
+    public void removeIngredient(IngredientName key) {
         ingredients.remove(key);
     }
 

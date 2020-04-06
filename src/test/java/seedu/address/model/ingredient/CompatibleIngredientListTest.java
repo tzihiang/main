@@ -108,7 +108,7 @@ public class CompatibleIngredientListTest {
 
     @Test
     public void remove_nullIngredient_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> compatibleIngredientList.remove(null));
+        assertThrows(NullPointerException.class, () -> compatibleIngredientList.remove((Ingredient) null));
     }
 
     @Test

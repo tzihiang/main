@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.fraction.MixedFraction;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -129,6 +130,12 @@ public interface Model {
     void removeInventoryIngredient(Ingredient ingredient);
 
     /**
+     * Removes ingredients with the given ingredient name.
+     * The ingredient must exist in the inventory.
+     */
+    void removeInventoryIngredient(IngredientName ingredientName);
+
+    /**
      * Adds the given ingredient.
      * {@code ingredient} must not already exist in the inventory.
      */
@@ -157,6 +164,12 @@ public interface Model {
      * The ingredient must exist in the cart.
      */
     void removeCartIngredient(Ingredient ingredient);
+
+    /**
+     * Removes ingredients with the given ingredient name.
+     * The ingredient must exist in the cart.
+     */
+    void removeCartIngredient(IngredientName ingredientName);
 
     /**
      * Adds the given ingredient.

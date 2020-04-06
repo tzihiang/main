@@ -100,6 +100,15 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
         }
     }
 
+    /**
+     * Removes all of the ingredient with the ingredient name from the list.
+     * The ingredient must exist in the list.
+     */
+    public void remove(IngredientName toRemove) {
+        requireNonNull(toRemove);
+        // TODO: implement
+    }
+
     public void setIngredients(UniqueIngredientList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);

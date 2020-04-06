@@ -129,7 +129,7 @@ public class UniqueIngredientListTest {
 
     @Test
     public void remove_nullIngredient_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueIngredientList.remove(null));
+        assertThrows(NullPointerException.class, () -> uniqueIngredientList.remove((Ingredient) null));
     }
 
     @Test
