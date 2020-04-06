@@ -7,6 +7,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -106,7 +107,14 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
      */
     public void remove(IngredientName toRemove) {
         requireNonNull(toRemove);
-        // TODO: implement
+        boolean hasIngredient = internalList.stream().anyMatch(x -> toRemove.equals(x.getName()));
+        if (!hasIngredient) {
+            throw new IngredientNotFoundException();
+        }
+
+        this.setIngredients(internalList.stream()
+                .filter(x -> !toRemove.equals(x.getName()))
+                .collect(Collectors.toList()));
     }
 
     public void setIngredients(UniqueIngredientList replacement) {
