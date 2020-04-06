@@ -31,9 +31,9 @@ public class InventoryCommandParserTest {
         InventoryCommandParser c = new InventoryCommandParser();
         assertEquals(c.parse(VALID_ADD_INGREDIENT_ARGUMENT), new InventoryAddIngredientCommand(VALID_INGREDIENT));
         assertEquals(c.parse(VALID_REMOVE_INGREDIENT_ARGUMENT),
-            new InventoryRemoveIngredientCommand(VALID_INGREDIENT_NAME, Optional.of(VALID_INGREDIENT_QUANTITY)));
+                new InventoryRemoveIngredientCommand(VALID_INGREDIENT_NAME, Optional.of(VALID_INGREDIENT_QUANTITY)));
         assertEquals(c.parse(VALID_REMOVE_INGREDIENT_ARGUMENT_NO_QUANTITY),
-            new InventoryRemoveIngredientCommand(VALID_INGREDIENT_NAME, Optional.empty()));
+                new InventoryRemoveIngredientCommand(VALID_INGREDIENT_NAME, Optional.empty()));
     }
 
     @Test
@@ -44,10 +44,9 @@ public class InventoryCommandParserTest {
     @Test
     public void parse_invalidInput() {
         assertThrows(ParseException.class, () ->
-            new InventoryCommandParser().parse(INVALID_ADD_INGREDIENT_ARGUMENT_NO_NAME));
+                new InventoryCommandParser().parse(INVALID_ADD_INGREDIENT_ARGUMENT_NO_NAME));
         assertThrows(ParseException.class, () ->
-            new InventoryCommandParser().parse(INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_NAME));
-        assertThrows(ParseException.class, () ->
-            new InventoryCommandParser().parse(INVALID_ARGUMENT));
+                new InventoryCommandParser().parse(INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_NAME));
+        assertThrows(ParseException.class, () -> new InventoryCommandParser().parse(INVALID_ARGUMENT));
     }
 }

@@ -1,10 +1,10 @@
 package seedu.address.logic.parser.inventory;
 
-import static seedu.address.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Optional;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.inventory.InventoryRemoveIngredientCommand;
@@ -23,15 +23,15 @@ public class InventoryRemoveIngredientCommandParserTest {
     @Test
     public void parse_validInputWithQuantity() throws ParseException {
         InventoryRemoveIngredientCommandParser c = new InventoryRemoveIngredientCommandParser();
-        Assertions.assertEquals(c.parse(VALID_INGREDIENT_ARGUMENT),
-            new InventoryRemoveIngredientCommand(VALID_INGREDIENT_NAME, Optional.of(VALID_INGREDIENT_QUANTITY)));
+        assertEquals(c.parse(VALID_INGREDIENT_ARGUMENT),
+                new InventoryRemoveIngredientCommand(VALID_INGREDIENT_NAME, Optional.of(VALID_INGREDIENT_QUANTITY)));
     }
 
     @Test
     public void parse_validInputWithoutQuantity() throws ParseException {
         InventoryRemoveIngredientCommandParser c = new InventoryRemoveIngredientCommandParser();
-        Assertions.assertEquals(c.parse(VALID_INGREDIENT_ARGUMENT_NO_QUANTITY),
-            new InventoryRemoveIngredientCommand(VALID_INGREDIENT_NAME, Optional.empty()));
+        assertEquals(c.parse(VALID_INGREDIENT_ARGUMENT_NO_QUANTITY),
+                new InventoryRemoveIngredientCommand(VALID_INGREDIENT_NAME, Optional.empty()));
     }
 
     @Test
@@ -44,6 +44,6 @@ public class InventoryRemoveIngredientCommandParserTest {
     public void parse_invalidInput() {
         assertThrows(ParseException.class, () -> new InventoryRemoveIngredientCommandParser().parse(INVALID_ARGUMENT));
         assertThrows(ParseException.class, () ->
-            new InventoryRemoveIngredientCommandParser().parse(INVALID_INGREDIENT_ARGUMENT_NO_NAME));
+                new InventoryRemoveIngredientCommandParser().parse(INVALID_INGREDIENT_ARGUMENT_NO_NAME));
     }
 }
