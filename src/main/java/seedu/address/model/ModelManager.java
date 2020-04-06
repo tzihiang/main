@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.fraction.MixedFraction;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.Recipe;
 
@@ -129,6 +130,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Ingredient findInventoryIngredient(Ingredient ingredient) {
+        return this.inventory.find(ingredient);
+    }
+
+    @Override
     public void setCart(ReadOnlyCart cart) {
         this.cart.resetData(cart);
     }
@@ -136,6 +142,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyCart getCart() {
         return cart;
+    }
+
+    @Override
+    public Ingredient findCartIngredient(Ingredient ingredient) {
+        return this.cart.find(ingredient);
     }
 
     @Override
@@ -250,6 +261,12 @@ public class ModelManager implements Model {
     public void updateFilteredCartIngredientList(Predicate<Ingredient> predicate) {
         requireNonNull(predicate);
         filteredCartIngredients.setPredicate(predicate);
+    }
+
+    // TODO: Update method
+    @Override
+    public MixedFraction calculateSimilarity(Recipe recipe) {
+        return null;
     }
 
     @Override

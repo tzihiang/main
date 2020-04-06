@@ -16,14 +16,14 @@ import seedu.address.model.recipe.Recipe;
  */
 public class CookbookViewCommand extends CookbookCommand {
 
-    public static final String COMMAND_WORD = "view recipe";
+    public static final String COMMAND_WORD = "view";
 
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": views the recipe identified by the index number used in the displayed recipe list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Selected recipe %1$s";
+    public static final String MESSAGE_SUCCESS = "Viewing recipe %1$d";
 
     private final Index targetIndex;
 
@@ -35,6 +35,7 @@ public class CookbookViewCommand extends CookbookCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         List<Recipe> lastShownList = model.getFilteredCookbookRecipeList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -42,8 +43,7 @@ public class CookbookViewCommand extends CookbookCommand {
                     CookbookViewCommand.MESSAGE_USAGE));
         }
 
-        Recipe recipeToView = lastShownList.get(targetIndex.getZeroBased());
-        return new CommandResult(String.format(MESSAGE_SUCCESS, recipeToView));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex.getOneBased()), true, targetIndex);
     }
 
     @Override

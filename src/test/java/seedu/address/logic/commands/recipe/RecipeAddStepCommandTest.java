@@ -8,6 +8,8 @@ import static seedu.address.testutil.TypicalRecipes.CARBONARA;
 import static seedu.address.testutil.TypicalSteps.CARBONARA_ONE;
 import static seedu.address.testutil.TypicalSteps.CARBONARA_TWO;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -18,9 +20,9 @@ import seedu.address.model.ModelManager;
 
 public class RecipeAddStepCommandTest {
     private static final Index VALID_RECIPE_INDEX = new Index(0);
-    private static final Index VALID_STEP_INDEX = new Index(0);
+    private static final Optional<Index> VALID_STEP_INDEX = Optional.of(new Index(0));
     private static final Index OUT_OF_BOUNDS_RECIPE_INDEX = new Index(1);
-    private static final Index OUT_OF_BOUNDS_STEP_INDEX = new Index(1);
+    private static final Optional<Index> OUT_OF_BOUNDS_STEP_INDEX = Optional.of(new Index(1));
 
     @Test
     public void constructor_validInput() {

@@ -12,10 +12,10 @@ import seedu.address.testutil.TypicalRecipes;
 
 public class CookbookAddCommandParserTest {
     private static final Recipe VALID_RECIPE = TypicalRecipes.getValidRecipe();
-    private static final String VALID_ARGUMENT = " n/Recipe d/Description i/Ingredient q/5 x/1 s/Step t/Tag";
-    private static final String INVALID_ARGUMENT_NO_RECIPE_NAME = " d/Description i/Ingredient q/5 x/1 "
+    private static final String VALID_ARGUMENT = "recipe n/Recipe d/Description i/Ingredient q/5 x/1 s/Step t/Tag";
+    private static final String INVALID_ARGUMENT_NO_RECIPE_NAME = "recipe d/Description i/Ingredient q/5 x/1 "
             + "s/Step t/Tag";
-    private static final String INVALID_ARGUMENT_NO_RECIPE_DESCRIPTION = " n/Recipe i/Ingredient q/5 "
+    private static final String INVALID_ARGUMENT_NO_RECIPE_DESCRIPTION = "recipe n/Recipe i/Ingredient q/5 "
             + "x/1 s/Step t/Tag";
     private static final String INVALID_ARGUMENT = "Invalid argument";
 
