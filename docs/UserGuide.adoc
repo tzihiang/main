@@ -322,8 +322,9 @@ Ingredient names such as 'Bacon' and 'bacon' will be recognised by CookingPapa a
 
 ==== Remove an ingredient from the inventory
 This command allows you to remove ingredients from your inventory.
-If the quantity specified is of a smaller value, the ingredient quantity will be subtracted and updated.
+If the QUANTITY specified is of a smaller value, the ingredient quantity will be subtracted and updated.
 Please ensure that the unit specified corresponds accordingly.
+If the QUANTITY given in the command is more than the quantity in the inventory, it will the instance of that ingredient entirely.
 
 - Format: `inventory remove ingredient i/INGREDIENT q/QUANTITY`
 - Examples:
