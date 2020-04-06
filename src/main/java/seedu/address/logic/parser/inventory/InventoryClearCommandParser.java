@@ -22,7 +22,8 @@ public class InventoryClearCommandParser implements Parser<InventoryCommand> {
         if (userInput.isEmpty()) {
             return new InventoryClearCommand();
         } else {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InventoryClearCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                InventoryClearCommand.MESSAGE_USAGE));
         }
     }
 
