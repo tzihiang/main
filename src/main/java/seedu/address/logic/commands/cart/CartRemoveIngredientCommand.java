@@ -1,12 +1,16 @@
 package seedu.address.logic.commands.cart;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
+
+import java.util.Optional;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 
 /**
@@ -15,55 +19,51 @@ import seedu.address.model.ingredient.IngredientQuantity;
 public class CartRemoveIngredientCommand extends CartCommand {
 
     public static final String COMMAND_WORD = "remove";
-    public static final String MESSAGE_SUCCESS = "Ingredient removed from cart: %1$s of %2$s";
+    public static final String MESSAGE_SUCCESS = "%1$s removed from cart";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
             + "This commands allows you to remove ingredients from your cart.\n"
             + "Parameters for removing an ingredient into your cart is as follows: \n"
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
-            + "Example: " + COMMAND_CATEGORY + " "
-            + COMMAND_WORD + " "
-            + PREFIX_INGREDIENT_NAME + "Egg " + PREFIX_INGREDIENT_QUANTITY + "10";
+            + "[" + PREFIX_INGREDIENT_QUANTITY + "QUANTITY]\n"
+            + "Examples:\n"
+            + COMMAND_CATEGORY + " " + COMMAND_WORD + " "
+            + PREFIX_INGREDIENT_NAME + "Eggs\n"
+            + COMMAND_CATEGORY + " " + COMMAND_WORD + " "
+            + PREFIX_INGREDIENT_NAME + "Eggs " + PREFIX_INGREDIENT_QUANTITY + "10";
 
-    private final Ingredient toRemove;
+    private final IngredientName ingredientName;
+    private final Optional<IngredientQuantity> ingredientQuantity;
 
     /**
-     * Creates a CartRemoveIngredientCommand to add the specified {@code Ingredient} to the cart
+     * Creates a CartRemoveIngredientCommand to remove an ingredient with the specified {@code IngredientName} and
+     * {@code IngredientQuantity} (if any) to the cart
      */
-    public CartRemoveIngredientCommand(Ingredient toRemove) {
-        requireNonNull(toRemove);
-        this.toRemove = toRemove;
+    public CartRemoveIngredientCommand(IngredientName ingredientName,
+            Optional<IngredientQuantity> ingredientQuantity) {
+        requireAllNonNull(ingredientName, ingredientQuantity);
+        this.ingredientName = ingredientName;
+        this.ingredientQuantity = ingredientQuantity;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        Ingredient originalIngredient = null;
-        if (model.getCart().getCompatibleIngredientList().contains(toRemove)) {
-            originalIngredient = model.findCartIngredient(toRemove);
-        }
+        ingredientQuantity.map(x -> new Ingredient(ingredientName, x))
+                .ifPresentOrElse(model::removeCartIngredient, () ->
+                    model.removeCartIngredient(ingredientName));
 
-        model.removeCartIngredient(toRemove);
+        String ingredientRemoved = ingredientQuantity.map(x -> new Ingredient(ingredientName, x).toString())
+                .orElseGet(() -> "All " + ingredientName);
 
-        assert originalIngredient != null;
-        IngredientQuantity originalQuantity = originalIngredient.getQuantity();
-        String quantityRemoved;
-
-        if (model.getCart().getCompatibleIngredientList().contains(toRemove)) {
-            IngredientQuantity finalQuantity;
-            finalQuantity = model.findCartIngredient(toRemove).getQuantity();
-            quantityRemoved = originalQuantity.subtract(finalQuantity).toString();
-        } else {
-            quantityRemoved = originalQuantity.toString();
-        }
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, quantityRemoved, toRemove.getName().ingredientName));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, ingredientRemoved));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CartRemoveIngredientCommand // instanceof handles nulls
-                && toRemove.equals(((CartRemoveIngredientCommand) other).toRemove));
+                && ingredientName.equals(((CartRemoveIngredientCommand) other).ingredientName)
+                && ingredientQuantity.equals(((CartRemoveIngredientCommand) other).ingredientQuantity));
     }
 }

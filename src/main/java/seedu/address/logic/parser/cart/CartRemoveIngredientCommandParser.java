@@ -5,6 +5,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 
+import java.util.Optional;
+
 import seedu.address.logic.commands.cart.CartCommand;
 import seedu.address.logic.commands.cart.CartRemoveIngredientCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -41,11 +43,12 @@ public class CartRemoveIngredientCommandParser implements Parser<CartCommand> {
 
         IngredientName ingredientName = ParserUtil.parseIngredientName(argMultimap
                 .getValue(PREFIX_INGREDIENT_NAME).get());
-        IngredientQuantity ingredientQuantity = ParserUtil.parseIngredientQuantity(argMultimap
-                .getValue(PREFIX_INGREDIENT_QUANTITY).get());
 
-        Ingredient ingredient = new Ingredient(ingredientName, ingredientQuantity);
+        Optional<IngredientQuantity> ingredientQuantity = argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_QUANTITY)
+                ? Optional.of(ParserUtil.parseIngredientQuantity(argMultimap.getValue(PREFIX_INGREDIENT_QUANTITY)
+                    .get()))
+                : Optional.empty();
 
-        return new CartRemoveIngredientCommand(ingredient);
+        return new CartRemoveIngredientCommand(ingredientName, ingredientQuantity);
     }
 }
