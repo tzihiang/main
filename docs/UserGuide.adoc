@@ -477,50 +477,50 @@ CookingPapa can generate a recipe of the day to cook based on the recipes curren
 [cols="2,3,5a", options="header"]
 |===
 | Category | Addtional Parameters | Result
-.7+|cookbook
-|view recipe INDEX
+.7+|``cookbook``
+|``view recipe INDEX``
 |Shows recipe at given INDEX
-|add recipe n/NAME d/DESCRIPTION
+|``add recipe n/NAME d/DESCRIPTION``
 |Adds a new empty recipe with the given NAME and DESCRIPTION.
-|add recipe n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY] [x/STEP_INDEX] [s/STEP] [t/TAG]
+|``add recipe n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY] [x/STEP_INDEX] [s/STEP] [t/TAG]``
 |Adds a new recipe with the given NAME and DESCRIPTION.
 INGREDIENT and its QUANTITY, STEP and its STEP_INDEX, and TAG are optional parameters and will be added according to input from user.
-|remove recipe INDEX
+|``remove recipe INDEX``
 |Remove recipe at given INDEX
-|search recipe k/KEYWORD
+|``search recipe k/KEYWORD``
 |Search for recipes by a keyword
-|search recipe t/TAG
+|``search recipe t/TAG``
 |Search for recipes by a keyword
-|search recipe inventory
+|``search recipe inventory``
 |Search for recipes whose ingredients are available in the inventory.
 
-.6+|recipe
-|INDEX add ingredient i/INGREDIENT q/QUANTITY
+.6+|``recipe``
+|``INDEX add ingredient i/INGREDIENT q/QUANTITY``
 |Add ingredients to a recipe at given INDEX
-|INDEX remove ingredient i/INGREDIENT q/QUANTITY
+|``INDEX remove ingredient i/INGREDIENT q/QUANTITY``
 |Removes the ingredient and the specified quantity from recipe at given INDEX
-|INDEX add step x/STEP_INDEX s/STEP_DESCRIPTION
+|``INDEX add step x/STEP_INDEX s/STEP_DESCRIPTION``
 |Adds a step at STEP_INDEX with STEP_DESCRIPTION to the recipe at given INDEX
-|INDEX remove step x/STEP_INDEX
+|``INDEX remove step x/STEP_INDEX``
 |Remove a step at STEP_INDEX from the recipe at given INDEX
-|INDEX add tag t/TAG
+|``INDEX add tag t/TAG``
 |Adds a tag 'TAG' to the recipe at given INDEX
-|INDEX remove tag t/TAG
+|``INDEX remove tag t/TAG``
 |Removes a tag 'TAG' to the recipe at given INDEX
 
-.2+|inventory
-|add ingredient  i/INGREDIENT q/QUANTITY
+.2+|``inventory``
+|``add ingredient  i/INGREDIENT q/QUANTITY``
 |Adds QUANTITY of INGREDIENTS into your inventory.
-|remove ingredient i/INGREDIENT q/QUANTITY
+|``remove ingredient i/INGREDIENT q/QUANTITY``
 |Removes QUANTITY of INGREDIENTS from your inventory.
 
-.4+|cart
-|add recipe INDEX
+.4+|``cart``
+|``add recipe INDEX``
 |Adds all ingredients required of recipe at given INDEX to the cart.
-|add ingredient i/INGREDIENT q/QUANTITY
+|``add ingredient i/INGREDIENT q/QUANTITY``
 |Adds QUANTITY of INGREDIENTS into your cart.
-|remove ingredient i/INGREDIENT q/QUANTITY
+|``remove ingredient i/INGREDIENT q/QUANTITY``
 |Removes QUANTITY of INGREDIENTS from your cart.
-|clear ingredient
+|``clear ingredient``
 |Clears the cart of all ingredients.
 |===
