@@ -18,7 +18,7 @@ public class CartClearCommand extends CartCommand {
             + COMMAND_CATEGORY + " " + COMMAND_WORD;
 
     /**
-     * Creates a CartRemoveIngredientCommand to add the specified {@code Ingredient} to the cart
+     * Creates a CartClearCommand
      */
     public CartClearCommand() {
     }
