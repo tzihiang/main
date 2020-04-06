@@ -76,7 +76,7 @@ or as `cookbook add recipe n/Cheesecake d/Delicious New York cheesecake`).
 * Items with `…`​ after them can be used multiple times. +
 (e.g. `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY]...`
 can be used to add multiple ingredients and its respective quantities in the same command such as
-`cookbook add recipe n/Sandwich d/Delicious Sandwich i/Bread q/2 pieces i/Ham q/3 slices i/Cheese q/2 slices).
+`cookbook add recipe n/Sandwich d/Delicious Sandwich i/Bread q/2 pieces i/Ham q/3 slices i/Cheese q/2 slices`).
 * Parameters can be in any order. +
 (e.g. if the command specifies `n/NAME t/TAG i/INGREDIENT q/QUANTITY`,
 `q/QUANTITY t/TAG i/INGREDIENT` is also acceptable).
