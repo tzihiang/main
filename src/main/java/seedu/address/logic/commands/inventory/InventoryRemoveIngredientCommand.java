@@ -14,10 +14,9 @@ import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 
 /**
- * Removes an ingredient to the inventory
+ * Creates an InventoryRemoveIngredientCommand to remove an ingredient with the specified {@code IngredientName} and
+ * {@code IngredientQuantity} (if any) from the inventory
  */
-
-
 public class InventoryRemoveIngredientCommand extends InventoryCommand {
 
     public static final String COMMAND_WORD = "remove ingredient";
@@ -26,10 +25,12 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
             + ": This commands allows you to remove ingredients to your inventory.\n"
             + "Parameters for removing an ingredient into your inventory is as follows: \n"
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
-            + PREFIX_INGREDIENT_QUANTITY + "QUANTITY\n"
-            + "Example: " + COMMAND_CATEGORY + " "
-            + COMMAND_WORD + " "
-            + PREFIX_INGREDIENT_NAME + "Eggs";
+            + "[" + PREFIX_INGREDIENT_QUANTITY + "QUANTITY]\n"
+            + "Examples:\n"
+            + COMMAND_CATEGORY + " " + COMMAND_WORD + " "
+            + PREFIX_INGREDIENT_NAME + "Eggs\n"
+            + COMMAND_CATEGORY + " " + COMMAND_WORD + " "
+            + PREFIX_INGREDIENT_NAME + "Eggs " + PREFIX_INGREDIENT_QUANTITY + "10";
 
     private final IngredientName ingredientName;
     private final Optional<IngredientQuantity> ingredientQuantity;
@@ -53,7 +54,7 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
                     model.removeInventoryIngredient(ingredientName));
 
         String ingredientRemoved = ingredientQuantity.map(x -> new Ingredient(ingredientName, x).toString())
-                .orElseGet(() -> "All of " + ingredientName);
+                .orElseGet(() -> "All " + ingredientName);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, ingredientRemoved));
     }
