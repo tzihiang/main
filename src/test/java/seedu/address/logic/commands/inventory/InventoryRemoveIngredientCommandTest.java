@@ -18,13 +18,6 @@ import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
 
 public class InventoryRemoveIngredientCommandTest {
     @Test
-    public void constructor_validInput() {
-        InventoryRemoveIngredientCommand c = new InventoryRemoveIngredientCommand(ALMOND.getName(),
-                Optional.of(ALMOND.getQuantity()));
-        assertEquals(c, new InventoryRemoveIngredientCommand(ALMOND.getName(), Optional.of(ALMOND.getQuantity())));
-    }
-
-    @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new InventoryRemoveIngredientCommand(null, Optional.empty()));
         assertThrows(NullPointerException.class, () -> new InventoryRemoveIngredientCommand(ALMOND.getName(), null));
