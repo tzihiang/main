@@ -399,6 +399,14 @@ or to clear the cart after completing the purchase.
 |Clears the cart of all items.
 |===
 
+=== Exit command
+The user can choose to type `exit` to close the application.
+The user can also simple click on the 'X' button on the top right corner of the application to close the application.
+
+.CookingPapa 'X' button to exit the application.
+image::ExitCommand.png[width="790"]
+
+
 === Edit recipe details [v2.0]
 The following commands allow you to edit the details of the recipes that are currently in the cookbook.
 
