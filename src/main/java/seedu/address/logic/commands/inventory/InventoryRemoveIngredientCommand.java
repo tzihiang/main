@@ -8,10 +8,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import java.util.Optional;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
+import seedu.address.model.ingredient.exceptions.NonPositiveIngredientQuantityException;
 
 /**
  * Creates an InventoryRemoveIngredientCommand to remove an ingredient with the specified {@code IngredientName} and
@@ -21,6 +23,7 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
 
     public static final String COMMAND_WORD = "remove ingredient";
     public static final String MESSAGE_SUCCESS = "%1$s removed from inventory";
+    public static final String MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH = "The inventory does not contain %2$s %1$s";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": This commands allows you to remove ingredients to your inventory.\n"
             + "Parameters for removing an ingredient into your inventory is as follows: \n"
@@ -46,17 +49,22 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        ingredientQuantity.map(x -> new Ingredient(ingredientName, x))
-                .ifPresentOrElse(model::removeInventoryIngredient, () ->
-                    model.removeInventoryIngredient(ingredientName));
+        try {
+            ingredientQuantity.map(x -> new Ingredient(ingredientName, x))
+                    .ifPresentOrElse(model::removeInventoryIngredient, () ->
+                        model.removeInventoryIngredient(ingredientName));
 
-        String ingredientRemoved = ingredientQuantity.map(x -> new Ingredient(ingredientName, x).toString())
-                .orElseGet(() -> "All " + ingredientName);
+            String ingredientRemoved = ingredientQuantity.map(x -> new Ingredient(ingredientName, x).toString())
+                    .orElseGet(() -> "All " + ingredientName);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, ingredientRemoved));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, ingredientRemoved));
+        } catch (NonPositiveIngredientQuantityException e) {
+            throw new CommandException(String.format(MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH,
+                    ingredientName, ingredientQuantity.get()));
+        }
     }
 
     @Override

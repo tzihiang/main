@@ -12,6 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.UniqueIngredientList;
+import seedu.address.model.ingredient.exceptions.NonPositiveIngredientQuantityException;
 import seedu.address.model.recipe.Recipe;
 
 
@@ -22,6 +23,7 @@ import seedu.address.model.recipe.Recipe;
 public class RecipeRemoveIngredientCommand extends RecipeRemoveCommand {
 
     public static final String MESSAGE_SUCCESS = "Ingredient removed for %1$s: %2$s";
+    public static final String MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH = "The inventory does not contain %1$s";
     public static final String MESSAGE_INCOMPATIBLE_UNITS = "This ingredient has different units "
             + "from the same ingredient in the recipe";
 
@@ -50,7 +52,13 @@ public class RecipeRemoveIngredientCommand extends RecipeRemoveCommand {
 
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
         UniqueIngredientList ingredients = recipeToEdit.getIngredients();
-        ingredients.remove(toRemove);
+
+        try {
+            ingredients.remove(toRemove);
+        } catch (NonPositiveIngredientQuantityException e) {
+            throw new CommandException(String.format(MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH, toRemove));
+        }
+
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
         editRecipeDescriptor.setIngredients(ingredients);
         Recipe editedRecipe = EditRecipeDescriptor.createEditedRecipe(recipeToEdit, editRecipeDescriptor);
@@ -68,4 +76,3 @@ public class RecipeRemoveIngredientCommand extends RecipeRemoveCommand {
                 && toRemove.equals(((RecipeRemoveIngredientCommand) other).toRemove));
     }
 }
-

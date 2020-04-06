@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
-import seedu.address.model.ingredient.exceptions.NonPositiveIngredientQuantityException;
 
 /**
  * A list of ingredients that enforces uniqueness between its elements and does not allow nulls.
@@ -91,13 +90,13 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
         if (!contains(toRemove)) {
             throw new IngredientNotFoundException();
         }
-        int index = internalList.indexOf(find(toRemove));
 
-        try {
-            Ingredient subtractedIngredient = find(toRemove).subtract(toRemove);
-            internalList.set(index, subtractedIngredient);
-        } catch (NonPositiveIngredientQuantityException e) {
-            internalList.remove(index);
+        Ingredient originalIngredient = find(toRemove);
+        if (toRemove.equals(originalIngredient)) {
+            internalList.remove(originalIngredient);
+        } else {
+            Ingredient subtractedIngredient = originalIngredient.subtract(toRemove);
+            setIngredient(originalIngredient, subtractedIngredient);
         }
     }
 
