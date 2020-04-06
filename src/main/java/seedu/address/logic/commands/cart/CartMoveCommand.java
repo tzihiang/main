@@ -23,7 +23,7 @@ public class CartMoveCommand extends CartCommand{
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.cartDone();
+        model.cartMoveIngredients();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
