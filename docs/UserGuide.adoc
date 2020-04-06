@@ -209,7 +209,8 @@ Some things you can do are to add and remove ingredients from a recipe's ingredi
 You can also write preparation steps for your recipes.
 
 ==== Add an ingredient to a recipe
-This command allows you to add ingredients to a recipe.
+This command allows you to add ingredients to a recipe. Quantity must start with a number value, followed by a unit of measurement.
+'two cloves' is not allowed, but '2 cloves' is allowed.
 
 - Format: `recipe INDEX add ingredient i/INGREDIENT q/QUANTITY`
 - Examples:
