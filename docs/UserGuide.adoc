@@ -245,14 +245,15 @@ _(If recipe 2 specifies 500 ml of milk, it will be subtracted and updated to 300
 
 This command allows you to add a preparation step to the selected recipe.
 Requires a valid index in the list of recipes and the cooking step.
+The STEP_INDEX given must be at most 1 more than the current number of steps currently in the recipe.
 
 - Format: `recipe INDEX add step x/STEP_INDEX s/STEP_DESCRIPTION`
 - Examples:
 |===
 | Parameters | Result
 
-| `recipe 1 add step x/2 s/Bring the water to boil`
-|Adds a preparation step 2 (Bring water to boil) to recipe 1.
+| `recipe 1 add step x/1 s/Bring the water to boil`
+|Adds a preparation step 1 (Bring water to boil) to recipe 1.
 |===
 
 ==== Remove a preparation step from a recipe
