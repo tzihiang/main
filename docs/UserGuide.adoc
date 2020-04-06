@@ -303,7 +303,8 @@ Inventory commands are commands that update the user's very own inventory at hom
 These commands include adding, remove and viewing the current inventory database.
 
 ==== Add an ingredient to the inventory
-This commands allows you to add ingredients to your inventory.
+This commands allows you to add ingredients to your inventory. Ingredient names added are case-insensitive.
+Ingredient names such as 'Bacon' and 'bacon' will be recognised by CookingPapa as 'Bacon'.
 
 - Format: `inventory add ingredient i/INGREDIENT q/QUANTITY`
 - Examples:
