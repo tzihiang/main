@@ -1,11 +1,11 @@
 package seedu.address.logic.parser.inventory;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.commands.inventory.InventoryClearCommand;
 import seedu.address.logic.commands.inventory.InventoryCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses no input to return a InventoryClearCommand.
