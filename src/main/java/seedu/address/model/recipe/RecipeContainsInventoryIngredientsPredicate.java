@@ -20,12 +20,13 @@ public class RecipeContainsInventoryIngredientsPredicate implements Predicate<Re
 
     @Override
     public boolean test(Recipe recipe) {
-        if (recipe.getIngredientNamesString().length() == 0) {
+        if (recipe.getNoWhitespaceIngredientNamesString().length() == 0) {
             return false;
         }
 
         return inventory.getIngredientList().stream().anyMatch(ingredient ->
-            StringUtil.containsWordIgnoreCase(recipe.getIngredientNamesString(), ingredient.getName().ingredientName));
+            StringUtil.containsWordIgnoreCase(
+            recipe.getNoWhitespaceIngredientNamesString(), ingredient.getNoWhitespaceName()));
     }
 
     /**
