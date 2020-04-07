@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.ingredient.CompatibleIngredientList;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientName;
 
 /**
  * Wraps all data at the ingredient list level
@@ -80,17 +81,18 @@ public abstract class IngredientList implements ReadOnlyIngredientList {
         ingredients.remove(key);
     }
 
+    /**
+     * Removes ingredients with the name {@code key} from this {@code ingredientList}.
+     * {@code key} must exist in the list of ingredients.
+     */
+    public void removeIngredient(IngredientName key) {
+        ingredients.remove(key);
+    }
+
     @Override
     public String toString() {
         return ingredients.asUnmodifiableObservableList().size() + " ingredients";
         // TODO: refine later
-    }
-    /**
-     * Returns an ingredient equivalent to given argument, if the list contains an equivalent ingredient.
-     */
-
-    public Ingredient find(Ingredient toFind) {
-        return ingredients.find(toFind);
     }
 
     @Override

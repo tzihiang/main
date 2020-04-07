@@ -7,11 +7,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
-import seedu.address.model.ingredient.exceptions.NonPositiveIngredientQuantityException;
 
 /**
  * A list of ingredients that enforces uniqueness between its elements and does not allow nulls.
@@ -90,14 +90,30 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
         if (!contains(toRemove)) {
             throw new IngredientNotFoundException();
         }
-        int index = internalList.indexOf(find(toRemove));
 
-        try {
-            Ingredient subtractedIngredient = find(toRemove).subtract(toRemove);
-            internalList.set(index, subtractedIngredient);
-        } catch (NonPositiveIngredientQuantityException e) {
-            internalList.remove(index);
+        Ingredient originalIngredient = find(toRemove);
+        if (toRemove.equals(originalIngredient)) {
+            internalList.remove(originalIngredient);
+        } else {
+            Ingredient subtractedIngredient = originalIngredient.subtract(toRemove);
+            setIngredient(originalIngredient, subtractedIngredient);
         }
+    }
+
+    /**
+     * Removes all of the ingredient with the ingredient name from the list.
+     * The ingredient must exist in the list.
+     */
+    public void remove(IngredientName toRemove) {
+        requireNonNull(toRemove);
+        boolean hasIngredient = internalList.stream().anyMatch(x -> toRemove.equals(x.getName()));
+        if (!hasIngredient) {
+            throw new IngredientNotFoundException();
+        }
+
+        this.setIngredients(internalList.stream()
+                .filter(x -> !toRemove.equals(x.getName()))
+                .collect(Collectors.toList()));
     }
 
     public void setIngredients(UniqueIngredientList replacement) {

@@ -80,14 +80,31 @@ can be used to add multiple ingredients and its respective quantities in the sam
 * Parameters can be in any order. +
 (e.g. if the command specifies `n/NAME t/TAG i/INGREDIENT q/QUANTITY`,
 `q/QUANTITY t/TAG i/INGREDIENT` is also acceptable).
+
 * Command and delimiter (eg. i/, q/) formats given in the lowercase are case-sensitive. (eg `cookbook` is given as all lowercase. `Cookbook` or `COOKBOOK` will not work.)
-Please follow the format given carefully for a seamless experience!
+Please follow the format given carefully for a seamless experience! Parameters also cannot start with spaces.
+|===
+| Parameter type | Constraint
+
+|INDEX
+|Must be a whole number.
+
+|INGREDIENT
+|Can contain alphabets, numbers, and spaces, as well as the symbols `'`, `-`, and `%`.
+
+|QUANTITY
+|Must start with a numerical value, which can contain decimal points or slashes to represent a fraction. The value can
+be followed by an optional unit that only consists of alphabets, possibly separated by spaces.
+
+|TAG
+|Can only contain alphabets and numbers. No spaces are permitted.
+|===
 
 [[Cookbook]]
 === Cookbook Commands
 Cookbook commands are commands that allow users to add and remove recipes from the cookbook,
 as well as view recipes stored in the cookbook. More commands can be done with recipes and
-are covered in <<Recipe commands>>.
+are covered in <<Recipe>>.
 
 ==== View a recipe from the cookbook
 This command allows you to view a recipe, the ingredients required, and the steps to cook it.
@@ -211,15 +228,16 @@ Some things you can do are to add and remove ingredients from a recipe's ingredi
 You can also write preparation steps for your recipes.
 
 ==== Add an ingredient to a recipe
-This command allows you to add ingredients to a recipe. Quantity must start with a number value, followed by a unit of measurement.
-'two cloves' is not allowed, but '2 cloves' is allowed.
+This command allows you to add ingredients to a recipe.
+You can increase the quantity of an ingredient that is already in the recipe, provided that you indicate the same unit.
+Otherwise, the ingredient will not be added.
 
 - Format: `recipe INDEX add ingredient i/INGREDIENT q/QUANTITY`
 - Examples:
 |===
 | Parameters | Result
 
-|`recipe 1 add ingredient i/Egg q/2`
+|`recipe 1 add ingredient i/Eggs q/2`
 |Adds 2 eggs to the 1st recipe's list of ingredients.
 
 |`recipe 2 add ingredient i/Milk  q/200 ml`
@@ -227,17 +245,19 @@ This command allows you to add ingredients to a recipe. Quantity must start with
 |===
 
 ==== Remove an ingredient from a recipe
-You can remove ingredients that spoil the taste of the dish using this command.
-If the quantity specified is of smaller value, the ingredient quantity will be subtracted and updated.
-Please ensure that the unit specified corresponds accordingly.
+This command allows you to remove ingredients that spoil the taste of a dish from a recipe.
+You can indicate the quantity you want to remove for an ingredient, which should not be greater that than the
+ingredient's quantity.
+Please ensure that the unit of the quantity matches the ingredient's unit in the recipe.
+If you do not indicate any quantity, all of the specified ingredient will be removed from the recipe.
 
-- Format: `recipe INDEX remove ingredient i/INGREDIENT q/QUANTITY`
+- Format: `recipe INDEX remove ingredient i/INGREDIENT [q/QUANTITY]`
 - Examples:
 |===
 | Parameters | Result
 
-| `recipe 1 remove ingredient i/Egg q/2`
-|Removes 1 egg from the list of ingredients in recipe 1.
+| `recipe 1 remove ingredient i/Eggs`
+|Removes all egg from the list of ingredients in recipe 1.
 
 |`recipe 2 remove ingredient i/Milk q/200 ml`
 |Removes 200 ml of milk from the list of ingredients in recipe 2.
@@ -325,18 +345,21 @@ Ingredient names such as 'Bacon' and 'bacon' will be recognised by CookingPapa a
 |===
 
 ==== Remove an ingredient from the inventory
-This command allows you to remove ingredients from your inventory.
-If the QUANTITY specified is of a smaller value, the ingredient quantity will be subtracted and updated.
-Please ensure that the unit specified corresponds accordingly.
-If the QUANTITY given in the command is more than the quantity in the inventory, it will the instance of that ingredient entirely.
 
-- Format: `inventory remove ingredient i/INGREDIENT q/QUANTITY`
+This command allows you to remove ingredients from the inventory.
+You can indicate the quantity you want to remove for an ingredient, which should not be greater that than the
+ingredient's quantity.
+Please ensure that the unit of the quantity matches the ingredient's unit in the inventory.
+If you do not indicate any quantity, all entries in the inventory that have the specified ingredient name will be
+removed regardless of the unit.
+
+- Format: `inventory remove ingredient i/INGREDIENT [q/QUANTITY]`
 - Examples:
 |===
 | Parameters | Result
 
-|`inventory remove ingredient i/Egg q/10`
-|Removes 10 eggs from your inventory.
+|`inventory remove ingredient i/Eggs`
+|Removes all eggs from your inventory.
 
 |`inventory remove ingredient i/Butter q/200g`
 |Removes 200g of butter from your inventory.
@@ -375,17 +398,19 @@ This command allows you to add ingredients to the cart.
 
 ==== Remove ingredients from the cart
 This command allows you to remove ingredients from the cart.
-If the quantity specified is of a smaller value, the ingredient quantity will be subtracted and updated.
-Please ensure that the unit specified corresponds accordingly.
+You can indicate the quantity you want to remove for an ingredient, which should not be greater that than the
+ingredient's quantity.
+Please ensure that the unit of the quantity matches the ingredient's unit in the cart.
+If you do not indicate any quantity, all entries in the cart that have the specified ingredient name will be removed
+regardless of the unit.
 
-- Format: `cart remove ingredient i/INGREDIENT q/QUANTITY`
+- Format: `cart remove ingredient i/INGREDIENT [q/QUANTITY]`
 - Example:
 |===
 | Parameters | Result
-
-|`cart remove ingredient i/Egg q/1`
-|Removes 1 egg from the cart
-|`cart remove ingredient i/Milk q/200ml`
+|`cart remove ingredient i/Eggs`
+|Removes all eggs from the cart
+|`cart remove i/Milk q/200ml`
 |Removes 200ml of milk from the cart.
 _(If your cart had 500 ml of milk, it will be subtracted and updated to 300 ml of milk)_
 |===
