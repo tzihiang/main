@@ -96,10 +96,9 @@ public class CookbookSearchCommandParser implements Parser<CookbookSearchCommand
                     CookbookSearchByTagCommand.MESSAGE_USAGE));
         }
 
-        String trimmedArgs = argMultimap.getValue(PREFIX_TAG).get();
-        String[] recipeTags = trimmedArgs.split("\\s+");
+        List<String> trimmedArgs = argMultimap.getAllValues(PREFIX_TAG);
 
-        return new CookbookSearchByTagCommand(new RecipeContainsTagsPredicate(Arrays.asList(recipeTags)));
+        return new CookbookSearchByTagCommand(new RecipeContainsTagsPredicate(trimmedArgs));
     }
 
     /**

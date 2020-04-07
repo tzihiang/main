@@ -16,7 +16,7 @@ public class CookbookSearchByKeywordCommand extends CookbookSearchCommand {
 
     public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD + ": Finds all recipes "
             + "whose recipe names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n\n"
             + "Parameters: " + PREFIX_SEARCH_KEYWORD + "KEYWORD\n"
             + "Example: " + COMMAND_WORD + " bacon carbonara";
 

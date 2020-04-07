@@ -97,7 +97,7 @@ A table of parameters and their associated constraints:
 |`INDEX`, `STEP_INDEX`
 |Must be a whole number.
 
-|`NAME`,`DESCRIPTION`, `STEP`, `INGREDIENT`
+|`NAME`,`DESCRIPTION`, `STEP`, `INGREDIENT`, `KEYWORD`
 |Can contain alphabet letters, numbers, and spaces, as well as the symbols `'`, `-`, and `%`.
 
 |`QUANTITY`
@@ -190,21 +190,28 @@ Note: you must have added a recipe to the cookbook, otherwise Cooking Papa will 
 Note: you must have added a recipe to the cookbook, otherwise Cooking Papa will not be able to remove the recipe.
 
 ==== Search recipes by keyword
-This command allows you to search for recipes by a keyword. The search result will be returned along with the respective recipe indices.
-Adding more keywords will not narrow the search results, but would expand the search results to return any recipe that contains the given tags.
+This command allows you to search for recipes by keywords, returning a list of recipes.
 
+Note: Adding more keywords will not narrow the search results, but will expand the search results to return any recipe
+that contains any of the given keywords.
 
-- Format: `cookbook search recipe k/KEYWORD`
+- Format: `cookbook search recipe k/KEYWORD...`
 - Example:
 |===
 | Parameters | Result
 
 |`cookbook search recipe k/Carbonara`
 |Searches the cookbook for recipes with names matching the keyword 'Carbonara'.
+
+|`cookbook search recipe k/Carbonara k/Simple k/Cheesy`
+|Searches the cookbook for recipes with names matching the keywords 'Carbonara', or `Simple`, or `Cheesy`.
 |===
 
 ==== Search recipes by tag
-This command allows you to search for recipes by tags, and the search result will be returned along with the respective recipe indices.
+This command allows you to search for recipes by tags, returning a list of recipes.
+
+Note: Adding more tags will not narrow the search results, but will expand the search results to return any
+recipe that contains any of the given tags.
 
 - Format: `cookbook search tag t/TAG…`
 - Examples:
@@ -213,10 +220,10 @@ This command allows you to search for recipes by tags, and the search result wil
 |`cookbook search tag t/Easy`
 |Searches the cookbook for recipes wisth tags matching 'Easy'.
 |`cookbook search recipe t/Pasta t/Cream t/Easy`
-|Searches the cookbook for recipes with tags matching 'Pasta', 'Cream', and 'Easy'.
+|Searches the cookbook for recipes with tags matching 'Pasta', or 'Cream', or 'Easy'.
 |===
 ==== Search recipes by ingredients owned
-This command allows you to see what you can cook with your current inventory of ingredients.
+This command allows you to see search for recipes you can cook with your current inventory of ingredients.
 
 - Format: `cookbook search recipe inventory`
 - Example:
@@ -227,7 +234,8 @@ This command allows you to see what you can cook with your current inventory of 
 |Searches the cookbook for recipes whose ingredients are available in the inventory.
 |===
 ==== List all recipes in the cookbook
-This commands allows you to view the whole collections of recipe in the cookbook.
+This commands allows you to view the whole collection of recipes in the cookbook. Additionally, it can be used after
+using the search commands to view all the recipes.
 
 - Format: `cookbook list`
 - Example:
@@ -240,7 +248,7 @@ This commands allows you to view the whole collections of recipe in the cookbook
 
 [[Recipe]]
 === Recipe Commands
-Recipe commands are commands that change a particular recipe, which you can indicate using the index of the recipe.
+Recipe commands are commands that change an existing recipe, which can be indicated using the index of the recipe.
 Some things you can do are to add and remove ingredients from a recipe's ingredient list.
 You can also write preparation steps for your recipes.
 
