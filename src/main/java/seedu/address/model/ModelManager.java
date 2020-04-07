@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.fraction.MixedFraction;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.Recipe;
 
@@ -261,6 +262,12 @@ public class ModelManager implements Model {
     public void updateFilteredCartIngredientList(Predicate<Ingredient> predicate) {
         requireNonNull(predicate);
         filteredCartIngredients.setPredicate(predicate);
+    }
+
+    // TODO: Update method
+    @Override
+    public MixedFraction calculateSimilarity(Recipe recipe) {
+        return null;
     }
 
     @Override
