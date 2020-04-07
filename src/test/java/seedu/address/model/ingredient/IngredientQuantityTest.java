@@ -34,6 +34,15 @@ public class IngredientQuantityTest {
         assertFalse(IngredientQuantity.isValidIngredientQuantity("1.")); // whole number with decimal point
         assertFalse(IngredientQuantity.isValidIngredientQuantity("1 / 2 cups")); // spaces in fraction
         assertFalse(IngredientQuantity.isValidIngredientQuantity("1 piece1")); // number in unit
+        assertFalse(IngredientQuantity.isValidIngredientQuantity("01 g")); // leading zero
+        assertFalse(IngredientQuantity.isValidIngredientQuantity("0 g")); // zero whole number
+        assertFalse(IngredientQuantity.isValidIngredientQuantity("0.0 g")); // zero decimal
+        assertFalse(IngredientQuantity.isValidIngredientQuantity(".0 g")); // zero value
+        assertFalse(IngredientQuantity.isValidIngredientQuantity("0/1 g")); // zero numerator
+        assertFalse(IngredientQuantity.isValidIngredientQuantity("1/0 g")); // zero denominator
+        assertFalse(IngredientQuantity.isValidIngredientQuantity("0 1/2 g")); // zero whole part
+        assertFalse(IngredientQuantity.isValidIngredientQuantity("-1.2 g")); // negative decimal
+        assertFalse(IngredientQuantity.isValidIngredientQuantity("-1/2 g")); // negative fraction
 
         // valid ingredient quantity
         assertTrue(IngredientQuantity.isValidIngredientQuantity("12345")); // whole number

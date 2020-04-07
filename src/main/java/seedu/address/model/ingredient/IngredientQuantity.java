@@ -19,11 +19,12 @@ import seedu.address.model.ingredient.exceptions.NonPositiveIngredientQuantityEx
 public class IngredientQuantity {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Ingredient quantities should only contain a value and a unit, where the value can be "
+            "Ingredient quantities should only contain a positive value and a unit, where the value can be "
             + "whole numbers, decimals, or fractions, and the unit should only contain alphabets";
 
-    private static final String DECIMAL_REGEX = "(([\\p{Digit}]+(\\.[\\p{Digit}]+)?)|(\\.[\\p{Digit}]+))";
-    private static final String FRACTION_REGEX = "[\\p{Digit}]+( +[\\p{Digit}]+)?/[\\p{Digit}]+";
+    private static final String DECIMAL_REGEX = "([1-9][\\p{Digit}]*(\\.[\\p{Digit}]+)?)"
+            + "|(0?\\.(?=.*[1-9])[\\p{Digit}]+)";
+    private static final String FRACTION_REGEX = "[1-9][\\p{Digit}]*( +[1-9][\\p{Digit}]*)?/[1-9][\\p{Digit}]*";
     private static final String UNIT_REGEX = "[\\p{Alpha}][\\p{Alpha} ]*";
 
     /*
