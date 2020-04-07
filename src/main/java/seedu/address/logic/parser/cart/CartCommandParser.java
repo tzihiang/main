@@ -13,6 +13,7 @@ import seedu.address.logic.commands.cart.CartAddCommand;
 import seedu.address.logic.commands.cart.CartClearCommand;
 import seedu.address.logic.commands.cart.CartCommand;
 import seedu.address.logic.commands.cart.CartMoveCommand;
+import seedu.address.logic.commands.cart.CartExportCommand;
 import seedu.address.logic.commands.cart.CartRemoveIngredientCommand;
 
 import seedu.address.logic.parser.Parser;
@@ -53,6 +54,8 @@ public class CartCommandParser implements Parser<CartCommand> {
             return new CartClearCommandParser().parse(arguments);
         case CartMoveCommand.COMMAND_WORD:
             return new CartMoveCommandParser().parse(arguments);
+        case CartExportCommand.COMMAND_WORD:
+            return new CartExportCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

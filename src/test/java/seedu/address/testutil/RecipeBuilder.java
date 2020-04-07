@@ -3,10 +3,12 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.RecipeDescription;
 import seedu.address.model.recipe.RecipeName;
+import seedu.address.model.step.Step;
 import seedu.address.model.step.UniqueStepList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -70,7 +72,26 @@ public class RecipeBuilder {
         return this;
     }
 
+    /**
+     * Adds the {@code ingredient} to the ingredient list of the recipe.
+     * @param ingredient
+     */
+    public RecipeBuilder withIngredients(Ingredient ingredient) {
+        this.ingredients.add(ingredient);
+        return this;
+    }
+
+    /**
+     * Adds the {@code steps} to the steps list of the recipe.
+     * @param step
+     */
+    public RecipeBuilder withStep(Step step) {
+        this.steps.add(step);
+        return this;
+    }
+
     public Recipe build() {
         return new Recipe(recipeName, recipeDescription, ingredients, steps, tags);
     }
+
 }
