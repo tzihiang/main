@@ -165,7 +165,7 @@ Below is a step by step sequence of what happens when a user enters this command
 . `CookbookAddCommandParser` parsers the user input and checks if `n/NAME` and `d/DESCRIPTION` are provided. It then parses the input into the following fields: recipe name, recipe description, ingredients, and tags. Note that the ingredient names and ingredient quantities provided must be the same, or a `ParseException` will be thrown, likewise for step indices and step descriptions.
 . These fields are then passed as parameters for `Recipe`, which is then passed as the parameter for `CookbookAddCommand` and returned to `LogicManager`.
 . `LogicManager` calls `CookbookAddCommand#execute()` which checks if the cookbook already contains the same recipe with the same name, description, ingredient names, ingredient quantities, and tags using `Model#hasCookbookRecipe()`. If there is a duplicate, a `CommandException` is thrown, stating that the user is attempting to add a duplicate recipe.
-. If `CommandException` is not thrown, `Model#addCookbookRecipe` will be executed, with the recipe to be added as a parameter.
+. If `CommandException` is not thrown, `Model#addCookbookRecipe()` will be executed, with the recipe to be added as a parameter.
 . `Model#addCookbookRecipe()` then executes `Cookbook#addRecipe()`, which adds the recipe to the cookbook, and the `FilteredList<Recipe>` representing the recipes in the cookbook are updated with `Model#updateFilteredCookbookRecipeList()`
 . A `CommandResult` with the text to display to the user is then returned to `LogicManager`, which can passed back to `MainWindow`, which displays it to the user on the CLI and GUI.
 
@@ -271,21 +271,74 @@ The above implementation is the same for `Inventory`
 ==== Design Considerations
 Aspect: The need for many parsers just for one command
 
-* Alternative 1 (Current choice): Create parsers for every individual action
+* **Alternative 1 (Current choice)**: Create parsers for every individual action
 ** The command will go through the parsers in the following order: CookingPapaParser -> CartCommandParser -> CartAddCommandParser
 -> CartAddIngredientParser before finally returning CartAddIngredientCommand. We eventually went with this as we wanted the add
 functionality to be expanded, namely to be able to add all the ingredients of cookbook recipes into the cart.
 ** Pros: More organised and can do more with `cart add` as the prefix.
 ** Cons: Many parser classes to make and keep track of.
 
-* Alternative 2: Create parsers for each specific action
+* **Alternative 2:** Create parsers for each specific action
 ** This would mean that `CartAddCommand` will not be created facilitate `CartAddIngredientCommand` and `CartAddRecipeIngredientCommand`.
 ** Pros: The classes can be more specific and atomic in their actions.
 ** Cons: Might lead to disorganisation during troubleshooting with so many classes to keep track.
 
 === Moving ingredients from cart to inventory
+The user may use this command after their shopping trip. With this one command, all ingredients will be shifted from the cart to the inventory.
 
-=== Search recipes from the current cookbook from the current inventory.
+==== Implementation
+This command is facilitated by `CartMoveCommand`, which extends the `Command` class. The format of the command is as follows:
+`cart move`.
+
+Below is a step by step sequence of what happens when the user executes this command.
+
+. The user enters the command `cart move` in to the command line input.
+. `CartMoveCommandParser` then ensures that the user does not enter any other commands after `cart clear`.
+. `CartMoveCommandParser` then returns a `CartMoveCommand` and returns it to `LogicManager`
+. `LogicManager` calls `CartMoveCommand#execute()`. If there are other commands after `cart clear`, a `CommandException`
+will be thrown.
+. If `CommandException` is not thrown, `Model#cartMoveIngredients()` will be executed.
+. `Model#cartMoveIngredients()` will move every ingredient from the `cart` and add it into the `inventory`
+. A `CommandResult` with the success message text will be returned to `LogicManager`, which will then be passed to `MainWindow`
+and will then feedback to the user.
+
+==== Implementation reasoning
+This command is implemented to ease the process of having the user adding every single ingredient to their inventory after they have bought ingredients from their cart
+and eventually deleting the cart after that tedious process. These gives a convenience to users that frequently use our application and we forsee
+that such an action will be used very often by these users. As this command only performs an atomic action, no extra
+arguments are needed to further supplement the use of this command.
+
+==== Sequence Diagram
+The following sequence diagram shows how this function works (full command omitted for brevity):
+
+image::CartMoveSequenceDiagram.png[]
+
+==== How this feature works
+Step 1: This feature is intended when you have ingredients in the cart. As an example, the diagram below shows an
+empty inventory, along with a cart with an ingredient.
+
+image::CartMoveCommand1.png[]
+
+Step 2: Press kbd:[Enter]. The ingredients from cart will all be shifted to inventory as shown in the diagram below
+
+image::CartMoveCommand2.png[]
+
+==== Design considerations
+Aspect: Allowing users to move some or all ingredients from cart to inventory
+
+* **Alternative 1 (Current choice)**: Move all ingredients
+** There was a consideration to allow the user to move the ingredients by individual ingredients. Eventually the options was
+not given as we know that typical users will want to move all the ingredients except for individual ingredients.
+** Pros: Straightforward to implement
+** Cons: Lesser functionality to users that really want to only move certain ingredients
+
+* **Alternative 2:** Allow users to move individually or exclude some ingredients when moving
+** The use cases of such an action happening is very little and the user can simply manually remove the few
+ingredients they do not wish to add to the inventory after using the `cart move` command. The user can also manually
+add back the ingredients to the cart after it is cleared if they wish to.
+** Pros: Lesser implementations, more time to focus on other parts of the project
+** Cons: Poorer user experience for users that do not want to move all ingredients from the cart to inventory on a regular basis,
+
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
@@ -361,9 +414,10 @@ image::CommitActivityDiagram.png[]
 * **Alternative 1 (current choice):** Saves the entire state of CookingPapa.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
+
 * **Alternative 2:** Implement commands of `add` and `remove` to have the same format.
-** Pros: Ease for users to easily undo or redo their own mistakes. Lower memory usage
-** Cons: Poor user experience.
+** Pros: Ease for users to easily undo or redo their own mistakes. Also gives overall lower memory usage
+** Cons: Poorer user experience.
 
 Eventually, we decided that saving the memory state of the project is still manageable, given the current scale of the project.
 
