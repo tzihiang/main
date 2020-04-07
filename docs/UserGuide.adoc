@@ -80,7 +80,7 @@ can be used to add multiple ingredients and its respective quantities in the sam
 * Parameters can be in any order. +
 (e.g. if the command specifies `n/NAME t/TAG i/INGREDIENT q/QUANTITY`,
 `q/QUANTITY t/TAG i/INGREDIENT` is also acceptable).
-* Commands formats given in the lowercase are case-sensitive. (eg `cookbook` is given as all lowercase. `Cookbook` or `COOKBOOK` will not work.)
+* Command and delimiter (eg. i/, q/) formats given in the lowercase are case-sensitive. (eg `cookbook` is given as all lowercase. `Cookbook` or `COOKBOOK` will not work.)
 Please follow the format given carefully for a seamless experience!
 
 [[Cookbook]]
@@ -155,7 +155,7 @@ This command allows you to remove a recipe of the specified index from the cookb
 
 ==== Search recipes by keyword
 This command allows you to search for recipes by a keyword. The search result will be returned along with the respective recipe indices.
-Adding more tags will not narrow the search results, but would expand the search results to return any recipe that contains the given tags.
+Adding more keywords will not narrow the search results, but would expand the search results to return any recipe that contains the given tags.
 
 
 - Format: `cookbook search recipe k/KEYWORD`
@@ -249,6 +249,8 @@ _(If recipe 2 specifies 500 ml of milk, it will be subtracted and updated to 300
 This command allows you to add a preparation step to the selected recipe.
 Requires a valid index in the list of recipes and the cooking step.
 The STEP_INDEX given must be at most 1 more than the current number of steps currently in the recipe.
+(eg. If the number of steps in the current recipe you are trying to add to has 4 steps,
+the user can only add a STEP_INDEX of up to 5)
 
 - Format: `recipe INDEX add step x/STEP_INDEX s/STEP_DESCRIPTION`
 - Examples:
