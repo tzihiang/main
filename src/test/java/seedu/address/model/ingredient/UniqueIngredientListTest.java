@@ -129,7 +129,7 @@ public class UniqueIngredientListTest {
 
     @Test
     public void remove_nullIngredient_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueIngredientList.remove(null));
+        assertThrows(NullPointerException.class, () -> uniqueIngredientList.remove((Ingredient) null));
     }
 
     @Test
@@ -141,6 +141,24 @@ public class UniqueIngredientListTest {
     public void remove_existingIngredient_removesIngredient() {
         uniqueIngredientList.add(APPLE);
         uniqueIngredientList.remove(APPLE);
+        UniqueIngredientList expectedUniqueIngredientList = new UniqueIngredientList();
+        assertEquals(expectedUniqueIngredientList, uniqueIngredientList);
+    }
+
+    @Test
+    public void remove_nullIngredientName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueIngredientList.remove((IngredientName) null));
+    }
+
+    @Test
+    public void remove_ingredientNameDoesNotExist_throwsIngredientNotFoundException() {
+        assertThrows(IngredientNotFoundException.class, () -> uniqueIngredientList.remove(APPLE.getName()));
+    }
+
+    @Test
+    public void remove_existingIngredientName_removesIngredient() {
+        uniqueIngredientList.add(APPLE);
+        uniqueIngredientList.remove(APPLE.getName());
         UniqueIngredientList expectedUniqueIngredientList = new UniqueIngredientList();
         assertEquals(expectedUniqueIngredientList, uniqueIngredientList);
     }
