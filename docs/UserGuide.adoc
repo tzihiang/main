@@ -83,7 +83,7 @@ can be used to add multiple ingredients and its respective quantities in the sam
 * Parameters cannot start with spaces.
 
 |===
-|Parameter type | Constraint
+| Parameter type | Constraint
 
 |INDEX
 |Must be a whole number.
@@ -226,6 +226,8 @@ You can also write preparation steps for your recipes.
 
 ==== Add an ingredient to a recipe
 This command allows you to add ingredients to a recipe.
+You can increase the quantity of an ingredient that is already in the recipe, provided that you indicate the same unit.
+Otherwise, the ingredient will not be added.
 
 - Format: `recipe INDEX add ingredient i/INGREDIENT q/QUANTITY`
 - Examples:
@@ -340,7 +342,8 @@ This command allows you to remove ingredients from the inventory.
 You can indicate the quantity you want to remove for an ingredient, which should not be greater that than the
 ingredient's quantity.
 Please ensure that the unit of the quantity matches the ingredient's unit in the inventory.
-If you do not indicate any quantity, all of the specified ingredient will be removed from the inventory.
+If you do not indicate any quantity, all entries in the inventory that have the specified ingredient name will be
+removed regardless of the unit.
 
 - Format: `inventory remove ingredient i/INGREDIENT [q/QUANTITY]`
 - Examples:
@@ -390,7 +393,8 @@ This command allows you to remove ingredients from the cart.
 You can indicate the quantity you want to remove for an ingredient, which should not be greater that than the
 ingredient's quantity.
 Please ensure that the unit of the quantity matches the ingredient's unit in the cart.
-If you do not indicate any quantity, all of the specified ingredient will be removed from the cart.
+If you do not indicate any quantity, all entries in the cart that have the specified ingredient name will be removed
+regardless of the unit.
 
 - Format: `cart remove ingredient i/INGREDIENT [q/QUANTITY]`
 - Example:
