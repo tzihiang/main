@@ -384,7 +384,7 @@ _(If your cart had 500 ml of milk, it will be subtracted and updated to 300 ml o
 This command allows you to clear all the items in the cart. It can be used to discard an unwanted cart,
 or to clear the cart after completing the purchase.
 
-- Format: `cart clear ingredient`
+- Format: `cart clear ingredients`
 - Example:
 |===
 | Parameters | Result
@@ -395,14 +395,15 @@ or to clear the cart after completing the purchase.
 
 ==== Move all ingredients currently in the cart to inventory
 This command allows you to move all the ingredients from the cart into your inventory. This command also
-empties your cart.
+empties your cart. This is helpful after the user has finished shopping and wish to conveniently move all
+the ingredients to the inventory.
 
 - Format: `cart move ingredient`
 - Example:
 |===
 | Parameters | Result
 
-|`cart move ingredient`
+|`cart move ingredients`
 |Moves all ingredients from the cart into the inventory. Also clears the cart of all items.
 |===
 

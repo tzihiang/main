@@ -13,11 +13,12 @@ public class CartMoveCommand extends CartCommand {
     public static final String MESSAGE_SUCCESS = "All ingredients from cart successfully added to your inventory!";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
             + "This command allows you to add all your ingredients from the cart to your inventory.\n"
+            + "This also empties the cart in the process.\n"
             + "Parameters for moving all ingredients from your cart is as follows: \n"
             + COMMAND_CATEGORY + " " + COMMAND_WORD;
 
     /**
-     * Creates a CartDoneCommand to move the ingredients in the cart to the inventory
+     * Creates a CartMoveCommand to move the ingredients in the cart to the inventory
      */
     public CartMoveCommand() {}
 
