@@ -94,7 +94,7 @@ A table of parameters and their associated constraints:
 |===
 | Parameter type | Constraint
 
-|`INDEX`
+|`INDEX`, `STEP_INDEX`
 |Must be a whole number.
 
 |`NAME`,`DESCRIPTION`, `STEP`, `INGREDIENT`
@@ -114,7 +114,7 @@ A quarter cup of milk can be represented in a command as: `i/Milk q/1/4 cup`.
 [[Cookbook]]
 === Cookbook Commands
 Cookbook commands are commands that allow users to add and remove recipes from the cookbook,
-as well as view recipes stored in the cookbook. More commands can be done with recipes and
+as well as view recipes stored in the cookbook. More commands can be done with recipes, and
 are covered in <<Recipe>>.
 
 ==== View a recipe from the cookbook
@@ -123,30 +123,27 @@ This command allows you to view a recipe, the ingredients required, and the step
 - Format: `cookbook view recipe INDEX`
 - Example:
 |===
-| Parameters | Result
+| Command | Result
 
 |`cookbook view recipe 1`
 a|
-----
-Selected recipe <NAME>
+image::CookbookViewExample2.png[width="790"]
 
-Description: <DESCRIPTION>
-Ingredients: <INGREDIENTS>
-Preparation Steps:
-1: <STEP_1>
-2: <STEP_2>
-Tags: [<tag1>] [<tag2>]...
-----
+Note: you must have added a recipe to the cookbook, otherwise Cooking Papa will not be able to show you
+the details of the recipe.
 |===
+
+A recipe's details can also be viewed by pressing the "eye" icon, without the need to type in the command above:
+
+image::CookbookViewExample1.png[width="790"]
 
 ==== Add a new recipe to the cookbook
-This command allows you to add and store a new recipe with the specified recipe name to the cookbook.
-If neither of the details is specified, an empty recipe will be added.
+This command allows you to add (and store) a new recipe with the provided recipe details to the cookbook.
 
-- Format: `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY] [x/STEP_INDEX] [s/STEP] [t/TAG]`
+- Format: `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]... [s/STEP]... [t/TAG]...`
 - Examples:
 |===
-|Parameters | Result
+|Command | Result
 
 |`cookbook add recipe n/Bacon Carbonara d/Best cream pasta made in Italy`
 a| Adds a new empty recipe to the cookbook with the following details: +
@@ -159,17 +156,18 @@ Tags:
 ----
 
 |`cookbook add recipe n/Chicken Ham Sandwich d/Juicy ham sandwiched between crispy toasted bread.
-i/Chicken Ham q/1 slice i/White Bread q/2 slices x/1 s/Toast the bread x/2 s/Grill the ham.
+i/Chicken Ham q/1 slice i/White Bread q/2 slices s/Toast the bread s/Grill the ham.
 t/sandwich t/easy`
-|Adds a new recipe to the cookbook with the following details: +
-``New recipe added: Chicken Ham Sandwich`` +
-``Description: Juicy ham sandwiched between crispy toasted bread.`` +
-``Ingredients: 1 slice Chicken Ham, 2 slices White Bread`` +
-``Preparation Steps:`` +
-``1: Toast the bread`` +
-``2: Grill the ham.`` +
-``Tags: [sandwich] [easy]``
+a|
+
+Adds a new recipe to the cookbook with the following details:
+----
+New recipe (index 1) added: Chicken Ham Sandwich
+----
 |===
+
+Note: the number of ingredient names provided must be the same as the number of ingredient quantities provided,
+otherwise Cooking Papa will not be able to add the recipe.
 
 ==== Remove a recipe from the cookbook
 This command allows you to remove a recipe of the specified index from the cookbook.
@@ -180,8 +178,16 @@ This command allows you to remove a recipe of the specified index from the cookb
 | Parameters | Result
 
 |`cookbook remove recipe 1`
-|Removes recipe 1 from the cookbook.
+a|
+----
+Removed recipe: Bacon Carbonara from the cookbook
+----
+
+Note: you must have added a recipe to the cookbook, otherwise Cooking Papa will not be able to remove the recipe.
+
 |===
+
+Note: you must have added a recipe to the cookbook, otherwise Cooking Papa will not be able to remove the recipe.
 
 ==== Search recipes by keyword
 This command allows you to search for recipes by a keyword. The search result will be returned along with the respective recipe indices.

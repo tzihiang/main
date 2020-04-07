@@ -23,7 +23,7 @@ public class CookbookRemoveCommand extends CookbookCommand {
             + "Parameters: INDEX (must be a positive integer)\n\n"
             + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Deleted recipe: %1$s";
+    public static final String MESSAGE_SUCCESS = "Deleted recipe: %1$s from the cookbook";
 
     private final Index targetIndex;
 
@@ -44,7 +44,7 @@ public class CookbookRemoveCommand extends CookbookCommand {
 
         Recipe recipeToRemove = lastShownList.get(targetIndex.getZeroBased());
         model.removeCookbookRecipe(recipeToRemove);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, recipeToRemove));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, recipeToRemove.getName()));
     }
 
     @Override

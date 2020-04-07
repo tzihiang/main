@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SEARCH_KEYWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -74,10 +75,9 @@ public class CookbookSearchCommandParser implements Parser<CookbookSearchCommand
                     CookbookSearchByKeywordCommand.MESSAGE_USAGE));
         }
 
-        String trimmedArgs = argMultimap.getValue(PREFIX_SEARCH_KEYWORD).get();
-        String[] recipeKeywords = trimmedArgs.split("\\s+");
+        List<String> trimmedArgs = argMultimap.getAllValues(PREFIX_SEARCH_KEYWORD);
         return new CookbookSearchByKeywordCommand(
-                new RecipeNameContainsKeywordsPredicate(Arrays.asList(recipeKeywords)));
+                new RecipeNameContainsKeywordsPredicate(trimmedArgs));
     }
 
     /**
