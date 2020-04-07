@@ -19,8 +19,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import javafx.collections.ObservableList;
 import seedu.address.model.ingredient.Ingredient;
 
-
-
 /**
  * Exports the given arguments to a pdf file.
  */
