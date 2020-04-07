@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.fraction.MixedFraction;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -129,6 +130,12 @@ public interface Model {
     void removeInventoryIngredient(Ingredient ingredient);
 
     /**
+     * Removes ingredients with the given ingredient name.
+     * The ingredient must exist in the inventory.
+     */
+    void removeInventoryIngredient(IngredientName ingredientName);
+
+    /**
      * Adds the given ingredient.
      * {@code ingredient} must not already exist in the inventory.
      */
@@ -143,11 +150,6 @@ public interface Model {
     void setInventoryIngredient(Ingredient target, Ingredient editedIngredient);
 
     /**
-     * Finds the ingredient with the same ingredient name as the input ingredient.
-     */
-    Ingredient findInventoryIngredient(Ingredient toRemove);
-
-    /**
      * Returns true if an ingredient with the same identity as {@code ingredient} exists in the cart.
      */
     boolean hasCartIngredient(Ingredient ingredient);
@@ -157,6 +159,12 @@ public interface Model {
      * The ingredient must exist in the cart.
      */
     void removeCartIngredient(Ingredient ingredient);
+
+    /**
+     * Removes ingredients with the given ingredient name.
+     * The ingredient must exist in the cart.
+     */
+    void removeCartIngredient(IngredientName ingredientName);
 
     /**
      * Adds the given ingredient.
@@ -171,11 +179,6 @@ public interface Model {
      * cart.
      */
     void setCartIngredient(Ingredient target, Ingredient editedIngredient);
-
-    /**
-     * Finds the ingredient with the same ingredient name as the input ingredient.
-     */
-    public Ingredient findCartIngredient(Ingredient ingredient);
 
     /** Returns an unmodifiable view of the filtered cookbook recipe list */
     ObservableList<Recipe> getFilteredCookbookRecipeList();
