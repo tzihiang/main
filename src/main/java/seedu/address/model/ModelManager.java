@@ -165,7 +165,6 @@ public class ModelManager implements Model {
     @Override
     public void setCookbookRecipe(Recipe target, Recipe editedRecipe) {
         requireAllNonNull(target, editedRecipe);
-
         cookbook.setRecipe(target, editedRecipe);
     }
 
@@ -279,6 +278,12 @@ public class ModelManager implements Model {
     @Override
     public MixedFraction calculateSimilarity(Recipe recipe) {
         return null;
+    }
+
+    @Override
+    public void cartMoveIngredients() {
+        cart.getCompatibleIngredientList().forEach(ingredient -> inventory.addIngredient(ingredient));
+        this.setCart(new Cart());
     }
 
     @Override

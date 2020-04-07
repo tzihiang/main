@@ -417,7 +417,7 @@ _(If your cart had 500 ml of milk, it will be subtracted and updated to 300 ml o
 This command allows you to clear all the items in the cart. It can be used to discard an unwanted cart,
 or to clear the cart after completing the purchase.
 
-- Format: `cart clear ingredient`
+- Format: `cart clear ingredients`
 - Example:
 |===
 | Parameters | Result
@@ -426,13 +426,27 @@ or to clear the cart after completing the purchase.
 |Clears the cart of all items.
 |===
 
+
+==== Move all ingredients currently in the cart to inventory
+This command allows you to move all the ingredients from the cart into your inventory. This command also
+empties your cart. This is helpful after the user has finished shopping and wish to conveniently move all
+the ingredients to the inventory.
+
+- Format: `cart move ingredient`
+- Example:
+|===
+| Parameters | Result
+
+|`cart move ingredients`
+|Moves all ingredients from the cart into the inventory. Also clears the cart of all items.
+|===
+
 === Exit command
 The user can choose to type `exit` to close the application.
 The user can also simple click on the 'X' button on the top right corner of the application to close the application.
 
 .CookingPapa 'X' button to exit the application.
 image::ExitCommand.png[width="790"]
-
 
 === Edit recipe details [v2.0]
 The following commands allow you to edit the details of the recipes that are currently in the cookbook.
@@ -567,7 +581,7 @@ INGREDIENT and its QUANTITY, STEP and its STEP_INDEX, and TAG are optional param
 |``remove ingredient i/INGREDIENT q/QUANTITY``
 |Removes QUANTITY of INGREDIENTS from your inventory.
 
-.4+|``cart``
+.5+|``cart``
 |``add recipe INDEX``
 |Adds all ingredients required of recipe at given INDEX to the cart.
 |``add ingredient i/INGREDIENT q/QUANTITY``
@@ -576,4 +590,6 @@ INGREDIENT and its QUANTITY, STEP and its STEP_INDEX, and TAG are optional param
 |Removes QUANTITY of INGREDIENTS from your cart.
 |``clear ingredient``
 |Clears the cart of all ingredients.
+|``move ingredient``
+|Moves all the ingredients from the cart to the inventory, clearing the cart in the process.
 |===

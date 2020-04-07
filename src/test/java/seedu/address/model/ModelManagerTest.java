@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.testutil.TypicalIngredients;
 
 public class ModelManagerTest {
 
@@ -97,6 +98,16 @@ public class ModelManagerTest {
         Path path = Paths.get("cart/file/path");
         modelManager.setCartFilePath(path);
         assertEquals(path, modelManager.getCartFilePath());
+    }
+
+    @Test
+    public void emptyCart() {
+        modelManager.addCartIngredient(TypicalIngredients.ALMOND);
+        modelManager.addCartIngredient(TypicalIngredients.APPLE);
+        modelManager.cartMoveIngredients();
+        assertEquals(modelManager.getCart(), new Cart());
+        assertTrue(modelManager.hasInventoryIngredient(TypicalIngredients.ALMOND));
+        assertTrue(modelManager.hasInventoryIngredient(TypicalIngredients.APPLE));
     }
 
     @Test
