@@ -18,11 +18,12 @@ By: `Team F11-4`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-CookingPapa is an all-in-one application that acts as a personalised cookbook with your own favourite recipes!
-CookingPapa is an easy-to-use application that serves to help university students who live alone, to experiment and
-try out new recipes so that they will not always have to eat the same kind of food every day. With CookingPapa,
-users can easily edit recipes, keep track of ingredients they have at home and have a shopping list that can help
-them remember the ingredients they have to buy.
+Cooking Papa is an all-in-one, and easy-to-use application that acts as a personalised cookbook, with *your* favourite
+recipes!
+
+Cooking Papa aims to help university students who live alone, to make learning how to cook more convenient,
+increasing the diversity of their meals. With Cooking Papa, users can easily edit recipes, keep track of ingredients
+they have at home and have a shopping list that to help them expedite their grocery shopping process.
 
 CookingPapa consists of 3 main features:
 
@@ -34,7 +35,7 @@ Inventory commands can be seen here: <<Inventory>>
 * *Cart*: Acts as a shopping list for ingredients you are missing for a recipe. +
 Cart commands can be seen here: <<Cart>>
 
-Say goodbye to thick and disorganised cookbooks and start using CookingPapa today!
+Do away with thick, confusing, and expensive cookbooks, and start cooking with Cooking Papa today!
 
 == Quick Start and use of application
 
@@ -49,55 +50,65 @@ image::Ui.png[width="790"]
 . CookingPapa uses the *command window* for all of its commands. You can see a comprehensive view of all
 the commands given in <<Features>>.
 +
-.CookingPapa User Interface, marked with command window
+.Cooking Papa User Interface; marked: command window
 image::Example1.png[width="790"]
 
 . Whenever a command is entered, feedback will be given in the *display window*, depending on the type of
 command given by the user.
 +
-.CookingPapa User Interface, marked with display window
+.Cooking Papa User Interface; marked: display window
 image::Example2.png[width="790"]
 
 
 [[Features]]
 == Features
 
-CookingPapa accepts the following command formats for its application. It is important to follow these guidelines
+Cooking Papa accepts the following command formats for its application. It is important to follow these guidelines
 for smooth usage of the application.
 
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user. +
-(e.g. in ``inventory add ingredient i/INGREDIENT``, ``INGREDIENT``
-is a parameter which can be used as ``inventory add ingredient i/Bacon``).
-* Items in square brackets are optional. +
- (e.g `cookbook add recipe n/NAME d/DESCRIPTION [t/TAG]` can be used as `cookbook add recipe n/Cheesecake d/Delicious New York cheesecake t/Dessert`
-or as `cookbook add recipe n/Cheesecake d/Delicious New York cheesecake`).
-* Items with `…`​ after them can be used multiple times. +
-(e.g. `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY]...`
-can be used to add multiple ingredients and its respective quantities in the same command such as
-`cookbook add recipe n/Sandwich d/Delicious Sandwich i/Bread q/2 pieces i/Ham q/3 slices i/Cheese q/2 slices`).
+(e.g. in `inventory add ingredient i/INGREDIENT`, `INGREDIENT`
+is a parameter which can be used as `inventory add ingredient i/Bacon`).
+* Words in square brackets are optional. +
+ (e.g in `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]... [s/STEP]... [t/TAG]...` can be
+used as
+`cookbook add recipe n/Cheesecake d/Delicious New York cheesecake t/Dessert`
+or as `cookbook add recipe n/Cheesecake d/Delicious New York cheesecake` as tags are optional).
+* Words with `…`​ after them can be included multiple times. +
+(e.g. `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]... [s/STEP]... [t/TAG]...` can be used
+to add multiple ingredients and its respective quantities in the same command: `cookbook add recipe n/Sandwich
+d/Delicious Sandwich i/Bread q/2 pieces i/Ham q/3 slices i/Cheese q/2 slices`).
 * Parameters can be in any order. +
-(e.g. if the command specifies `n/NAME t/TAG i/INGREDIENT q/QUANTITY`,
-`q/QUANTITY t/TAG i/INGREDIENT` is also acceptable).
+(e.g. if the command specifies `i/INGREDIENT q/QUANTITY`, `q/QUANTITY i/INGREDIENT` is a valid command).
 
-* Command and delimiter (eg. i/, q/) formats given in the lowercase are case-sensitive. (eg `cookbook` is given as all lowercase. `Cookbook` or `COOKBOOK` will not work.)
-Please follow the format given carefully for a seamless experience! Parameters also cannot start with spaces.
+* Command and delimiter (eg. i/, q/) formats given in the lowercase are *case-sensitive*. (eg `cookbook` is given as
+all lowercase. `Cookbook` or `COOKBOOK` or `cOoKbOoK` are not valid.)
+
+Additionally, parameters also cannot start with spaces. *Please follow the format given carefully for a seamless
+experience.*
+
+A table of parameters and their associated constraints:
+
 |===
 | Parameter type | Constraint
 
-|INDEX
+|`INDEX`
 |Must be a whole number.
 
-|INGREDIENT
-|Can contain alphabets, numbers, and spaces, as well as the symbols `'`, `-`, and `%`.
+|`NAME`,`DESCRIPTION`, `STEP`, `INGREDIENT`
+|Can contain alphabet letters, numbers, and spaces, as well as the symbols `'`, `-`, and `%`.
 
-|QUANTITY
-|Must start with a numerical value, which can contain decimal points or slashes to represent a fraction. The value can
-be followed by an optional unit that only consists of alphabets, possibly separated by spaces.
+|`QUANTITY`
+|Must start with a numerical value, which can contain decimal points or slashes to represent a fraction.
 
-|TAG
-|Can only contain alphabets and numbers. No spaces are permitted.
+The value can be followed by an optional unit that only consists of alphabet letters, which may be separated by spaces.
+
+A quarter cup of milk can be represented in a command as: `i/Milk q/1/4 cup`.
+
+|`TAG`
+|Can only contain alphabet letters and numbers. *No spaces are permitted*.
 |===
 
 [[Cookbook]]
@@ -115,17 +126,17 @@ This command allows you to view a recipe, the ingredients required, and the step
 | Parameters | Result
 
 |`cookbook view recipe 1`
-|Views the details of recipe 1 in the following format: +
-``Selected recipe <NAME>`` +
-``Description: <DESCRIPTION>`` +
-``Ingredients: <INGREDIENTS>`` +
-``Preparation Steps:`` +
-``1: <STEP_1>`` +
-``2: <STEP_2>`` +
-``.`` +
-``.`` +
-``.`` +
-``Tags: [<tag1>] [<tag2>]...``
+a|
+----
+Selected recipe <NAME>
+
+Description: <DESCRIPTION>
+Ingredients: <INGREDIENTS>
+Preparation Steps:
+1: <STEP_1>
+2: <STEP_2>
+Tags: [<tag1>] [<tag2>]...
+----
 |===
 
 ==== Add a new recipe to the cookbook
@@ -138,12 +149,14 @@ If neither of the details is specified, an empty recipe will be added.
 |Parameters | Result
 
 |`cookbook add recipe n/Bacon Carbonara d/Best cream pasta made in Italy`
-| Adds a new empty recipe to the cookbook with the following details: +
-``New recipe added: Bacon Carbonara`` +
-``Description: Best cream pasta made in Italy`` +
-``Ingredients:`` +
-``Preparation Steps:`` +
-``Tags:``
+a| Adds a new empty recipe to the cookbook with the following details: +
+----
+New recipe added: Bacon Carbonara
+Description: Best cream pasta made in Italy
+Ingredients:
+Preparation Steps:
+Tags:
+----
 
 |`cookbook add recipe n/Chicken Ham Sandwich d/Juicy ham sandwiched between crispy toasted bread.
 i/Chicken Ham q/1 slice i/White Bread q/2 slices x/1 s/Toast the bread x/2 s/Grill the ham.
