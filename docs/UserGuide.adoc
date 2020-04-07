@@ -76,16 +76,35 @@ or as `cookbook add recipe n/Cheesecake d/Delicious New York cheesecake`).
 * Items with `…`​ after them can be used multiple times. +
 (e.g. `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY]...`
 can be used to add multiple ingredients and its respective quantities in the same command such as
-`cookbook add recipe n/Sandwich d/Delicious Sandwich i/Bread q/2 pieces i/Ham q/3 slices i/Cheese q/2 slices).
+`cookbook add recipe n/Sandwich d/Delicious Sandwich i/Bread q/2 pieces i/Ham q/3 slices i/Cheese q/2 slices`).
 * Parameters can be in any order. +
 (e.g. if the command specifies `n/NAME t/TAG i/INGREDIENT q/QUANTITY`,
 `q/QUANTITY t/TAG i/INGREDIENT` is also acceptable).
+
+* Command and delimiter (eg. i/, q/) formats given in the lowercase are case-sensitive. (eg `cookbook` is given as all lowercase. `Cookbook` or `COOKBOOK` will not work.)
+Please follow the format given carefully for a seamless experience! Parameters also cannot start with spaces.
+|===
+| Parameter type | Constraint
+
+|INDEX
+|Must be a whole number.
+
+|INGREDIENT
+|Can contain alphabets, numbers, and spaces, as well as the symbols `'`, `-`, and `%`.
+
+|QUANTITY
+|Must start with a numerical value, which can contain decimal points or slashes to represent a fraction. The value can
+be followed by an optional unit that only consists of alphabets, possibly separated by spaces.
+
+|TAG
+|Can only contain alphabets and numbers. No spaces are permitted.
+|===
 
 [[Cookbook]]
 === Cookbook Commands
 Cookbook commands are commands that allow users to add and remove recipes from the cookbook,
 as well as view recipes stored in the cookbook. More commands can be done with recipes and
-are covered in <<Recipe commands>>.
+are covered in <<Recipe>>.
 
 ==== View a recipe from the cookbook
 This command allows you to view a recipe, the ingredients required, and the steps to cook it.
@@ -153,6 +172,8 @@ This command allows you to remove a recipe of the specified index from the cookb
 
 ==== Search recipes by keyword
 This command allows you to search for recipes by a keyword. The search result will be returned along with the respective recipe indices.
+Adding more keywords will not narrow the search results, but would expand the search results to return any recipe that contains the given tags.
+
 
 - Format: `cookbook search recipe k/KEYWORD`
 - Example:
@@ -166,14 +187,12 @@ This command allows you to search for recipes by a keyword. The search result wi
 ==== Search recipes by tag
 This command allows you to search for recipes by tags, and the search result will be returned along with the respective recipe indices.
 
-- Format: `cookbook search recipe t/TAG…`
+- Format: `cookbook search tag t/TAG…`
 - Examples:
 |===
 | Parameters | Result
-
-|`cookbook search recipe t/Easy`
-|Searches the cookbook for recipes with tags matching 'Easy'.
-
+|`cookbook search tag t/Easy`
+|Searches the cookbook for recipes wisth tags matching 'Easy'.
 |`cookbook search recipe t/Pasta t/Cream t/Easy`
 |Searches the cookbook for recipes with tags matching 'Pasta', 'Cream', and 'Easy'.
 |===
@@ -188,6 +207,17 @@ This command allows you to see what you can cook with your current inventory of 
 |`cookbook search recipe inventory`
 |Searches the cookbook for recipes whose ingredients are available in the inventory.
 |===
+==== List all recipes in the cookbook
+This commands allows you to view the whole collections of recipe in the cookbook.
+
+- Format: `cookbook list`
+- Example:
+|===
+| Parameters | Result
+
+|`cookbook list`
+|Lists all recipes in the cookbook
+|===
 
 [[Recipe]]
 === Recipe Commands
@@ -197,31 +227,35 @@ You can also write preparation steps for your recipes.
 
 ==== Add an ingredient to a recipe
 This command allows you to add ingredients to a recipe.
+You can increase the quantity of an ingredient that is already in the recipe, provided that you indicate the same unit.
+Otherwise, the ingredient will not be added.
 
 - Format: `recipe INDEX add ingredient i/INGREDIENT q/QUANTITY`
 - Examples:
 |===
 | Parameters | Result
 
-|`recipe 1 add ingredient i/Egg q/2`
+|`recipe 1 add ingredient i/Eggs q/2`
 |Adds 2 eggs to the 1st recipe's list of ingredients.
 
-|`recipe 2 add i/Milk ingredient q/200 ml`
+|`recipe 2 add ingredient i/Milk  q/200 ml`
 |Adds 200 ml of milk to the 2nd recipe's list of ingredients.
 |===
 
 ==== Remove an ingredient from a recipe
-You can remove ingredients that spoil the taste of the dish using this command.
-If the quantity specified is of smaller value, the ingredient quantity will be subtracted and updated.
-Please ensure that the unit specified corresponds accordingly.
+This command allows you to remove ingredients that spoil the taste of a dish from a recipe.
+You can indicate the quantity you want to remove for an ingredient, which should not be greater that than the
+ingredient's quantity.
+Please ensure that the unit of the quantity matches the ingredient's unit in the recipe.
+If you do not indicate any quantity, all of the specified ingredient will be removed from the recipe.
 
-- Format: `recipe INDEX remove ingredient i/INGREDIENT q/QUANTITY`
+- Format: `recipe INDEX remove ingredient i/INGREDIENT [q/QUANTITY]`
 - Examples:
 |===
 | Parameters | Result
 
-| `recipe 1 remove ingredient i/Egg q/2`
-|Removes 1 egg from the list of ingredients in recipe 1.
+| `recipe 1 remove ingredient i/Eggs`
+|Removes all egg from the list of ingredients in recipe 1.
 
 |`recipe 2 remove ingredient i/Milk q/200 ml`
 |Removes 200 ml of milk from the list of ingredients in recipe 2.
@@ -232,14 +266,17 @@ _(If recipe 2 specifies 500 ml of milk, it will be subtracted and updated to 300
 
 This command allows you to add a preparation step to the selected recipe.
 Requires a valid index in the list of recipes and the cooking step.
+The STEP_INDEX given must be at most 1 more than the current number of steps currently in the recipe.
+(eg. If the number of steps in the current recipe you are trying to add to has 4 steps,
+the user can only add a STEP_INDEX of up to 5)
 
 - Format: `recipe INDEX add step x/STEP_INDEX s/STEP_DESCRIPTION`
 - Examples:
 |===
 | Parameters | Result
 
-| `recipe 1 add step x/2 s/Bring the water to boil`
-|Adds a preparation step 2 (Bring water to boil) to recipe 1.
+| `recipe 1 add step x/1 s/Bring the water to boil`
+|Adds a preparation step 1 (Bring water to boil) to recipe 1.
 |===
 
 ==== Remove a preparation step from a recipe
@@ -290,7 +327,8 @@ Inventory commands are commands that update the user's very own inventory at hom
 These commands include adding, remove and viewing the current inventory database.
 
 ==== Add an ingredient to the inventory
-This commands allows you to add ingredients to your inventory.
+This commands allows you to add ingredients to your inventory. Ingredient names added are case-insensitive.
+Ingredient names such as 'Bacon' and 'bacon' will be recognised by CookingPapa as 'Bacon'.
 
 - Format: `inventory add ingredient i/INGREDIENT q/QUANTITY`
 - Examples:
@@ -305,17 +343,21 @@ This commands allows you to add ingredients to your inventory.
 |===
 
 ==== Remove an ingredient from the inventory
-This command allows you to remove ingredients from your inventory.
-If the quantity specified is of a smaller value, the ingredient quantity will be subtracted and updated.
-Please ensure that the unit specified corresponds accordingly.
 
-- Format: `inventory remove ingredient i/INGREDIENT q/QUANTITY`
+This command allows you to remove ingredients from the inventory.
+You can indicate the quantity you want to remove for an ingredient, which should not be greater that than the
+ingredient's quantity.
+Please ensure that the unit of the quantity matches the ingredient's unit in the inventory.
+If you do not indicate any quantity, all entries in the inventory that have the specified ingredient name will be
+removed regardless of the unit.
+
+- Format: `inventory remove ingredient i/INGREDIENT [q/QUANTITY]`
 - Examples:
 |===
 | Parameters | Result
 
-|`inventory remove ingredient i/Egg q/10`
-|Removes 10 eggs from your inventory.
+|`inventory remove ingredient i/Eggs`
+|Removes all eggs from your inventory.
 
 |`inventory remove ingredient i/Butter q/200g`
 |Removes 200g of butter from your inventory.
@@ -354,16 +396,18 @@ This command allows you to add ingredients to the cart.
 
 ==== Remove ingredients from the cart
 This command allows you to remove ingredients from the cart.
-If the quantity specified is of a smaller value, the ingredient quantity will be subtracted and updated.
-Please ensure that the unit specified corresponds accordingly.
+You can indicate the quantity you want to remove for an ingredient, which should not be greater that than the
+ingredient's quantity.
+Please ensure that the unit of the quantity matches the ingredient's unit in the cart.
+If you do not indicate any quantity, all entries in the cart that have the specified ingredient name will be removed
+regardless of the unit.
 
-- Format: `cart remove ingredient i/INGREDIENT q/QUANTITY`
+- Format: `cart remove ingredient i/INGREDIENT [q/QUANTITY]`
 - Example:
 |===
 | Parameters | Result
-
-|`cart remove ingredient i/Egg q/1`
-|Removes 1 egg from the cart
+|`cart remove ingredient i/Eggs`
+|Removes all eggs from the cart
 |`cart remove i/Milk q/200ml`
 |Removes 200ml of milk from the cart.
 _(If your cart had 500 ml of milk, it will be subtracted and updated to 300 ml of milk)_
@@ -373,7 +417,7 @@ _(If your cart had 500 ml of milk, it will be subtracted and updated to 300 ml o
 This command allows you to clear all the items in the cart. It can be used to discard an unwanted cart,
 or to clear the cart after completing the purchase.
 
-- Format: `cart clear ingredient`
+- Format: `cart clear ingredients`
 - Example:
 |===
 | Parameters | Result
@@ -381,6 +425,28 @@ or to clear the cart after completing the purchase.
 |`cart clear ingredient`
 |Clears the cart of all items.
 |===
+
+
+==== Move all ingredients currently in the cart to inventory
+This command allows you to move all the ingredients from the cart into your inventory. This command also
+empties your cart. This is helpful after the user has finished shopping and wish to conveniently move all
+the ingredients to the inventory.
+
+- Format: `cart move ingredient`
+- Example:
+|===
+| Parameters | Result
+
+|`cart move ingredients`
+|Moves all ingredients from the cart into the inventory. Also clears the cart of all items.
+|===
+
+=== Exit command
+The user can choose to type `exit` to close the application.
+The user can also simple click on the 'X' button on the top right corner of the application to close the application.
+
+.CookingPapa 'X' button to exit the application.
+image::ExitCommand.png[width="790"]
 
 === Edit recipe details [v2.0]
 The following commands allow you to edit the details of the recipes that are currently in the cookbook.
@@ -459,57 +525,71 @@ CookingPapa can generate a recipe of the day to cook based on the recipes curren
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CookingPapa folder.
+
+*Q*: Where can I install the latest version of CookingPapa? +
+*A*: You can find the latest releases at: https://github.com/AY1920S2-CS2103T-F11-4/main/releases. You only have to download the latest version of CookingPapa.jar
+
+*Q*: Do I need to be connected to the internet to access this application? +
+*A*: All information is stored locally in your own computer. No internet connection is required.
+
+*Q*: Something is not working as expected. Who can I contact? +
+*A*: You may report your bugs to: https://github.com/AY1920S2-CS2103T-F11-4/main/issues. Bug reports are highly appreciated!
+
+*Q*: Is this application free? +
+*A*: Yes! This application is open-source under the MIT license. You may feel free to modify, contribute and share this application with any community!
 
 == Command Summary
 
 [cols="2,3,5a", options="header"]
 |===
 | Category | Addtional Parameters | Result
-.7+|cookbook
-|view recipe INDEX
+.7+|``cookbook``
+|``view recipe INDEX``
 |Shows recipe at given INDEX
-|add recipe n/NAME d/DESCRIPTION
+|``add recipe n/NAME d/DESCRIPTION``
 |Adds a new empty recipe with the given NAME and DESCRIPTION.
-|add recipe n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY] [x/STEP_INDEX] [s/STEP] [t/TAG]
+|``add recipe n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY] [x/STEP_INDEX] [s/STEP] [t/TAG]``
 |Adds a new recipe with the given NAME and DESCRIPTION.
 INGREDIENT and its QUANTITY, STEP and its STEP_INDEX, and TAG are optional parameters and will be added according to input from user.
-|remove recipe INDEX
+|``remove recipe INDEX``
 |Remove recipe at given INDEX
-|search recipe k/KEYWORD
+|``search recipe k/KEYWORD``
 |Search for recipes by a keyword
-|search recipe t/TAG
+|``search recipe t/TAG``
 |Search for recipes by a keyword
-|search recipe inventory
+|``search recipe inventory``
 |Search for recipes whose ingredients are available in the inventory.
 
-.6+|recipe
-|INDEX add ingredient i/INGREDIENT q/QUANTITY
+.6+|``recipe``
+|``INDEX add ingredient i/INGREDIENT q/QUANTITY``
 |Add ingredients to a recipe at given INDEX
-|INDEX remove ingredient i/INGREDIENT q/QUANTITY
+|``INDEX remove ingredient i/INGREDIENT q/QUANTITY``
 |Removes the ingredient and the specified quantity from recipe at given INDEX
-|INDEX add step x/STEP_INDEX s/STEP_DESCRIPTION
+|``INDEX add step x/STEP_INDEX s/STEP_DESCRIPTION``
 |Adds a step at STEP_INDEX with STEP_DESCRIPTION to the recipe at given INDEX
-|INDEX remove step x/STEP_INDEX
+|``INDEX remove step x/STEP_INDEX``
 |Remove a step at STEP_INDEX from the recipe at given INDEX
-|INDEX add tag t/TAG
+|``INDEX add tag t/TAG``
 |Adds a tag 'TAG' to the recipe at given INDEX
-|INDEX remove tag t/TAG
+|``INDEX remove tag t/TAG``
 |Removes a tag 'TAG' to the recipe at given INDEX
 
-.2+|inventory
-|add ingredient  i/INGREDIENT q/QUANTITY
+.2+|``inventory``
+|``add ingredient  i/INGREDIENT q/QUANTITY``
 |Adds QUANTITY of INGREDIENTS into your inventory.
-|remove ingredient i/INGREDIENT q/QUANTITY
+|``remove ingredient i/INGREDIENT q/QUANTITY``
 |Removes QUANTITY of INGREDIENTS from your inventory.
 
-.4+|cart
-|add recipe INDEX
+.5+|``cart``
+|``add recipe INDEX``
 |Adds all ingredients required of recipe at given INDEX to the cart.
-|add ingredient i/INGREDIENT q/QUANTITY
+|``add ingredient i/INGREDIENT q/QUANTITY``
 |Adds QUANTITY of INGREDIENTS into your cart.
-|remove ingredient i/INGREDIENT q/QUANTITY
+|``remove ingredient i/INGREDIENT q/QUANTITY``
 |Removes QUANTITY of INGREDIENTS from your cart.
-|clear ingredient
+|``clear ingredient``
 |Clears the cart of all ingredients.
+|``move ingredient``
+|Moves all the ingredients from the cart to the inventory, clearing the cart in the process.
 |===

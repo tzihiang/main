@@ -84,6 +84,10 @@ public class Ingredient {
                 && otherIngredient.getName().equals(getName());
     }
 
+    public String getNoWhitespaceName() {
+        return this.getName().ingredientName.replace(" ", "");
+    }
+
     /**
      * Returns true if both ingredients have the same name and quantity.
      * This defines a stronger notion of equality between two ingredients.
@@ -113,5 +117,4 @@ public class Ingredient {
     public String toString() {
         return String.format("%s %s", ingredientQuantity, ingredientName);
     }
-
 }

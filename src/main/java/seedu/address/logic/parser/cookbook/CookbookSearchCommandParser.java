@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SEARCH_KEYWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.cookbook.CookbookSearchByInventoryCommand;
 import seedu.address.logic.commands.cookbook.CookbookSearchByKeywordCommand;
@@ -23,6 +25,9 @@ import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
  */
 public class CookbookSearchCommandParser implements Parser<CookbookSearchCommand> {
 
+    private static final Pattern COOKBOOK_SEARCH_COMMAND_ARGUMENT_FORMAT = Pattern
+            .compile(" *(?<category>recipe|tag|inventory)(?<arguments>.*)");
+
     /**
      * Parses the given {@code String} of arguments in the context of the CookbookSearchCommand
      * and returns a CookbookSearchCommand object for execution.
@@ -31,13 +36,24 @@ public class CookbookSearchCommandParser implements Parser<CookbookSearchCommand
     public CookbookSearchCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        if (containsKeyword(args)) {
-            return parseSearchByKeyword(args);
-        } else if (containsTag(args)) {
-            return parseSearchByTag(args);
-        } else if (containsInventoryKeyword(args)) {
-            return parseSearchByInventory(args);
-        } else {
+        final Matcher matcher = COOKBOOK_SEARCH_COMMAND_ARGUMENT_FORMAT.matcher(args.trim());
+
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    CookbookSearchCommand.MESSAGE_USAGE));
+        }
+
+        final String category = matcher.group("category");
+        final String arguments = matcher.group("arguments");
+
+        switch(category) {
+        case CookbookSearchCommand.SEARCH_INVENTORY_COMMAND:
+            return parseSearchByInventory(arguments);
+        case CookbookSearchCommand.SEARCH_KEYWORD_COMMAND:
+            return parseSearchByKeyword(arguments);
+        case CookbookSearchCommand.SEARCH_TAG_COMMAND:
+            return parseSearchByTag(arguments);
+        default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     CookbookSearchCommand.MESSAGE_USAGE));
         }
@@ -50,10 +66,8 @@ public class CookbookSearchCommandParser implements Parser<CookbookSearchCommand
      */
     public CookbookSearchByKeywordCommand parseSearchByKeyword(String args) throws ParseException {
         requireNonNull(args);
-
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_SEARCH_KEYWORD);
-
         if (!argMultimap.arePrefixesPresent(PREFIX_SEARCH_KEYWORD)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -62,7 +76,6 @@ public class CookbookSearchCommandParser implements Parser<CookbookSearchCommand
 
         String trimmedArgs = argMultimap.getValue(PREFIX_SEARCH_KEYWORD).get();
         String[] recipeKeywords = trimmedArgs.split("\\s+");
-
         return new CookbookSearchByKeywordCommand(
                 new RecipeNameContainsKeywordsPredicate(Arrays.asList(recipeKeywords)));
     }
@@ -98,26 +111,5 @@ public class CookbookSearchCommandParser implements Parser<CookbookSearchCommand
         requireNonNull(args);
 
         return new CookbookSearchByInventoryCommand();
-    }
-
-    /**
-     * Returns true if {@code String args} contains {@code String PREFIX_SEARCH_KEYWORD}.
-     */
-    private boolean containsKeyword(String args) {
-        return args.contains(PREFIX_SEARCH_KEYWORD.toString());
-    }
-
-    /**
-     * Returns true if {@code String args} contains {@code String PREFIX_TAG}.
-     */
-    private boolean containsTag(String args) {
-        return args.contains(PREFIX_TAG.toString());
-    }
-
-    /**
-     * Returns true if {@code String args} contains {@code String SEARCH_INVENTORY_COMMAND}.
-     */
-    private boolean containsInventoryKeyword(String args) {
-        return args.contains(CookbookSearchByInventoryCommand.SEARCH_INVENTORY_COMMAND);
     }
 }
