@@ -188,10 +188,8 @@ This command allows you to search for recipes by tags, and the search result wil
 - Examples:
 |===
 | Parameters | Result
-
 |`cookbook search tag t/Easy`
 |Searches the cookbook for recipes wisth tags matching 'Easy'.
-
 |`cookbook search recipe t/Pasta t/Cream t/Easy`
 |Searches the cookbook for recipes with tags matching 'Pasta', 'Cream', and 'Easy'.
 |===

@@ -21,7 +21,7 @@ import seedu.address.model.recipe.Recipe;
 import seedu.address.model.util.PdfExporter;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of CookingPapa's data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -42,7 +42,8 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(cookbook, inventory, cart, userPrefs);
 
-        logger.fine("Initializing with cookbook: " + cookbook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with cookbook: " + cookbook + ", inventory: " + inventory + ", cart: " + cart
+                + ", and user prefs: " + userPrefs);
 
         this.cookbook = new Cookbook(cookbook);
         this.inventory = new Inventory(inventory);
