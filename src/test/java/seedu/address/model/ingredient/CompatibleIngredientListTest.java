@@ -108,7 +108,7 @@ public class CompatibleIngredientListTest {
 
     @Test
     public void remove_nullIngredient_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> compatibleIngredientList.remove(null));
+        assertThrows(NullPointerException.class, () -> compatibleIngredientList.remove((Ingredient) null));
     }
 
     @Test
@@ -120,6 +120,26 @@ public class CompatibleIngredientListTest {
     public void remove_existingIngredient_removesIngredient() {
         compatibleIngredientList.add(APPLE);
         compatibleIngredientList.remove(APPLE);
+        CompatibleIngredientList expectedCompatibleIngredientList = new CompatibleIngredientList();
+        assertEquals(expectedCompatibleIngredientList, compatibleIngredientList);
+    }
+
+    @Test
+    public void remove_nullIngredientName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> compatibleIngredientList.remove((IngredientName) null));
+    }
+
+    @Test
+    public void remove_ingredientNameDoesNotExist_throwsIngredientNotFoundException() {
+        assertThrows(IngredientNotFoundException.class, () -> compatibleIngredientList.remove(APPLE.getName()));
+    }
+
+    @Test
+    public void remove_existingIngredientName_removesIngredient() {
+        compatibleIngredientList.add(APPLE);
+        Ingredient editedApple = new IngredientBuilder(APPLE).withQuantity(VALID_INGREDIENT_QUANTITY_ALMOND).build();
+        compatibleIngredientList.add(editedApple);
+        compatibleIngredientList.remove(APPLE.getName());
         CompatibleIngredientList expectedCompatibleIngredientList = new CompatibleIngredientList();
         assertEquals(expectedCompatibleIngredientList, compatibleIngredientList);
     }

@@ -18,7 +18,7 @@ public class CartClearCommand extends CartCommand {
             + COMMAND_CATEGORY + " " + COMMAND_WORD;
 
     /**
-     * Creates a CartClearCommand
+     * Creates a CartClearCommand clear the cart
      */
     public CartClearCommand() {
     }

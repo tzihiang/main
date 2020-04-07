@@ -3,9 +3,12 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
+import com.itextpdf.text.DocumentException;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -13,10 +16,12 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.fraction.MixedFraction;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.util.PdfExporter;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of CookingPapa's data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -37,7 +42,8 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(cookbook, inventory, cart, userPrefs);
 
-        logger.fine("Initializing with cookbook: " + cookbook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with cookbook: " + cookbook + ", inventory: " + inventory + ", cart: " + cart
+                + ", and user prefs: " + userPrefs);
 
         this.cookbook = new Cookbook(cookbook);
         this.inventory = new Inventory(inventory);
@@ -130,11 +136,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Ingredient findInventoryIngredient(Ingredient ingredient) {
-        return this.inventory.find(ingredient);
-    }
-
-    @Override
     public void setCart(ReadOnlyCart cart) {
         this.cart.resetData(cart);
     }
@@ -142,11 +143,6 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyCart getCart() {
         return cart;
-    }
-
-    @Override
-    public Ingredient findCartIngredient(Ingredient ingredient) {
-        return this.cart.find(ingredient);
     }
 
     @Override
@@ -169,7 +165,6 @@ public class ModelManager implements Model {
     @Override
     public void setCookbookRecipe(Recipe target, Recipe editedRecipe) {
         requireAllNonNull(target, editedRecipe);
-
         cookbook.setRecipe(target, editedRecipe);
     }
 
@@ -181,6 +176,11 @@ public class ModelManager implements Model {
 
     @Override
     public void removeInventoryIngredient(Ingredient target) {
+        inventory.removeIngredient(target);
+    }
+
+    @Override
+    public void removeInventoryIngredient(IngredientName target) {
         inventory.removeIngredient(target);
     }
 
@@ -204,6 +204,11 @@ public class ModelManager implements Model {
 
     @Override
     public void removeCartIngredient(Ingredient target) {
+        cart.removeIngredient(target);
+    }
+
+    @Override
+    public void removeCartIngredient(IngredientName target) {
         cart.removeIngredient(target);
     }
 
@@ -264,10 +269,21 @@ public class ModelManager implements Model {
         filteredCartIngredients.setPredicate(predicate);
     }
 
+    @Override
+    public void exportCart() throws IOException, DocumentException {
+        PdfExporter.exportCart(getFilteredCartIngredientList());
+    }
+
     // TODO: Update method
     @Override
     public MixedFraction calculateSimilarity(Recipe recipe) {
         return null;
+    }
+
+    @Override
+    public void cartMoveIngredients() {
+        cart.getCompatibleIngredientList().forEach(ingredient -> inventory.addIngredient(ingredient));
+        this.setCart(new Cart());
     }
 
     @Override

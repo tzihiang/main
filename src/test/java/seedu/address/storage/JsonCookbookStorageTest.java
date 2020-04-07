@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalRecipes.AGLIO_OLIO;
-import static seedu.address.testutil.TypicalRecipes.CHICKEN_CHOP;
-import static seedu.address.testutil.TypicalRecipes.FISH_AND_CHIPS;
 import static seedu.address.testutil.TypicalRecipes.getTypicalCookbook;
 
 import java.io.IOException;
@@ -72,14 +70,12 @@ public class JsonCookbookStorageTest {
         assertEquals(original, new Cookbook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addRecipe(CHICKEN_CHOP);
         original.removeRecipe(AGLIO_OLIO);
         jsonCookbookStorage.saveCookbook(original, filePath);
         readBack = jsonCookbookStorage.readCookbook(filePath).get();
         assertEquals(original, new Cookbook(readBack));
 
         // Save and read without specifying file path
-        original.addRecipe(FISH_AND_CHIPS);
         jsonCookbookStorage.saveCookbook(original); // file path not specified
         readBack = jsonCookbookStorage.readCookbook().get(); // file path not specified
         assertEquals(original, new Cookbook(readBack));

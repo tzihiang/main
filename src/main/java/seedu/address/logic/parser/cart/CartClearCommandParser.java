@@ -14,7 +14,7 @@ public class CartClearCommandParser implements Parser<CartCommand> {
 
     /**
      * Parses no arguments in the context of the CartCommand
-     * and returns a CartClearommand object for execution.
+     * and returns a CartClearCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format.
      */
     @Override
