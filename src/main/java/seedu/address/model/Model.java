@@ -216,11 +216,6 @@ public interface Model {
     void updateFilteredCartIngredientList(Predicate<Ingredient> predicate);
 
     /**
-     * Updates the inventory with the ingredients in the cart.
-     */
-    void cartMoveIngredients();
-
-    /**
      * Returns the MixedFraction value based on the similarity of the recipe.
      */
     MixedFraction calculateSimilarity(Recipe recipe);

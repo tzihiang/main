@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.cart;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.logic.commands.cart.CartMoveCommand.MESSAGE_SUCCESS;
 
 import org.junit.jupiter.api.Test;
@@ -28,6 +27,10 @@ public class CartMoveCommandTest {
         model.addCartIngredient(TypicalIngredients.APPLE);
         model.addCartIngredient(TypicalIngredients.BANANA);
         assertEquals(c.execute(model), new CommandResult(MESSAGE_SUCCESS));
+        assertTrue(model.hasInventoryIngredient(TypicalIngredients.ALMOND));
+        assertTrue(model.hasInventoryIngredient(TypicalIngredients.APPLE));
+        assertTrue(model.hasInventoryIngredient(TypicalIngredients.BANANA));
+        assertTrue(model.getCart().getIngredientList().size() == 0);
     }
 
     @Test

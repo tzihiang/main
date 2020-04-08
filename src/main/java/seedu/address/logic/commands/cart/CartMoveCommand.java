@@ -2,6 +2,7 @@ package seedu.address.logic.commands.cart;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Cart;
 import seedu.address.model.Model;
 
 /**
@@ -24,7 +25,8 @@ public class CartMoveCommand extends CartCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.cartMoveIngredients();
+        model.getCart().getCompatibleIngredientList().forEach(ingredient -> model.addInventoryIngredient(ingredient));
+        model.setCart(new Cart());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
