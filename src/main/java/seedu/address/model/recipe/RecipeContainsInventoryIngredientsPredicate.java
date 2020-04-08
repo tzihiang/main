@@ -21,26 +21,6 @@ public class RecipeContainsInventoryIngredientsPredicate implements Predicate<Re
         return inventory.calculateSimilarity(recipe) > 0;
     }
 
-    /**
-     * This method takes in a recipe, and returns a MixedFractionObject based on
-     * the matching number of ingredients that recipe has with the inventory
-     * @param recipe
-     * @return MixedFraction
-     */
-    public double calculateSimilarity(Recipe recipe) {
-        //This is to handle a scenario if the recipe has no ingredients.
-        if (recipe.getIngredients().asUnmodifiableObservableList().size() == 0) {
-            return 0;
-        }
-        //This will filter the available ingredients that particular recipe has that is in the inventory
-        List<Ingredient> availableIngredients = recipe.getIngredients()
-                .asUnmodifiableObservableList().stream()
-                .filter(recipeIngredient -> inventory.getIngredientList().stream()
-                        .anyMatch(inventoryIngredient -> inventoryIngredient.equals(recipeIngredient)))
-                        .collect(Collectors.toList());
-        return availableIngredients.size() / recipe.getIngredients().asUnmodifiableObservableList().size();
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
