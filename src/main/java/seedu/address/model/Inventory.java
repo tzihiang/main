@@ -28,7 +28,19 @@ public class Inventory extends IngredientList implements ReadOnlyInventory {
 
     @Override
     public double calculateSimilarity(Recipe recipe) {
-        return 0;
+        if (recipe.getIngredients().size() == 0) {
+            return 0;
+        }
+
+        return recipe.getIngredients().asUnmodifiableObservableList().stream()
+                .map(recipeIngredient ->
+                    getIngredientList().stream()
+                        .filter(inventoryIngredient -> inventoryIngredient.isCompatibleWith(recipeIngredient))
+                        .findFirst()
+                        .map(inventoryIngredient -> inventoryIngredient.asProportionOf(recipeIngredient))
+                        .orElseGet(() -> (getIngredientList().stream().filter(inventoryIngredient
+                            -> inventoryIngredient.isSameIngredient(recipeIngredient)).count() > 0) ? 0.5 : 0))
+                .reduce(0.0, (x, y) -> x + y, (x, y) -> x + y) / recipe.getIngredients().size();
     }
 
     @Override
