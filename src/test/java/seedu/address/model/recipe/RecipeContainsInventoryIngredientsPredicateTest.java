@@ -1,7 +1,7 @@
 package seedu.address.model.recipe;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalRecipes.getValidRecipe;
 
 import org.junit.jupiter.api.Test;
@@ -18,27 +18,17 @@ public class RecipeContainsInventoryIngredientsPredicateTest {
     private static final Recipe VALID_RECIPE = getValidRecipe();
 
     @Test
-    public void constructor_validInput() {
-        Model model = new ModelManager();
-        model.addCookbookRecipe(VALID_RECIPE);
-        model.addInventoryIngredient(VALID_INGREDIENT);
-        RecipeContainsInventoryIngredientsPredicate c =
-            new RecipeContainsInventoryIngredientsPredicate(model.getInventory());
-        assertEquals(c, new RecipeContainsInventoryIngredientsPredicate(model.getInventory()));
-    }
-
-    @Test
     public void test_validInput() {
         Model model = new ModelManager();
         model.addCookbookRecipe(VALID_RECIPE);
         model.addInventoryIngredient(VALID_INGREDIENT);
         RecipeContainsInventoryIngredientsPredicate c =
             new RecipeContainsInventoryIngredientsPredicate(model.getInventory());
-        assertTrue(c.test(VALID_RECIPE));
+        assertFalse(c.test(VALID_RECIPE));
     }
 
     @Test
-    public void equalsMethod() {
+    public void equals() {
         Model model = new ModelManager();
         model.addCookbookRecipe(VALID_RECIPE);
         model.addInventoryIngredient(VALID_INGREDIENT);

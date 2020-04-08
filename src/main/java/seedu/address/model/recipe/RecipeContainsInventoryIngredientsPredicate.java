@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import seedu.address.commons.core.fraction.MixedFraction;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.ingredient.Ingredient;
 
@@ -20,13 +18,7 @@ public class RecipeContainsInventoryIngredientsPredicate implements Predicate<Re
 
     @Override
     public boolean test(Recipe recipe) {
-        if (recipe.getNoWhitespaceIngredientNamesString().length() == 0) {
-            return false;
-        }
-
-        return inventory.getIngredientList().stream().anyMatch(ingredient ->
-            StringUtil.containsWordIgnoreCase(
-            recipe.getNoWhitespaceIngredientNamesString(), ingredient.getNoWhitespaceName()));
+        return inventory.calculateSimilarity(recipe) > 0;
     }
 
     /**
@@ -35,10 +27,10 @@ public class RecipeContainsInventoryIngredientsPredicate implements Predicate<Re
      * @param recipe
      * @return MixedFraction
      */
-    public MixedFraction calculateSimilarity(Recipe recipe) {
+    public double calculateSimilarity(Recipe recipe) {
         //This is to handle a scenario if the recipe has no ingredients.
         if (recipe.getIngredients().asUnmodifiableObservableList().size() == 0) {
-            return new MixedFraction(0, 1);
+            return 0;
         }
         //This will filter the available ingredients that particular recipe has that is in the inventory
         List<Ingredient> availableIngredients = recipe.getIngredients()
@@ -46,8 +38,7 @@ public class RecipeContainsInventoryIngredientsPredicate implements Predicate<Re
                 .filter(recipeIngredient -> inventory.getIngredientList().stream()
                         .anyMatch(inventoryIngredient -> inventoryIngredient.equals(recipeIngredient)))
                         .collect(Collectors.toList());
-        return new MixedFraction(availableIngredients.size(),
-                recipe.getIngredients().asUnmodifiableObservableList().size());
+        return availableIngredients.size() / recipe.getIngredients().asUnmodifiableObservableList().size();
     }
 
     @Override

@@ -2,7 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
+import seedu.address.model.recipe.Recipe;
 
 /**
  * Wraps all data at the inventory level
@@ -16,11 +16,6 @@ public class Inventory extends IngredientList implements ReadOnlyInventory {
         resetData(toBeCopied);
     }
 
-    @Override
-    public List<String> getIngredientNamesString() {
-        return getCompatibleIngredientList().getIngredientNamesString();
-    }
-
     /**
      * Resets the existing data of this {@code Inventory} with {@code newData}.
      * Called in constructor.
@@ -29,6 +24,11 @@ public class Inventory extends IngredientList implements ReadOnlyInventory {
         requireNonNull(newData);
 
         setIngredients(newData.getIngredientList());
+    }
+
+    @Override
+    public double calculateSimilarity(Recipe recipe) {
+        return 0;
     }
 
     @Override
