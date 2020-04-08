@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.inventory.InventoryAddIngredientCommand;
 import seedu.address.logic.commands.inventory.InventoryCommand;
+import seedu.address.logic.commands.inventory.InventoryCookRecipeCommand;
 import seedu.address.logic.commands.inventory.InventoryRemoveIngredientCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -20,7 +21,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class InventoryCommandParser implements Parser<InventoryCommand> {
 
     private static final Pattern INVENTORY_COMMAND_ARGUMENT_FORMAT = Pattern
-            .compile(" *(?<commandWord>\\S+\\singredient)(?<arguments>.*)");
+            .compile(" *(?<commandWord>\\S+) +(?<category>\\S+)(?<arguments>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of a InventoryCommand
@@ -37,12 +38,16 @@ public class InventoryCommandParser implements Parser<InventoryCommand> {
 
         // For now, implementation will only be done for the whole ingredient, and not quantity
         final String commandWord = matcher.group("commandWord");
+        final String category = matcher.group("category");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
+
+        switch (commandWord + " " + category) {
         case InventoryAddIngredientCommand.COMMAND_WORD:
             return new InventoryAddIngredientCommandParser().parse(arguments);
         case InventoryRemoveIngredientCommand.COMMAND_WORD:
             return new InventoryRemoveIngredientCommandParser().parse(arguments);
+        case InventoryCookRecipeCommand.COMMAND_WORD:
+            return new InventoryCookRecipeCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
