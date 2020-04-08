@@ -29,6 +29,13 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
+     * Returns the size of the list.
+     */
+    public int size() {
+        return internalList.size();
+    }
+
+    /**
      * Returns true if the list contains an ingredient equivalent to the given argument.
      */
     public boolean contains(Ingredient toCheck) {
