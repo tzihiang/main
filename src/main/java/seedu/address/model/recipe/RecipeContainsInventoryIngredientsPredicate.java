@@ -1,11 +1,8 @@
 package seedu.address.model.recipe;
 
-import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import seedu.address.model.ReadOnlyInventory;
-import seedu.address.model.ingredient.Ingredient;
 
 /**
  * Tests that a {@code Recipe}'s {@code Ingredient} matches any of the ingredients available in the inventory.
