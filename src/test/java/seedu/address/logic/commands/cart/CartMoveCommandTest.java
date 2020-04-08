@@ -1,6 +1,8 @@
 package seedu.address.logic.commands.cart;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.cart.CartMoveCommand.MESSAGE_SUCCESS;
 
 import org.junit.jupiter.api.Test;

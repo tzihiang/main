@@ -3,6 +3,7 @@ package seedu.address.logic.commands.cookbook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_RECIPES_LISTED_OVERVIEW;
 
 import java.util.Arrays;
@@ -36,6 +37,12 @@ public class CookbookSearchByKeywordCommandTest {
         model.addCookbookRecipe(VALID_RECIPE);
         assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_RECIPES_LISTED_OVERVIEW,
                 model.getFilteredCookbookRecipeList().size())));
+        assertTrue(!model.getFilteredCookbookRecipeList().isEmpty());
+
+        CookbookSearchByKeywordCommand d = new CookbookSearchByKeywordCommand(VALID_PREDICATE_TWO);
+        assertEquals(d.execute(model), new CommandResult(String.format(MESSAGE_RECIPES_LISTED_OVERVIEW,
+                model.getFilteredCookbookRecipeList().size())));
+        assertTrue(model.getFilteredCookbookRecipeList().isEmpty());
     }
 
     @Test
