@@ -12,18 +12,10 @@ import seedu.address.model.ingredient.IngredientName;
 
 /**
  * Wraps all data at the ingredient list level
- * Duplicates are not allowed
  */
-public abstract class IngredientList implements ReadOnlyIngredientList {
+public abstract class IngredientList {
 
     private final CompatibleIngredientList ingredients = new CompatibleIngredientList();
-
-    public IngredientList() {}
-
-    public IngredientList(ReadOnlyIngredientList toBeCopied) {
-        this();
-        resetData(toBeCopied);
-    }
 
     /**
      * Replaces the contents of the ingredient list with {@code ingredients}.
@@ -32,18 +24,6 @@ public abstract class IngredientList implements ReadOnlyIngredientList {
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients.setIngredients(ingredients);
     }
-
-    /**
-     * Resets the existing data of this {@code IngredientList} with {@code newData}.
-     * Called in constructor.
-     */
-    public void resetData(ReadOnlyIngredientList newData) {
-        requireNonNull(newData);
-
-        setIngredients(newData.getIngredientList());
-    }
-
-    // For ingredient level:
 
     /**
      * Returns true if an ingredient with the same identity as {@code ingredient} exists in the list of ingredients.
@@ -89,19 +69,17 @@ public abstract class IngredientList implements ReadOnlyIngredientList {
         ingredients.remove(key);
     }
 
-    @Override
-    public String toString() {
-        return ingredients.asUnmodifiableObservableList().size() + " ingredients";
-        // TODO: refine later
-    }
-
-    @Override
     public CompatibleIngredientList getCompatibleIngredientList() {
         return ingredients;
     }
 
-    @Override
     public ObservableList<Ingredient> getIngredientList() {
         return ingredients.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public String toString() {
+        return ingredients.asUnmodifiableObservableList().size() + " ingredients";
+        // TODO: refine later
     }
 }

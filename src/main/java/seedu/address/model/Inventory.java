@@ -1,22 +1,34 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 
 /**
  * Wraps all data at the inventory level
- * Duplicates are not allowed
  */
 public class Inventory extends IngredientList implements ReadOnlyInventory {
 
     public Inventory() {}
 
     public Inventory(ReadOnlyInventory toBeCopied) {
-        super(toBeCopied);
+        this();
+        resetData(toBeCopied);
     }
 
     @Override
     public List<String> getIngredientNamesString() {
         return getCompatibleIngredientList().getIngredientNamesString();
+    }
+
+    /**
+     * Resets the existing data of this {@code Inventory} with {@code newData}.
+     * Called in constructor.
+     */
+    public void resetData(ReadOnlyInventory newData) {
+        requireNonNull(newData);
+
+        setIngredients(newData.getIngredientList());
     }
 
     @Override
