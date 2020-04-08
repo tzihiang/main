@@ -14,8 +14,9 @@ public interface ReadOnlyInventory {
     ObservableList<Ingredient> getIngredientList();
 
     /**
-     * Returns a double value between 0 and 1, describing the proportion of {@code recipe} ingredients that the
-     * inventory contains.
+     * Returns the proportion of {@code recipe} ingredients that the inventory contains.
+     * @param recipe the specified recipe
+     * @return a double value between 0 and 1 (inclusive)
      */
     double calculateSimilarity(Recipe recipe);
 }
