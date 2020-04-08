@@ -17,7 +17,7 @@ import seedu.address.model.recipe.Recipe;
  * Removes all the ingredients of the selected recipe from the inventory
  */
 
-public class InventoryCookRecipeCommand extends InventoryCommand {
+public class InventoryCookCommand extends InventoryCommand {
 
     public static final String COMMAND_WORD = "cook recipe";
     public static final String MESSAGE_SUCCESS = "All ingredients from recipe %1$s removed from inventory";
@@ -38,7 +38,7 @@ public class InventoryCookRecipeCommand extends InventoryCommand {
     /**
      * Creates a InventoryCookRecipeCommand to remove all the {@code Ingredient} of a recipe from the inventory
      */
-    public InventoryCookRecipeCommand(Index targetIndex) {
+    public InventoryCookCommand(Index targetIndex) {
         requireAllNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
@@ -61,7 +61,7 @@ public class InventoryCookRecipeCommand extends InventoryCommand {
 
         if (targetIndex.getZeroBased() >= recipeList.size()) {
             throw new CommandException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
-                    InventoryCookRecipeCommand.MESSAGE_USAGE));
+                    InventoryCookCommand.MESSAGE_USAGE));
         }
 
         Recipe selectedRecipe = recipeList.get(targetIndex.getZeroBased());
@@ -82,7 +82,7 @@ public class InventoryCookRecipeCommand extends InventoryCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof InventoryCookRecipeCommand // instanceof handles nulls
-                && targetIndex.equals(((InventoryCookRecipeCommand) other).targetIndex));
+                || (other instanceof InventoryCookCommand // instanceof handles nulls
+                && targetIndex.equals(((InventoryCookCommand) other).targetIndex));
     }
 }
