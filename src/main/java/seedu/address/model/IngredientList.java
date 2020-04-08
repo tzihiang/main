@@ -69,7 +69,6 @@ public abstract class IngredientList implements ReadOnlyIngredientList {
      */
     public void setIngredient(Ingredient target, Ingredient editedIngredient) {
         requireNonNull(editedIngredient);
-
         ingredients.setIngredient(target, editedIngredient);
     }
 
