@@ -161,11 +161,25 @@ The recipe addition mechanism is facilitated by `CookbookAddCommand`, which exte
 
 Below is a step by step sequence of what happens when a user enters this command
 
-. The user enters a recipe adding command using the command line input `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]... [s/STEP_DESCRIPTION]... [t/TAG]...`.
-. `CookbookAddCommandParser` parsers the user input and checks if `n/NAME` and `d/DESCRIPTION` are provided. It then
-parses the input into the following fields: recipe name, recipe description, ingredients, steps, and tags. Note that
-the ingredient names and ingredient quantities provided must be the same, or a `ParseException` will be thrown, likewise for step indices and step descriptions.
-. These fields are then passed as parameters for `Recipe`, which is then passed as the parameter for `CookbookAddCommand` and returned to `LogicManager`.
+1. The user enters a recipe adding command using the command line input `cookbook add recipe n/NAME d/DESCRIPTION
+[i/INGREDIENT]... [q/QUANTITY]... [s/STEP_DESCRIPTION]... [t/TAG]...`.
+2.  `CookbookAddCommandParser` parsers the user input and checks if `n/NAME` and `d/DESCRIPTION` are provided. It then
+parses the input into the following fields: recipe name, recipe description, ingredients, steps, and tags.
+
++
+Note that
+the ingredient names and ingredient quantities provided must be the same, or a `ParseException` will be thrown:
++
+[source,java]
+----
+if (names.size() != quantities.size()) {
+    throw new ParseException(
+    String.format(MESSAGE_DIFFERENT_NUMBER_OF_INPUTS, names.size(), quantities.size()));
+}
+----
+
+. These fields are then passed as parameters for `Recipe`, which is then passed as the parameter for
+`CookbookAddCommand` and returned to `LogicManager`.
 . `LogicManager` calls `CookbookAddCommand#execute()` which checks if the cookbook already contains the same recipe with the same name, description, ingredient names, ingredient quantities, and tags using `Model#hasCookbookRecipe()`. If there is a duplicate, a `CommandException` is thrown, stating that the user is attempting to add a duplicate recipe.
 . If `CommandException` is not thrown, `Model#addCookbookRecipe` will be executed, with the recipe to be added as a parameter.
 . `Model#addCookbookRecipe()` then executes `Cookbook#addRecipe()`, which adds the recipe to the cookbook, and the `FilteredList<Recipe>` representing the recipes in the cookbook are updated with `Model#updateFilteredCookbookRecipeList()`
