@@ -11,7 +11,6 @@ import static seedu.address.testutil.TypicalIngredients.BANANA;
 import static seedu.address.testutil.TypicalIngredients.CHICKEN;
 
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 
