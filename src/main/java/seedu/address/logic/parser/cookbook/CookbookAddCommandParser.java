@@ -51,7 +51,6 @@ public class CookbookAddCommandParser implements Parser<CookbookAddCommand> {
                     CookbookAddCommand.MESSAGE_USAGE));
         }
 
-
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION, PREFIX_INGREDIENT_NAME,
                     PREFIX_INGREDIENT_QUANTITY, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION, PREFIX_TAG);

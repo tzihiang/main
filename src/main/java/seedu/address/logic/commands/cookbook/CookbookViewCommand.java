@@ -18,9 +18,10 @@ public class CookbookViewCommand extends CookbookCommand {
 
     public static final String COMMAND_WORD = "view";
 
-    public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
+    public static final String MESSAGE_USAGE = "\n" +COMMAND_CATEGORY + " "
+            + COMMAND_WORD + " " + "recipe"
             + ": views the recipe identified by the index number used in the displayed recipe list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a positive valid integer)\n\n"
             + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Viewing recipe %1$d";

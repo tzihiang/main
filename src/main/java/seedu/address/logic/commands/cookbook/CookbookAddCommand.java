@@ -16,19 +16,22 @@ public class CookbookAddCommand extends CookbookCommand {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " "
+            + COMMAND_WORD + " " + "recipe"
             + ": Adds a new recipe to the cookbook.\n"
             + "Parameters: "
             + PREFIX_RECIPE_NAME + "NAME "
-            + PREFIX_RECIPE_DESCRIPTION + "DESCRIPTION\n"
+            + PREFIX_RECIPE_DESCRIPTION + "DESCRIPTION\n\n"
             + "Example: "
-            + COMMAND_CATEGORY + " " + COMMAND_WORD + " "
+            + COMMAND_CATEGORY + " "
+            + COMMAND_WORD + " "
+            + "recipe" + " "
             + PREFIX_RECIPE_NAME + "Bacon Carbonara "
             + PREFIX_RECIPE_DESCRIPTION + "An Italian classic pasta dish with creamy egg sauce"
             + " and bacon topped with salty Parmesan cheese.";
 
     public static final String MESSAGE_SUCCESS = "New recipe (index %2$d) added: %1$s";
-    public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the cookbook.";
+    public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe (%1$s) already exists in the cookbook.";
 
     private final Recipe toAdd;
 
@@ -45,7 +48,8 @@ public class CookbookAddCommand extends CookbookCommand {
         requireNonNull(model);
 
         if (model.hasCookbookRecipe(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_RECIPE);
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_RECIPE,
+                toAdd.getName().fullRecipeName));
         }
 
         model.addCookbookRecipe(toAdd);

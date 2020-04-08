@@ -44,7 +44,7 @@ public class InventoryCommandParser implements Parser<InventoryCommand> {
         case InventoryRemoveIngredientCommand.COMMAND_WORD:
             return new InventoryRemoveIngredientCommandParser().parse(arguments);
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
     }
 }

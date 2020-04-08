@@ -14,11 +14,15 @@ import seedu.address.model.recipe.RecipeContainsTagsPredicate;
  */
 public class CookbookSearchByTagCommand extends CookbookSearchCommand {
 
-    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD + ": Finds all recipes "
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " "
+            + COMMAND_WORD + " " + SEARCH_TAG_COMMAND
+            + ": Finds all recipes "
             + "whose recipe names contain any of "
             + "the specified tags (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: " + PREFIX_TAG + "TAG\n"
-            + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + "breakfast";
+            + "Parameters: " + PREFIX_TAG + "TAG\n\n"
+            + "Example: " + COMMAND_CATEGORY + " "
+            + COMMAND_WORD + " " + SEARCH_TAG_COMMAND + " "
+            + PREFIX_TAG + "breakfast";
 
     private final RecipeContainsTagsPredicate predicate;
 

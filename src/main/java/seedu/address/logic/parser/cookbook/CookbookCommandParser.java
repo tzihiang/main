@@ -59,7 +59,7 @@ public class CookbookCommandParser implements Parser<CookbookCommand> {
                     CookbookListCommand.MESSAGE_USAGE));
             }
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
     }
 }
