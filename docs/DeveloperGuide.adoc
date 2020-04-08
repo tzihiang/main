@@ -161,57 +161,110 @@ The recipe addition mechanism is facilitated by `CookbookAddCommand`, which exte
 
 Below is a step by step sequence of what happens when a user enters this command
 
-. The user enters a recipe adding command using the command line input `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]... [x/STEP_INDEX]... [s/STEP_DESCRIPTION]... [t/TAG]...`.
-. `CookbookAddCommandParser` parsers the user input and checks if `n/NAME` and `d/DESCRIPTION` are provided. It then parses the input into the following fields: recipe name, recipe description, ingredients, and tags. Note that the ingredient names and ingredient quantities provided must be the same, or a `ParseException` will be thrown, likewise for step indices and step descriptions.
+. The user enters a recipe adding command using the command line input `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]... [s/STEP_DESCRIPTION]... [t/TAG]...`.
+. `CookbookAddCommandParser` parsers the user input and checks if `n/NAME` and `d/DESCRIPTION` are provided. It then
+parses the input into the following fields: recipe name, recipe description, ingredients, steps, and tags. Note that
+the ingredient names and ingredient quantities provided must be the same, or a `ParseException` will be thrown, likewise for step indices and step descriptions.
 . These fields are then passed as parameters for `Recipe`, which is then passed as the parameter for `CookbookAddCommand` and returned to `LogicManager`.
 . `LogicManager` calls `CookbookAddCommand#execute()` which checks if the cookbook already contains the same recipe with the same name, description, ingredient names, ingredient quantities, and tags using `Model#hasCookbookRecipe()`. If there is a duplicate, a `CommandException` is thrown, stating that the user is attempting to add a duplicate recipe.
 . If `CommandException` is not thrown, `Model#addCookbookRecipe` will be executed, with the recipe to be added as a parameter.
 . `Model#addCookbookRecipe()` then executes `Cookbook#addRecipe()`, which adds the recipe to the cookbook, and the `FilteredList<Recipe>` representing the recipes in the cookbook are updated with `Model#updateFilteredCookbookRecipeList()`
-. A `CommandResult` with the text to display to the user is then returned to `LogicManager`, which can passed back to `MainWindow`, which displays it to the user on the CLI and GUI.
+. A `CommandResult` with the text to display to the user is then returned to `LogicManager`, which can passed back to
+`MainWindow`, which displays it to the user on the CLI and GUI. The text displayed will notify the user on whether
+their addition was successful.
 
 ==== Implementation reasoning
 
-This command is implemented this way  to allow a user to add a recipe with optional fields (ingredients, tags) - only the recipe name and recipe description are mandatory fields. This way, a user does not have input all the fields that they may not have at the moment to create a recipe. After creating the skeleton of the recipe, the user can then use the other `Cookbook` methods to add ingredients and steps to the recipe. However, one key point is that should ingredient names be provided, the same number of ingredient quantities have to be provided as well, vice versa, likewise for step indices and step descriptions.
+This command is implemented this way  to allow a user to add a recipe with optional fields (ingredients, steps, tags) -
+only the recipe name and recipe description are mandatory fields. This way, a user does not have input all the fields
+that they may not have at the moment to create a recipe. After creating the skeleton of the recipe, the user can then
+use the other `Cookbook` commands to add ingredients and steps to the recipe. However, one key point is that should
+ingredient names be provided, the same number of ingredient quantities have to be provided as well.
 
 ==== Sequence diagram
-The following sequence diagram shows how the recipe adding function works (full command omitted for brevity):
+The following sequence diagram shows how the recipe adding function works (full command [`cookbook add recipe
+                                                                                          n/Recipe name d/Recipe
+                                                                                          description i/Ingredient 1
+                                                                                          q/1 piece i/Ingredient 2
+                                                                                          q/20 ml x/1 s/Do step 1 x/2
+                                                                                          s/Do step 2 t/This t/Is t/A
+                                                                                          t/Tag`]  omitted from diagram
+for brevity):
 
+.Sequence digram for CookbookAddCommand
 image::CookbookAddRecipeSequenceDiagram.png[]
 
 ==== How the feature works
 Step 1: Input the command in the command box, then hit kbd:[Enter] on the keyboard. The command is as follows:
-`cookbook add recipe n/Recipe name d/Recipe description i/Ingredient 1 q/1 piece i/Ingredient 2 q/20 ml x/1 s/Do step 1 x/2 s/Do step 2 t/This t/Is t/A t/Tag`.
+`cookbook add recipe n/Recipe name d/Recipe description i/Ingredient 1 q/1 piece i/Ingredient 2 q/20 mls/Do step 1
+ s/Do step 2 t/This t/Is t/A t/Tag`.
 
+.CookbookAddCommand sample command in Command box
 image::CookbookAddRecipe1.png[]
 
-Step 2: Results will be parsed and displayed back to the user.
+Step 2: Results will be parsed, and if the command is valid, a success message will be displayed to the user.
 
+.CookbookAddCommand sample command result in Result display
 image::CookbookAddRecipe2.png[]
 
-Step 3: The newly added recipe will now appear in the recipes panel, which a brief overview, consisting of its name, description, and tags.
+Step 3: The newly added recipe will now appear in the recipes panel, which a brief overview, consisting of its name,
+description, and tags. To view all the details of a recipe, the user can either enter `cookbook view recipe INDEX`,
+where index is a valid integer, or click the view button.
 
+.CookbookAddCommand sample recipe in Recipe panel
 image::CookbookAddRecipe3.png[]
 
 ==== Design considerations
-===== Aspect: How to parse optional fields
-- Alternative 1 (current choice): Parse each category separately
-* Each category (ingredient name, ingredient quantity, step index, step description, tag) are parsed separately and returned as `List`. If the returned `List` is empty, then it means that that field was not provided in the input, and will be set to an empty `List` in the recipe.
-* Pros: Provides more flexibility for the user, no need to deal with null values
-* Cons: More methods have to be executed which may increase time complexity
+===== Aspect 1: How to parse optional parameters
+.Design considerations for parsing optional parameters
+|===
+||Design A: Parse each category separately (current choice)  | Design B: Parse all the categories together
+|Description
+|Each category (ingredient name, ingredient quantity, step description, tag) are parsed separately and returned as `List`. If the returned `List` is empty, then it means that that field was not provided in the input, and will be set to an empty `List` in the recipe.
+|Each category will be parsed together in one function in `CookbookAddCommandParser`
+|Pros
+a|
+- Provides more flexibility for the user and does not make it mandatory to input fields that they may not necessarily.
+have
+- No need to deal with null values, can simply check if list is empty.
+a|
+- Straightforward
+- No need to create and call multiple methods from other classes
+|Cons
+a|
+- More methods have to be executed which may increase time and NPath complexity.
+- Debugging and tracing becomes more confusing due to the method being defined in the lowest level of abstraction.
+a|
+- Have to deal with null values and include null checks (`ifPresent()` etc.)
+- Method will be very long and decreases readability
+|===
 
-- Alternative 2: Parse all the categories together
-* Each category will be parse together in one function
-* Pros: Straightforward, no need to call multiple functions from other classes
-* Cons: Have to deal with null values and include null checks (`ifPresent()` etc.), method will be very long and decreases readability
+.Design considerations for results to show users
+===== Aspect 2: Result to show user
 
-===== Aspect: String formatting for CommandResult
-- Alternative 1 (current choice): Separate each field with newlines
-* Pros: vastly improves readability
-* Cons: smaller font size to improve fit in `ResultDisplay`
+|===
+||Design A: Show a short result on the success of the command | Design B: Show all the details back to the user
+|Description|Show a message to a usage which notifies them that the command was successful in adding the recipe to
+the cookbook. | Shows a message similar to design choice A, and also show all the details of the added recipe.
+|Pros
+a|
+- Short and succinct message, tells the user what they need to know
+- User interface is cleaner and more intuitive, and does not overload users with unnecessary information
+a|
+- Easier to implement
+|Cons
+a|
+- Requires the graphical user interface to be able to toggle and show recipes, without the need for a command,
+implemented here:
 
-- Alternatve 2: Combine all the fields in one line
-* Pros: bigger font size due to the lack of newlines
-* Cons: difficult to read, difficult for user to extract desired information from the text in `ResultDisplay`
+image::CookbookAddRecipe3.png[]
+
+a|
+- Overloads the user with unnecessary information
+- Requires result display to take up more space than required, to reduce the need for users to scroll down the result
+display.
+
+|===
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
