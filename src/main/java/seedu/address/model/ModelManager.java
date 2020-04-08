@@ -269,11 +269,6 @@ public class ModelManager implements Model {
         filteredCartIngredients.setPredicate(predicate);
     }
 
-    @Override
-    public void exportCart() throws IOException, DocumentException {
-        PdfExporter.exportCart(getFilteredCartIngredientList());
-    }
-
     // TODO: Update method
     @Override
     public MixedFraction calculateSimilarity(Recipe recipe) {

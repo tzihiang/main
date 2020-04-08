@@ -183,11 +183,6 @@ public interface Model {
      */
     void setCartIngredient(Ingredient target, Ingredient editedIngredient);
 
-    /**
-     * Exports the ingredients in the cart to a pdf file.
-     */
-    public void exportCart() throws IOException, DocumentException;
-
     /** Returns an unmodifiable view of the filtered cookbook recipe list */
     ObservableList<Recipe> getFilteredCookbookRecipeList();
 

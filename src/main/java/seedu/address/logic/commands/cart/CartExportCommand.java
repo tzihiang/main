@@ -7,6 +7,7 @@ import com.itextpdf.text.DocumentException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.util.PdfExporter;
 
 /**
  *  Exports the cart to a pdf file.
@@ -27,7 +28,7 @@ public class CartExportCommand extends CartCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         try {
-            model.exportCart();
+            PdfExporter.exportCart(model.getCart().getIngredientList());
         } catch (IOException | DocumentException e) {
             return new CommandResult(MESSAGE_FILE_NOT_FOUND);
         }
