@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.inventory.InventoryCommand;
 import seedu.address.logic.commands.inventory.InventoryCookCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
@@ -16,10 +17,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new InventoryCookRecipeCommand object
  */
-public class InventoryCookCommandParser implements Parser<InventoryCookCommand> {
+public class InventoryCookCommandParser implements Parser<InventoryCommand> {
 
     private static final Pattern INVENTORY_COOK_RECIPE_COMMAND_ARGUMENT_FORMAT = Pattern
-            .compile(" *(?<arguments>.*)");
+            .compile(InventoryCookCommand.RECIPE_KEYWORD + " *(?<arguments>.*)");
     /**
      * Parses the given {@code String} of arguments in the context of the InventoryCookRecipeCommand
      * and returns an InventoryCookRecipeCommand object for execution.
