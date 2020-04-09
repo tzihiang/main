@@ -64,9 +64,11 @@ public class RecipeCard extends UiPart<Region> {
         this.recipe = recipe;
         id.setText(displayedIndex + ". ");
         recipe.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+            .sorted(Comparator.comparing(tag -> tag.tagName))
+            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
         displayRecipeOverview();
+
         ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream("/images/button_icon.png")));
         imageView.setFitHeight(25);
         imageView.setFitWidth(25);
