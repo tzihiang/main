@@ -16,7 +16,7 @@ import seedu.address.model.ingredient.IngredientQuantity;
 
 public class RecipeContainsInventoryIngredientsPredicateTest {
     private static final Ingredient VALID_INGREDIENT = new Ingredient(new IngredientName("Ingredient"),
-            new IngredientQuantity("5"));
+            new IngredientQuantity("1"));
     private static final Recipe VALID_RECIPE = getValidRecipe();
 
     @Test
@@ -34,7 +34,21 @@ public class RecipeContainsInventoryIngredientsPredicateTest {
     }
 
     @Test
-    public void test_inventoryDoesNotContainRecipeIngredients_returnsTrue() {
+    public void test_inventoryContainsSomeRecipeIngredients_returnsTrue() {
+        Inventory inventory = new Inventory();
+        inventory.addIngredient(VALID_INGREDIENT);
+
+        Model model = new ModelManager();
+        model.addCookbookRecipe(VALID_RECIPE);
+        model.setInventory(inventory);
+
+        RecipeContainsInventoryIngredientsPredicate c =
+            new RecipeContainsInventoryIngredientsPredicate(model.getInventory());
+        assertTrue(c.test(VALID_RECIPE));
+    }
+
+    @Test
+    public void test_inventoryDoesNotContainRecipeIngredients_returnsFalse() {
         Model model = new ModelManager();
         model.addCookbookRecipe(VALID_RECIPE);
         model.setInventory(new Inventory());
