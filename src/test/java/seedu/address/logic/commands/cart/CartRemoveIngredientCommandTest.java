@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.cart;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.testutil.TypicalIngredients.ALMOND;
@@ -37,6 +38,8 @@ public class CartRemoveIngredientCommandTest {
 
         // error thrown after removing ALMOND
         assertThrows(IngredientNotFoundException.class, () -> c.execute(model));
+
+        assertFalse(model.hasCartIngredient(ALMOND));
     }
 
     @Test

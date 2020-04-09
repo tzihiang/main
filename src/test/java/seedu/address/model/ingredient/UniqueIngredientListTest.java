@@ -24,6 +24,17 @@ public class UniqueIngredientListTest {
     private final UniqueIngredientList uniqueIngredientList = new UniqueIngredientList();
 
     @Test
+    public void size() {
+        assertEquals(0, uniqueIngredientList.size());
+
+        uniqueIngredientList.add(APPLE);
+        assertEquals(1, uniqueIngredientList.size());
+
+        uniqueIngredientList.remove(APPLE);
+        assertEquals(0, uniqueIngredientList.size());
+    }
+
+    @Test
     public void contains_nullIngredient_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueIngredientList.contains(null));
     }

@@ -3,6 +3,7 @@ package seedu.address.logic.commands.inventory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.inventory.InventoryAddIngredientCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.TypicalIngredients.ALMOND;
 import static seedu.address.testutil.TypicalIngredients.BUTTER;
@@ -39,6 +40,10 @@ public class InventoryAddIngredientCommandTest {
 
         InventoryAddIngredientCommand e = new InventoryAddIngredientCommand(CHICKEN);
         assertEquals(e.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, CHICKEN)));
+
+        assertTrue(model.hasInventoryIngredient(ALMOND));
+        assertTrue(model.hasInventoryIngredient(BUTTER));
+        assertTrue(model.hasInventoryIngredient(CHICKEN));
 
         // adding duplicate ingredients updates its count
         model.addInventoryIngredient(ALMOND);

@@ -165,7 +165,7 @@ Below is a step by step sequence of what happens when a user enters this command
 . `CookbookAddCommandParser` parsers the user input and checks if `n/NAME` and `d/DESCRIPTION` are provided. It then parses the input into the following fields: recipe name, recipe description, ingredients, and tags. Note that the ingredient names and ingredient quantities provided must be the same, or a `ParseException` will be thrown, likewise for step indices and step descriptions.
 . These fields are then passed as parameters for `Recipe`, which is then passed as the parameter for `CookbookAddCommand` and returned to `LogicManager`.
 . `LogicManager` calls `CookbookAddCommand#execute()` which checks if the cookbook already contains the same recipe with the same name, description, ingredient names, ingredient quantities, and tags using `Model#hasCookbookRecipe()`. If there is a duplicate, a `CommandException` is thrown, stating that the user is attempting to add a duplicate recipe.
-. If `CommandException` is not thrown, `Model#addCookbookRecipe` will be executed, with the recipe to be added as a parameter.
+. If `CommandException` is not thrown, `Model#addCookbookRecipe()` will be executed, with the recipe to be added as a parameter.
 . `Model#addCookbookRecipe()` then executes `Cookbook#addRecipe()`, which adds the recipe to the cookbook, and the `FilteredList<Recipe>` representing the recipes in the cookbook are updated with `Model#updateFilteredCookbookRecipeList()`
 . A `CommandResult` with the text to display to the user is then returned to `LogicManager`, which can passed back to `MainWindow`, which displays it to the user on the CLI and GUI.
 
@@ -213,43 +213,192 @@ image::CookbookAddRecipe3.png[]
 * Pros: bigger font size due to the lack of newlines
 * Cons: difficult to read, difficult for user to extract desired information from the text in `ResultDisplay`
 
+=== Adding ingredients to inventory and cart
+The inventory and cart acts as storage for `Ingredient` classes. They are facilitated by `InventoryCommand` and `CartCommand`
+respectively, which extends the `Command` abstract class. Since `CartAddCommand` and `InventoryAddCommand` both serve the
+same purpose in different contexts of `Cart` and `Inventory` respectively, they will be mentioned together in tandem. +
+The format of the commands are as follows:
+
+* For cart: `cart add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY`
+* For inventory: `inventory add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY`
+
+==== Implementation
+
+Below is a step-by-step sequence of what happens when the command `cart add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY` is added.
+
+. The user adds a ingredient to the cart by entering the command `cart  add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY` in the command line input.
+. `CartAddCommandParser` parsers the input to check and verify that the input provided for `i/INGREDIENT_NAME` amd `q/INGREDIENT_QUANTITY`
+are correct. Otherwise a `ParseException` will be thrown.
+. The fields are then passed to `CartAddIngredientCommand` as an `Ingredient` object and is returned to `LogicManager`.
+. `LogicManager` calls `CartAddIngredientCommand#execute()` and checks if the `Ingredient` object given has the same `INGREDIENT_NAME` and
+`INGREDIENT_QUANTITY` unit. If that `Ingredient` exists, it will simply add on to the quantity of that ingredient. Otherwise,
+a new instance of that `Ingredient` will be added to the Cart.
+. If `CommandException` is not thrown, `Model#addCartIngredient` will be executed, with the given `Ingredient` as the parameter
+. `Model#addCartIngredient` then executes, adding the `Ingredient` to the local cart storage and updates with `Model#updateFilteredCartIngredientList()`.
+. A `CommandResult` with the successful text message is returned to `LogicManager` and will be displayed to the user via the GUI to feedback to the
+user that the `Ingredient` has been successfully added.
+
+The above implementation is the same for `Inventory` with the command `inventory  add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY`
+
+==== Implementation reasoning
+This command was implemented to allow the user know to add an ingredient to the cart or inventory respectively.
+An ingredient only has two main components - its name and quantity. We allow the user to use their own measurement up to their own
+preferences and do not force any fixed unit of measurement. Although similar, `Cart` and `Ingredients` differ in certain functions
+from a user's point of view. For a user to immediately sort where they wish to sort the ingredient they are adding, `Cart` and
+`Inventory` is the first parameter they would use for the command.
+
+==== Sequence diagram
+The following sequence diagram shows how the function of adding ingredients to cart work (full command omitted for brevity):
+
+.Sequence diagram for CartAddIngredientCommand
+image::CartAddIngredientSequenceDiagram.png[]
+
+==== How the feature works
+
+Step 1: The below diagram shows an initially empty cart
+
+image::CartAddCommand1.png[]
+
+Step 2: Input the command `cart add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY`. An example command is as follows: `cart add ingredient i/Eggs q/10`.
+
+image::CartAddCommand2.png[]
+
+Step 3: Hit kbd:[Enter]. The cart should be updated as follows:
+
+image::CartAddCommand3.png[]
+
+The above implementation is the same for `Inventory`
+
+==== Design Considerations
+Aspect: The need for many parsers for this command
+
+.Design considerations for the need for many parsers for this command
+|===
+| |Design A (Current choice): Create parsers for every individual action | Design B: Create parsers for each specific action
+
+|Description
+|The command will go through the parsers in the following order: `CookingPapaParser` -> `CartCommandParser` -> `CartAddCommandParser`
+-> `CartAddIngredientParser` before finally returning `CartAddIngredientCommand`. We eventually went with this as we wanted the add
+functionality to be expanded, namely to be able to add all the ingredients of cookbook recipes into the cart.
+| `CartAddCommand` will not be created facilitate `CartAddIngredientCommand` and `CartAddRecipeIngredientCommand`.
+
+
+|Pros
+|More organised and can do more with `cart add` as the prefix.
+|Many parser classes to make and keep track of.
+
+|Cons
+|The classes can be more specific and atomic in their actions.
+|Might lead to disorganisation during troubleshooting with so many classes to keep track.
+|===
+
+=== Moving ingredients from cart to inventory
+The user may use this command after their shopping trip. With this one command, all ingredients will be shifted from the cart to the inventory.
+
+==== Implementation
+This command is facilitated by `CartMoveCommand`, which extends the `Command` class. The format of the command is as follows:
+`cart move`.
+
+Below is a step by step sequence of what happens when the user executes this command.
+
+. The user enters the command `cart move` in to the command line input.
+. `CartMoveCommandParser` then ensures that the user does not enter any other commands after `cart clear`.
+. `CartMoveCommandParser` then returns a `CartMoveCommand` and returns it to `LogicManager`
+. `LogicManager` calls `CartMoveCommand#execute()`. If there are other commands after `cart clear`, a `CommandException`
+will be thrown.
+. If `CommandException` is not thrown, `Model#cartMoveIngredients()` will be executed.
+. `Model#cartMoveIngredients()` will move every ingredient from the `cart` and add it into the `inventory`
+. A `CommandResult` with the success message text will be returned to `LogicManager`, which will then be passed to `MainWindow`
+and will then feedback to the user.
+
+==== Implementation reasoning
+This command is implemented to ease the process of having the user adding every single ingredient to their inventory after they have bought ingredients from their cart
+and eventually deleting the cart after that tedious process. These gives a convenience to users that frequently use our application and we forsee
+that such an action will be used very often by these users. As this command only performs an atomic action, no extra
+arguments are needed to further supplement the use of this command.
+
+==== Sequence Diagram
+The following sequence diagram shows how this function works (full command omitted for brevity):
+
+.Sequence Diagram for CartMoveCommand
+image::CartMoveSequenceDiagram.png[]
+
+==== How this feature works
+Step 1: This feature is intended when you have ingredients in the cart. As an example, the diagram below shows an
+empty inventory, along with a cart with an ingredient.
+
+image::CartMoveCommand1.png[]
+
+Step 2: Press kbd:[Enter]. The ingredients from cart will all be shifted to inventory as shown in the diagram below
+
+image::CartMoveCommand2.png[]
+
+==== Design considerations
+Aspect: Allowing users to move some or all ingredients from cart to inventory
+
+.Design considerations for allowing users to move some or all ingredients from cart to inventory
+|===
+| |Design A (Current choice): Move all ingredients | Design B: Allow users to move individually or exclude some ingredients when moving
+
+|Description
+|There was a consideration to allow the user to move the ingredients by individual ingredients. Eventually the options was
+not given as we know that typical users will want to move all the ingredients except for individual ingredients.
+| The use cases of such an action happening is very little and the user can simply manually remove the few
+ingredients they do not wish to add to the inventory after using the `cart move` command. The user can also manually
+add back the ingredients to the cart after it is cleared if they wish to.
+
+|Pros
+|Straightforward to implement
+|Lesser implementations, more time to focus on other parts of the project
+
+|Cons
+|Lesser functionality to users that really want to only move certain ingredients
+|Poorer user experience for users that do not want to move all ingredients from the cart to inventory on a regular basis,
+|===
+
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism will be facilitated by `VersionedCookingPapa`.
+It extends `CookingPapa` with an undo/redo history, stored internally as an `cookingPapaStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedCookingPapa#commit()` -- Saves the current state of CookingPapa in its history.
+* `VersionedAddressBook#undo()` -- Restores the previous state of CookingPapa from its history.
+* `VersionedAddressBook#redo()` -- Restores a previously undone state of CookingPapa from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitCookingPapa()`, `Model#undoCookingPapa()` and `Model#redoCookingPapa()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedCookingPapa` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single CookingPapa state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `cookbook remove recipe 2` command to delete the 2nd recipe in the cookbook of CookingPapa.
+The `delete` command calls `Model#commitCookingPapa()`, causing the modified state of the address book after the `cookbook remove recipe 2` command executes to be saved in the `cookingPapaStateList`,
+and the `currentStatePointer` is shifted to the newly inserted state of CookingPapa.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `inventory add ingredient i/Egg q/10` to add a new ingredient to the inventory.
+The `inventory add` command also calls `Model#commitCookingPapa()`, causing another modified address book state to be saved into the `cookingPapaStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitCookingPapa()`, so that state of CookingPapa will not be saved into the `cookingPapaStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the ingredient to the inventory was a mistake, and decides to undo that action by executing the `undo` command.
+The `undo` command will call `Model#undoCookingPapa()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores CookingPapa to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial state of CookingPapa, then there will be no previous state of CookingPapa to restore.
+The `undo` command uses `Model#canUndoCookingPapa()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -257,16 +406,17 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoCookingPapa()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores CookingPapa to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `cookingPapaStateList.size() - 1`, pointing to the latest CookingPapa state, then there are no undone CookingPapa states to restore. The `redo` command uses `Model#canRedoCookingPapa()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitCookingPapa()`, `Model#undoCookingPapa()` or `Model#redoCookingPapa()`. Thus, the `cookingPapaStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `cart clear`, which calls `Model#commitCookingPapa()`. Since the `currentStatePointer` is not pointing at the end of the `cookingPapaStateList`,
+all CookingPapa states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo any add commands. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -278,44 +428,15 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire state of CookingPapa.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
 
-===== Aspect: Data structure to support the undo/redo commands
+* **Alternative 2:** Implement commands of `add` and `remove` to have the same format.
+** Pros: Ease for users to easily undo or redo their own mistakes. Also gives overall lower memory usage
+** Cons: Poorer user experience.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
-=== Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+Eventually, we decided that saving the memory state of the project is still manageable, given the current scale of the project.
 
 [[Implementation-Configuration]]
 === Configuration
