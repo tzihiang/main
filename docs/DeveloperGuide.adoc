@@ -204,6 +204,9 @@ where `PREDICATE_SHOW_ALL_RECIPES = unused -> true`.
 `MainWindow`, which displays it to the user on the CLI and GUI: `resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser())`. The text displayed will notify the user on whether
 their addition was successful.
 
+.UML object diagram of Recipe
+image::RecipeObjectDiagram.png[]
+
 ==== Implementation reasoning
 
 This command is implemented this way  to allow a user to add a recipe with optional fields (ingredients, steps, tags) -
