@@ -216,6 +216,7 @@ public class ModelManager implements Model {
     @Override
     public void addCartIngredient(Ingredient ingredient) {
         cart.addIngredient(ingredient);
+        inventory.getCompatibleIngredientList().sortList();
         updateFilteredCartIngredientList(PREDICATE_SHOW_ALL_INGREDIENTS);
     }
 
