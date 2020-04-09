@@ -4,11 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-<<<<<<< HEAD
-import java.util.Arrays;
 import java.util.Collections;
-=======
->>>>>>> a538f41b8ce1a4e6611bcb8726864f0cfa9a0ef6
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
