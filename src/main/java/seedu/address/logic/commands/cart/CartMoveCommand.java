@@ -25,7 +25,7 @@ public class CartMoveCommand extends CartCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.getCart().getCompatibleIngredientList().forEach(ingredient -> model.addInventoryIngredient(ingredient));
+        model.getCart().getIngredientList().forEach(ingredient -> model.addInventoryIngredient(ingredient));
         model.setCart(new Cart());
         return new CommandResult(MESSAGE_SUCCESS);
     }
