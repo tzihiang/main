@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -136,6 +137,13 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
         for (Ingredient ingredient : ingredients) {
             add(ingredient);
         }
+    }
+
+    /**
+     * Sort the list using lexical ordering
+     */
+    public void sortList() {
+        Collections.sort(internalList, new IngredientComparator());
     }
 
     /**

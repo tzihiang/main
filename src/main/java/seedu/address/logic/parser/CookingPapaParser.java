@@ -59,10 +59,10 @@ public class CookingPapaParser {
             return new CartCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_CATEGORY:
-            return new ExitCommand();
+            return new ExitCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_CATEGORY:
-            return new HelpCommand();
+            return new HelpCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -19,7 +19,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class CookbookRemoveCommandParser implements Parser<CookbookRemoveCommand> {
 
     private static final Pattern COOKBOOK_REMOVE_COMMAND_ARGUMENT_FORMAT = Pattern
-            .compile(" *recipe(?<arguments>.*)");
+            .compile(" *recipe *(?<arguments>\\d+)");
 
     /**
      * Parses the given {@code String} of arguments in the context of the CookbookRemoveCommand

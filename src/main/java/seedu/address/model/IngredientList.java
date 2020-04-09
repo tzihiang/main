@@ -49,7 +49,6 @@ public abstract class IngredientList {
      */
     public void setIngredient(Ingredient target, Ingredient editedIngredient) {
         requireNonNull(editedIngredient);
-
         ingredients.setIngredient(target, editedIngredient);
     }
 

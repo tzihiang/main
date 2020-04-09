@@ -2,7 +2,6 @@ package seedu.address.logic.parser.cookbook;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,9 +51,9 @@ public class CookbookCommandParser implements Parser<CookbookCommand> {
         case CookbookViewCommand.COMMAND_WORD:
             return new CookbookViewCommandParser().parse(category + " " + arguments);
         case CookbookListCommand.COMMAND_WORD:
-            return new CookbookListCommand();
+            return new CookbookListCommandParser().parse(arguments);
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
     }
 }

@@ -29,13 +29,13 @@ public class CookingPapaParserTest {
     @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_CATEGORY) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_CATEGORY + " 3") instanceof ExitCommand);
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_CATEGORY + "") instanceof ExitCommand);
     }
 
     @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_CATEGORY) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_CATEGORY + " 3") instanceof HelpCommand);
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_CATEGORY + "") instanceof HelpCommand);
     }
 
     @Test

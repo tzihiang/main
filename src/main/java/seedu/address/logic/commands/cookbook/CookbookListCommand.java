@@ -14,7 +14,7 @@ public class CookbookListCommand extends CookbookCommand {
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD
-            + ": Shows the list of recipes in the cookbook.\n"
+            + ": Shows the list of recipes in the cookbook.\n\n"
             + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Showing all recipes in the cookbook.";

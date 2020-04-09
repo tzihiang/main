@@ -2,7 +2,6 @@ package seedu.address.logic.parser.inventory;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,7 +46,7 @@ public class InventoryCommandParser implements Parser<InventoryCommand> {
         case InventoryClearCommand.COMMAND_WORD:
             return new InventoryClearCommandParser().parse(arguments);
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
     }
 }
