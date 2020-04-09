@@ -51,12 +51,7 @@ public class CookbookCommandParser implements Parser<CookbookCommand> {
         case CookbookViewCommand.COMMAND_WORD:
             return new CookbookViewCommandParser().parse(category + " " + arguments);
         case CookbookListCommand.COMMAND_WORD:
-            if (arguments.equals("")) {
-                return new CookbookListCommand();
-            } else {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    CookbookListCommand.MESSAGE_USAGE));
-            }
+            return new CookbookListCommandParser().parse(arguments);
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
