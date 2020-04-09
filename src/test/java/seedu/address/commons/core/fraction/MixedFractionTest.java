@@ -98,4 +98,27 @@ public class MixedFractionTest {
         assertEquals("-3 5/6", c.subtract(b).toString());
         assertEquals("0", c.subtract(c).toString());
     }
+
+    @Test
+    public void divide() {
+        MixedFraction a = new MixedFraction(3, 2);
+        MixedFraction b = new MixedFraction(4, 3);
+        MixedFraction c = new MixedFraction(-5, 2);
+
+        // null input
+        assertThrows(NullArgumentException.class, () -> a.subtract(null));
+
+        // valid input
+        assertEquals("1", a.divide(a).toString());
+        assertEquals("1 1/8", a.divide(b).toString());
+        assertEquals("-3/5", a.divide(c).toString());
+
+        assertEquals("8/9", b.divide(a).toString());
+        assertEquals("1", b.divide(b).toString());
+        assertEquals("-8/15", b.divide(c).toString());
+
+        assertEquals("-1 2/3", c.divide(a).toString());
+        assertEquals("-1 7/8", c.divide(b).toString());
+        assertEquals("1", c.divide(c).toString());
+    }
 }

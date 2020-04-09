@@ -177,6 +177,52 @@ public class IngredientQuantityTest {
     }
 
     @Test
+    public void asProportionOf() {
+        IngredientQuantity a = new IngredientQuantity("1 cup");
+        IngredientQuantity b = new IngredientQuantity("0.25 cup");
+        IngredientQuantity c = new IngredientQuantity("1.2cup");
+        IngredientQuantity d = new IngredientQuantity("3/4 cup");
+        IngredientQuantity e = new IngredientQuantity("2 1/2 cup");
+        IngredientQuantity f = new IngredientQuantity("100 ml");
+
+        assertThrows(IllegalArgumentException.class, () -> a.asProportionOf(f));
+        assertThrows(IllegalArgumentException.class, () -> b.asProportionOf(f));
+        assertThrows(IllegalArgumentException.class, () -> c.asProportionOf(f));
+        assertThrows(IllegalArgumentException.class, () -> d.asProportionOf(f));
+        assertThrows(IllegalArgumentException.class, () -> e.asProportionOf(f));
+        assertThrows(IllegalArgumentException.class, () -> f.asProportionOf(a));
+        assertThrows(IllegalArgumentException.class, () -> f.asProportionOf(b));
+        assertThrows(IllegalArgumentException.class, () -> f.asProportionOf(c));
+        assertThrows(IllegalArgumentException.class, () -> f.asProportionOf(d));
+        assertThrows(IllegalArgumentException.class, () -> f.asProportionOf(e));
+
+        assertEquals(1, a.asProportionOf(b));
+        assertEquals(1 / 1.2, a.asProportionOf(c));
+        assertEquals(1, a.asProportionOf(d));
+        assertEquals(0.4, a.asProportionOf(e));
+
+        assertEquals(0.25, b.asProportionOf(a));
+        assertEquals(0.25 / 1.2, b.asProportionOf(c));
+        assertEquals(1.0 / 3, b.asProportionOf(d));
+        assertEquals(0.1, b.asProportionOf(e));
+
+        assertEquals(1, c.asProportionOf(a));
+        assertEquals(1, c.asProportionOf(b));
+        assertEquals(1, c.asProportionOf(d));
+        assertEquals(0.48, c.asProportionOf(e));
+
+        assertEquals(0.75, d.asProportionOf(a));
+        assertEquals(1, d.asProportionOf(b));
+        assertEquals(0.75 / 1.2, d.asProportionOf(c));
+        assertEquals(0.3, d.asProportionOf(e));
+
+        assertEquals(1, e.asProportionOf(a));
+        assertEquals(1, e.asProportionOf(b));
+        assertEquals(1, e.asProportionOf(c));
+        assertEquals(1, e.asProportionOf(d));
+    }
+
+    @Test
     public void parseValue() {
         // valid ingredient quantity
         assertEquals("12345", IngredientQuantity.parseValue("12345").toString()); // whole number

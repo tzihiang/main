@@ -108,6 +108,13 @@ public class MixedFraction extends Fraction {
         return new MixedFraction(super.subtract(mixedFraction));
     }
 
+    /**
+     * Divides this mixed fraction by the specified mixed fraction.
+     */
+    public MixedFraction divide(MixedFraction mixedFraction) {
+        return new MixedFraction(super.divide(mixedFraction));
+    }
+
     @Override
     public String toString() {
         int wholePart = intValue();

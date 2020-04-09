@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.cart;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.logic.commands.cart.CartClearCommand.MESSAGE_SUCCESS;
 
@@ -27,6 +28,9 @@ public class CartClearCommandTest {
         model.addCartIngredient(TypicalIngredients.BANANA);
         model.addCartIngredient(TypicalIngredients.CHICKEN);
         assertEquals(c.execute(model), new CommandResult(MESSAGE_SUCCESS));
+        assertFalse(model.hasCartIngredient(TypicalIngredients.ALMOND));
+        assertFalse(model.hasCartIngredient(TypicalIngredients.BANANA));
+        assertFalse(model.hasCartIngredient(TypicalIngredients.CHICKEN));
     }
 
     @Test
