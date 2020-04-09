@@ -242,7 +242,7 @@ The above implementation is the same for `Inventory` with the command `inventory
 
 ==== Implementation reasoning
 This command was implemented to allow the user know to add an ingredient to the cart or inventory respectively.
-An ingredient only has two main components - its' name and quantity. We allow the user to use their own measurement up to their own
+An ingredient only has two main components - its name and quantity. We allow the user to use their own measurement up to their own
 preferences and do not force any fixed unit of measurement. Although similar, `Cart` and `Ingredients` differ in certain functions
 from a user's point of view. For a user to immediately sort where they wish to sort the ingredient they are adding, `Cart` and
 `Inventory` is the first parameter they would use for the command.
@@ -271,17 +271,24 @@ The above implementation is the same for `Inventory`
 ==== Design Considerations
 Aspect: The need for many parsers just for one command
 
-* **Alternative 1 (Current choice)**: Create parsers for every individual action
-** The command will go through the parsers in the following order: CookingPapaParser -> CartCommandParser -> CartAddCommandParser
--> CartAddIngredientParser before finally returning CartAddIngredientCommand. We eventually went with this as we wanted the add
-functionality to be expanded, namely to be able to add all the ingredients of cookbook recipes into the cart.
-** Pros: More organised and can do more with `cart add` as the prefix.
-** Cons: Many parser classes to make and keep track of.
+|===
+| |Design A (Current choice): Create parsers for every individual action | Design B: Create parsers for each specific action
 
-* **Alternative 2:** Create parsers for each specific action
-** This would mean that `CartAddCommand` will not be created facilitate `CartAddIngredientCommand` and `CartAddRecipeIngredientCommand`.
-** Pros: The classes can be more specific and atomic in their actions.
-** Cons: Might lead to disorganisation during troubleshooting with so many classes to keep track.
+|Description
+|The command will go through the parsers in the following order: `CookingPapaParser` -> `CartCommandParser` -> `CartAddCommandParser`
+-> `CartAddIngredientParser` before finally returning `CartAddIngredientCommand`. We eventually went with this as we wanted the add
+functionality to be expanded, namely to be able to add all the ingredients of cookbook recipes into the cart.
+| `CartAddCommand` will not be created facilitate `CartAddIngredientCommand` and `CartAddRecipeIngredientCommand`.
+
+
+|Pros
+|More organised and can do more with `cart add` as the prefix.
+|Many parser classes to make and keep track of.
+
+|Cons
+|The classes can be more specific and atomic in their actions.
+|Might lead to disorganisation during troubleshooting with so many classes to keep track.
+|===
 
 === Moving ingredients from cart to inventory
 The user may use this command after their shopping trip. With this one command, all ingredients will be shifted from the cart to the inventory.
@@ -326,18 +333,24 @@ image::CartMoveCommand2.png[]
 ==== Design considerations
 Aspect: Allowing users to move some or all ingredients from cart to inventory
 
-* **Alternative 1 (Current choice)**: Move all ingredients
-** There was a consideration to allow the user to move the ingredients by individual ingredients. Eventually the options was
-not given as we know that typical users will want to move all the ingredients except for individual ingredients.
-** Pros: Straightforward to implement
-** Cons: Lesser functionality to users that really want to only move certain ingredients
+|===
+| |Design A (Current choice): Move all ingredients | Design B: Allow users to move individually or exclude some ingredients when moving
 
-* **Alternative 2:** Allow users to move individually or exclude some ingredients when moving
-** The use cases of such an action happening is very little and the user can simply manually remove the few
+|Description
+|There was a consideration to allow the user to move the ingredients by individual ingredients. Eventually the options was
+not given as we know that typical users will want to move all the ingredients except for individual ingredients.
+| The use cases of such an action happening is very little and the user can simply manually remove the few
 ingredients they do not wish to add to the inventory after using the `cart move` command. The user can also manually
 add back the ingredients to the cart after it is cleared if they wish to.
-** Pros: Lesser implementations, more time to focus on other parts of the project
-** Cons: Poorer user experience for users that do not want to move all ingredients from the cart to inventory on a regular basis,
+
+|Pros
+|Straightforward to implement
+|Lesser implementations, more time to focus on other parts of the project
+
+|Cons
+|Lesser functionality to users that really want to only move certain ingredients
+|Poorer user experience for users that do not want to move all ingredients from the cart to inventory on a regular basis,
+|===
 
 
 // tag::undoredo[]

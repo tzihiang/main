@@ -29,15 +29,17 @@ activate CartCommandParser
 CartCommandParser -> CookingPapaParser
 deactivate CartCommandParser
 
+CookingPapaParser -> CartCommandParser : parse("ingredient")
+activate CartCommandParser
+
 create CartAddCommandParser
-CookingPapaParser -> CartAddCommandParser : parse("ingredient")
+CartCommandParser -> CartAddCommandParser
 activate CartAddCommandParser
 
 CartAddCommandParser -> CartCommandParser
 deactivate CartAddCommandParser
-activate CartCommandParser
 
-CartCommandParser ->CartAddCommandParser
+CartCommandParser ->CartAddCommandParser : parse("ingredient")
 activate CartAddCommandParser
 
 create CartAddIngredientCommandParser
