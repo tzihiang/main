@@ -17,7 +17,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class CartAddCommandParser implements Parser<CartAddCommand> {
 
-    public static final String RECIPE_STRING = "recipe";
     private static final Pattern CART_ADD_COMMAND_ARGUMENT_FORMAT = Pattern
             .compile(" *(?<category>\\S+)(?<arguments>.*)");
 

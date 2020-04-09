@@ -14,7 +14,7 @@ public abstract class RecipeAddCommand extends RecipeCommand {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD
-            + ": adds an ingredient, a step or a tag to a recipe with the given INDEX. "
+            + ": adds an ingredient, a step, or a tag to a recipe with the given INDEX. "
             + "\nParameters for adding an ingredient: "
             + "INDEX (must be a positive integer) "
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
@@ -24,7 +24,7 @@ public abstract class RecipeAddCommand extends RecipeCommand {
             + INGREDIENT_KEYWORD + " "
             + PREFIX_INGREDIENT_NAME + "Eggs "
             + PREFIX_INGREDIENT_QUANTITY + "12\n"
-            + "\nParameters for adding a step to a recipe: "
+            + "\nParameters for adding a step: "
             + "INDEX (must be a positive integer) "
             + PREFIX_STEP_INDEX + "STEP_INDEX "
             + PREFIX_STEP_DESCRIPTION + "STEP_DESCRIPTION\n"
@@ -33,9 +33,9 @@ public abstract class RecipeAddCommand extends RecipeCommand {
             + STEP_KEYWORD + " "
             + PREFIX_STEP_INDEX + "1 "
             + PREFIX_STEP_DESCRIPTION + "Add potatoes and water to a large pot, and bring to a boil.\n"
-            + "\nParameters for adding a tag to a recipe: "
+            + "\nParameters for adding a tag: "
             + "INDEX (must be a positive integer) "
-            + PREFIX_TAG + "TAG_NAME\n"
+            + PREFIX_TAG + "TAG\n"
             + "Example: " + COMMAND_CATEGORY + " 1 "
             + COMMAND_WORD + " "
             + TAG_KEYWORD + " "

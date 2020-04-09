@@ -5,7 +5,6 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.fraction.MixedFraction;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.recipe.Recipe;
@@ -206,15 +205,4 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCartIngredientList(Predicate<Ingredient> predicate);
-
-    /**
-     * Updates the inventory with the ingredients in the cart.
-     */
-    void cartMoveIngredients();
-
-    /**
-     * Returns the MixedFraction value based on the similarity of the recipe.
-     */
-    MixedFraction calculateSimilarity(Recipe recipe);
-
 }

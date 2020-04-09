@@ -9,8 +9,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.util.PdfExporter;
 
+import static java.util.Objects.requireNonNull;
+
 /**
- *  Exports the cart to a pdf file.
+ *  Exports the ingredients in cart to a pdf file.
  */
 public class CartExportCommand extends CartCommand {
     public static final String COMMAND_WORD = "export";
@@ -20,18 +22,22 @@ public class CartExportCommand extends CartCommand {
         + "as Cooking Papa\n. Parameters for exporting all ingredients inside the cart is as follows:\n"
         + COMMAND_CATEGORY + " " + COMMAND_WORD;
 
-    private static final String MESSAGE_FILE_NOT_FOUND = "File not found.";
+    private static final String MESSAGE_FILE_NOT_FOUND = "'cart.pdf' is opened in another application. Please close "
+            + "it and try again.";
 
     public CartExportCommand() {
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
         try {
             PdfExporter.exportCart(model.getCart().getIngredientList());
         } catch (IOException | DocumentException e) {
             return new CommandResult(MESSAGE_FILE_NOT_FOUND);
         }
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

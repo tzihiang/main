@@ -35,12 +35,14 @@ public class RecipeRemoveTagCommand extends RecipeRemoveCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         List<Recipe> lastShownList = model.getFilteredCookbookRecipeList();
 
         if (recipeIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
         }
 
+        assert(recipeIndex.getZeroBased() >= lastShownList.size());
         Recipe recipeToEdit = lastShownList.get(recipeIndex.getZeroBased());
         Set<Tag> targetTagSet = recipeToEdit.getTags();
 

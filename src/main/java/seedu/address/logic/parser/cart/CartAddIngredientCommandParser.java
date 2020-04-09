@@ -30,7 +30,7 @@ public class CartAddIngredientCommandParser implements Parser<CartCommand> {
         requireNonNull(args);
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
+            ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
 
         if (!argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -38,11 +38,12 @@ public class CartAddIngredientCommandParser implements Parser<CartCommand> {
                     CartAddIngredientCommand.MESSAGE_USAGE));
         }
 
+        assert argMultimap.getValue(PREFIX_INGREDIENT_NAME).isPresent();
+        assert argMultimap.getValue(PREFIX_INGREDIENT_QUANTITY).isPresent();
         IngredientName ingredientName = ParserUtil.parseIngredientName(argMultimap
-                .getValue(PREFIX_INGREDIENT_NAME).get());
+            .getValue(PREFIX_INGREDIENT_NAME).get());
         IngredientQuantity ingredientQuantity = ParserUtil.parseIngredientQuantity(argMultimap
-                .getValue(PREFIX_INGREDIENT_QUANTITY).get());
-
+            .getValue(PREFIX_INGREDIENT_QUANTITY).get());
         Ingredient ingredient = new Ingredient(ingredientName, ingredientQuantity);
 
         return new CartAddIngredientCommand(ingredient);

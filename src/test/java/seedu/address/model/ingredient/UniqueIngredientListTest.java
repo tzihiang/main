@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_INGREDIENT_QUAN
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIngredients.APPLE;
 import static seedu.address.testutil.TypicalIngredients.BANANA;
+import static seedu.address.testutil.TypicalIngredients.CHICKEN;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,6 +23,17 @@ import seedu.address.testutil.IngredientBuilder;
 public class UniqueIngredientListTest {
 
     private final UniqueIngredientList uniqueIngredientList = new UniqueIngredientList();
+
+    @Test
+    public void size() {
+        assertEquals(0, uniqueIngredientList.size());
+
+        uniqueIngredientList.add(APPLE);
+        assertEquals(1, uniqueIngredientList.size());
+
+        uniqueIngredientList.remove(APPLE);
+        assertEquals(0, uniqueIngredientList.size());
+    }
 
     @Test
     public void contains_nullIngredient_throwsNullPointerException() {
@@ -214,5 +226,18 @@ public class UniqueIngredientListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniqueIngredientList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void sortList_success() {
+        uniqueIngredientList.add(BANANA);
+        uniqueIngredientList.add(CHICKEN);
+        uniqueIngredientList.add(APPLE);
+        uniqueIngredientList.sortList();
+        UniqueIngredientList editedList = new UniqueIngredientList();
+        editedList.add(APPLE);
+        editedList.add(BANANA);
+        editedList.add(CHICKEN);
+        assertEquals(uniqueIngredientList, editedList);
     }
 }

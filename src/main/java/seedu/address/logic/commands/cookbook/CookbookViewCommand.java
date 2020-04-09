@@ -18,17 +18,19 @@ public class CookbookViewCommand extends CookbookCommand {
 
     public static final String COMMAND_WORD = "view";
 
-    public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " "
+            + COMMAND_WORD + " " + "recipe"
             + ": views the recipe identified by the index number used in the displayed recipe list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a positive valid integer)\n\n"
             + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Viewing recipe %1$d";
+    public static final String MESSAGE_SUCCESS = "Viewing recipe %1$d (%2$s)";
 
     private final Index targetIndex;
 
     public CookbookViewCommand(Index targetIndex) {
         requireNonNull(targetIndex);
+
         this.targetIndex = targetIndex;
     }
 
@@ -43,7 +45,11 @@ public class CookbookViewCommand extends CookbookCommand {
                     CookbookViewCommand.MESSAGE_USAGE));
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex.getOneBased()), true, targetIndex);
+        assert(targetIndex.getZeroBased() >= lastShownList.size());
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex.getOneBased(),
+                lastShownList.get(targetIndex.getZeroBased()).getName().fullRecipeName),
+                true, targetIndex);
     }
 
     @Override

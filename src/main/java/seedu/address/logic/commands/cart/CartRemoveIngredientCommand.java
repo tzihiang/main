@@ -44,6 +44,7 @@ public class CartRemoveIngredientCommand extends CartCommand {
     public CartRemoveIngredientCommand(IngredientName ingredientName,
             Optional<IngredientQuantity> ingredientQuantity) {
         requireAllNonNull(ingredientName, ingredientQuantity);
+
         this.ingredientName = ingredientName;
         this.ingredientQuantity = ingredientQuantity;
     }

@@ -5,6 +5,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Cart;
 import seedu.address.model.Model;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Removes all ingredients from the cart
  */
@@ -18,13 +20,15 @@ public class CartClearCommand extends CartCommand {
             + COMMAND_CATEGORY + " " + COMMAND_WORD;
 
     /**
-     * Creates a CartClearCommand clear the cart
+     * Creates a CartClearCommand to clear the cart
      */
     public CartClearCommand() {
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
         model.setCart(new Cart());
         return new CommandResult(MESSAGE_SUCCESS);
     }

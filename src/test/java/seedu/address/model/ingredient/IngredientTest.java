@@ -68,6 +68,23 @@ public class IngredientTest {
     }
 
     @Test
+    public void asProportionOf_compatibleIngredient_success() {
+        Ingredient editedApple = new IngredientBuilder(APPLE).withQuantity(VALID_INGREDIENT_QUANTITY_BANANA).build();
+        assertEquals(APPLE.getQuantity().asProportionOf(BANANA.getQuantity()), APPLE.asProportionOf(editedApple));
+    }
+
+    @Test
+    public void asProportionOf_ingredientWithDifferentUnit_throwsIncompatibleIngredientException() {
+        Ingredient editedApple = new IngredientBuilder(APPLE).withQuantity(VALID_INGREDIENT_QUANTITY_ALMOND).build();
+        assertThrows(IncompatibleIngredientException.class, () -> APPLE.asProportionOf(editedApple));
+    }
+
+    @Test
+    public void asProportionOf_differentIngredient_throwsIncompatibleIngredientException() {
+        assertThrows(IncompatibleIngredientException.class, () -> APPLE.asProportionOf(BANANA));
+    }
+
+    @Test
     public void isCompatibleWith() {
         // same object -> returns true
         assertTrue(APPLE.isCompatibleWith(APPLE));

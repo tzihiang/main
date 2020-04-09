@@ -403,6 +403,18 @@ removed regardless of the unit.
 _(If your inventory had 500 g of milk, it will be subtracted and updated to 300 g of butter)_
 |===
 
+==== Remove all ingredients from the inventory.
+This command allows you to remove all ingredients from the inventory.
+
+- Format: `inventory clear ingredient`
+- Example:
+|===
+| Parameters | Result
+
+|`inventory clear ingredient`
+|Removes all ingredients from the inventory
+|===
+
 [[Cart]]
 === Cart Commands
 Cart commands are commands that allow you to easily add ingredients needed for a recipe
@@ -654,11 +666,13 @@ INGREDIENT and its QUANTITY, STEP and its STEP_INDEX, and TAG are optional param
 |``INDEX remove tag t/TAG``
 |Removes a tag 'TAG' to the recipe at given INDEX
 
-.2+|``inventory``
+.3+|inventory
 |``add ingredient  i/INGREDIENT q/QUANTITY``
 |Adds QUANTITY of INGREDIENTS into your inventory.
 |``remove ingredient i/INGREDIENT q/QUANTITY``
 |Removes QUANTITY of INGREDIENTS from your inventory.
+|`clear ingredient`
+|Removes all ingredients from the inventory
 
 .5+|``cart``
 |``add recipe INDEX``

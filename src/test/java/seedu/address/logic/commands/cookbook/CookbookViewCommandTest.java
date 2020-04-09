@@ -38,13 +38,17 @@ public class CookbookViewCommandTest {
         Model model = new ModelManager();
         model.addCookbookRecipe(AGLIO_OLIO);
         assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS,
-                VALID_RECIPE_INDEX.getOneBased(), true, VALID_RECIPE_INDEX)));
+                VALID_RECIPE_INDEX.getOneBased(),
+                model.getCookbook().getRecipeList().get(VALID_RECIPE_INDEX.getZeroBased()).getName().fullRecipeName),
+                true, VALID_RECIPE_INDEX));
 
         // after adding multiple recipes
         model.addCookbookRecipe(CARBONARA);
         model.addCookbookRecipe(SPAGHETTI_BOLOGNESE);
         assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS,
-            VALID_RECIPE_INDEX.getOneBased(), true, VALID_RECIPE_INDEX)));
+                VALID_RECIPE_INDEX.getOneBased(),
+                model.getCookbook().getRecipeList().get(VALID_RECIPE_INDEX.getZeroBased()).getName().fullRecipeName),
+                true, VALID_RECIPE_INDEX));
     }
 
     @Test

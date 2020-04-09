@@ -44,6 +44,7 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
     public InventoryRemoveIngredientCommand(IngredientName ingredientName,
             Optional<IngredientQuantity> ingredientQuantity) {
         requireAllNonNull(ingredientName, ingredientQuantity);
+
         this.ingredientName = ingredientName;
         this.ingredientQuantity = ingredientQuantity;
     }
