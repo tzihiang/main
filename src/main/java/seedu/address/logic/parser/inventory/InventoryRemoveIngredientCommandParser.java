@@ -6,8 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.inventory.InventoryCommand;
 import seedu.address.logic.commands.inventory.InventoryRemoveIngredientCommand;
@@ -24,8 +22,7 @@ import seedu.address.model.ingredient.IngredientQuantity;
  */
 public class InventoryRemoveIngredientCommandParser implements Parser<InventoryCommand> {
 
-    private static final Pattern INVENTORY_REMOVE_COMMAND_ARGUMENT_FORMAT = Pattern
-            .compile(InventoryRemoveIngredientCommand.INGREDIENT_KEYWORD + " *(?<arguments>.*)");
+
     /**
      * Parses the given {@code String} of arguments in the context of the InventoryCommand
      * and returns a InventoryRemoveIngredientCommand object for execution.
@@ -34,16 +31,8 @@ public class InventoryRemoveIngredientCommandParser implements Parser<InventoryC
     public InventoryRemoveIngredientCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        final Matcher matcher = INVENTORY_REMOVE_COMMAND_ARGUMENT_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    InventoryRemoveIngredientCommand.MESSAGE_USAGE));
-        }
-
-        final String arguments = matcher.group("arguments");
-
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(arguments, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
+                ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
 
         if (!argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {

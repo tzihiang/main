@@ -10,12 +10,12 @@ import seedu.address.model.Model;
  */
 public class InventoryClearCommand extends InventoryCommand {
 
-    public static final String COMMAND_WORD = "clear";
+    public static final String COMMAND_WORD = "clear ingredient";
     public static final String MESSAGE_SUCCESS = "All ingredients from inventory cleared!";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
             + "This command allows you to remove all ingredients from your inventory\n"
             + "Parameters for removing all ingredients from your inventory is as follows: \n"
-            + COMMAND_CATEGORY + " " + COMMAND_WORD;
+            + COMMAND_CATEGORY + " " + COMMAND_WORD + " ingredient";
 
     /**
      * Creates a InventoryClearCommand

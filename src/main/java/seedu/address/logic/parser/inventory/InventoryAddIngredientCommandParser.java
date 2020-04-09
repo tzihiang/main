@@ -16,17 +16,10 @@ import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Parses input arguments and creates a new InventoryAddIngredientCommand object
  */
 public class InventoryAddIngredientCommandParser implements Parser<InventoryCommand> {
-
-    private static final Pattern INVENTORY_ADD_COMMAND_ARGUMENT_FORMAT = Pattern
-            .compile(InventoryAddIngredientCommand.INGREDIENT_KEYWORD + " *(?<arguments>.*)");
-
 
     /**
      * Parses the given {@code String} of arguments in the context of the InventoryCommand
@@ -36,16 +29,8 @@ public class InventoryAddIngredientCommandParser implements Parser<InventoryComm
     public InventoryAddIngredientCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
-        final Matcher matcher = INVENTORY_ADD_COMMAND_ARGUMENT_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    InventoryAddIngredientCommand.MESSAGE_USAGE));
-        }
-
-        final String arguments = matcher.group("arguments");
-
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(arguments, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
+                ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
 
         if (!argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
