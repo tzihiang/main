@@ -17,7 +17,7 @@ public class InventoryAddIngredientCommandParserTest {
     private static final String INGREDIENT_KEYWORD = "ingredient";
     private static final String VALID_INGREDIENT_ARGUMENT = INGREDIENT_KEYWORD + " i/Ingredient q/5";
     private static final String INVALID_INGREDIENT_ARGUMENT_NO_NAME = INGREDIENT_KEYWORD + " q/5";
-    private static final String INVALID_ARGUMENT = " Invalid argument";
+    private static final String INVALID_ARGUMENT = INGREDIENT_KEYWORD + " Invalid argument";
 
     @Test
     public void parse_validInput() throws ParseException {

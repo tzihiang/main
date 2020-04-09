@@ -6,9 +6,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.cart.CartCommand;
 import seedu.address.logic.commands.cart.CartRemoveIngredientCommand;
+import seedu.address.logic.commands.inventory.InventoryAddIngredientCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -22,6 +25,9 @@ import seedu.address.model.ingredient.IngredientQuantity;
  */
 public class CartRemoveIngredientCommandParser implements Parser<CartCommand> {
 
+    private static final Pattern CART_REMOVE_COMMAND_ARGUMENT_FORMAT = Pattern
+            .compile(CartRemoveIngredientCommand.INGREDIENT_KEYWORD + "*(?<arguments>.*)");
+
     /**
      * Parses the given {@code String} of arguments in the context of the CartCommand
      * and returns a CartRemoveIngredientCommand object for execution.
@@ -31,8 +37,16 @@ public class CartRemoveIngredientCommandParser implements Parser<CartCommand> {
     public CartRemoveIngredientCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
+        final Matcher matcher = CART_REMOVE_COMMAND_ARGUMENT_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    InventoryAddIngredientCommand.MESSAGE_USAGE));
+        }
+
+        final String arguments = matcher.group("arguments");
+
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
+                ArgumentTokenizer.tokenize(arguments, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
 
         if (!argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
