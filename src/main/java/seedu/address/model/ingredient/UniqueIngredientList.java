@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -29,6 +30,13 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
     protected final ObservableList<Ingredient> internalList = FXCollections.observableArrayList();
     protected final ObservableList<Ingredient> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
+    /**
+     * Returns the size of the list.
+     */
+    public int size() {
+        return internalList.size();
+    }
 
     /**
      * Returns true if the list contains an ingredient equivalent to the given argument.
@@ -178,15 +186,5 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
-    }
-
-    public List<String> getIngredientNamesString() {
-        StringBuilder sb = new StringBuilder();
-
-        for (Ingredient i : internalList) {
-            sb.append(i.getName().ingredientName).append(" ");
-        }
-
-        return Arrays.asList(sb.toString().split("\\s+"));
     }
 }

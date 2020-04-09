@@ -14,7 +14,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.fraction.MixedFraction;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.recipe.Recipe;
@@ -274,12 +273,6 @@ public class ModelManager implements Model {
     @Override
     public void exportCart() throws IOException, DocumentException {
         PdfExporter.exportCart(getFilteredCartIngredientList());
-    }
-
-    // TODO: Update method
-    @Override
-    public MixedFraction calculateSimilarity(Recipe recipe) {
-        return null;
     }
 
     @Override
