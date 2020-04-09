@@ -26,7 +26,6 @@ public class Inventory extends IngredientList implements ReadOnlyInventory {
         setIngredients(newData.getIngredientList());
     }
 
-    @Override
     public double calculateSimilarity(Recipe recipe) {
         if (recipe.getIngredients().size() == 0) {
             return 0;

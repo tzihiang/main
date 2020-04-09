@@ -88,10 +88,10 @@ public class Cookbook implements ReadOnlyCookbook {
     }
 
     /**
-     * Sorts the cookbook using the specified comparator.
+     * Sorts the cookbook by similarity of the specified inventory's ingredients.
      */
-    public void sort(Comparator<? super Recipe> comparator) {
-        recipes.sort(comparator);
+    public void sortByInventorySimilarity(Inventory inventory) {
+        recipes.sort(new RecipeInventorySimilarityComparator(inventory));
     }
 
     //// util methods

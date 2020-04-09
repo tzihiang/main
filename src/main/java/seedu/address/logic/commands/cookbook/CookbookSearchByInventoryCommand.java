@@ -25,6 +25,7 @@ public class CookbookSearchByInventoryCommand extends CookbookSearchCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        model.sortCookbookByInventorySimilarity();
         model.updateFilteredCookbookRecipeList(
                 new RecipeContainsInventoryIngredientsPredicate(model.getInventory()));
         return new CommandResult(
@@ -37,4 +38,3 @@ public class CookbookSearchByInventoryCommand extends CookbookSearchCommand {
                 || other instanceof CookbookSearchByInventoryCommand;
     }
 }
-

@@ -2,14 +2,14 @@ package seedu.address.model.recipe;
 
 import java.util.function.Predicate;
 
-import seedu.address.model.ReadOnlyInventory;
+import seedu.address.model.Inventory;
 
 /**
  * Tests that a {@code Recipe}'s {@code Ingredient} matches any of the ingredients available in the inventory.
  */
 public class RecipeContainsInventoryIngredientsPredicate implements Predicate<Recipe> {
-    private ReadOnlyInventory inventory;
-    public RecipeContainsInventoryIngredientsPredicate(ReadOnlyInventory inventory) {
+    private Inventory inventory;
+    public RecipeContainsInventoryIngredientsPredicate(Inventory inventory) {
         this.inventory = inventory;
     }
 

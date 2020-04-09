@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.function.Predicate;
 
 import com.itextpdf.text.DocumentException;
@@ -189,9 +188,9 @@ public interface Model {
     public void exportCart() throws IOException, DocumentException;
 
     /**
-     * Sorts the cookbook using the specified comparator.
+     * Sorts the cookbook by similarity of the specified inventory's ingredients.
      */
-    void sortCookbook(Comparator<? super Recipe> comparator);
+    void sortCookbookByInventorySimilarity();
 
     /** Returns an unmodifiable view of the filtered cookbook recipe list */
     ObservableList<Recipe> getFilteredCookbookRecipeList();
