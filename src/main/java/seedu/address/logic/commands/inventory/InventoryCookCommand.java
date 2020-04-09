@@ -19,7 +19,8 @@ import seedu.address.model.recipe.Recipe;
 
 public class InventoryCookCommand extends InventoryCommand {
 
-    public static final String COMMAND_WORD = "cook recipe";
+    public static final String COMMAND_WORD = "cook";
+    public static final String RECIPE_KEYWORD = "recipe";
     public static final String MESSAGE_SUCCESS = "All ingredients from recipe %1$s removed from inventory";
     public static final String MESSAGE_MISSING_INGREDIENT =
             "Your inventory does not contain all the ingredients of recipe %1$s.";
