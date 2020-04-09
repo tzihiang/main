@@ -2,10 +2,12 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.RecipeDefaultComparator;
 import seedu.address.model.recipe.UniqueRecipeList;
 
 /**
@@ -16,18 +18,9 @@ public class Cookbook implements ReadOnlyCookbook {
 
     private final UniqueRecipeList recipes;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
+    public Cookbook() {
         recipes = new UniqueRecipeList();
     }
-
-    public Cookbook() {}
 
     /**
      * Creates an Cookbook using the Recipes in the {@code toBeCopied}
@@ -72,6 +65,7 @@ public class Cookbook implements ReadOnlyCookbook {
      */
     public void addRecipe(Recipe recipe) {
         recipes.add(recipe);
+        recipes.sort(new RecipeDefaultComparator());
     }
 
     /**
@@ -81,8 +75,8 @@ public class Cookbook implements ReadOnlyCookbook {
      */
     public void setRecipe(Recipe target, Recipe editedRecipe) {
         requireNonNull(editedRecipe);
-
         recipes.setRecipe(target, editedRecipe);
+        recipes.sort(new RecipeDefaultComparator());
     }
 
     /**
@@ -91,6 +85,13 @@ public class Cookbook implements ReadOnlyCookbook {
      */
     public void removeRecipe(Recipe key) {
         recipes.remove(key);
+    }
+
+    /**
+     * Sorts the cookbook using the specified comparator.
+     */
+    public void sort(Comparator<? super Recipe> comparator) {
+        recipes.sort(comparator);
     }
 
     //// util methods
