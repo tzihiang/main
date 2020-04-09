@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+
 import static seedu.address.testutil.TypicalIngredients.ALMOND;
 import static seedu.address.testutil.TypicalIngredients.APPLE;
+import static seedu.address.testutil.TypicalIngredients.BANANA;
 import static seedu.address.testutil.TypicalRecipes.CARBONARA;
 
 import java.nio.file.Path;
@@ -86,6 +88,15 @@ public class ModelManagerTest {
         Path path = Paths.get("inventory/file/path");
         modelManager.setInventoryFilePath(path);
         assertEquals(path, modelManager.getInventoryFilePath());
+    }
+
+    @Test
+    public void hasClearedInventory_ingredientNotInInventory_returnsTrue() {
+        modelManager.addInventoryIngredient(APPLE);
+        modelManager.addInventoryIngredient(BANANA);
+        modelManager.setInventory(modelManager.getInventory());
+        assertTrue(!modelManager.hasInventoryIngredient(APPLE)
+                && !modelManager.hasInventoryIngredient(BANANA));
     }
 
     @Test
