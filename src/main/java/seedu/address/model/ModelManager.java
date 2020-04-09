@@ -3,12 +3,9 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-
-import com.itextpdf.text.DocumentException;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -18,7 +15,6 @@ import seedu.address.commons.core.fraction.MixedFraction;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.util.PdfExporter;
 
 /**
  * Represents the in-memory model of CookingPapa's data.

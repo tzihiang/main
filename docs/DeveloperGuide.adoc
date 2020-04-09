@@ -161,9 +161,9 @@ The recipe addition mechanism is facilitated by `CookbookAddCommand`, which exte
 
 Below is a step by step sequence of what happens when a user enters this command
 
-1. The user enters a recipe adding command using the command line input `cookbook add recipe n/NAME d/DESCRIPTION
+. The user enters a recipe adding command using the command line input `cookbook add recipe n/NAME d/DESCRIPTION
 [i/INGREDIENT]... [q/QUANTITY]... [s/STEP_DESCRIPTION]... [t/TAG]...`.
-2.  `CookbookAddCommandParser` parsers the user input and checks if `n/NAME` and `d/DESCRIPTION` are provided. It then
+.  `CookbookAddCommandParser` parsers the user input and checks if `n/NAME` and `d/DESCRIPTION` are provided. It then
 parses the input into the following fields: recipe name, recipe description, ingredients, steps, and tags.
 
 +
@@ -174,17 +174,34 @@ the ingredient names and ingredient quantities provided must be the same, or a `
 ----
 if (names.size() != quantities.size()) {
     throw new ParseException(
-    String.format(MESSAGE_DIFFERENT_NUMBER_OF_INPUTS, names.size(), quantities.size()));
+        String.format(MESSAGE_DIFFERENT_NUMBER_OF_INPUTS, names.size(), quantities.size()));
 }
 ----
+{blank}
 
 . These fields are then passed as parameters for `Recipe`, which is then passed as the parameter for
 `CookbookAddCommand` and returned to `LogicManager`.
-. `LogicManager` calls `CookbookAddCommand#execute()` which checks if the cookbook already contains the same recipe with the same name, description, ingredient names, ingredient quantities, and tags using `Model#hasCookbookRecipe()`. If there is a duplicate, a `CommandException` is thrown, stating that the user is attempting to add a duplicate recipe.
+. `LogicManager` calls `CookbookAddCommand#execute()` which checks if the cookbook already contains the same recipe with the same name, description, ingredient names, ingredient quantities, and tags using `Model#hasCookbookRecipe()`.
++
+If there is a duplicate, a `CommandException` is thrown, stating that the user is attempting to add a duplicate recipe:
++
+[source,java]
+----
+if (model.hasCookbookRecipe(toAdd)) {
+    throw new CommandException(MESSAGE_DUPLICATE_RECIPE);
+}
+----
 . If `CommandException` is not thrown, `Model#addCookbookRecipe` will be executed, with the recipe to be added as a parameter.
-. `Model#addCookbookRecipe()` then executes `Cookbook#addRecipe()`, which adds the recipe to the cookbook, and the `FilteredList<Recipe>` representing the recipes in the cookbook are updated with `Model#updateFilteredCookbookRecipeList()`
+. `Model#addCookbookRecipe()` then executes `Cookbook#addRecipe()`, which adds the recipe to the cookbook, and the
+`FilteredList<Recipe>` representing the recipes in the cookbook are updated with `Model#updateFilteredCookbookRecipeList()`:
++
+[source,java]
+----
+updateFilteredCookbookRecipeList(PREDICATE_SHOW_ALL_RECIPES)
+----
+where `PREDICATE_SHOW_ALL_RECIPES = unused -> true`.
 . A `CommandResult` with the text to display to the user is then returned to `LogicManager`, which can passed back to
-`MainWindow`, which displays it to the user on the CLI and GUI. The text displayed will notify the user on whether
+`MainWindow`, which displays it to the user on the CLI and GUI: `resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser())`. The text displayed will notify the user on whether
 their addition was successful.
 
 ==== Implementation reasoning
@@ -200,8 +217,8 @@ The following sequence diagram shows how the recipe adding function works (full 
                                                                                           n/Recipe name d/Recipe
                                                                                           description i/Ingredient 1
                                                                                           q/1 piece i/Ingredient 2
-                                                                                          q/20 ml x/1 s/Do step 1 x/2
-                                                                                          s/Do step 2 t/This t/Is t/A
+                                                                                          q/20 ml s/Do step 1 s/Do
+                                                                                          step 2 t/This t/Is t/A
                                                                                           t/Tag`]  omitted from diagram
 for brevity):
 
@@ -210,7 +227,7 @@ image::CookbookAddRecipeSequenceDiagram.png[]
 
 ==== How the feature works
 Step 1: Input the command in the command box, then hit kbd:[Enter] on the keyboard. The command is as follows:
-`cookbook add recipe n/Recipe name d/Recipe description i/Ingredient 1 q/1 piece i/Ingredient 2 q/20 mls/Do step 1
+`cookbook add recipe n/Recipe name d/Recipe description i/Ingredient 1 q/1 piece i/Ingredient 2 q/20 ml s/Do step 1
  s/Do step 2 t/This t/Is t/A t/Tag`.
 
 .CookbookAddCommand sample command in Command box

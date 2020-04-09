@@ -37,13 +37,13 @@ public class CookbookRemoveCommandTest {
         CookbookRemoveCommand c = new CookbookRemoveCommand(VALID_RECIPE_INDEX);
         Model model = new ModelManager();
         model.addCookbookRecipe(AGLIO_OLIO);
-        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, AGLIO_OLIO)));
+        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, AGLIO_OLIO.getName())));
 
         // after adding multiple recipes
         model.addCookbookRecipe(AGLIO_OLIO);
         model.addCookbookRecipe(CARBONARA);
         model.addCookbookRecipe(SPAGHETTI_BOLOGNESE);
-        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, AGLIO_OLIO)));
+        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, AGLIO_OLIO.getName())));
     }
 
     @Test

@@ -16,14 +16,14 @@ import seedu.address.model.recipe.RecipeContainsTagsPredicate;
 import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
 
 public class CookbookSearchCommandParserTest {
-    private static final String VALID_KEYWORDS_STRING = "recipe k/key words";
-    private static final String VALID_KEYWORDS_ARGUMENTS = " k/key words";
+    private static final String VALID_KEYWORDS_STRING = "recipe k/key k/words";
+    private static final String VALID_KEYWORDS_ARGUMENTS = " k/key k/words";
     private static final List<String> VALID_KEYWORDS_ONE = Arrays.asList("key", "words");
     private static final RecipeNameContainsKeywordsPredicate VALID_KEYWORD_PREDICATE_ONE =
             new RecipeNameContainsKeywordsPredicate(VALID_KEYWORDS_ONE);
 
-    private static final String VALID_TAGS_STRING = "tag t/easy difficult";
-    private static final String VALID_TAGS_ARGUMENTS = " t/easy difficult";
+    private static final String VALID_TAGS_STRING = "tag t/easy t/difficult";
+    private static final String VALID_TAGS_ARGUMENTS = " t/easy t/difficult";
     private static final List<String> VALID_TAGS_ONE = Arrays.asList("easy", "difficult");
     private static final RecipeContainsTagsPredicate VALID_TAG_PREDICATE_ONE =
             new RecipeContainsTagsPredicate(VALID_TAGS_ONE);

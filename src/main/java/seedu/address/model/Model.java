@@ -1,10 +1,7 @@
 package seedu.address.model;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Predicate;
-
-import com.itextpdf.text.DocumentException;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
