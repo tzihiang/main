@@ -1,17 +1,28 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Wraps all data at the cart level
- * Duplicates are not allowed
  */
 public class Cart extends IngredientList implements ReadOnlyCart {
 
     public Cart() {}
 
     public Cart(ReadOnlyCart toBeCopied) {
-        super(toBeCopied);
+        this();
+        resetData(toBeCopied);
     }
 
+    /**
+     * Resets the existing data of this {@code Cart} with {@code newData}.
+     * Called in constructor.
+     */
+    public void resetData(ReadOnlyCart newData) {
+        requireNonNull(newData);
+
+        setIngredients(newData.getIngredientList());
+    }
 
     @Override
     public String toString() {
