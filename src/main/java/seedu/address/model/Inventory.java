@@ -7,7 +7,7 @@ import seedu.address.model.recipe.Recipe;
 /**
  * Wraps all data at the inventory level
  */
-public class Inventory extends IngredientList implements ReadOnlyInventory {
+public class Inventory extends SortedIngredientList implements ReadOnlyInventory {
 
     public Inventory() {}
 

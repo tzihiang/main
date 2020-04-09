@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 /**
  * Wraps all data at the cart level
  */
-public class Cart extends IngredientList implements ReadOnlyCart {
+public class Cart extends SortedIngredientList implements ReadOnlyCart {
 
     public Cart() {}
 

@@ -186,7 +186,6 @@ public class ModelManager implements Model {
     @Override
     public void addInventoryIngredient(Ingredient ingredient) {
         inventory.addIngredient(ingredient);
-        inventory.getCompatibleIngredientList().sortList();
         updateFilteredInventoryIngredientList(PREDICATE_SHOW_ALL_INGREDIENTS);
     }
 
@@ -215,7 +214,6 @@ public class ModelManager implements Model {
     @Override
     public void addCartIngredient(Ingredient ingredient) {
         cart.addIngredient(ingredient);
-        cart.getCompatibleIngredientList().sortList();
         updateFilteredCartIngredientList(PREDICATE_SHOW_ALL_INGREDIENTS);
     }
 
