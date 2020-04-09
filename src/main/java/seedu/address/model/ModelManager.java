@@ -274,12 +274,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void cartMoveIngredients() {
-        cart.getCompatibleIngredientList().forEach(ingredient -> inventory.addIngredient(ingredient));
-        this.setCart(new Cart());
-    }
-
-    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

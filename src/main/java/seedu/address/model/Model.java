@@ -214,9 +214,4 @@ public interface Model {
      */
     void updateFilteredCartIngredientList(Predicate<Ingredient> predicate);
 
-    /**
-     * Updates the inventory with the ingredients in the cart.
-     */
-    void cartMoveIngredients();
-
 }
