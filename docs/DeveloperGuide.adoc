@@ -157,9 +157,10 @@ This section describes some noteworthy details on how certain features are imple
 === Add Recipe to the Cookbook
 ==== Implementation
 
-The recipe addition mechanism is facilitated by `CookbookAddCommand`, which extends the `Command` abstract class. The format of the command is as follows: `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT_NAME]... [q/INGREDIENT_QUANTITY]... [t/TAG]...`
+The recipe addition mechanism is facilitated by `CookbookAddCommand`, which extends the `Command` abstract class. The
+format of the command is as follows: `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT_NAME]... [q/INGREDIENT_QUANTITY]... [t/TAG]...`.
 
-Below is a step by step sequence of what happens when a user enters this command
+Below is a step by step sequence of what happens when a user enters this command:
 
 . The user enters a recipe adding command using the command line input `cookbook add recipe n/NAME d/DESCRIPTION
 [i/INGREDIENT]... [q/QUANTITY]... [s/STEP_DESCRIPTION]... [t/TAG]...`.
@@ -258,8 +259,8 @@ image::CookbookAddRecipe3.png[]
 |Each category will be parsed together in one function in `CookbookAddCommandParser`
 |Pros
 a|
-- Provides more flexibility for the user and does not make it mandatory to input fields that they may not necessarily.
-have
+- Provides more flexibility for the user and does not make it mandatory to input fields that they may not necessarily
+have.
 - No need to deal with null values, can simply check if list is empty.
 a|
 - Straightforward
@@ -300,6 +301,108 @@ display.
 
 |===
 
+=== Export ingredients in cart to PDF file
+The user may use this command to export the ingredients in their cart to a PDF file, which they can then use as their
+shopping list at the supermarkets.
+
+==== Implementation
+The cart exporting mechanism is facilitated by `CookbookExportCommand`, which extends the `Command` abstract class.
+The format is as follows: `cart export`.
+
+Below is a step by step sequence of what happens when a user enters this command:
+
+. The user enters a cart export command using the command line input `cart export`.
+. `CartExportCommandParser` parses the user input and checks if the argument passed to it is an empty String, as the
+command takes in no extra parameters.
++
+Note that if the String is not empty, a `ParseException` will be thrown:
++
+[source,java]
+----
+if (userInput.isEmpty()) {
+    return new CartExportCommand();
+} else {
+    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CartExportCommand.MESSAGE_USAGE));
+}
+----
++
+This means that `cart export ingredient` will not work.
+. `CartExportCommandParser` then returns a `CartExportCommand` to `LogicManager`.
+. `LogicManager` calls `CartExportCommand#execute()` calls the static method of `PdfExporter`,
+`PdfExporter#exportCart()`, which takes in the `ObservableList<Ingredient>` stored in `Cart`
+. Step 4 is executed within a try-catch block. If a previously generated pdf (saved as `cart.pdf` by default) is
+opened in another program, or there is an issue writing to the PDF file (more information can be found
+https://api.itextpdf.com/iText5/5.59/com/itextpdf/text/DocumentException.html[here]), a `CommandResult` with an error
+message will returned to `LogicManager`:
++
+[source,java]
+----
+try {
+    PdfExporter.exportCart(model.getCart().getIngredientList());
+} catch (IOException | DocumentException e) {
+    return new CommandResult(MESSAGE_FILE_NOT_FOUND);
+}
+----
+. Else, a `CommandResult` with the text to display to the user will be returned to `LogicManager`. The
+`CommandResult` is then passed back to `MainWindow`, which displays it to the user on the CLI and GUI: `resultDisplay
+.setFeedbackToUser(commandResult.getFeedbackToUser())`. The text displayed will notify the user on whether
+their addition was successful.
+
+==== Implementation reasoning
+This command was implemented to bridge the (current, v1.4) inadequacy of Cooking Papa, which is that it is not
+portable (yet). It was still not convenient _enough_ to be able to organize cart ingredients. Evenutally, users had
+to go outside to the supermarket, and Cooking Papa is a desktop-only application. By allowing users to export the
+ingredients in their cart to a PDF file, they can then print it out, or transfer it to their mobile devices, and
+bring them along as shopping lists. Additionally, the layout and content of the generated PDF file is simple,
+informational, and easy for users to extend, allowing them to add (handwritten or  annotated) remarks.
+
+==== Sequence diagram
+The following sequence diagram shows how the function of exporting ingredients in the cart to a PDF file works:
+
+.Sequence diagram for CartExportCommand
+image::CartExportCommandSequenceDiagram.png[]
+
+==== Design considerations
+===== Aspect 1: File format to export ingredients in cart to
+|===
+||Design A (current choice): .pdf|Design B: .txt
+|Pros
+a|
+- Easier to format with `iTextPDF` 's vast library and API
+- More versatile in that images can be added if the function was to be extended to include images of the ingredients
+a|
+- Simple to implement
+|Cons
+a|
+- More formatting code required
+- May take slightly longer to export as compared to design B
+a|
+- Lack of design/formatting flexibility
+|===
+===== Aspect 2: What information to export
+|===
+||Design A (current choice): Export the ingredient names and quantities|Design B: Export the entirety of Cooking Papa
+(cookbook, inventory, cart)
+|Pros
+a|
+- Easier to implement as there will be less information to parse
+- Keeps the exported PDF short and sweet
+- Ingredients in the inventory and recipes in the cookbook generally correlates (and are consequential of) with the
+ingredients in the cart, so exporting the inventory as well as the cookbook is likely to be redundant.
+
+.A sample shopping list generated by the command
+image::CookbookExportExample2.png[]
+a|
+- Provides users an all-in-one file containing all the information they entered into Cooking Papa
+- Allows user to reproduce hard-copy recipe books using Cooking Papa
+|Cons
+a|
+- Certain information may be needed and not exportable by the user, i.e. recipes
+a|
+- Slightly more difficult to implement
+- May be providing users with unnecessary information
+|===
+
 === Adding ingredients to inventory and cart
 The inventory and cart acts as storage for `Ingredient` classes. They are facilitated by `InventoryCommand` and `CartCommand`
 respectively, which extends the `Command` abstract class. Since `CartAddCommand` and `InventoryAddCommand` both serve the
@@ -321,7 +424,8 @@ are correct. Otherwise a `ParseException` will be thrown.
 `INGREDIENT_QUANTITY` unit. If that `Ingredient` exists, it will simply add on to the quantity of that ingredient. Otherwise,
 a new instance of that `Ingredient` will be added to the Cart.
 . If `CommandException` is not thrown, `Model#addCartIngredient` will be executed, with the given `Ingredient` as the parameter
-. `Model#addCartIngredient` then executes, adding the `Ingredient` to the local cart storage and updates with `Model#updateFilteredCartIngredientList()`.
+. `Model#addCartIngredient` then executes, adding the `Ingredient` to the local cart storage and updates with
+`Model#updateFilteredCartIngredientList()`.
 . A `CommandResult` with the successful text message is returned to `LogicManager` and will be displayed to the user via the GUI to feedback to the
 user that the `Ingredient` has been successfully added.
 
@@ -357,7 +461,7 @@ image::CartAddCommand3.png[]
 The above implementation is the same for `Inventory`
 
 ==== Design Considerations
-Aspect: The need for many parsers for this command
+===== Aspect: The need for many parsers for this command
 
 .Design considerations for the need for many parsers for this command
 |===
@@ -421,7 +525,7 @@ Step 2: Press kbd:[Enter]. The ingredients from cart will all be shifted to inve
 image::CartMoveCommand2.png[]
 
 ==== Design considerations
-Aspect: Allowing users to move some or all ingredients from cart to inventory
+===== Aspect: Allowing users to move some or all ingredients from cart to inventory
 
 .Design considerations for allowing users to move some or all ingredients from cart to inventory
 |===
@@ -442,7 +546,6 @@ add back the ingredients to the cart after it is cleared if they wish to.
 |Lesser functionality to users that really want to only move certain ingredients
 |Poorer user experience for users that do not want to move all ingredients from the cart to inventory on a regular basis,
 |===
-
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
