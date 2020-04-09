@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.inventory.InventoryAddIngredientCommand;
+import seedu.address.logic.commands.inventory.InventoryClearCommand;
 import seedu.address.logic.commands.inventory.InventoryCommand;
 import seedu.address.logic.commands.inventory.InventoryCookCommand;
 import seedu.address.logic.commands.inventory.InventoryRemoveIngredientCommand;
@@ -48,6 +49,8 @@ public class InventoryCommandParser implements Parser<InventoryCommand> {
             return new InventoryRemoveIngredientCommandParser().parse(arguments);
         case InventoryCookCommand.COMMAND_WORD:
             return new InventoryCookCommandParser().parse(arguments);
+        case InventoryClearCommand.COMMAND_WORD:
+            return new InventoryClearCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

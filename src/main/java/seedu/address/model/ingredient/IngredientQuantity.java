@@ -143,6 +143,38 @@ public class IngredientQuantity {
     }
 
     /**
+     * Returns the proportion of {@code other} with respect to the ingredient.
+     * @return a double value between 0 and 1 (inclusive)
+     */
+    public double asProportionOf(IngredientQuantity other) {
+        checkArgument(hasSameUnitAs(other));
+
+        double proportion = 0;
+        if (this.value instanceof BigDecimal && other.value instanceof BigDecimal) {
+            try {
+                proportion = ((BigDecimal) this.value).divide((BigDecimal) other.value).doubleValue();
+            } catch (ArithmeticException e) {
+                proportion = this.value.doubleValue() / other.value.doubleValue();
+            }
+        } else if (this.value instanceof MixedFraction && other.value instanceof MixedFraction) {
+            proportion = ((MixedFraction) this.value).divide((MixedFraction) other.value).doubleValue();
+        } else if (this.value instanceof BigDecimal && other.value instanceof MixedFraction) {
+            proportion = MixedFraction.getFromBigDecimal(((BigDecimal) this.value))
+                    .divide((MixedFraction) other.value).doubleValue();
+        } else if (this.value instanceof MixedFraction && other.value instanceof BigDecimal) {
+            proportion = ((MixedFraction) this.value)
+                    .divide(MixedFraction.getFromBigDecimal(((BigDecimal) other.value))).doubleValue();
+        } else {
+            assert false;
+        }
+
+        if (proportion > 1) {
+            return 1;
+        }
+        return proportion;
+    }
+
+    /**
      * Returns the value of an ingredient's quantity.
      *
      * @param ingredientQuantity The given string representing an ingredient's quantity.

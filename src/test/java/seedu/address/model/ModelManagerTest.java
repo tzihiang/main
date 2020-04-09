@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+
 import static seedu.address.testutil.TypicalIngredients.ALMOND;
 import static seedu.address.testutil.TypicalIngredients.APPLE;
+import static seedu.address.testutil.TypicalIngredients.BANANA;
 import static seedu.address.testutil.TypicalRecipes.CARBONARA;
 
 import java.nio.file.Path;
@@ -14,7 +16,6 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.testutil.TypicalIngredients;
 
 public class ModelManagerTest {
 
@@ -89,6 +90,15 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasClearedInventory_ingredientNotInInventory_returnsTrue() {
+        modelManager.addInventoryIngredient(APPLE);
+        modelManager.addInventoryIngredient(BANANA);
+        modelManager.setInventory(modelManager.getInventory());
+        assertTrue(!modelManager.hasInventoryIngredient(APPLE)
+                && !modelManager.hasInventoryIngredient(BANANA));
+    }
+
+    @Test
     public void setCartFilePath_nullPath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setCartFilePath(null));
     }
@@ -98,16 +108,6 @@ public class ModelManagerTest {
         Path path = Paths.get("cart/file/path");
         modelManager.setCartFilePath(path);
         assertEquals(path, modelManager.getCartFilePath());
-    }
-
-    @Test
-    public void emptyCart() {
-        modelManager.addCartIngredient(TypicalIngredients.ALMOND);
-        modelManager.addCartIngredient(TypicalIngredients.APPLE);
-        modelManager.cartMoveIngredients();
-        assertEquals(modelManager.getCart(), new Cart());
-        assertTrue(modelManager.hasInventoryIngredient(TypicalIngredients.ALMOND));
-        assertTrue(modelManager.hasInventoryIngredient(TypicalIngredients.APPLE));
     }
 
     @Test
