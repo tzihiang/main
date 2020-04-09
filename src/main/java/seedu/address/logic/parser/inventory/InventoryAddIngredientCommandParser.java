@@ -5,6 +5,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import seedu.address.logic.commands.inventory.InventoryAddIngredientCommand;
 import seedu.address.logic.commands.inventory.InventoryCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -16,16 +19,13 @@ import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Parses input arguments and creates a new InventoryAddIngredientCommand object
  */
 public class InventoryAddIngredientCommandParser implements Parser<InventoryCommand> {
 
     private static final Pattern INVENTORY_ADD_COMMAND_ARGUMENT_FORMAT = Pattern
-            .compile(InventoryAddIngredientCommand.INGREDIENT_KEYWORD + " *(?<arguments>.*)");
+            .compile(InventoryAddIngredientCommand.INGREDIENT_KEYWORD + "*(?<arguments>.*)");
 
 
     /**

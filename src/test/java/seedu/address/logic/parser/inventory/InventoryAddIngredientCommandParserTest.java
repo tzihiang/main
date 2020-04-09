@@ -14,8 +14,9 @@ import seedu.address.model.ingredient.IngredientQuantity;
 public class InventoryAddIngredientCommandParserTest {
     private static final Ingredient VALID_INGREDIENT = new Ingredient(new IngredientName("Ingredient"),
             new IngredientQuantity("5"));
-    private static final String VALID_INGREDIENT_ARGUMENT = " i/Ingredient q/5";
-    private static final String INVALID_INGREDIENT_ARGUMENT_NO_NAME = " q/5";
+    private static final String INGREDIENT_KEYWORD = "ingredient";
+    private static final String VALID_INGREDIENT_ARGUMENT = INGREDIENT_KEYWORD + " i/Ingredient q/5";
+    private static final String INVALID_INGREDIENT_ARGUMENT_NO_NAME = INGREDIENT_KEYWORD + " q/5";
     private static final String INVALID_ARGUMENT = " Invalid argument";
 
     @Test
