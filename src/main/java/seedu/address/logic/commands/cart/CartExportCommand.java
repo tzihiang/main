@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.cart;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 
 import com.itextpdf.text.DocumentException;
@@ -8,8 +10,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.util.PdfExporter;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  *  Exports the ingredients in cart to a pdf file.

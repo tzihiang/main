@@ -43,7 +43,7 @@ public class CookbookRemoveCommandParser implements Parser<CookbookRemoveCommand
             return new CookbookRemoveCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
-                    CookbookRemoveCommand.MESSAGE_USAGE));
+                CookbookRemoveCommand.MESSAGE_USAGE));
         }
     }
 }

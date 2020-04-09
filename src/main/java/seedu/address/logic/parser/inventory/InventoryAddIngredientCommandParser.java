@@ -30,19 +30,21 @@ public class InventoryAddIngredientCommandParser implements Parser<InventoryComm
         requireNonNull(args);
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
+            ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    InventoryAddIngredientCommand.MESSAGE_USAGE));
+                InventoryAddIngredientCommand.MESSAGE_USAGE));
         }
 
+        assert argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME);
+        assert argMultimap.getPreamble().isEmpty();
+        assert argMultimap.getValue(PREFIX_INGREDIENT_NAME).isPresent();
+        assert argMultimap.getValue(PREFIX_INGREDIENT_QUANTITY).isPresent();
         IngredientName ingredientName = ParserUtil.parseIngredientName(argMultimap
-                .getValue(PREFIX_INGREDIENT_NAME).get());
+            .getValue(PREFIX_INGREDIENT_NAME).get());
         IngredientQuantity ingredientQuantity = ParserUtil.parseIngredientQuantity(argMultimap
-                .getValue(PREFIX_INGREDIENT_QUANTITY).get());
-
+            .getValue(PREFIX_INGREDIENT_QUANTITY).get());
         Ingredient ingredient = new Ingredient(ingredientName, ingredientQuantity);
 
         return new InventoryAddIngredientCommand(ingredient);

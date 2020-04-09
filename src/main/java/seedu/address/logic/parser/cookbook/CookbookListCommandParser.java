@@ -25,6 +25,7 @@ public class CookbookListCommandParser {
      */
     public CookbookListCommand parse(String args) throws ParseException {
         requireNonNull(args);
+
         final Matcher matcher = COOKBOOK_LIST_COMMAND_ARGUMENT_FORMAT.matcher(args.trim());
 
         if (!matcher.matches()) {
@@ -34,6 +35,4 @@ public class CookbookListCommandParser {
 
         return new CookbookListCommand();
     }
-
-
 }

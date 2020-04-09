@@ -52,14 +52,17 @@ public class CookbookAddCommandParser implements Parser<CookbookAddCommand> {
         }
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION, PREFIX_INGREDIENT_NAME,
-                    PREFIX_INGREDIENT_QUANTITY, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION, PREFIX_TAG);
+            ArgumentTokenizer.tokenize(args, PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION, PREFIX_INGREDIENT_NAME,
+                PREFIX_INGREDIENT_QUANTITY, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION, PREFIX_TAG);
 
         if (!argMultimap.arePrefixesPresent(PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     CookbookAddCommand.MESSAGE_USAGE));
         }
 
+        assert argMultimap.arePrefixesPresent(PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION);
+        assert argMultimap.getValue(PREFIX_RECIPE_NAME).isPresent();
+        assert argMultimap.getValue(PREFIX_RECIPE_DESCRIPTION).isPresent();
         RecipeName recipeName = ParserUtil.parseRecipeName(argMultimap.getValue(PREFIX_RECIPE_NAME).get());
         RecipeDescription recipeDescription =
                 ParserUtil.parseRecipeDescription(argMultimap.getValue(PREFIX_RECIPE_DESCRIPTION).get());
@@ -68,11 +71,8 @@ public class CookbookAddCommandParser implements Parser<CookbookAddCommand> {
                 ParserUtil.parseIngredientNames(argMultimap.getAllValues(PREFIX_INGREDIENT_NAME));
         List<IngredientQuantity> ingredientQuantities =
                 ParserUtil.parseIngredientQuantities(argMultimap.getAllValues(PREFIX_INGREDIENT_QUANTITY));
-        UniqueIngredientList ingredients =
-                ParserUtil.parseIngredients(ingredientNames, ingredientQuantities);
-
+        UniqueIngredientList ingredients = ParserUtil.parseIngredients(ingredientNames, ingredientQuantities);
         UniqueStepList steps = ParserUtil.parseSteps(argMultimap.getAllValues(PREFIX_STEP_DESCRIPTION));
-
         Set<Tag> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         return new CookbookAddCommand(new Recipe(recipeName, recipeDescription, ingredients, steps, tags));

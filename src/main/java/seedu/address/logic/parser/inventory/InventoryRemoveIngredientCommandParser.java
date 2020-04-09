@@ -40,13 +40,16 @@ public class InventoryRemoveIngredientCommandParser implements Parser<InventoryC
                     InventoryRemoveIngredientCommand.MESSAGE_USAGE));
         }
 
+        assert argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME);
+        assert argMultimap.getPreamble().isEmpty();
+        assert argMultimap.getValue(PREFIX_INGREDIENT_NAME).isPresent();
         IngredientName ingredientName = ParserUtil.parseIngredientName(argMultimap
-                .getValue(PREFIX_INGREDIENT_NAME).get());
+            .getValue(PREFIX_INGREDIENT_NAME).get());
 
         Optional<IngredientQuantity> ingredientQuantity = argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_QUANTITY)
-                ? Optional.of(ParserUtil.parseIngredientQuantity(argMultimap.getValue(PREFIX_INGREDIENT_QUANTITY)
-                    .get()))
-                : Optional.empty();
+            ? Optional.of(ParserUtil.parseIngredientQuantity(argMultimap.getValue(PREFIX_INGREDIENT_QUANTITY)
+                .get()))
+            : Optional.empty();
 
         return new InventoryRemoveIngredientCommand(ingredientName, ingredientQuantity);
     }

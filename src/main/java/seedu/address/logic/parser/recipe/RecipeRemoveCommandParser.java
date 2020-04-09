@@ -2,10 +2,7 @@ package seedu.address.logic.parser.recipe;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -85,6 +82,9 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
                     RecipeAddCommand.MESSAGE_USAGE));
         }
 
+        assert argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME);
+        assert argMultimap.getValue(PREFIX_INGREDIENT_NAME).isPresent();
+        assert argMultimap.getValue(PREFIX_INGREDIENT_QUANTITY).isPresent();
         IngredientName ingredientName = ParserUtil.parseIngredientName(argMultimap
                 .getValue(PREFIX_INGREDIENT_NAME).get());
         IngredientQuantity ingredientQuantity = ParserUtil.parseIngredientQuantity(argMultimap
@@ -118,8 +118,9 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
                     RecipeRemoveCommand.MESSAGE_USAGE));
         }
 
-        Index stepIndex = ParserUtil.parseIndex(argMultimap
-                .getValue(PREFIX_STEP_INDEX).get());
+        assert argMultimap.arePrefixesPresent(PREFIX_STEP_INDEX);
+        assert argMultimap.getValue(PREFIX_STEP_INDEX).isPresent();
+        Index stepIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STEP_INDEX).get());
 
         return new RecipeRemoveStepCommand(recipeIndex, stepIndex);
     }
@@ -147,8 +148,9 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
                     RecipeRemoveCommand.MESSAGE_USAGE));
         }
 
-        Tag toRemove = ParserUtil.parseTag(argMultimap
-                .getValue(PREFIX_TAG).get());
+        assert argMultimap.arePrefixesPresent(PREFIX_TAG);
+        assert argMultimap.getValue(PREFIX_TAG).isPresent();
+        Tag toRemove = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
 
         return new RecipeRemoveTagCommand(recipeIndex, toRemove);
     }

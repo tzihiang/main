@@ -26,5 +26,4 @@ public class InventoryClearCommandParser implements Parser<InventoryCommand> {
                 InventoryClearCommand.MESSAGE_USAGE));
         }
     }
-
 }

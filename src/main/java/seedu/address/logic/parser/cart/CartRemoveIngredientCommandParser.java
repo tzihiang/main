@@ -32,7 +32,7 @@ public class CartRemoveIngredientCommandParser implements Parser<CartCommand> {
         requireNonNull(args);
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
+            ArgumentTokenizer.tokenize(args, PREFIX_INGREDIENT_NAME, PREFIX_INGREDIENT_QUANTITY);
 
         if (!argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -40,6 +40,7 @@ public class CartRemoveIngredientCommandParser implements Parser<CartCommand> {
                     CartRemoveIngredientCommand.MESSAGE_USAGE));
         }
 
+        assert argMultimap.getValue(PREFIX_INGREDIENT_NAME).isPresent();
         IngredientName ingredientName = ParserUtil.parseIngredientName(argMultimap
             .getValue(PREFIX_INGREDIENT_NAME).get());
 
