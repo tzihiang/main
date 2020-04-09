@@ -250,6 +250,7 @@ from a user's point of view. For a user to immediately sort where they wish to s
 ==== Sequence diagram
 The following sequence diagram shows how the function of adding ingredients to cart work (full command omitted for brevity):
 
+.Sequence diagram for CartAddIngredientCommand
 image::CartAddIngredientSequenceDiagram.png[]
 
 ==== How the feature works
@@ -269,8 +270,9 @@ image::CartAddCommand3.png[]
 The above implementation is the same for `Inventory`
 
 ==== Design Considerations
-Aspect: The need for many parsers just for one command
+Aspect: The need for many parsers for this command
 
+.Design considerations for the need for many parsers for this command
 |===
 | |Design A (Current choice): Create parsers for every individual action | Design B: Create parsers for each specific action
 
@@ -318,6 +320,7 @@ arguments are needed to further supplement the use of this command.
 ==== Sequence Diagram
 The following sequence diagram shows how this function works (full command omitted for brevity):
 
+.Sequence Diagram for CartMoveCommand
 image::CartMoveSequenceDiagram.png[]
 
 ==== How this feature works
@@ -333,6 +336,7 @@ image::CartMoveCommand2.png[]
 ==== Design considerations
 Aspect: Allowing users to move some or all ingredients from cart to inventory
 
+.Design considerations for allowing users to move some or all ingredients from cart to inventory
 |===
 | |Design A (Current choice): Move all ingredients | Design B: Allow users to move individually or exclude some ingredients when moving
 
