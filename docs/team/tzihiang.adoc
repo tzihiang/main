@@ -1,4 +1,4 @@
-= Goh Ka Hui - Project Portfolio
+= Tay Zi Hiang Willis - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -9,45 +9,48 @@
 
 == Overview
 
-Cooking Papa is a desktop recipe application used for cooking. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+CookingPapa acts is an application targeted towards university students that want to learn how to cook by themselves. Users will interact with the application with a CLI, integrated with a GUI created with JavaFX. It acts as storage for recipes, keeps track of an inventory of your current ingredients and also has a shopping list to remind users what to buy on their next trip to the supermarket.
 
 == Summary of contributions
 
-* *Major enhancement*:
-** What it does:
-** Justification:
-** Highlights:
-** Credits:
+* *Major enhancement*: Cart move to inventory
+** What it does: With one command, the user is able to migrate all the ingredients from the cart to the inventory. From there, the inventory will
+be updated with the added ingredients and the cart will be empty.
+** Justification: This enhancement will allow the user to skip the need to update their own inventory after their shopping trip. Instead of having
+to keep track what ingredients they have to add from cart to the inventory and eventually delete everything in the cart, this command will do it all in
+one line.
+** Highlights: This command will be frequently used, since cart serves as a convenient shopping list for our users. After shopping, it is common to
+update your inventory of ingredients and this feature can accomplish this need easily.
+** Credits: Ingredient checks and tests are a group effort. The whole team contributed in allowing the `Ingredient` class to be built well, which
+is a key part of our project.
 
-* *Minor enhancement*:
 
-* *Code contributed*:
+* *Minor enhancement*: Adding an ingredient to the cart
+** What it does: Allows the user to add an ingredient with a specified quantity into the cart. If the ingredient name already exists, it
+adds on to the quantity of the ingredient in the cart (Provided that the unit given in the quantity is the same).
+** Justification: This feature allows the user to add ingredients to the cart so that they can be reminded of what to but at their next trip to the
+supermarket.
+** Highlights: This enhancement allows users to choose the number of ingredients they would actually need to complete their recipe. For example.
+if the recipe calls for 3 eggs while the user only has 1 in their inventory, they can simply add 2 more manually into the cart.
+** Credits: Ingredient checks and tests are a group effort. The whole team contributed in allowing the `Ingredient` class to be built well, which
+is a key part of our project.
+
+
+* *Code contributed*: https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=tzihiang&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[tzihiang's contribution to CookingPapa on *Github*]
 
 * *Other contributions*:
 
 ** Project management:
+*** Kept track of deadlines to meet for the team
+*** Brainstormed together with team the application, what it does and its main features.
 
 ** Enhancements to existing features:
+**** Added to several test cases for added features: https://github.com/AY1920S2-CS2103T-F11-4/main/pull/215[#215]
 
 ** Documentation:
+*** Added on to the UG and created a summary table for all commands: https://github.com/AY1920S2-CS2103T-F11-4/main/pull/221[#221]
+*** Added on to the DG, with updated UML tables: https://github.com/AY1920S2-CS2103T-F11-4/main/pull/227[#227]
 
 ** Community:
-
-** Tools:
-
-== Contributions to the User Guide
-
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
-include::../UserGuide.adoc
-
-== Contributions to the Developer Guide
-
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
-
-include::../DeveloperGuide.adoc
+*** Reviewed PRs before merging
+*** Reported and contributed to bugs during PE Dry Run using CATcher.
