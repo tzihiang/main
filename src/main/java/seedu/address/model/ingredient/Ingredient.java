@@ -102,11 +102,11 @@ public class Ingredient {
     }
 
     /**
-     * Return true if otherIngredient's quantity is lesser than the ingredient's quantity
+     * Return true if otherIngredient's quantity is greater or equal than the ingredient's quantity
      */
     public boolean sufficientQuantity(Ingredient otherIngredient) {
         return this.getQuantity().getValue().doubleValue()
-                > otherIngredient.getQuantity().getValue().doubleValue();
+                >= otherIngredient.getQuantity().getValue().doubleValue();
     }
 
     /**

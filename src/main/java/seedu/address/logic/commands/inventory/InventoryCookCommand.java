@@ -6,10 +6,12 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.Recipe;
 
@@ -44,6 +46,39 @@ public class InventoryCookCommand extends InventoryCommand {
         this.targetIndex = targetIndex;
     }
 
+    /**
+     * Returns true if all the ingredients in recipe exist in the inventory
+     */
+    private boolean hasInventoryIngredients(ReadOnlyInventory inventory, Recipe recipe) {
+        requireNonNull(inventory);
+        requireNonNull(recipe);
+        ObservableList<Ingredient> inventoryList = inventory.getIngredientList();
+        ObservableList<Ingredient> recipeIngredients = recipe.getIngredients().asUnmodifiableObservableList();
+
+        return recipeIngredients.stream().map(recipeIngredient -> inventoryList
+                .stream().map(inventoryIngredient -> inventoryIngredient.isCompatibleWith(recipeIngredient))
+                .reduce(false, (x, y) -> x || y, (x , y) -> x || y))
+                .allMatch(isCompatible -> isCompatible.equals(true));
+    }
+
+    /**
+     * Returns true if all ingredients's quantity in recipe is lesser than the the same ingredient's quantity
+     * in inventory
+     * The ingredients in other list must exist in this list.
+     */
+    private boolean hasSufficientInventoryIngredients(ReadOnlyInventory inventory, Recipe recipe) {
+        requireNonNull(inventory);
+        requireNonNull(recipe);
+        ObservableList<Ingredient> inventoryList = inventory.getIngredientList();
+        ObservableList<Ingredient> recipeIngredients = recipe.getIngredients().asUnmodifiableObservableList();
+
+        return recipeIngredients.stream().map(recipeIngredient -> inventoryList.stream()
+                .filter(inventoryIngredient -> inventoryIngredient.isCompatibleWith(recipeIngredient))
+                .findFirst().get().sufficientQuantity(recipeIngredient))
+                .allMatch(isSufficient -> isSufficient.equals(true));
+    }
+
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -57,10 +92,10 @@ public class InventoryCookCommand extends InventoryCommand {
 
         Recipe selectedRecipe = recipeList.get(targetIndex.getZeroBased());
 
-        if (!model.hasInventoryIngredients(selectedRecipe.getIngredients())) {
+        if (!hasInventoryIngredients(model.getInventory(), selectedRecipe)) {
             throw new CommandException(String.format(MESSAGE_MISSING_INGREDIENT,
                     selectedRecipe.getName().toString()));
-        } else if (!model.hasSufficientInventoryIngredients(selectedRecipe.getIngredients())) {
+        } else if (!hasSufficientInventoryIngredients(model.getInventory(), selectedRecipe)) {
             throw new CommandException(String.format(MESSAGE_INSUFFICIENT_QUANTITY,
                     selectedRecipe.getName().toString()));
         }

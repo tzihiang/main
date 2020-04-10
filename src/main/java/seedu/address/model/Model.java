@@ -10,7 +10,6 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
-import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -215,13 +214,4 @@ public interface Model {
      */
     void updateFilteredCartIngredientList(Predicate<Ingredient> predicate);
 
-    /**
-     * Returns true if a list of ingredients with the same identity as {@code ingredient} exist in the inventory.
-     */
-    boolean hasInventoryIngredients(UniqueIngredientList list);
-
-    /**
-     * Return true if inventory's ingredients is sufficient for a list of ingredients
-     */
-    boolean hasSufficientInventoryIngredients(UniqueIngredientList list);
 }

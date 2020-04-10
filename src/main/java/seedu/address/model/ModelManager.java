@@ -16,7 +16,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
-import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.util.PdfExporter;
 
@@ -274,16 +273,6 @@ public class ModelManager implements Model {
     @Override
     public void exportCart() throws IOException, DocumentException {
         PdfExporter.exportCart(getFilteredCartIngredientList());
-    }
-
-    @Override
-    public boolean hasInventoryIngredients(UniqueIngredientList list) {
-        return inventory.hasAllIngredients(list);
-    }
-
-    @Override
-    public boolean hasSufficientInventoryIngredients(UniqueIngredientList list) {
-        return inventory.hasSufficientIngredients(list);
     }
 
     @Override

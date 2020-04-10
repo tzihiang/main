@@ -156,4 +156,15 @@ public class IngredientTest {
         editedApple = new IngredientBuilder(APPLE).withQuantity(VALID_INGREDIENT_QUANTITY_ALMOND).build();
         assertFalse(APPLE.equals(editedApple));
     }
+
+    @Test
+    public void sufficient() {
+        Ingredient apple = new IngredientBuilder(APPLE).build();
+
+        //same name, same quantity unit, different quantity value
+        Ingredient sameUnitDifferentQuantityApple = new IngredientBuilder(APPLE)
+                .withQuantity(VALID_INGREDIENT_QUANTITY_BANANA).build();
+        assertTrue(apple.sufficientQuantity(sameUnitDifferentQuantityApple));
+        assertFalse(sameUnitDifferentQuantityApple.sufficientQuantity(apple));
+    }
 }

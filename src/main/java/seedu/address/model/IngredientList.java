@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.ingredient.CompatibleIngredientList;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
-import seedu.address.model.ingredient.UniqueIngredientList;
 
 /**
  * Wraps all data at the ingredient list level
@@ -32,25 +31,6 @@ public abstract class IngredientList {
     public boolean hasIngredient(Ingredient ingredient) {
         requireNonNull(ingredient);
         return ingredients.contains(ingredient);
-    }
-
-    /**
-     * Returns true if all ingredients in the other list exists in this list of ingredient.
-     */
-    public boolean hasAllIngredients(UniqueIngredientList otherList) {
-        return otherList.asUnmodifiableObservableList().stream().allMatch(ingredient ->
-                this.getCompatibleIngredientList().contains(ingredient));
-    }
-
-    /**
-     * Returns true if all ingredients's quantity in other list is lesser than the the same ingredient's quantity
-     * in this list.
-     * The ingredients in other list must exist in this list.
-     * @param otherList
-     */
-    public boolean hasSufficientIngredients(UniqueIngredientList otherList) {
-        return otherList.asUnmodifiableObservableList().stream().allMatch(ingredient ->
-                this.getCompatibleIngredientList().find(ingredient).sufficientQuantity(ingredient));
     }
 
     /**
