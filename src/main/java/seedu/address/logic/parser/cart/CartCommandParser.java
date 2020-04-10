@@ -24,7 +24,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class CartCommandParser implements Parser<CartCommand> {
 
     private static final Pattern CART_COMMAND_ARGUMENT_FORMAT = Pattern
-            .compile(" *(?<commandWord>\\S+) +(?<category>\\S+)(?<arguments>.*)");
+            .compile(" *(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of a CartCommand
@@ -41,12 +41,11 @@ public class CartCommandParser implements Parser<CartCommand> {
 
         // For now, implementation will only be done for the whole ingredient, and not quantity
         final String commandWord = matcher.group("commandWord");
-        final String category = matcher.group("category");
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
         case CartAddCommand.COMMAND_WORD:
-            return new CartAddCommandParser().parse(category + " " + arguments);
+            return new CartAddCommandParser().parse(arguments);
         case CartRemoveIngredientCommand.COMMAND_WORD:
             return new CartRemoveIngredientCommandParser().parse(arguments);
         case CartClearCommand.COMMAND_WORD:
