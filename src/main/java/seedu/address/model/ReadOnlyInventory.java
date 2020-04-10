@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.recipe.Recipe;
 
 /**
  * Unmodifiable view of an inventory

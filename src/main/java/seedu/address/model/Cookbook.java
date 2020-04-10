@@ -2,12 +2,12 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Comparator;
 import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.RecipeDefaultComparator;
+import seedu.address.model.recipe.RecipeInventorySimilarityComparator;
 import seedu.address.model.recipe.UniqueRecipeList;
 
 /**
@@ -90,7 +90,7 @@ public class Cookbook implements ReadOnlyCookbook {
     /**
      * Sorts the cookbook by similarity of the specified inventory's ingredients.
      */
-    public void sortByInventorySimilarity(Inventory inventory) {
+    public void sortByInventorySimilarity(ReadOnlyInventory inventory) {
         recipes.sort(new RecipeInventorySimilarityComparator(inventory));
     }
 
