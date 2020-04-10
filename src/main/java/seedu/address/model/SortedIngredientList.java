@@ -25,7 +25,7 @@ public abstract class SortedIngredientList {
      */
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients.setIngredients(ingredients);
-        ingredients.sort(new IngredientDefaultComparator());
+        sort();
     }
 
     /**
@@ -42,7 +42,7 @@ public abstract class SortedIngredientList {
      */
     public void addIngredient(Ingredient ingredient) {
         ingredients.add(ingredient);
-        ingredients.sort();
+        sort();
     }
 
     /**
@@ -54,7 +54,7 @@ public abstract class SortedIngredientList {
     public void setIngredient(Ingredient target, Ingredient editedIngredient) {
         requireNonNull(editedIngredient);
         ingredients.setIngredient(target, editedIngredient);
-        ingredients.sort();
+        sort();
     }
 
     /**
@@ -74,10 +74,10 @@ public abstract class SortedIngredientList {
     }
 
     /**
-     * Sorts the list of ingredients using {@ IngredientDefaultComparator}.
+     * Sorts the list of ingredients using {@code IngredientDefaultComparator}.
      */
     public void sort() {
-        ingredients.sort((new IngredientDefaultComparator());
+        sort(new IngredientDefaultComparator());
     }
 
     /**
