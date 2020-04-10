@@ -44,16 +44,6 @@ public class InventoryCookCommand extends InventoryCommand {
         this.targetIndex = targetIndex;
     }
 
-    private boolean areIngredientsPresent(Recipe recipe) {
-        // TODO
-        return true;
-    }
-
-    private boolean areIngredientsSufficient(Recipe recipe) {
-        // TODO
-        return true;
-    }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -66,10 +56,13 @@ public class InventoryCookCommand extends InventoryCommand {
         }
 
         Recipe selectedRecipe = recipeList.get(targetIndex.getZeroBased());
-        if (!areIngredientsPresent(selectedRecipe)) {
-            throw new CommandException(String.format(MESSAGE_MISSING_INGREDIENT));
-        } else if (!areIngredientsSufficient(selectedRecipe)) {
-            throw new CommandException(String.format(MESSAGE_INSUFFICIENT_QUANTITY));
+
+        if (!model.hasInventoryIngredients(selectedRecipe.getIngredients())) {
+            throw new CommandException(String.format(MESSAGE_MISSING_INGREDIENT,
+                    selectedRecipe.getName().toString()));
+        } else if (!model.hasSufficientInventoryIngredients(selectedRecipe.getIngredients())) {
+            throw new CommandException(String.format(MESSAGE_INSUFFICIENT_QUANTITY,
+                    selectedRecipe.getName().toString()));
         }
 
         List<Ingredient> ingredientList = selectedRecipe.getIngredients().asUnmodifiableObservableList();
