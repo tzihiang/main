@@ -5,6 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -140,10 +141,10 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
     }
 
     /**
-     * Sort the list using lexical ordering
+     * Sorts the list of ingredients using the specified comparator.
      */
-    public void sortList() {
-        Collections.sort(internalList, new IngredientComparator());
+    public void sort(Comparator<? super Ingredient> comparator) {
+        Collections.sort(internalList, comparator);
     }
 
     /**

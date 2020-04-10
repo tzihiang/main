@@ -2,12 +2,10 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.recipe.Recipe;
-
 /**
  * Wraps all data at the inventory level
  */
-public class Inventory extends IngredientList implements ReadOnlyInventory {
+public class Inventory extends SortedIngredientList implements ReadOnlyInventory {
 
     public Inventory() {}
 
@@ -24,23 +22,6 @@ public class Inventory extends IngredientList implements ReadOnlyInventory {
         requireNonNull(newData);
 
         setIngredients(newData.getIngredientList());
-    }
-
-    @Override
-    public double calculateSimilarity(Recipe recipe) {
-        if (recipe.getIngredients().size() == 0) {
-            return 0;
-        }
-
-        return recipe.getIngredients().asUnmodifiableObservableList().stream()
-                .map(recipeIngredient ->
-                    getIngredientList().stream()
-                        .filter(inventoryIngredient -> inventoryIngredient.isCompatibleWith(recipeIngredient))
-                        .findFirst()
-                        .map(inventoryIngredient -> inventoryIngredient.asProportionOf(recipeIngredient))
-                        .orElseGet(() -> (getIngredientList().stream().filter(inventoryIngredient
-                            -> inventoryIngredient.isSameIngredient(recipeIngredient)).count() > 0) ? 0.5 : 0))
-                .reduce(0.0, (x, y) -> x + y, (x, y) -> x + y) / recipe.getIngredients().size();
     }
 
     @Override

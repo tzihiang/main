@@ -21,7 +21,7 @@ Class Inventory
 Class ReadOnlyInventory
 Class Cart
 Class ReadOnlyCart
-Class IngredientList
+Class SortedIngredientList
 
 Package Recipe {
 Class Recipe
@@ -77,9 +77,9 @@ RecipeName -[hidden]right-> RecipeDescription
 RecipeDescription -[hidden]right-> UniqueStepList
 UniqueStepList -[hidden]right-> UniqueIngredientList
 
-Inventory --|> IngredientList
-Cart --|> IngredientList
-IngredientList *--> "1" CompatibleIngredientList
+Inventory --|> SortedIngredientList
+Cart --|> SortedIngredientList
+SortedIngredientList *--> "1" CompatibleIngredientList
 CompatibleIngredientList *--> "*" Ingredient
 UniqueIngredientList *--> "*" Ingredient
 Ingredient *--> IngredientName

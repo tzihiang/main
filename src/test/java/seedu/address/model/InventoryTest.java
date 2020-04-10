@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.IngredientBuilder;
 
 public class InventoryTest {
@@ -84,11 +83,6 @@ public class InventoryTest {
 
         InventoryStub(Collection<Ingredient> ingredients) {
             this.ingredients.setAll(ingredients);
-        }
-
-        @Override
-        public double calculateSimilarity(Recipe recipe) {
-            return 0;
         }
 
         @Override
