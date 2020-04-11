@@ -30,8 +30,6 @@ public class CookbookSearchCommandParserTest {
 
     private static final String VALID_INVENTORY_STRING = "inventory";
 
-    // TODO add tests for invalid cases (throw ParseException)
-
     @Test
     public void parse_validInput() throws ParseException {
         assertEquals(new CookbookSearchCommandParser().parse(VALID_KEYWORDS_STRING),

@@ -27,7 +27,6 @@ public class Cart extends SortedIngredientList implements ReadOnlyCart {
     @Override
     public String toString() {
         return getIngredientList().size() + " ingredients";
-        // TODO: refine later
     }
 
     @Override

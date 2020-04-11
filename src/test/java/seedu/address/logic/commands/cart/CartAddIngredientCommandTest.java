@@ -42,8 +42,6 @@ public class CartAddIngredientCommandTest {
         assertThrows(NullPointerException.class, () -> c.execute(null));
     }
 
-    // TODO include test for execute() throws CommandException
-
     @Test
     public void equalsMethod() {
         CartAddIngredientCommand c = new CartAddIngredientCommand(ALMOND);

@@ -37,8 +37,6 @@ public class CookbookAddCommandTest {
         assertThrows(NullPointerException.class, () -> c.execute(null));
     }
 
-    // TODO include test for execute() throws CommandException
-
     @Test
     public void equalsMethod() {
         CookbookAddCommand c = new CookbookAddCommand(AGLIO_OLIO);
