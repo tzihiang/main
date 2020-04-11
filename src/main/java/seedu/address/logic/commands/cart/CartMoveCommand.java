@@ -21,7 +21,8 @@ public class CartMoveCommand extends CartCommand {
     /**
      * Creates a CartMoveCommand to move the ingredients in the cart to the inventory
      */
-    public CartMoveCommand() {}
+    public CartMoveCommand() {
+    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

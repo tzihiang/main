@@ -50,7 +50,7 @@ public class RecipeRemoveStepCommand extends RecipeRemoveCommand {
                     MESSAGE_USAGE));
         }
 
-        assert(stepIndex.getZeroBased() < targetStepList.asUnmodifiableObservableList().size());
+        assert (stepIndex.getZeroBased() < targetStepList.asUnmodifiableObservableList().size());
         Step toRemove = targetStepList.remove(stepIndex);
 
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();

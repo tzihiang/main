@@ -34,14 +34,14 @@ public class CookbookSearchByTagCommand extends CookbookSearchCommand {
 
         model.updateFilteredCookbookRecipeList(predicate);
         return new CommandResult(
-            String.format(Messages.MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredCookbookRecipeList().size()));
+                String.format(Messages.MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredCookbookRecipeList().size()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof CookbookSearchByTagCommand // instanceof handles nulls
-            && (predicate.equals(((CookbookSearchByTagCommand) other).predicate)));
+                || (other instanceof CookbookSearchByTagCommand // instanceof handles nulls
+                && (predicate.equals(((CookbookSearchByTagCommand) other).predicate)));
     }
 }
 

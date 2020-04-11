@@ -41,8 +41,8 @@ public class CookbookSearchByKeywordCommand extends CookbookSearchCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof CookbookSearchByKeywordCommand
-            && predicate.equals(((CookbookSearchByKeywordCommand) other).predicate));
+                || (other instanceof CookbookSearchByKeywordCommand
+                && predicate.equals(((CookbookSearchByKeywordCommand) other).predicate));
     }
 }
 

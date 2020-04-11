@@ -24,5 +24,4 @@ public abstract class CartAddCommand extends CartCommand {
             + "Parameters: \n"
             + COMMAND_CATEGORY + " " + COMMAND_WORD + "recipe INDEX\n"
             + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " recipe 1\n";
-
 }

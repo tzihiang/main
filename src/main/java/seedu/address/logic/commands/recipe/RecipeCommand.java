@@ -77,8 +77,7 @@ public abstract class RecipeCommand extends Command {
             + PREFIX_TAG + "TAG\n"
             + "Example: " + COMMAND_CATEGORY + " 1 "
             + "remove" + " "
-            + PREFIX_TAG + "Pasta";;
-
+            + PREFIX_TAG + "Pasta";
 
     /**
      * Stores the details to edit the recipe with. Each non-empty field value will replace the
@@ -91,7 +90,8 @@ public abstract class RecipeCommand extends Command {
         private UniqueStepList steps;
         private Set<Tag> tags;
 
-        public EditRecipeDescriptor() {}
+        public EditRecipeDescriptor() {
+        }
 
         /**
          * Copy constructor.

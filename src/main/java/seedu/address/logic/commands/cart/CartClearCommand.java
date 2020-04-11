@@ -39,6 +39,6 @@ public class CartClearCommand extends CartCommand {
     @Override
     public boolean equals(Object other) {
         return other == this
-            || other instanceof CartClearCommand;
+                || other instanceof CartClearCommand;
     }
 }

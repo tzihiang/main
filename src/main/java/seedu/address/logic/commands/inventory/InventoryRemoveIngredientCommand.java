@@ -43,7 +43,7 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
      * Creates a InventoryAddIngredientCommand to add the specified {@code Ingredient} to the inventory
      */
     public InventoryRemoveIngredientCommand(IngredientName ingredientName,
-            Optional<IngredientQuantity> ingredientQuantity) {
+                                            Optional<IngredientQuantity> ingredientQuantity) {
         requireAllNonNull(ingredientName, ingredientQuantity);
 
         this.ingredientName = ingredientName;
@@ -57,7 +57,7 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
         try {
             ingredientQuantity.map(x -> new Ingredient(ingredientName, x))
                     .ifPresentOrElse(model::removeInventoryIngredient, () ->
-                        model.removeInventoryIngredient(ingredientName));
+                            model.removeInventoryIngredient(ingredientName));
 
             String ingredientRemoved = ingredientQuantity.map(x -> new Ingredient(ingredientName, x).toString())
                     .orElseGet(() -> "All " + ingredientName);

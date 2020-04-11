@@ -43,7 +43,7 @@ public class CartRemoveIngredientCommand extends CartCommand {
      * {@code IngredientQuantity} (if any) to the cart
      */
     public CartRemoveIngredientCommand(IngredientName ingredientName,
-            Optional<IngredientQuantity> ingredientQuantity) {
+                                       Optional<IngredientQuantity> ingredientQuantity) {
         requireAllNonNull(ingredientName, ingredientQuantity);
 
         this.ingredientName = ingredientName;
@@ -57,7 +57,7 @@ public class CartRemoveIngredientCommand extends CartCommand {
         try {
             ingredientQuantity.map(x -> new Ingredient(ingredientName, x))
                     .ifPresentOrElse(model::removeCartIngredient, () ->
-                        model.removeCartIngredient(ingredientName));
+                            model.removeCartIngredient(ingredientName));
 
             String ingredientRemoved = ingredientQuantity.map(x -> new Ingredient(ingredientName, x).toString())
                     .orElseGet(() -> "All " + ingredientName);

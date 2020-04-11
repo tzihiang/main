@@ -55,5 +55,4 @@ public class InventoryAddIngredientCommand extends InventoryCommand {
     }
 
 
-
 }

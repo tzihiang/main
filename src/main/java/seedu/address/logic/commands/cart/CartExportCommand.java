@@ -12,15 +12,15 @@ import seedu.address.model.Model;
 import seedu.address.model.util.PdfExporter;
 
 /**
- *  Exports the ingredients in cart to a pdf file.
+ * Exports the ingredients in cart to a pdf file.
  */
 public class CartExportCommand extends CartCommand {
     public static final String COMMAND_WORD = "export";
     public static final String MESSAGE_SUCCESS = "All cart ingredients have been exported to a pdf file!";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
-        + ": exports all ingredients inside the cart to a PDF file located in the same folder"
-        + "as Cooking Papa\n. Parameters:\n"
-        + COMMAND_CATEGORY + " " + COMMAND_WORD;
+            + ": exports all ingredients inside the cart to a PDF file located in the same folder"
+            + "as Cooking Papa\n. Parameters:\n"
+            + COMMAND_CATEGORY + " " + COMMAND_WORD;
 
     private static final String MESSAGE_FILE_NOT_FOUND = "'cart.pdf' is opened in another application. Please close "
             + "it and try again.";

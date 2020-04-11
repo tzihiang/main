@@ -42,7 +42,7 @@ public class RecipeRemoveTagCommand extends RecipeRemoveCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
         }
 
-        assert(recipeIndex.getZeroBased() < lastShownList.size());
+        assert (recipeIndex.getZeroBased() < lastShownList.size());
         Recipe recipeToEdit = lastShownList.get(recipeIndex.getZeroBased());
         Set<Tag> targetTagSet = recipeToEdit.getTags();
 

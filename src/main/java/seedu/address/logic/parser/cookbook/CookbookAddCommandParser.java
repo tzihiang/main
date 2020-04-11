@@ -37,9 +37,11 @@ public class CookbookAddCommandParser implements Parser<CookbookAddCommand> {
 
     private static final Pattern COOKBOOK_ADD_COMMAND_ARGUMENT_FORMAT = Pattern
             .compile(" *recipe(?<arguments>.*)");
+
     /**
      * Parses the given {@code String} of arguments in the context of the CookbookAddCommand
      * and returns a CookbookAddCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public CookbookAddCommand parse(String args) throws ParseException {
@@ -52,8 +54,8 @@ public class CookbookAddCommandParser implements Parser<CookbookAddCommand> {
         }
 
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION, PREFIX_INGREDIENT_NAME,
-                PREFIX_INGREDIENT_QUANTITY, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION, PREFIX_INGREDIENT_NAME,
+                        PREFIX_INGREDIENT_QUANTITY, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION, PREFIX_TAG);
 
         if (!argMultimap.arePrefixesPresent(PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

@@ -41,7 +41,7 @@ public class CookbookRemoveCommand extends CookbookCommand {
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
-                CookbookRemoveCommand.MESSAGE_USAGE));
+                    CookbookRemoveCommand.MESSAGE_USAGE));
         }
 
         Recipe recipeToRemove = lastShownList.get(targetIndex.getZeroBased());

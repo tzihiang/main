@@ -31,6 +31,7 @@ public class RecipeAddStepCommand extends RecipeAddCommand {
     public RecipeAddStepCommand(Index recipeIndex, Optional<Index> stepIndex, Step toAdd) {
         requireNonNull(recipeIndex);
         requireNonNull(toAdd);
+
         this.recipeIndex = recipeIndex;
         this.stepIndex = stepIndex;
         this.toAdd = toAdd;
@@ -57,7 +58,7 @@ public class RecipeAddStepCommand extends RecipeAddCommand {
             if (stepIndex.get().getZeroBased() > targetStepList.asUnmodifiableObservableList().size()) {
                 // ensure the step index is valid
                 throw new CommandException(String.format(MESSAGE_INVALID_STEP_DISPLAYED_INDEX,
-                    RecipeAddCommand.MESSAGE_USAGE));
+                        RecipeAddCommand.MESSAGE_USAGE));
             }
 
             targetStepList.add(stepIndex.get(), toAdd);
