@@ -833,7 +833,12 @@ Cons:
 Given below are instructions to test the app manually.
 
 [NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+These instructions only provide a starting point for testers to work on, and are in no way exhaustive.
+
+Below are some test inputs for manual testing, please note that these test inputs are *only* valid for the sample
+cookbook, cart, and inventory data, i.e. the data that is present when Cooking Papa is opened for the first time. If
+the data has been modified prior to using these commands, please delete the `.json` files in `/data` (`cookbook
+                                                                                                       .json`, `inventory.json`, `cart.json`).
 
 === Launch and Shutdown
 
@@ -841,34 +846,83 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample cookbook, inventory, and cart.
 
-. Saving window preferences
+=== Adding a recipe to the cookbook
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+Please note that these cases are to be tested individually, i.e. should test case
+a be executed, executing test case e will not be valid as there is already an existing recipe with the recipe name
+"Name". In such cases, please remove the existing recipe in the cookbook using `cookbook remove recipe INDEX`.
 
-_{ more test cases ... }_
+.. Prerequisites: List all recipes in the cookbook using the `cookbook list` command, and *using the sample cookbook*.
+.. Test case: `cookbook add recipe n/Name d/Description i/Ingredient q/1 s/Step 1 t/Tag` +
+   Expected: a new recipe is added to the cookbook, and displayed as the index 3 (one-based index) in the cookbook
+panel.
+.. Test case: `cookbook add recipe n/Name d/Description i/Ingredient q/1 s/Step 1 t/Tag` (a duplicate recipe) +
+   Expected: no recipe will be added, and an error message indicating that there is already an existing recipe with
+the same name in the cookbook will
+be displayed.
+.. Test case: `cookbook add recipe n/Name d/Description i/Ingredient q/1 s/Step 1 s/Step 1 t/Tag` (a recipe with
+duplicated
+steps) +
+   Expected: no recipe will be added, and an error message indicating that there is a duplicate step  in the command
+will
+be displayed.
+.. Test case: `cookbook add recipe n/Name d/Description i/Ingredient q/1 i/Ingredient q/1 s/Step 1t/Tag` (a recipe with
+duplicated
+ingredients) +
+   Expected: a new recipe is added to the cookbook, with the duplicate ingredients being added to one another. The
+new recipe will be displayed as the index 3 (one-based index) in the cookbook panel.
 
-=== Deleting a person
+=== Removing a recipe from the cookbook
+Please note that these test cases are to be tested individually, i.e. should test case a be executed, executing test
+case a again will remove a different recipe from the cookbook. In this case, after executing test case a once, to
+execute it again, please add back the removed recipe using `cookbook add recipe ...` or by deleting the `.json` files.
 
-. Deleting a person while all persons are listed
+.. Prerequisites: List all recipes in the cookbook using the `cookbook list` command, and *using the sample
+cookbook*.
+.. Test case: `cookbook remove recipe 1` +
+    Expected: a recipe (Aglio Olio) will be removed from the cookbook.
+.. Test case: `cookbook remove recipe 0` and `cookbook remove recipe 5` +
+    Expected: since the indices in the recipe panel are one-based, i.e. starting from 1, the former command is
+out-of-bounds; the latter command is out-of-bounds because there are only 4 recipes in the cookbook. Both commands
+will show an error message reflecting the invalid recipe indices provided.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+=== Searching for recipes by tags
+Please note for this search command, with more tags being included, the number of results returned will be greater, i
+.e. if
+there are three tags included, the recipes returned do not have to be tagged with all three tags.
 
-_{ more test cases ... }_
+.. Prerequisites: List all recipes in the cookbook using the `cookbook list` command, and *using the sample cookbook*.
+.. Test case: `cookbook search tag t/Simple` +
+    Expected: the recipe panel will be updated to show only two recipes, both which are tagged with "Simple".
+.. Test case: 'cookbook search tag t/Simple t/Celebrity'
+    Expected: the recipe panel will be updated to show only three recipes, of these three recipes, they are either
+tagged with "Simple" or "Celebrity".
 
-=== Saving data
+[appendix]
+== Effort
+[cols="25%,65%,10%"]
+|===
+|Achievements/ challenges|Effort required|Difficulty level (out of `\***` )
+|Greater number of entities than AB3|As AB3 only had one overarching entity (`Person`), it was a challenge to extract
+the implementation for `Person` and apply it to three overarching entities (`Cart`, `Cookbook`, `Inventory`). Much
+time was spent refactoring to our needs, but was not too tough given the great documentation and clarity in AB3's
+code.|`**`
+|Development of the GUI | As the team had not much experience with regards to CSS and JavaFX, it took awhile to get
+rolling and adapt the aesthetics to Cooking Papa's needs. Moreover, one challenge faced was ensuring that the GUI ran
+as expected on Windows, MacOS, and Linux.
 
-. Dealing with missing/corrupted data files
+Additionally, the use of SceneBuilder was encouraged, however, it led to many unintended changes and extra variables
+which made troubleshooting a lot more complex (especially to a novice).
+|`**`
+|Integrating `cookbook view command` with a button on the GUI|We wanted to make the command more of a toggle instead
+of something users *had* to type, as it was not intuitive. While implementing the button was rather trivial, one
+requirement of the app was that it had to be testable via the command line. Connecting the command from the command
+line (`Logic`) to the `UI` was a big challenge, especially while trying to maintain the abstraction between the
+two.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+In hindsight, perhaps greater experience with GUIs would have made this process easier, but our team were
+all novices in that aspect, and being able to pull this off, especially when we could have simply left it as the
+status quo, is a huge achievement.|`\***`
+|===

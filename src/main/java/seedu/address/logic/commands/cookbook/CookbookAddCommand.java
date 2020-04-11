@@ -55,7 +55,7 @@ public class CookbookAddCommand extends CookbookCommand {
 
         model.addCookbookRecipe(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName().fullRecipeName,
-                model.getCookbook().getRecipeList().indexOf(toAdd)));
+                model.getCookbook().getRecipeList().indexOf(toAdd) + 1));
     }
 
     @Override
