@@ -187,6 +187,11 @@ public interface Model {
      */
     public void exportCart() throws IOException, DocumentException;
 
+    /**
+     * Sorts the cookbook by similarity of the specified inventory's ingredients.
+     */
+    void sortCookbookByInventorySimilarity();
+
     /** Returns an unmodifiable view of the filtered cookbook recipe list */
     ObservableList<Recipe> getFilteredCookbookRecipeList();
 

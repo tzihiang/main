@@ -229,11 +229,11 @@ public class UniqueIngredientListTest {
     }
 
     @Test
-    public void sortList_success() {
+    public void sort_success() {
         uniqueIngredientList.add(BANANA);
         uniqueIngredientList.add(CHICKEN);
         uniqueIngredientList.add(APPLE);
-        uniqueIngredientList.sortList();
+        uniqueIngredientList.sort(new IngredientDefaultComparator());
         UniqueIngredientList editedList = new UniqueIngredientList();
         editedList.add(APPLE);
         editedList.add(BANANA);
