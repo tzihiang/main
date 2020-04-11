@@ -23,6 +23,7 @@ import seedu.address.model.step.UniqueStepList;
 public class RecipeAddStepCommand extends RecipeAddCommand {
 
     public static final String MESSAGE_SUCCESS = "New step added for %1$s: %2$s";
+    public static final String NEXT_COMMAND_WORD = "next";
 
     private final Index recipeIndex;
     private final Optional<Index> stepIndex;
