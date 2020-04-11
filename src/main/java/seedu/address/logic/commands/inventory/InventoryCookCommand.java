@@ -6,12 +6,15 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.RecipeInventorySimilarityComparator;
 
 /**
  * Removes all the ingredients of the selected recipe from the inventory
@@ -26,6 +29,8 @@ public class InventoryCookCommand extends InventoryCommand {
             "Your inventory does not contain all the ingredients of recipe %1$s.";
     public static final String MESSAGE_INSUFFICIENT_QUANTITY =
             "Your inventory contains insufficient quantities of the ingredients in recipe %1$s.";
+    public static final String MESSAGE_NO_INGREDIENT_IN_RECIPE =
+            "Recipe %1$s does not require any ingredients to cook.";
 
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": removes all ingredients of a recipe from your inventory.\n"
@@ -44,15 +49,32 @@ public class InventoryCookCommand extends InventoryCommand {
         this.targetIndex = targetIndex;
     }
 
-    private boolean areIngredientsPresent(Recipe recipe) {
-        // TODO
-        return true;
+    /**
+     * Returns true if all the ingredients in recipe exist in the inventory
+     */
+    private boolean hasInventoryIngredients(ReadOnlyInventory inventory, Recipe recipe) {
+        requireNonNull(inventory);
+        requireNonNull(recipe);
+        ObservableList<Ingredient> inventoryList = inventory.getIngredientList();
+        ObservableList<Ingredient> recipeIngredients = recipe.getIngredients().asUnmodifiableObservableList();
+
+        return recipeIngredients.stream().map(recipeIngredient -> inventoryList
+                .stream().map(inventoryIngredient -> inventoryIngredient.isCompatibleWith(recipeIngredient))
+                .reduce(false, (x, y) -> x || y, (x , y) -> x || y))
+                .allMatch(isCompatible -> isCompatible.equals(true));
     }
 
-    private boolean areIngredientsSufficient(Recipe recipe) {
-        // TODO
-        return true;
+    /**
+     * Returns true if all ingredients's quantity in recipe is lesser than the the same ingredient's quantity
+     * in inventory
+     * The ingredients in other list must exist in this list.
+     */
+    private boolean hasSufficientInventoryIngredients(ReadOnlyInventory inventory, Recipe recipe) {
+        requireNonNull(inventory);
+        requireNonNull(recipe);
+        return RecipeInventorySimilarityComparator.calculateSimilarity(recipe, inventory) == 1.0;
     }
+
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -66,10 +88,18 @@ public class InventoryCookCommand extends InventoryCommand {
         }
 
         Recipe selectedRecipe = recipeList.get(targetIndex.getZeroBased());
-        if (!areIngredientsPresent(selectedRecipe)) {
-            throw new CommandException(String.format(MESSAGE_MISSING_INGREDIENT));
-        } else if (!areIngredientsSufficient(selectedRecipe)) {
-            throw new CommandException(String.format(MESSAGE_INSUFFICIENT_QUANTITY));
+
+        if (selectedRecipe.getIngredients().size() == 0) {
+            throw new CommandException(String.format(MESSAGE_NO_INGREDIENT_IN_RECIPE,
+                    selectedRecipe.getName().toString()));
+        }
+
+        if (!hasInventoryIngredients(model.getInventory(), selectedRecipe)) {
+            throw new CommandException(String.format(MESSAGE_MISSING_INGREDIENT,
+                    selectedRecipe.getName().toString()));
+        } else if (!hasSufficientInventoryIngredients(model.getInventory(), selectedRecipe)) {
+            throw new CommandException(String.format(MESSAGE_INSUFFICIENT_QUANTITY,
+                    selectedRecipe.getName().toString()));
         }
 
         List<Ingredient> ingredientList = selectedRecipe.getIngredients().asUnmodifiableObservableList();

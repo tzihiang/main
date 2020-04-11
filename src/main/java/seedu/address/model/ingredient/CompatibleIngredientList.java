@@ -15,6 +15,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * @see Ingredient#isCompatibleWith(Ingredient)
  */
 public class CompatibleIngredientList extends UniqueIngredientList {
+
     /**
      * Returns true if the list contains an ingredient compatible with the given argument.
      */
