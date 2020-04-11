@@ -19,7 +19,7 @@ public class RecipeInventorySimilarityComparator implements Comparator<Recipe> {
      */
     @Override
     public int compare(Recipe o1, Recipe o2) {
-        return Double.compare(calculateSimilarity(o1, inventory), calculateSimilarity(o2, inventory));
+        return Double.compare(calculateSimilarity(o2, inventory), calculateSimilarity(o1, inventory));
     }
 
     /**
