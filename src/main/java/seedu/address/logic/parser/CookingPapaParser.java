@@ -68,5 +68,4 @@ public class CookingPapaParser {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }

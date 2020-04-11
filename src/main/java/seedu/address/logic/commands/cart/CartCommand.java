@@ -21,7 +21,8 @@ public abstract class CartCommand extends Command {
     public static class EditIngredientDescriptor {
         private CompatibleIngredientList ingredients;
 
-        public EditIngredientDescriptor() {}
+        public EditIngredientDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -43,6 +44,7 @@ public abstract class CartCommand extends Command {
 
             return new Cart((ReadOnlyCart) updatedIngredients);
         }
+
         /**
          * Returns true if at least one field is edited.
          */

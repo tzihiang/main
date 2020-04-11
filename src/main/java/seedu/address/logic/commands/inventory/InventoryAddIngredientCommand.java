@@ -19,8 +19,8 @@ public class InventoryAddIngredientCommand extends InventoryCommand {
     public static final String INGREDIENT_KEYWORD = "ingredient";
     public static final String MESSAGE_SUCCESS = "New ingredient added: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD + " " + INGREDIENT_KEYWORD
-            + ": This commands allows you to add ingredients to your inventory.\n"
-            + "Parameters for adding an ingredient into your inventory is as follows: \n"
+            + ": adds ingredients to your inventory.\n"
+            + "Parameters: \n"
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
             + PREFIX_INGREDIENT_QUANTITY + "QUANTITY\n"
             + "Example: " + COMMAND_CATEGORY + " "
@@ -43,7 +43,6 @@ public class InventoryAddIngredientCommand extends InventoryCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // TODO create separate message for when a duplicate ingredient is added/updated
         model.addInventoryIngredient(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
@@ -54,7 +53,6 @@ public class InventoryAddIngredientCommand extends InventoryCommand {
                 || (other instanceof InventoryAddIngredientCommand // instanceof handles nulls
                 && toAdd.equals(((InventoryAddIngredientCommand) other).toAdd));
     }
-
 
 
 }

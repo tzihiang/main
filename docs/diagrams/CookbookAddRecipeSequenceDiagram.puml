@@ -6,8 +6,8 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":CookingPapaParser" as CookingPapaParser LOGIC_COLOR
 participant ":CookbookCommandParser" as CookbookCommandParser LOGIC_COLOR
-participant ":CookbookRemoveCommandParser" as CookbookRemoveCommandParser LOGIC_COLOR
-participant ":CookbookRemoveCommand" as CookbookRemoveCommand LOGIC_COLOR
+participant ":CookbookAddCommandParser" as CookbookAddCommandParser LOGIC_COLOR
+participant ":CookbookAddCommand" as CookbookAddCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -22,59 +22,59 @@ LogicManager -> CookingPapaParser : parseCommand("cookbook add recipe ...")
 activate CookingPapaParser
 
 create CookbookCommandParser
-CookingPapaParser -> CookbookCommandParser
+CookingPapaParser -> CookbookCommandParser : new CookbookAddCommand()
 activate CookbookCommandParser
 
-CookbookCommandParser -> CookingPapaParser
+CookbookCommandParser -> CookingPapaParser  : cookbookCommandParser
 deactivate CookbookCommandParser
 
-CookingPapaParser -> CookbookCommandParser : parse("cookbook add recipe ...")
+CookingPapaParser -> CookbookCommandParser : cookbookCommandParser.parse(" add recipe ...")
 activate CookbookCommandParser
 
-create CookbookRemoveCommandParser
-CookbookCommandParser -> CookbookRemoveCommandParser :
-activate CookbookRemoveCommandParser
+create CookbookAddCommandParser
+CookbookCommandParser -> CookbookAddCommandParser : new CookbookAddCommandParser()
+activate CookbookAddCommandParser
 
-CookbookRemoveCommandParser -> CookbookCommandParser
-deactivate CookbookRemoveCommandParser
+CookbookAddCommandParser -> CookbookCommandParser : cookbookAddCommandParser
+deactivate CookbookAddCommandParser
 
-CookbookCommandParser -> CookbookRemoveCommandParser : parse("cookbook add recipe ...")
-activate CookbookRemoveCommandParser
+CookbookCommandParser -> CookbookAddCommandParser : cookbookAddCommandParser.parse(" recipe ...")
+activate CookbookAddCommandParser
 
-create CookbookRemoveCommand
-CookbookRemoveCommandParser -> CookbookRemoveCommand
-activate CookbookRemoveCommand
+create CookbookAddCommand
+CookbookAddCommandParser -> CookbookAddCommand : new CookbookAddCommand(recipe)
+activate CookbookAddCommand
 
-CookbookRemoveCommand -> CookbookRemoveCommandParser : command
-deactivate CookbookRemoveCommand
+CookbookAddCommand -> CookbookAddCommandParser : command
+deactivate CookbookAddCommand
 
-CookbookRemoveCommandParser -> CookbookCommandParser : command
-deactivate CookbookRemoveCommandParser
+CookbookAddCommandParser -> CookbookCommandParser : command
+deactivate CookbookAddCommandParser
 
-CookbookCommandParser -> CookingPapaParser
+CookbookCommandParser -> CookingPapaParser : command
 deactivate CookbookCommandParser
 
 CookingPapaParser -> LogicManager : command
 deactivate CookingPapaParser
 
-LogicManager -> CookbookRemoveCommand : execute()
-activate CookbookRemoveCommand
+LogicManager -> CookbookAddCommand : command.execute(model)
+activate CookbookAddCommand
 
-CookbookRemoveCommand -> Model : execute()
+CookbookAddCommand -> Model : model.addCookbookRecipe(recipe);
 activate Model
 
-Model --> CookbookRemoveCommand
+Model --> CookbookAddCommand
 deactivate Model
 
 create CommandResult
-CookbookRemoveCommand -> CommandResult
+CookbookAddCommand -> CommandResult : new CommandResult("New recipe (index 1) added: Recipe name")
 activate CommandResult
 
-CommandResult --> CookbookRemoveCommand
+CommandResult --> CookbookAddCommand : commandResult
 deactivate CommandResult
 
-CookbookRemoveCommand --> LogicManager : result
-deactivate CookbookRemoveCommand
+CookbookAddCommand --> LogicManager : commandResult
+deactivate CookbookAddCommand
 
 [<--LogicManager
 deactivate LogicManager

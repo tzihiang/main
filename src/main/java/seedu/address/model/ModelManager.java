@@ -3,12 +3,9 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-
-import com.itextpdf.text.DocumentException;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -17,7 +14,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.util.PdfExporter;
 
 /**
  * Represents the in-memory model of CookingPapa's data.
@@ -57,8 +53,8 @@ public class ModelManager implements Model {
         this(new Cookbook(), new Inventory(), new Cart(), new UserPrefs());
     }
 
-    //=========== UserPrefs ==================================================================================
 
+    // User prefs methods
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
@@ -81,6 +77,7 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    // File path methods
     @Override
     public Path getCookbookFilePath() {
         return userPrefs.getCookbookFilePath();
@@ -114,6 +111,7 @@ public class ModelManager implements Model {
         userPrefs.setCartFilePath(cartFilePath);
     }
 
+    // Cookbook methods
     @Override
     public void setCookbook(ReadOnlyCookbook cookbook) {
         this.cookbook.resetData(cookbook);
@@ -122,26 +120,6 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyCookbook getCookbook() {
         return cookbook;
-    }
-
-    @Override
-    public void setInventory(ReadOnlyInventory inventory) {
-        this.inventory.resetData(inventory);
-    }
-
-    @Override
-    public ReadOnlyInventory getInventory() {
-        return inventory;
-    }
-
-    @Override
-    public void setCart(ReadOnlyCart cart) {
-        this.cart.resetData(cart);
-    }
-
-    @Override
-    public ReadOnlyCart getCart() {
-        return cart;
     }
 
     @Override
@@ -165,6 +143,32 @@ public class ModelManager implements Model {
     public void setCookbookRecipe(Recipe target, Recipe editedRecipe) {
         requireAllNonNull(target, editedRecipe);
         cookbook.setRecipe(target, editedRecipe);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Recipe} backed by the internal list of
+     * {@code versionedCookbook}
+     */
+    @Override
+    public ObservableList<Recipe> getFilteredCookbookRecipeList() {
+        return filteredCookbookRecipes;
+    }
+
+    @Override
+    public void updateFilteredCookbookRecipeList(Predicate<Recipe> predicate) {
+        requireNonNull(predicate);
+        filteredCookbookRecipes.setPredicate(predicate);
+    }
+
+    // Inventory methods
+    @Override
+    public void setInventory(ReadOnlyInventory inventory) {
+        this.inventory.resetData(inventory);
+    }
+
+    @Override
+    public ReadOnlyInventory getInventory() {
+        return inventory;
     }
 
     @Override
@@ -193,6 +197,32 @@ public class ModelManager implements Model {
     public void setInventoryIngredient(Ingredient target, Ingredient editedIngredient) {
         requireAllNonNull(target, editedIngredient);
         inventory.setIngredient(target, editedIngredient);
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Ingredient} backed by the internal list of
+     * {@code versionedInventory}
+     */
+    @Override
+    public ObservableList<Ingredient> getFilteredInventoryIngredientList() {
+        return filteredInventoryIngredients;
+    }
+
+    @Override
+    public void updateFilteredInventoryIngredientList(Predicate<Ingredient> predicate) {
+        requireNonNull(predicate);
+        filteredInventoryIngredients.setPredicate(predicate);
+    }
+
+    // Cart methods
+    @Override
+    public void setCart(ReadOnlyCart cart) {
+        this.cart.resetData(cart);
+    }
+
+    @Override
+    public ReadOnlyCart getCart() {
+        return cart;
     }
 
     @Override
@@ -229,36 +259,6 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns an unmodifiable view of the list of {@code Recipe} backed by the internal list of
-     * {@code versionedCookbook}
-     */
-    @Override
-    public ObservableList<Recipe> getFilteredCookbookRecipeList() {
-        return filteredCookbookRecipes;
-    }
-
-    @Override
-    public void updateFilteredCookbookRecipeList(Predicate<Recipe> predicate) {
-        requireNonNull(predicate);
-        filteredCookbookRecipes.setPredicate(predicate);
-    }
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Ingredient} backed by the internal list of
-     * {@code versionedInventory}
-     */
-    @Override
-    public ObservableList<Ingredient> getFilteredInventoryIngredientList() {
-        return filteredInventoryIngredients;
-    }
-
-    @Override
-    public void updateFilteredInventoryIngredientList(Predicate<Ingredient> predicate) {
-        requireNonNull(predicate);
-        filteredInventoryIngredients.setPredicate(predicate);
-    }
-
-    /**
      * Returns an unmodifiable view of the list of {@code Ingredient} backed by the internal list of
      * {@code versionedCart}
      */
@@ -271,11 +271,6 @@ public class ModelManager implements Model {
     public void updateFilteredCartIngredientList(Predicate<Ingredient> predicate) {
         requireNonNull(predicate);
         filteredCartIngredients.setPredicate(predicate);
-    }
-
-    @Override
-    public void exportCart() throws IOException, DocumentException {
-        PdfExporter.exportCart(getFilteredCartIngredientList());
     }
 
     @Override

@@ -21,9 +21,11 @@ public class InventoryCookCommandParser implements Parser<InventoryCommand> {
 
     private static final Pattern INVENTORY_COOK_RECIPE_COMMAND_ARGUMENT_FORMAT = Pattern
             .compile(InventoryCookCommand.RECIPE_KEYWORD + " *(?<arguments>.*)");
+
     /**
      * Parses the given {@code String} of arguments in the context of the InventoryCookRecipeCommand
      * and returns an InventoryCookRecipeCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public InventoryCookCommand parse(String args) throws ParseException {

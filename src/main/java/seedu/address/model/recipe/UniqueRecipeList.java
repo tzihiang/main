@@ -32,9 +32,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Checks if otherRecipe already exists in the list.
-     *
-     * @param otherRecipe
+     * Checks if otherRecipe already exists in the list.*
      * @return true is otherRecipe exists, false otherwise.
      */
     public boolean contains(Recipe otherRecipe) {

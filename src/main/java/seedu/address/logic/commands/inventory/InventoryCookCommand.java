@@ -28,8 +28,8 @@ public class InventoryCookCommand extends InventoryCommand {
             "Your inventory contains insufficient quantities of the ingredients in recipe %1$s.";
 
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
-            + ": This commands allows you to remove all ingredients of a recipe from your inventory.\n"
-            + "Parameters for removing an ingredient into your inventory is as follows: \n"
+            + ": removes all ingredients of a recipe from your inventory.\n"
+            + "Parameters: \n"
             + "INDEX\n"
             + "Example:\n"
             + COMMAND_CATEGORY + " " + COMMAND_WORD + " 1";

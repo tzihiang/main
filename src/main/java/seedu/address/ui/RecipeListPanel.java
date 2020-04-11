@@ -13,7 +13,6 @@ import seedu.address.model.recipe.Recipe;
  */
 public class RecipeListPanel extends UiPart<Region> {
     private static final String FXML = "RecipeListPanel.fxml";
-    // private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
     private ListView<Recipe> recipeListView;
@@ -39,10 +38,10 @@ public class RecipeListPanel extends UiPart<Region> {
         }
 
         @Override
-        protected void updateItem(Recipe recipe, boolean empty) {
-            super.updateItem(recipe, empty);
+        protected void updateItem(Recipe recipe, boolean isEmpty) {
+            super.updateItem(recipe, isEmpty);
 
-            if (empty || recipe == null) {
+            if (isEmpty || recipe == null) {
                 setGraphic(null);
                 setText(null);
             } else {

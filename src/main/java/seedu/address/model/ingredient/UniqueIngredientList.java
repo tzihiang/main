@@ -19,7 +19,7 @@ import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
  * An ingredient is considered unique by comparing using {@code Ingredient#isSameIngredient(Ingredient)}. As such,
  * adding and updating of ingredients uses {@code Ingredient#isSameIngredient(Ingredient)} for equality so as to ensure
  * that the ingredient being added or updated is unique in terms of identity in the UniqueIngredientList.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Ingredient#isSameIngredient(Ingredient)
@@ -163,7 +163,7 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueIngredientList // instanceof handles nulls
-                        && internalList.equals(((UniqueIngredientList) other).internalList));
+                && internalList.equals(((UniqueIngredientList) other).internalList));
     }
 
     @Override

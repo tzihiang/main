@@ -31,7 +31,7 @@ public class RecipeCommandParser implements Parser<RecipeCommand> {
 
         final Matcher matcher = RECIPE_COMMAND_ARGUMENT_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RecipeCommand.MESSAGE_USAGE));
         }
 
         final String index = matcher.group("index");
@@ -48,5 +48,4 @@ public class RecipeCommandParser implements Parser<RecipeCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
     }
-
 }

@@ -24,6 +24,7 @@ public class CartAddIngredientCommandParser implements Parser<CartCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the CartCommand
      * and returns a CartAddIngredientCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public CartAddIngredientCommand parse(String args) throws ParseException {
@@ -38,11 +39,12 @@ public class CartAddIngredientCommandParser implements Parser<CartCommand> {
                     CartAddIngredientCommand.MESSAGE_USAGE));
         }
 
+        assert argMultimap.getValue(PREFIX_INGREDIENT_NAME).isPresent();
+        assert argMultimap.getValue(PREFIX_INGREDIENT_QUANTITY).isPresent();
         IngredientName ingredientName = ParserUtil.parseIngredientName(argMultimap
                 .getValue(PREFIX_INGREDIENT_NAME).get());
         IngredientQuantity ingredientQuantity = ParserUtil.parseIngredientQuantity(argMultimap
                 .getValue(PREFIX_INGREDIENT_QUANTITY).get());
-
         Ingredient ingredient = new Ingredient(ingredientName, ingredientQuantity);
 
         return new CartAddIngredientCommand(ingredient);

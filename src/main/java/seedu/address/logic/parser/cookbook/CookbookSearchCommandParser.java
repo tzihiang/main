@@ -5,7 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEARCH_KEYWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -66,18 +66,18 @@ public class CookbookSearchCommandParser implements Parser<CookbookSearchCommand
      */
     public CookbookSearchByKeywordCommand parseSearchByKeyword(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_SEARCH_KEYWORD);
-        if (!argMultimap.arePrefixesPresent(PREFIX_SEARCH_KEYWORD)
-                || !argMultimap.getPreamble().isEmpty()) {
+
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SEARCH_KEYWORD);
+
+        if (!argMultimap.arePrefixesPresent(PREFIX_SEARCH_KEYWORD) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    CookbookSearchByKeywordCommand.MESSAGE_USAGE));
+                CookbookSearchByKeywordCommand.MESSAGE_USAGE));
         }
 
-        String trimmedArgs = argMultimap.getValue(PREFIX_SEARCH_KEYWORD).get();
-        String[] recipeKeywords = trimmedArgs.split("\\s+");
-        return new CookbookSearchByKeywordCommand(
-                new RecipeNameContainsKeywordsPredicate(Arrays.asList(recipeKeywords)));
+        assert argMultimap.arePrefixesPresent(PREFIX_SEARCH_KEYWORD);
+        assert argMultimap.getPreamble().isEmpty();
+        List<String> trimmedArgs = argMultimap.getAllValues(PREFIX_SEARCH_KEYWORD);
+        return new CookbookSearchByKeywordCommand(new RecipeNameContainsKeywordsPredicate(trimmedArgs));
     }
 
     /**
@@ -90,16 +90,16 @@ public class CookbookSearchCommandParser implements Parser<CookbookSearchCommand
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_TAG)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_TAG) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    CookbookSearchByTagCommand.MESSAGE_USAGE));
+                CookbookSearchByTagCommand.MESSAGE_USAGE));
         }
 
-        String trimmedArgs = argMultimap.getValue(PREFIX_TAG).get();
-        String[] recipeTags = trimmedArgs.split("\\s+");
+        assert argMultimap.arePrefixesPresent(PREFIX_TAG);
+        assert argMultimap.getPreamble().isEmpty();
+        List<String> trimmedArgs = argMultimap.getAllValues(PREFIX_TAG);
 
-        return new CookbookSearchByTagCommand(new RecipeContainsTagsPredicate(Arrays.asList(recipeTags)));
+        return new CookbookSearchByTagCommand(new RecipeContainsTagsPredicate(trimmedArgs));
     }
 
     /**
@@ -107,7 +107,7 @@ public class CookbookSearchCommandParser implements Parser<CookbookSearchCommand
      * and returns a CookbookSearchByInventoryCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public CookbookSearchByInventoryCommand parseSearchByInventory(String args) throws ParseException {
+    public CookbookSearchByInventoryCommand parseSearchByInventory(String args) {
         requireNonNull(args);
 
         return new CookbookSearchByInventoryCommand();

@@ -1,10 +1,7 @@
 package seedu.address.model;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Predicate;
-
-import com.itextpdf.text.DocumentException;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -181,11 +178,6 @@ public interface Model {
      * cart.
      */
     void setCartIngredient(Ingredient target, Ingredient editedIngredient);
-
-    /**
-     * Exports the ingredients in the cart to a pdf file.
-     */
-    public void exportCart() throws IOException, DocumentException;
 
     /**
      * Sorts the cookbook by similarity of the specified inventory's ingredients.

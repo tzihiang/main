@@ -21,7 +21,8 @@ public abstract class InventoryCommand extends Command {
     public static class EditIngredientDescriptor {
         private CompatibleIngredientList ingredients;
 
-        public EditIngredientDescriptor() {}
+        public EditIngredientDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -36,7 +37,7 @@ public abstract class InventoryCommand extends Command {
          * edited with {@code editInventoryDescriptor}.
          */
         public static Inventory createEditedInventory(Inventory inventoryToEdit,
-                EditIngredientDescriptor editInventoryDescriptor) {
+                                                      EditIngredientDescriptor editInventoryDescriptor) {
             assert inventoryToEdit != null;
 
             CompatibleIngredientList updatedIngredients = editInventoryDescriptor.getIngredients()
@@ -44,6 +45,7 @@ public abstract class InventoryCommand extends Command {
 
             return new Inventory((ReadOnlyInventory) updatedIngredients);
         }
+
         /**
          * Returns true if at least one field is edited.
          */

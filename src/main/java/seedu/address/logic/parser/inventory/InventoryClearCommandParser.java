@@ -15,6 +15,7 @@ public class InventoryClearCommandParser implements Parser<InventoryCommand> {
     /**
      * Parses no arguments in the context of the InventoryCommand
      * and returns a InventoryClearommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format.
      */
     @Override
@@ -23,8 +24,7 @@ public class InventoryClearCommandParser implements Parser<InventoryCommand> {
             return new InventoryClearCommand();
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                InventoryClearCommand.MESSAGE_USAGE));
+                    InventoryClearCommand.MESSAGE_USAGE));
         }
     }
-
 }

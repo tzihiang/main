@@ -31,6 +31,7 @@ public class RecipeAddStepCommand extends RecipeAddCommand {
     public RecipeAddStepCommand(Index recipeIndex, Optional<Index> stepIndex, Step toAdd) {
         requireNonNull(recipeIndex);
         requireNonNull(toAdd);
+
         this.recipeIndex = recipeIndex;
         this.stepIndex = stepIndex;
         this.toAdd = toAdd;
@@ -48,7 +49,6 @@ public class RecipeAddStepCommand extends RecipeAddCommand {
 
         Recipe recipeToEdit = lastShownList.get(recipeIndex.getZeroBased());
         UniqueStepList targetStepList = recipeToEdit.getSteps();
-        Index newStepIndex;
 
         if (targetStepList.contains(toAdd)) {
             throw new CommandException(((Messages.MESSAGE_DUPLICATE_STEPS)));
@@ -60,11 +60,13 @@ public class RecipeAddStepCommand extends RecipeAddCommand {
                 throw new CommandException(String.format(MESSAGE_INVALID_STEP_DISPLAYED_INDEX,
                         RecipeAddCommand.MESSAGE_USAGE));
             }
+
             targetStepList.add(stepIndex.get(), toAdd);
         } else {
             targetStepList.add(toAdd);
         }
 
+        assert stepIndex.isPresent();
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
         editRecipeDescriptor.setSteps(targetStepList);
         Recipe editedRecipe = EditRecipeDescriptor.createEditedRecipe(recipeToEdit, editRecipeDescriptor);

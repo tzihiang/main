@@ -21,10 +21,12 @@ public class CookbookListCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the CookbookListCommand
      * and returns a CookbookListCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public CookbookListCommand parse(String args) throws ParseException {
         requireNonNull(args);
+
         final Matcher matcher = COOKBOOK_LIST_COMMAND_ARGUMENT_FORMAT.matcher(args.trim());
 
         if (!matcher.matches()) {
@@ -34,6 +36,4 @@ public class CookbookListCommandParser {
 
         return new CookbookListCommand();
     }
-
-
 }

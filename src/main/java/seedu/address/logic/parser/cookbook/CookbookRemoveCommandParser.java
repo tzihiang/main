@@ -24,6 +24,7 @@ public class CookbookRemoveCommandParser implements Parser<CookbookRemoveCommand
     /**
      * Parses the given {@code String} of arguments in the context of the CookbookRemoveCommand
      * and returns a CookbookRemoveCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public CookbookRemoveCommand parse(String args) throws ParseException {
