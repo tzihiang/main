@@ -71,7 +71,7 @@ public class InventoryCookCommand extends InventoryCommand {
     private boolean hasSufficientInventoryIngredients(ReadOnlyInventory inventory, Recipe recipe) {
         requireNonNull(inventory);
         requireNonNull(recipe);
-        return inventory.calculateSimilarity(recipe) == 1;
+        return inventory.calculateSimilarity(recipe) == 1.0;
     }
 
 
