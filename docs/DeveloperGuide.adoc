@@ -143,7 +143,9 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save `Cookbook` data in json format and read it back.
+* can save `Inventory` data in json format and read it back.
+* can save `Cart` data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -408,6 +410,17 @@ a|
 - Slightly more difficult to implement
 - May be providing users with unnecessary information
 |===
+
+// tag::cookbooksearchinventory[]
+=== Search for recipes based on ingredients in the inventory
+==== Implementation
+The comparison is facilitated by the `RecipeInventorySimilarityComparator`. It extends `Comparator<Recipe>` and stores
+the inventory being used for ingredient comparison.
+
+The following sequence diagram summarizes how objects interact when a user executes the command:
+
+image::CookbookSearchByInventorySequenceDiagram.png[]
+// end::cookbooksearchinventory[]
 
 === Adding ingredients to inventory and cart
 The inventory and cart acts as storage for `Ingredient` classes. They are facilitated by `InventoryCommand` and `CartCommand`
