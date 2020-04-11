@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -86,11 +87,13 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
                     RecipeAddCommand.MESSAGE_USAGE));
         }
 
+        assert argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME);
+        assert argMultimap.getValue(PREFIX_INGREDIENT_NAME).isPresent();
+        assert argMultimap.getValue(PREFIX_INGREDIENT_QUANTITY).isPresent();
         IngredientName ingredientName = ParserUtil.parseIngredientName(argMultimap
                 .getValue(PREFIX_INGREDIENT_NAME).get());
         IngredientQuantity ingredientQuantity = ParserUtil.parseIngredientQuantity(argMultimap
                 .getValue(PREFIX_INGREDIENT_QUANTITY).get());
-
         Ingredient ingredient = new Ingredient(ingredientName, ingredientQuantity);
 
         return new RecipeAddIngredientCommand(index, ingredient);
@@ -102,10 +105,10 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public RecipeAddStepCommand parseAddStep(String args) throws ParseException {
+        Index recipeIndex;
+
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION);
-
-        Index recipeIndex;
 
         try {
             recipeIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -119,9 +122,23 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
                     RecipeAddCommand.MESSAGE_USAGE));
         }
 
-        Index stepIndex = ParserUtil.parseIndex(argMultimap
-                .getValue(PREFIX_STEP_INDEX).get());
-        Step toAdd = ParserUtil.parseStep(argMultimap
+        assert argMultimap.arePrefixesPresent(PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION);
+        assert argMultimap.getValue(PREFIX_STEP_INDEX).isPresent();
+        Optional<Index> stepIndex = Optional.empty();
+        Step toAdd;
+        String stepVariable = argMultimap.getValue(PREFIX_STEP_INDEX).get();
+
+        if (!stepVariable.equals("next")) {
+            try {
+                stepIndex = Optional.of(ParserUtil.parseIndex(stepVariable));
+            } catch (ParseException pe) {
+                throw new ParseException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX,
+                        RecipeAddCommand.MESSAGE_USAGE), pe);
+            }
+        }
+
+        assert argMultimap.getValue(PREFIX_STEP_DESCRIPTION).isPresent();
+        toAdd = ParserUtil.parseStep(argMultimap
                 .getValue(PREFIX_STEP_DESCRIPTION).get());
 
         return new RecipeAddStepCommand(recipeIndex, stepIndex, toAdd);
@@ -133,10 +150,11 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public RecipeAddTagCommand parseAddTag(String args) throws ParseException {
+        Tag toAdd;
+        Index recipeIndex;
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TAG);
-
-        Index recipeIndex;
 
         try {
             recipeIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -150,8 +168,9 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
                     RecipeAddCommand.MESSAGE_USAGE));
         }
 
-        Tag toAdd = ParserUtil.parseTag(argMultimap
-                .getValue(PREFIX_TAG).get());
+        assert argMultimap.arePrefixesPresent(PREFIX_TAG);
+        assert argMultimap.getValue(PREFIX_TAG).isPresent();
+        toAdd = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG).get());
 
         return new RecipeAddTagCommand(recipeIndex, toAdd);
     }
@@ -162,8 +181,7 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
     }
 
     boolean containsStep(String args) {
-        return args.contains(PREFIX_STEP_INDEX.toString())
-                && args.contains(PREFIX_STEP_DESCRIPTION.toString());
+        return args.contains(PREFIX_STEP_INDEX.toString()) && args.contains(PREFIX_STEP_DESCRIPTION.toString());
     }
 
     boolean containsTag(String args) {

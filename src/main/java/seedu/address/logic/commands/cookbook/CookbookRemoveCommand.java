@@ -16,14 +16,15 @@ import seedu.address.model.recipe.Recipe;
  */
 public class CookbookRemoveCommand extends CookbookCommand {
 
-    public static final String COMMAND_WORD = "remove recipe";
+    public static final String COMMAND_WORD = "remove";
 
-    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD
-            + ": removes the recipe identified by the index number used in the displayed recipe list.\n\n"
-            + "Parameters: INDEX (must be a positive integer)\n\n"
-            + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " 1";
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " "
+            + COMMAND_WORD + " " + "recipe"
+            + ": removes the recipe identified by the index number used in the displayed recipe list.\n"
+            + "Parameters: INDEX (must be a positive valid integer)\n"
+            + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " " + "recipe " + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Deleted recipe: %1$s";
+    public static final String MESSAGE_SUCCESS = "Deleted recipe: %1$s from the cookbook";
 
     private final Index targetIndex;
 
@@ -35,6 +36,7 @@ public class CookbookRemoveCommand extends CookbookCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         List<Recipe> lastShownList = model.getFilteredCookbookRecipeList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -44,7 +46,7 @@ public class CookbookRemoveCommand extends CookbookCommand {
 
         Recipe recipeToRemove = lastShownList.get(targetIndex.getZeroBased());
         model.removeCookbookRecipe(recipeToRemove);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, recipeToRemove));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, recipeToRemove.getName()));
     }
 
     @Override

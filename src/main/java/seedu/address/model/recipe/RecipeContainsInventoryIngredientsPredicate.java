@@ -1,28 +1,24 @@
 package seedu.address.model.recipe;
 
+import static seedu.address.model.recipe.RecipeInventorySimilarityComparator.calculateSimilarity;
+
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.model.ReadOnlyInventory;
 
 /**
- * Tests that a {@code Recipe}'s {@code Ingredient} matches any of the ingredients available in the inventory.
+ * Tests that a {@code Recipe}'s {@code Ingredient} matches any of the ingredients in the inventory.
  */
 public class RecipeContainsInventoryIngredientsPredicate implements Predicate<Recipe> {
-    private ReadOnlyInventory inventory;
+    private final ReadOnlyInventory inventory;
+
     public RecipeContainsInventoryIngredientsPredicate(ReadOnlyInventory inventory) {
         this.inventory = inventory;
     }
 
     @Override
     public boolean test(Recipe recipe) {
-        if (recipe.getIngredientNamesString().length() == 0) {
-            System.out.println(recipe.getIngredientNamesString());
-            return false;
-        }
-
-        return inventory.getIngredientList().stream().anyMatch(ingredient ->
-            StringUtil.containsWordIgnoreCase(recipe.getIngredientNamesString(), ingredient.getName().ingredientName));
+        return calculateSimilarity(recipe, inventory) > 0;
     }
 
     @Override

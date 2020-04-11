@@ -3,6 +3,8 @@ package seedu.address.logic.parser.recipe;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -32,7 +34,8 @@ public class RecipeCommandParserTest {
     private static final String INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME = "1 add ingredient q/5";
 
     private static final Step VALID_STEP = new Step("Step");
-    private static final Index VALID_STEP_INDEX = new Index(0);
+    private static final Optional<Index> VALID_ADD_STEP_INDEX = Optional.of(new Index(0));
+    private static final Index VALID_REMOVE_STEP_INDEX = new Index(0);
     private static final String VALID_ADD_STEP_ARGUMENT = "1 add step x/1 s/Step";
     private static final String INVALID_ADD_STEP_ARGUMENT_NO_RECIPE_INDEX = "add step x/1 s/Step";
     private static final String INVALID_ADD_STEP_ARGUMENT_NO_STEP_INDEX = "1 add step x/s";
@@ -57,13 +60,13 @@ public class RecipeCommandParserTest {
         assertEquals(new RecipeCommandParser().parse(VALID_ADD_INGREDIENT_ARGUMENT),
                 new RecipeAddIngredientCommand(VALID_RECIPE_INDEX, VALID_INGREDIENT));
         assertEquals(new RecipeCommandParser().parse(VALID_ADD_STEP_ARGUMENT),
-                new RecipeAddStepCommand(VALID_RECIPE_INDEX, VALID_STEP_INDEX, VALID_STEP));
+                new RecipeAddStepCommand(VALID_RECIPE_INDEX, VALID_ADD_STEP_INDEX, VALID_STEP));
         assertEquals(new RecipeCommandParser().parse(VALID_ADD_TAG_ARGUMENT),
                 new RecipeAddTagCommand(VALID_RECIPE_INDEX, VALID_TAG));
         assertEquals(new RecipeCommandParser().parse(VALID_REMOVE_INGREDIENT_ARGUMENT),
                 new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, VALID_INGREDIENT));
         assertEquals(new RecipeCommandParser().parse(VALID_REMOVE_STEP_ARGUMENT),
-                new RecipeRemoveStepCommand(VALID_RECIPE_INDEX, VALID_STEP_INDEX));
+                new RecipeRemoveStepCommand(VALID_RECIPE_INDEX, VALID_REMOVE_STEP_INDEX));
         assertEquals(new RecipeCommandParser().parse(VALID_REMOVE_TAG_ARGUMENT),
                 new RecipeRemoveTagCommand(VALID_RECIPE_INDEX, VALID_TAG));
     }

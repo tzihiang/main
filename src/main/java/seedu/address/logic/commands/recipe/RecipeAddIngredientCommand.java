@@ -2,6 +2,7 @@ package seedu.address.logic.commands.recipe;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.List;
@@ -20,8 +21,6 @@ import seedu.address.model.recipe.Recipe;
 public class RecipeAddIngredientCommand extends RecipeAddCommand {
 
     public static final String MESSAGE_SUCCESS = "New ingredient added for %1$s: %2$s";
-    public static final String MESSAGE_INCOMPATIBLE_UNITS = "This ingredient has different units "
-            + "from the same ingredient in the recipe";
 
     private final Index index;
     private final Ingredient toAdd;
@@ -30,8 +29,7 @@ public class RecipeAddIngredientCommand extends RecipeAddCommand {
      * Creates a RecipeAddIngredientCommand to add the specified {@code Ingredient} to the recipe
      */
     public RecipeAddIngredientCommand(Index index, Ingredient toAdd) {
-        requireNonNull(index);
-        requireNonNull(toAdd);
+        requireAllNonNull(index, toAdd);
         this.index = index;
         this.toAdd = toAdd;
     }
@@ -46,6 +44,7 @@ public class RecipeAddIngredientCommand extends RecipeAddCommand {
                     RecipeAddCommand.MESSAGE_USAGE));
         }
 
+        assert index.getZeroBased() < lastShownList.size();
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
         UniqueIngredientList ingredients = recipeToEdit.getIngredients();
         ingredients.add(toAdd);

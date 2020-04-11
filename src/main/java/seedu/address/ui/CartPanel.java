@@ -11,25 +11,25 @@ import javafx.scene.layout.Region;
 import seedu.address.model.ingredient.Ingredient;
 
 /**
- * Panel containing the list of ingredients.
+ * Panel containing the list of persons.
  */
-public class IngredientListPanel extends UiPart<Region> {
-    private static final String FXML = "IngredientListPanel.fxml";
+public class CartPanel extends UiPart<Region> {
+    private static final String FXML = "CartPanel.fxml";
     // private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<Ingredient> ingredientListView;
+    private ListView<Ingredient> cartListView;
 
-    public IngredientListPanel(ObservableList<Ingredient> ingredientList) {
+    public CartPanel(ObservableList<Ingredient> ingredientList) {
         super(FXML);
-        ingredientListView.setItems(ingredientList);
-        ingredientListView.setCellFactory(listView -> new IngredientListViewCell());
+        cartListView.setItems(ingredientList);
+        cartListView.setCellFactory(listView -> new CartViewCell());
     }
 
     /**
-     * Custom {@code ListCell} displays the graphics of a {@code UniqueIngredientList} using {@code IngredientCard}.
+     * Custom {@code ListCell} that displays the graphics of an {@code Ingredient} using a {@code CartCard}.
      */
-    class IngredientListViewCell extends ListCell<Ingredient> {
+    class CartViewCell extends ListCell<Ingredient> {
         @Override
         protected void updateItem(Ingredient ingredient, boolean empty) {
             super.updateItem(ingredient, empty);

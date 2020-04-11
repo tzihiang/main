@@ -20,7 +20,6 @@ import seedu.address.model.tag.Tag;
 public class RecipeAddTagCommand extends RecipeAddCommand {
 
     public static final String MESSAGE_SUCCESS = "New tag added: %1$s";
-    public static final String MESSAGE_DUPLICATE_STEPS = "This tag already exists in the recipe";
 
     private final Index recipeIndex;
     private final Tag toAdd;
@@ -41,6 +40,7 @@ public class RecipeAddTagCommand extends RecipeAddCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
         }
 
+        assert recipeIndex.getZeroBased() < lastShownList.size();
         Recipe recipeToEdit = lastShownList.get(recipeIndex.getZeroBased());
         Set<Tag> targetTagSet = recipeToEdit.getTags();
 

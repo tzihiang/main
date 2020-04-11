@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.cookbook;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.logic.commands.cookbook.CookbookRemoveCommand.MESSAGE_SUCCESS;
@@ -37,13 +38,15 @@ public class CookbookRemoveCommandTest {
         CookbookRemoveCommand c = new CookbookRemoveCommand(VALID_RECIPE_INDEX);
         Model model = new ModelManager();
         model.addCookbookRecipe(AGLIO_OLIO);
-        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, AGLIO_OLIO)));
+        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, AGLIO_OLIO.getName())));
 
         // after adding multiple recipes
         model.addCookbookRecipe(AGLIO_OLIO);
         model.addCookbookRecipe(CARBONARA);
         model.addCookbookRecipe(SPAGHETTI_BOLOGNESE);
-        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, AGLIO_OLIO)));
+        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, AGLIO_OLIO.getName())));
+
+        assertFalse(model.hasCookbookRecipe(AGLIO_OLIO));
     }
 
     @Test

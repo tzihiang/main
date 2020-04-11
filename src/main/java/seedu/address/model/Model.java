@@ -1,11 +1,13 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -128,6 +130,12 @@ public interface Model {
     void removeInventoryIngredient(Ingredient ingredient);
 
     /**
+     * Removes ingredients with the given ingredient name.
+     * The ingredient must exist in the inventory.
+     */
+    void removeInventoryIngredient(IngredientName ingredientName);
+
+    /**
      * Adds the given ingredient.
      * {@code ingredient} must not already exist in the inventory.
      */
@@ -153,6 +161,12 @@ public interface Model {
     void removeCartIngredient(Ingredient ingredient);
 
     /**
+     * Removes ingredients with the given ingredient name.
+     * The ingredient must exist in the cart.
+     */
+    void removeCartIngredient(IngredientName ingredientName);
+
+    /**
      * Adds the given ingredient.
      * {@code ingredient} must not already exist in the cart.
      */
@@ -165,6 +179,11 @@ public interface Model {
      * cart.
      */
     void setCartIngredient(Ingredient target, Ingredient editedIngredient);
+
+    /**
+     * Sorts the cookbook using the specified comparator.
+     */
+    void sortCookbook(Comparator<? super Recipe> comparator);
 
     /** Returns an unmodifiable view of the filtered cookbook recipe list */
     ObservableList<Recipe> getFilteredCookbookRecipeList();
@@ -192,4 +211,5 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCartIngredientList(Predicate<Ingredient> predicate);
+
 }

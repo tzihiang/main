@@ -2,7 +2,6 @@ package seedu.address.logic.parser.cookbook;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,7 +22,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class CookbookCommandParser implements Parser<CookbookCommand> {
 
     private static final Pattern COOKBOOK_COMMAND_ARGUMENT_FORMAT = Pattern
-            .compile(" *(?<commandWord>\\S+\\srecipe)(?<arguments>.*)");
+            .compile(" *(?<commandWord>\\S+) *(?<category>recipe|tag|inventory)?(?<arguments>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of a CookbookCommand
@@ -39,21 +38,23 @@ public class CookbookCommandParser implements Parser<CookbookCommand> {
         }
 
         final String commandWord = matcher.group("commandWord");
+        final String category = matcher.group("category");
         final String arguments = matcher.group("arguments");
 
         switch(commandWord) {
         case CookbookAddCommand.COMMAND_WORD:
-            return new CookbookAddCommandParser().parse(arguments);
+            return new CookbookAddCommandParser().parse(category + " " + arguments);
         case CookbookRemoveCommand.COMMAND_WORD:
-            return new CookbookRemoveCommandParser().parse(arguments);
+            return new CookbookRemoveCommandParser().parse(category + " " + arguments);
         case CookbookSearchCommand.COMMAND_WORD:
-            return new CookbookSearchCommandParser().parse(arguments);
+            return new CookbookSearchCommandParser().parse(category + " " + arguments);
         case CookbookViewCommand.COMMAND_WORD:
-            return new CookbookViewCommandParser().parse(arguments);
+            return new CookbookViewCommandParser().parse(category + " " + arguments);
         case CookbookListCommand.COMMAND_WORD:
-            return new CookbookListCommand();
+            return new CookbookListCommandParser().parse(arguments);
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                CookbookSearchCommand.MESSAGE_USAGE));
         }
     }
 }

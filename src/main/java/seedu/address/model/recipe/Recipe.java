@@ -2,7 +2,9 @@ package seedu.address.model.recipe;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -10,6 +12,7 @@ import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.step.UniqueStepList;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagComparator;
 
 /**
  * Represents a Recipe in the cookbook.
@@ -78,11 +81,11 @@ public class Recipe {
         return sb.toString().trim().replace("[", "").replace("]", " ");
     }
 
-    public String getIngredientNamesString() {
+    public String getNoWhitespaceIngredientNamesString() {
         StringBuilder sb = new StringBuilder();
 
         for (Ingredient i : getIngredients()) {
-            sb.append(i.getName().ingredientName).append(" ");
+            sb.append(i.getName().ingredientName.replace(" ", "")).append(" ");
         }
 
         return sb.toString();
@@ -140,7 +143,9 @@ public class Recipe {
                 .append("\nPreparation Steps:")
                 .append(getSteps())
                 .append("\nTags:");
-        getTags().forEach(tag -> builder.append(" ").append(tag.toString()));
+        List<Tag> tags = new ArrayList<>(getTags());
+        tags.sort(new TagComparator());
+        tags.forEach(tag -> builder.append(" ").append(tag.toString()));
         return builder.toString();
     }
 

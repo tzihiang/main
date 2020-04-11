@@ -21,6 +21,7 @@ public class CartAddRecipeIngredientCommandParser implements Parser<CartCommand>
     /**
      * Parses the given {@code String} of arguments in the context of the CartCommand
      * and returns a CartAddRecipeIngredientCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public CartAddRecipeIngredientCommand parse(String args) throws ParseException {

@@ -4,7 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIngredients.ALMOND;
+import static seedu.address.testutil.TypicalIngredients.APPLE;
+import static seedu.address.testutil.TypicalIngredients.BANANA;
+import static seedu.address.testutil.TypicalIngredients.getTypicalInventory;
+import static seedu.address.testutil.TypicalRecipes.AGLIO_OLIO;
 import static seedu.address.testutil.TypicalRecipes.CARBONARA;
+import static seedu.address.testutil.TypicalRecipes.SCRAMBLED_EGG;
+import static seedu.address.testutil.TypicalRecipes.SPAGHETTI_BOLOGNESE;
+import static seedu.address.testutil.TypicalRecipes.getTypicalCookbook;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,6 +20,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.recipe.RecipeInventorySimilarityComparator;
 
 public class ModelManagerTest {
 
@@ -86,6 +95,15 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasClearedInventory_ingredientNotInInventory_returnsTrue() {
+        modelManager.addInventoryIngredient(APPLE);
+        modelManager.addInventoryIngredient(BANANA);
+        modelManager.setInventory(modelManager.getInventory());
+        assertTrue(!modelManager.hasInventoryIngredient(APPLE)
+                && !modelManager.hasInventoryIngredient(BANANA));
+    }
+
+    @Test
     public void setCartFilePath_nullPath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setCartFilePath(null));
     }
@@ -114,11 +132,88 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasInventoryIngredient_nullIngredient_throwsNullIngredientException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasInventoryIngredient(null));
+    }
+
+    @Test
+    public void hasInventoryIngredient_ingredientNotInCart_returnsFalse() {
+        assertFalse(modelManager.hasInventoryIngredient(APPLE));
+    }
+
+    @Test
+    public void hasInventoryIngredient_ingredientInCart_returnsTrue() {
+        modelManager.addInventoryIngredient(APPLE);
+        assertTrue(modelManager.hasInventoryIngredient(APPLE));
+    }
+
+    @Test
+    public void hasCartIngredient_nullIngredient_throwsNullIngredientException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasCartIngredient(null));
+    }
+
+    @Test
+    public void hasCartIngredient_ingredientNotInCart_returnsFalse() {
+        assertFalse(modelManager.hasCartIngredient(APPLE));
+    }
+
+    @Test
+    public void hasCartIngredient_ingredientInCart_returnsTrue() {
+        modelManager.addCartIngredient(APPLE);
+        assertTrue(modelManager.hasCartIngredient(APPLE));
+    }
+
+    @Test
+    public void hasClearedCart_ingredientNotInCart_returnsTrue() {
+        modelManager.addCartIngredient(APPLE);
+        modelManager.addCartIngredient(ALMOND);
+        modelManager.setCart(modelManager.getCart());
+        assertTrue(!modelManager.hasCartIngredient(APPLE) && !modelManager.hasCartIngredient(ALMOND));
+    }
+
+    @Test
+    public void sortCookbook() {
+        modelManager.setCookbook(getTypicalCookbook());
+        modelManager.sortCookbook(new RecipeInventorySimilarityComparator(getTypicalInventory()));
+
+        assertEquals(SCRAMBLED_EGG, modelManager.getCookbook().getRecipeList().get(0));
+        assertEquals(CARBONARA, modelManager.getCookbook().getRecipeList().get(1));
+        assertEquals(SPAGHETTI_BOLOGNESE, modelManager.getCookbook().getRecipeList().get(2));
+        assertEquals(AGLIO_OLIO, modelManager.getCookbook().getRecipeList().get(3));
+    }
+
+    @Test
     public void getFilteredCookbookRecipeList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredCookbookRecipeList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredCookbookRecipeList()
+            .remove(0));
     }
 
     @Test
     public void equals() {
+        UserPrefs userPrefs = new UserPrefs();
+
+        // same values -> returns true
+        modelManager = new ModelManager(new Cookbook(), new Inventory(), new Cart(), userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(new Cookbook(), new Inventory(), new Cart(),
+                userPrefs);
+
+        assertTrue(modelManager.equals(modelManagerCopy));
+
+        // same object -> returns true
+        assertTrue(modelManager.equals(modelManager));
+
+        // null -> returns false
+        assertFalse(modelManager.equals(null));
+
+        // different types -> returns false
+        assertFalse(modelManager.equals(5));
+
+        // different userPrefs -> returns false
+        UserPrefs differentUserPrefs = new UserPrefs();
+        differentUserPrefs.setCookbookFilePath(Paths.get("differentCookbookFilePath"));
+        differentUserPrefs.setInventoryFilePath(Paths.get("differentInventoryFilePath"));
+        differentUserPrefs.setCartFilePath(Paths.get("differentCartFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(new Cookbook(), new Inventory(), new Cart(),
+                differentUserPrefs)));
     }
 }

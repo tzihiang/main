@@ -4,21 +4,22 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
-import seedu.address.model.ingredient.exceptions.NonPositiveIngredientQuantityException;
 
 /**
  * A list of ingredients that enforces uniqueness between its elements and does not allow nulls.
  * An ingredient is considered unique by comparing using {@code Ingredient#isSameIngredient(Ingredient)}. As such,
  * adding and updating of ingredients uses {@code Ingredient#isSameIngredient(Ingredient)} for equality so as to ensure
  * that the ingredient being added or updated is unique in terms of identity in the UniqueIngredientList.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Ingredient#isSameIngredient(Ingredient)
@@ -28,6 +29,13 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
     protected final ObservableList<Ingredient> internalList = FXCollections.observableArrayList();
     protected final ObservableList<Ingredient> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+
+    /**
+     * Returns the size of the list.
+     */
+    public int size() {
+        return internalList.size();
+    }
 
     /**
      * Returns true if the list contains an ingredient equivalent to the given argument.
@@ -90,14 +98,30 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
         if (!contains(toRemove)) {
             throw new IngredientNotFoundException();
         }
-        int index = internalList.indexOf(find(toRemove));
 
-        try {
-            Ingredient subtractedIngredient = find(toRemove).subtract(toRemove);
-            internalList.set(index, subtractedIngredient);
-        } catch (NonPositiveIngredientQuantityException e) {
-            internalList.remove(index);
+        Ingredient originalIngredient = find(toRemove);
+        if (toRemove.equals(originalIngredient)) {
+            internalList.remove(originalIngredient);
+        } else {
+            Ingredient subtractedIngredient = originalIngredient.subtract(toRemove);
+            setIngredient(originalIngredient, subtractedIngredient);
         }
+    }
+
+    /**
+     * Removes all of the ingredient with the ingredient name from the list.
+     * The ingredient must exist in the list.
+     */
+    public void remove(IngredientName toRemove) {
+        requireNonNull(toRemove);
+        boolean hasIngredient = internalList.stream().anyMatch(x -> toRemove.equals(x.getName()));
+        if (!hasIngredient) {
+            throw new IngredientNotFoundException();
+        }
+
+        this.setIngredients(internalList.stream()
+                .filter(x -> !toRemove.equals(x.getName()))
+                .collect(Collectors.toList()));
     }
 
     public void setIngredients(UniqueIngredientList replacement) {
@@ -117,6 +141,13 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
     }
 
     /**
+     * Sorts the list of ingredients using the specified comparator.
+     */
+    public void sort(Comparator<? super Ingredient> comparator) {
+        Collections.sort(internalList, comparator);
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Ingredient> asUnmodifiableObservableList() {
@@ -132,7 +163,7 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueIngredientList // instanceof handles nulls
-                        && internalList.equals(((UniqueIngredientList) other).internalList));
+                && internalList.equals(((UniqueIngredientList) other).internalList));
     }
 
     @Override
@@ -154,15 +185,5 @@ public class UniqueIngredientList implements Iterable<Ingredient> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
-    }
-
-    public List<String> getIngredientNamesString() {
-        StringBuilder sb = new StringBuilder();
-
-        for (Ingredient i : internalList) {
-            sb.append(i.getName().ingredientName).append(" ");
-        }
-
-        return Arrays.asList(sb.toString().split("\\s+"));
     }
 }

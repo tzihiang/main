@@ -8,21 +8,20 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
  */
 public abstract class CookbookSearchCommand extends CookbookCommand {
 
-    public static final String COMMAND_WORD = "search recipe";
+    public static final String COMMAND_WORD = "search";
     public static final String SEARCH_INVENTORY_COMMAND = "inventory";
+    public static final String SEARCH_KEYWORD_COMMAND = "recipe";
+    public static final String SEARCH_TAG_COMMAND = "tag";
 
-    public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
-            + ": Searches the cookbook by keyword, tag(s) or your inventory.\n"
-            + "Parameters for searching the cookbook by keyword: "
-            + PREFIX_SEARCH_KEYWORD + "KEYWORD\n"
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD
+            + ": searches the cookbook by keyword(s), tag(s) or your inventory.\n\n"
+            + "Parameters for searching the cookbook by keyword(s): "
+            + SEARCH_KEYWORD_COMMAND + " " + PREFIX_SEARCH_KEYWORD + "KEYWORD\n"
             + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " "
-            + PREFIX_SEARCH_KEYWORD + "carbonara\n"
-            + "Parameters for searching the cookbook by tag(s): "
-            + PREFIX_TAG + "TAG\n"
+            + SEARCH_KEYWORD_COMMAND + " " + PREFIX_SEARCH_KEYWORD + "carbonara\n\n"
+            + "Parameters for searching the cookbook by tag(s): " + SEARCH_TAG_COMMAND + " " + PREFIX_TAG + "TAG\n"
             + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " "
-            + PREFIX_TAG + "breakfast\n"
-            + "Parameters for searching the cookbook using your inventory"
-            + SEARCH_INVENTORY_COMMAND + "\n"
-            + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " "
-            + SEARCH_INVENTORY_COMMAND;
+            + SEARCH_TAG_COMMAND + " " + PREFIX_TAG + "breakfast\n\n"
+            + "Parameters for searching the cookbook using your inventory:" + SEARCH_INVENTORY_COMMAND + "\n"
+            + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " " + SEARCH_INVENTORY_COMMAND;
 }

@@ -2,9 +2,11 @@ package seedu.address.logic.commands.recipe;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_STEP_DISPLAYED_INDEX;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -23,13 +25,13 @@ public class RecipeAddStepCommand extends RecipeAddCommand {
     public static final String MESSAGE_SUCCESS = "New step added for %1$s: %2$s";
 
     private final Index recipeIndex;
-    private final Index stepIndex;
+    private final Optional<Index> stepIndex;
     private final Step toAdd;
 
-    public RecipeAddStepCommand(Index recipeIndex, Index stepIndex, Step toAdd) {
+    public RecipeAddStepCommand(Index recipeIndex, Optional<Index> stepIndex, Step toAdd) {
         requireNonNull(recipeIndex);
-        requireNonNull(stepIndex);
         requireNonNull(toAdd);
+
         this.recipeIndex = recipeIndex;
         this.stepIndex = stepIndex;
         this.toAdd = toAdd;
@@ -48,17 +50,23 @@ public class RecipeAddStepCommand extends RecipeAddCommand {
         Recipe recipeToEdit = lastShownList.get(recipeIndex.getZeroBased());
         UniqueStepList targetStepList = recipeToEdit.getSteps();
 
-        if (stepIndex.getZeroBased() > targetStepList.asUnmodifiableObservableList().size()) {
-            // ensure the step index is valid
-            throw new CommandException((Messages.MESSAGE_INVALID_STEP_DISPLAYED_INDEX));
-        }
-
         if (targetStepList.contains(toAdd)) {
             throw new CommandException(((Messages.MESSAGE_DUPLICATE_STEPS)));
         }
 
-        targetStepList.add(stepIndex, toAdd);
+        if (stepIndex.isPresent()) {
+            if (stepIndex.get().getZeroBased() > targetStepList.asUnmodifiableObservableList().size()) {
+                // ensure the step index is valid
+                throw new CommandException(String.format(MESSAGE_INVALID_STEP_DISPLAYED_INDEX,
+                        RecipeAddCommand.MESSAGE_USAGE));
+            }
 
+            targetStepList.add(stepIndex.get(), toAdd);
+        } else {
+            targetStepList.add(toAdd);
+        }
+
+        assert stepIndex.isPresent();
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
         editRecipeDescriptor.setSteps(targetStepList);
         Recipe editedRecipe = EditRecipeDescriptor.createEditedRecipe(recipeToEdit, editRecipeDescriptor);

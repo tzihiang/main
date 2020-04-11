@@ -19,11 +19,12 @@ import seedu.address.model.ingredient.exceptions.NonPositiveIngredientQuantityEx
 public class IngredientQuantity {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Ingredient quantities should only contain a value and a unit, where the value can be "
+            "Ingredient quantities should only contain a positive value and a unit, where the value can be "
             + "whole numbers, decimals, or fractions, and the unit should only contain alphabets";
 
-    private static final String DECIMAL_REGEX = "(([\\p{Digit}]+(\\.[\\p{Digit}]+)?)|(\\.[\\p{Digit}]+))";
-    private static final String FRACTION_REGEX = "[\\p{Digit}]+( +[\\p{Digit}]+)?/[\\p{Digit}]+";
+    private static final String DECIMAL_REGEX = "([1-9][\\p{Digit}]*(\\.[\\p{Digit}]+)?)"
+            + "|(0?\\.(?=.*[1-9])[\\p{Digit}]+)";
+    private static final String FRACTION_REGEX = "[1-9][\\p{Digit}]*( +[1-9][\\p{Digit}]*)?/[1-9][\\p{Digit}]*";
     private static final String UNIT_REGEX = "[\\p{Alpha}][\\p{Alpha} ]*";
 
     /*
@@ -139,6 +140,38 @@ public class IngredientQuantity {
         }
 
         return new IngredientQuantity(newValue, unit);
+    }
+
+    /**
+     * Returns the proportion of {@code other} with respect to the ingredient.
+     * @return a double value between 0 and 1 (inclusive)
+     */
+    public double asProportionOf(IngredientQuantity other) {
+        checkArgument(hasSameUnitAs(other));
+
+        double proportion = 0;
+        if (this.value instanceof BigDecimal && other.value instanceof BigDecimal) {
+            try {
+                proportion = ((BigDecimal) this.value).divide((BigDecimal) other.value).doubleValue();
+            } catch (ArithmeticException e) {
+                proportion = this.value.doubleValue() / other.value.doubleValue();
+            }
+        } else if (this.value instanceof MixedFraction && other.value instanceof MixedFraction) {
+            proportion = ((MixedFraction) this.value).divide((MixedFraction) other.value).doubleValue();
+        } else if (this.value instanceof BigDecimal && other.value instanceof MixedFraction) {
+            proportion = MixedFraction.getFromBigDecimal(((BigDecimal) this.value))
+                    .divide((MixedFraction) other.value).doubleValue();
+        } else if (this.value instanceof MixedFraction && other.value instanceof BigDecimal) {
+            proportion = ((MixedFraction) this.value)
+                    .divide(MixedFraction.getFromBigDecimal(((BigDecimal) other.value))).doubleValue();
+        } else {
+            assert false;
+        }
+
+        if (proportion > 1) {
+            return 1;
+        }
+        return proportion;
     }
 
     /**

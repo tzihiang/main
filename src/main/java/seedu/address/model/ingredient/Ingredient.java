@@ -58,6 +58,19 @@ public class Ingredient {
     }
 
     /**
+     * Returns the proportion of {@code toCompare} with respect to the ingredient.
+     * @return a double value between 0 and 1 (inclusive)
+     */
+    public double asProportionOf(Ingredient toCompare) {
+        try {
+            checkArgument(isCompatibleWith(toCompare));
+            return getQuantity().asProportionOf(toCompare.getQuantity());
+        } catch (IllegalArgumentException e) {
+            throw new IncompatibleIngredientException();
+        }
+    }
+
+    /**
      * Returns true if both ingredients are compatible with each other.
      * This defines whether two ingredients can be added or subtracted from each other.
      */
@@ -82,6 +95,10 @@ public class Ingredient {
 
         return otherIngredient != null
                 && otherIngredient.getName().equals(getName());
+    }
+
+    public String getNoWhitespaceName() {
+        return this.getName().ingredientName.replace(" ", "");
     }
 
     /**
@@ -113,5 +130,4 @@ public class Ingredient {
     public String toString() {
         return String.format("%s %s", ingredientQuantity, ingredientName);
     }
-
 }
