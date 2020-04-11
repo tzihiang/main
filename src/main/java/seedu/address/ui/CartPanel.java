@@ -13,14 +13,14 @@ import seedu.address.model.ingredient.Ingredient;
 /**
  * Panel containing the list of persons.
  */
-public class CartListPanel extends UiPart<Region> {
-    private static final String FXML = "CartListPanel.fxml";
+public class CartPanel extends UiPart<Region> {
+    private static final String FXML = "CartPanel.fxml";
     // private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
     private ListView<Ingredient> cartListView;
 
-    public CartListPanel(ObservableList<Ingredient> ingredientList) {
+    public CartPanel(ObservableList<Ingredient> ingredientList) {
         super(FXML);
         cartListView.setItems(ingredientList);
         cartListView.setCellFactory(listView -> new CartViewCell());
@@ -38,7 +38,7 @@ public class CartListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new CartCard(ingredient, getIndex() + 1).getRoot());
+                setGraphic(new IngredientCard(ingredient, getIndex() + 1).getRoot());
             }
         }
     }

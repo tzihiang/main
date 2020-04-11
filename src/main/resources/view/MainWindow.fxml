@@ -43,7 +43,8 @@
                                 </padding>
                             </StackPane>
 
-                            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="120" maxWidth="600" minHeight="120" minWidth="600" prefHeight="120" prefWidth="600" styleClass="pane-with-border-command-result" VBox.vgrow="NEVER">
+                            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="120" maxWidth="600" minHeight="120"
+                                       minWidth="600" prefHeight="120" prefWidth="600" styleClass="pane-with-border-command-result" VBox.vgrow="NEVER">
                                 <padding>
                                     <Insets bottom="5" left="10" right="10" top="5" />
                                 </padding>
@@ -60,14 +61,16 @@
 
                     <right>
                         <VBox>
-                            <VBox fx:id="inventoryIngredientList" prefHeight="335.0" prefWidth="400.0" styleClass="pane-with-border-inventory" VBox.vgrow="ALWAYS">
+                            <VBox fx:id="inventoryIngredientList" prefHeight="335.0" prefWidth="385"
+                                  styleClass="pane-with-border-inventory" VBox.vgrow="ALWAYS">
                                 <padding>
                                     <Insets bottom="10" left="10" right="10" top="10" />
                                 </padding>
                                 <StackPane fx:id="inventoryIngredientListPanelPlaceHolder" HBox.hgrow="ALWAYS" />
                             </VBox>
 
-                            <VBox fx:id="cartIngredientList1" prefHeight="335.0" prefWidth="400.0" styleClass="pane-without-border" VBox.vgrow="ALWAYS">
+                            <VBox fx:id="cartIngredientList1" prefHeight="335.0" prefWidth="385"
+                                  styleClass="pane-without-border" VBox.vgrow="ALWAYS">
                                 <padding>
                                     <Insets bottom="10" left="10" right="10" top="10" />
                                 </padding>

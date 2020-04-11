@@ -32,9 +32,9 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private RecipeListPanel recipeListPanel;
-    private IngredientListPanel inventoryIngredientListPanel;
-    private CartListPanel cartIngredientListPanel;
+    private CookbookPanel recipeListPanel;
+    private InventoryPanel inventoryIngredientListPanel;
+    private CartPanel cartIngredientListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -117,13 +117,13 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        recipeListPanel = new RecipeListPanel(logic.getFilteredCookbookRecipeList());
+        recipeListPanel = new CookbookPanel(logic.getFilteredCookbookRecipeList());
         recipeListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
 
-        inventoryIngredientListPanel = new IngredientListPanel(logic.getFilteredInventoryIngredientList());
+        inventoryIngredientListPanel = new InventoryPanel(logic.getFilteredInventoryIngredientList());
         inventoryIngredientListPanelPlaceHolder.getChildren().add(inventoryIngredientListPanel.getRoot());
 
-        cartIngredientListPanel = new CartListPanel(logic.getFilteredCartIngredientList());
+        cartIngredientListPanel = new CartPanel(logic.getFilteredCartIngredientList());
         cartIngredientListPanelPlaceHolder.getChildren().add(cartIngredientListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -178,20 +178,20 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void handleViewRecipe(Index recipeIndex) {
-        recipeListPanel = new RecipeListPanel(logic.getFilteredCookbookRecipeList());
+        recipeListPanel = new CookbookPanel(logic.getFilteredCookbookRecipeList());
         recipeListPanel.handleViewRecipe(recipeIndex);
         recipeListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
     }
 
-    public RecipeListPanel getRecipeListPanel() {
+    public CookbookPanel getRecipeListPanel() {
         return recipeListPanel;
     }
 
-    public IngredientListPanel getInventoryIngredientListPanel() {
+    public InventoryPanel getInventoryIngredientListPanel() {
         return inventoryIngredientListPanel;
     }
 
-    public CartListPanel getCartIngredientListPanel1() {
+    public CartPanel getCartIngredientListPanel1() {
         return cartIngredientListPanel;
     }
 

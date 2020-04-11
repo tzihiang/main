@@ -53,7 +53,7 @@
     -fx-base: #1d1d1d;
     -fx-control-inner-background: #FFFC8C;
     -fx-background-color: #dbdbdb;
-    -fx-table-cell-border-color: transparent;
+    -fx-table-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
 }
@@ -101,6 +101,7 @@
 /* for list views */
 .list-view {
     -fx-background-color: #ffffed;
+    -fx-border-color: transparent
 }
 
 .list-cell {
@@ -142,6 +143,14 @@
     -fx-font-weight: 400;
     -fx-text-fill: black;
     -fx-font-style: italic;
+}
+
+.cell_list_header {
+    -fx-font-family: "Lato";
+    -fx-font-size: 18px;
+    -fx-text-fill: black;
+    -fx-border-size: 1;
+    -fx-border-color: black;
 }
 
 .cell_header_label {
