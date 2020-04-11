@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -224,8 +225,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortCookbookByInventorySimilarity() {
-        this.cookbook.sortByInventorySimilarity(inventory);
+    public void sortCookbook(Comparator<? super Recipe> comparator) {
+        this.cookbook.sort(comparator);
     }
 
     /**
