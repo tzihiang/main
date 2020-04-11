@@ -215,6 +215,7 @@ image::CookbookAddRecipe3.png[]
 * Pros: bigger font size due to the lack of newlines
 * Cons: difficult to read, difficult for user to extract desired information from the text in `ResultDisplay`
 
+tag::cookbooksearchinventory[]
 === Search for recipes based on ingredients in the inventory
 ==== Implementation
 The comparison is facilitated by the `RecipeInventorySimilarityComparator`.
