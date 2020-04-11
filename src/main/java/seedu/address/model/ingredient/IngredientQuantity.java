@@ -60,10 +60,6 @@ public class IngredientQuantity {
         this.unit = unit;
     }
 
-    public Number getValue() {
-        return value;
-    }
-
     /**
      * Returns true if a given string is a valid ingredient quantity.
      */

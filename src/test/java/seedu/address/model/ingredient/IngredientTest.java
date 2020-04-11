@@ -156,5 +156,4 @@ public class IngredientTest {
         editedApple = new IngredientBuilder(APPLE).withQuantity(VALID_INGREDIENT_QUANTITY_ALMOND).build();
         assertFalse(APPLE.equals(editedApple));
     }
-
 }
