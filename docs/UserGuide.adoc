@@ -193,7 +193,9 @@ Note: you must have added a recipe to the cookbook, otherwise Cooking Papa will 
 This command allows you to search for recipes by keywords, returning a list of recipes.
 
 Note: Adding more keywords will not narrow the search results, but will expand the search results to return any recipe
-that contains any of the given keywords.
+that contains any of the given keywords. Moreover, only full words will be searched, for example, if there is a
+recipe named "ABCD" in the cookbook, searching with the parameter `k/AB` will *not* return the mentioned recipe as a
+result.
 
 - Format: `cookbook search recipe k/KEYWORD...`
 - Example:
