@@ -26,8 +26,8 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
     public static final String MESSAGE_SUCCESS = "%1$s removed from inventory";
     public static final String MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH = "The quantity specified is too large";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD + " " + INGREDIENT_KEYWORD
-            + ": This commands allows you to remove ingredients to your inventory.\n"
-            + "Parameters for removing an ingredient into your inventory is as follows: \n"
+            + ":removes ingredients to your inventory.\n"
+            + "Parameters: \n"
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
             + "[" + PREFIX_INGREDIENT_QUANTITY + "QUANTITY]\n"
             + "Examples:\n"

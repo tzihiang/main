@@ -18,10 +18,10 @@ public class CookbookAddCommand extends CookbookCommand {
 
     public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " "
             + COMMAND_WORD + " " + "recipe"
-            + ": Adds a new recipe to the cookbook.\n"
+            + ": adds a new recipe to the cookbook.\n"
             + "Parameters: "
             + PREFIX_RECIPE_NAME + "NAME "
-            + PREFIX_RECIPE_DESCRIPTION + "DESCRIPTION\n\n"
+            + PREFIX_RECIPE_DESCRIPTION + "DESCRIPTION\n"
             + "Example: "
             + COMMAND_CATEGORY + " "
             + COMMAND_WORD + " "

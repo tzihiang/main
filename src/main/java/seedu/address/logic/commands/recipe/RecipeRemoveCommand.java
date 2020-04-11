@@ -14,7 +14,7 @@ public abstract class RecipeRemoveCommand extends RecipeCommand {
 
     public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": removes an ingredient, a step, or a tag from a recipe. "
-            + "\n\nParameters for removing an ingredient: "
+            + "\nParameters: \n"
             + "INDEX (must be a positive integer) "
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
             + "[" + PREFIX_INGREDIENT_QUANTITY + "QUANTITY]\n"

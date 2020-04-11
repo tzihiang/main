@@ -25,8 +25,8 @@ public class CartRemoveIngredientCommand extends CartCommand {
     public static final String MESSAGE_SUCCESS = "%1$s removed from cart";
     public static final String MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH = "The quantity specified is too large";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
-            + "This commands allows you to remove ingredients from your cart.\n"
-            + "Parameters for removing an ingredient into your cart is as follows: \n"
+            + ": removes ingredients from your cart.\n"
+            + "Parameters: \n"
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
             + "[" + PREFIX_INGREDIENT_QUANTITY + "QUANTITY]\n"
             + "Examples:\n"

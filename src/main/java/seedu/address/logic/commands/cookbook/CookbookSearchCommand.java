@@ -14,7 +14,7 @@ public abstract class CookbookSearchCommand extends CookbookCommand {
     public static final String SEARCH_TAG_COMMAND = "tag";
 
     public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD
-            + ": Searches the cookbook by keyword(s), tag(s) or your inventory.\n\n"
+            + ": searches the cookbook by keyword(s), tag(s) or your inventory.\n\n"
             + "Parameters for searching the cookbook by keyword(s): "
             + SEARCH_KEYWORD_COMMAND + " " + PREFIX_SEARCH_KEYWORD + "KEYWORD\n"
             + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " "

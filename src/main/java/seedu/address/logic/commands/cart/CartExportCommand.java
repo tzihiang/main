@@ -18,8 +18,8 @@ public class CartExportCommand extends CartCommand {
     public static final String COMMAND_WORD = "export";
     public static final String MESSAGE_SUCCESS = "All cart ingredients have been exported to a pdf file!";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
-        + "This commands allows you to export all ingredients inside the cart to a pdf file located in the same folder"
-        + "as Cooking Papa\n. Parameters for exporting all ingredients inside the cart is as follows:\n"
+        + ": exports all ingredients inside the cart to a PDF file located in the same folder"
+        + "as Cooking Papa\n. Parameters:\n"
         + COMMAND_CATEGORY + " " + COMMAND_WORD;
 
     private static final String MESSAGE_FILE_NOT_FOUND = "'cart.pdf' is opened in another application. Please close "

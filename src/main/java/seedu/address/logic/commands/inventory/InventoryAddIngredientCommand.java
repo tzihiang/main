@@ -19,8 +19,8 @@ public class InventoryAddIngredientCommand extends InventoryCommand {
     public static final String INGREDIENT_KEYWORD = "ingredient";
     public static final String MESSAGE_SUCCESS = "New ingredient added: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD + " " + INGREDIENT_KEYWORD
-            + ": This commands allows you to add ingredients to your inventory.\n"
-            + "Parameters for adding an ingredient into your inventory is as follows: \n"
+            + ": adds ingredients to your inventory.\n"
+            + "Parameters: \n"
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
             + PREFIX_INGREDIENT_QUANTITY + "QUANTITY\n"
             + "Example: " + COMMAND_CATEGORY + " "

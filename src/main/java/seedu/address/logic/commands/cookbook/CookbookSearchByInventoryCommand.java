@@ -14,7 +14,7 @@ import seedu.address.model.recipe.RecipeContainsInventoryIngredientsPredicate;
 public class CookbookSearchByInventoryCommand extends CookbookSearchCommand {
 
     public static final String MESSAGE_USAGE =
-            "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD + " " + SEARCH_INVENTORY_COMMAND + ": Finds all"
+            "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD + " " + SEARCH_INVENTORY_COMMAND + ": finds all"
             + " recipes whose ingredient lists contain ingredients in the inventory, and displays them as a list "
             + "with index numbers. The list is sorted by the level of similarity between the ingredients in the "
             + "recipe and the ingredients in the inventory.\n"

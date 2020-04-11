@@ -23,8 +23,8 @@ public class CartAddRecipeIngredientCommand extends CartAddCommand {
             + COMMAND_CATEGORY + " "
             + CartAddCommand.COMMAND_WORD + " "
             + COMMAND_WORD
-            + ": This commands allows you to add all the ingredients from a recipe to your cart.\n"
-            + "Parameters for adding an ingredient into your cart is as follows: \n"
+            + ": adds all the ingredients from a recipe to your cart.\n"
+            + "Parameters: \n"
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
             + PREFIX_INGREDIENT_QUANTITY + "QUANTITY\n"
             + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " "

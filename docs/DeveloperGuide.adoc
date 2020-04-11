@@ -252,6 +252,7 @@ image::CookbookAddRecipe3.png[]
 ==== Design considerations
 ===== Aspect 1: How to parse optional parameters
 .Design considerations for parsing optional parameters
+[cols="12%,44%,44%"]
 |===
 ||Design A: Parse each category separately (current choice)  | Design B: Parse all the categories together
 |Description
@@ -276,7 +277,7 @@ a|
 
 .Design considerations for results to show users
 ===== Aspect 2: Result to show user
-
+[cols="12%,44%,44%"]
 |===
 ||Design A: Show a short result on the success of the command | Design B: Show all the details back to the user
 |Description|Show a message to a usage which notifies them that the command was successful in adding the recipe to
@@ -364,8 +365,10 @@ image::CartExportCommandSequenceDiagram.png[]
 
 ==== Design considerations
 ===== Aspect 1: File format to export ingredients in cart to
+[cols="12%,44%,44%"]
 |===
 ||Design A (current choice): .pdf|Design B: .txt
+|Description|Exports it to a flexible pdf file|Exports it to a txt file
 |Pros
 a|
 - Easier to format with `iTextPDF` 's vast library and API
@@ -380,9 +383,12 @@ a|
 - Lack of design/formatting flexibility
 |===
 ===== Aspect 2: What information to export
+[cols="12%,44%,44%"]
 |===
-||Design A (current choice): Export the ingredient names and quantities|Design B: Export the entirety of Cooking Papa
+||Design A (current choice): Export the ingredient names and quantities in the cart|Design B: Export the entirety of
+Cooking Papa
 (cookbook, inventory, cart)
+|Description|Allow exporting of just the cart|Allow exporting of the cart, inventory, and cookbook
 |Pros
 a|
 - Easier to implement as there will be less information to parse
@@ -464,6 +470,7 @@ The above implementation is the same for `Inventory`
 ===== Aspect: The need for many parsers for this command
 
 .Design considerations for the need for many parsers for this command
+[cols="12%,44%,44%"]
 |===
 | |Design A (Current choice): Create parsers for every individual action | Design B: Create parsers for each specific action
 
@@ -528,6 +535,7 @@ image::CartMoveCommand2.png[]
 ===== Aspect: Allowing users to move some or all ingredients from cart to inventory
 
 .Design considerations for allowing users to move some or all ingredients from cart to inventory
+[cols="12%,44%,44%"]
 |===
 | |Design A (Current choice): Move all ingredients | Design B: Allow users to move individually or exclude some ingredients when moving
 
