@@ -22,7 +22,8 @@ public class CartClearCommandParser implements Parser<CartCommand> {
         if (userInput.isEmpty()) {
             return new CartClearCommand();
         } else {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CartClearCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                CartClearCommand.MESSAGE_SUCCESS_EMPTY));
         }
     }
 }

@@ -3,6 +3,7 @@ package seedu.address.logic.commands.inventory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.logic.commands.inventory.InventoryClearCommand.MESSAGE_SUCCESS;
+import static seedu.address.logic.commands.inventory.InventoryClearCommand.MESSAGE_SUCCESS_EMPTY;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +21,7 @@ public class InventoryClearCommandTest {
         InventoryClearCommand i = new InventoryClearCommand();
 
         // empty inventory
-        assertEquals(i.execute(model), new CommandResult(MESSAGE_SUCCESS));
+        assertEquals(i.execute(model), new CommandResult(MESSAGE_SUCCESS_EMPTY));
 
         // with ingredients inside the inventory
         model.addInventoryIngredient(TypicalIngredients.ALMOND);

@@ -1,5 +1,11 @@
 package seedu.address.logic.commands.recipe;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
@@ -23,6 +29,55 @@ public abstract class RecipeCommand extends Command {
     public static final String STEP_KEYWORD = "step";
     public static final String INGREDIENT_KEYWORD = "ingredient";
     public static final String TAG_KEYWORD = "tag";
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + "add"
+            + ": adds an ingredient, a step, or a tag to a recipe with the given INDEX. "
+            + "\nParameters for adding an ingredient: "
+            + "INDEX (must be a positive integer) "
+            + PREFIX_INGREDIENT_NAME + "INGREDIENT "
+            + PREFIX_INGREDIENT_QUANTITY + "QUANTITY\n"
+            + "Example: " + COMMAND_CATEGORY + " 1 "
+            + "ADD" + " "
+            + INGREDIENT_KEYWORD + " "
+            + PREFIX_INGREDIENT_NAME + "Eggs "
+            + PREFIX_INGREDIENT_QUANTITY + "12\n"
+            + "\nParameters for adding a step: "
+            + "INDEX (must be a positive integer) "
+            + PREFIX_STEP_INDEX + "STEP_INDEX "
+            + PREFIX_STEP_DESCRIPTION + "STEP_DESCRIPTION\n"
+            + "Example: " + COMMAND_CATEGORY + " 1 "
+            + "add" + " "
+            + STEP_KEYWORD + " "
+            + PREFIX_STEP_INDEX + "1 "
+            + PREFIX_STEP_DESCRIPTION + "Add potatoes and water to a large pot, and bring to a boil.\n"
+            + "\nParameters for adding a tag: "
+            + "INDEX (must be a positive integer) "
+            + PREFIX_TAG + "TAG\n"
+            + "Example: " + COMMAND_CATEGORY + " 1 "
+            + "add" + " "
+            + TAG_KEYWORD + " "
+            + PREFIX_TAG + "Pasta"
+            + "\n" + COMMAND_CATEGORY + " " + "remove"
+            + ": removes an ingredient, a step, or a tag from a recipe. "
+            + "\nParameters: \n"
+            + "INDEX (must be a positive integer) "
+            + PREFIX_INGREDIENT_NAME + "INGREDIENT "
+            + "[" + PREFIX_INGREDIENT_QUANTITY + "QUANTITY]\n"
+            + "Example: " + COMMAND_CATEGORY + " 1 "
+            + "remove" + " "
+            + PREFIX_INGREDIENT_NAME + "Eggs "
+            + PREFIX_INGREDIENT_QUANTITY + "12\n"
+            + "\nParameters for removing a step: "
+            + "INDEX (must be a positive integer) "
+            + PREFIX_STEP_INDEX + "STEP_INDEX\n"
+            + "Example: " + COMMAND_CATEGORY + " 1 "
+            + "remove" + " "
+            + PREFIX_STEP_INDEX + "1\n"
+            + "\nParameters for removing a tag: "
+            + "INDEX (must be a positive integer) "
+            + PREFIX_TAG + "TAG\n"
+            + "Example: " + COMMAND_CATEGORY + " 1 "
+            + "remove" + " "
+            + PREFIX_TAG + "Pasta";;
 
 
     /**
