@@ -23,7 +23,7 @@ recipes!
 
 Cooking Papa aims to help university students who live alone, to make learning how to cook more convenient,
 increasing the diversity of their meals. With Cooking Papa, users can easily edit recipes, keep track of ingredients
-they have at home and have a shopping list that to help them expedite their grocery shopping process.
+they have at home and have a shopping list to help them expedite their grocery shopping process.
 
 CookingPapa consists of 3 main features:
 
