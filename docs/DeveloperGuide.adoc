@@ -215,14 +215,16 @@ image::CookbookAddRecipe3.png[]
 * Pros: bigger font size due to the lack of newlines
 * Cons: difficult to read, difficult for user to extract desired information from the text in `ResultDisplay`
 
-tag::cookbooksearchinventory[]
+// tag::cookbooksearchinventory[]
 === Search for recipes based on ingredients in the inventory
 ==== Implementation
-The comparison is facilitated by the `RecipeInventorySimilarityComparator`.
+The comparison is facilitated by the `RecipeInventorySimilarityComparator`. It extends `Comparator<Recipe>` and stores
+the inventory being used for ingredient comparison.
 
 The following sequence diagram summarizes how objects interact when a user executes the command:
 
 image::CookbookSearchByInventorySequenceDiagram.png[]
+// end::cookbooksearchinventory[]
 
 === Adding ingredients to inventory and cart
 The inventory and cart acts as storage for `Ingredient` classes. They are facilitated by `InventoryCommand` and `CartCommand`
