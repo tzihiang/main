@@ -128,7 +128,7 @@ public class RecipeAddCommandParser implements Parser<RecipeAddCommand> {
         Step toAdd;
         String stepVariable = argMultimap.getValue(PREFIX_STEP_INDEX).get();
 
-        if (!stepVariable.equals("next")) {
+        if (!stepVariable.equals(RecipeAddStepCommand.NEXT_KEYWORD)) {
             try {
                 stepIndex = Optional.of(ParserUtil.parseIndex(stepVariable));
             } catch (ParseException pe) {
