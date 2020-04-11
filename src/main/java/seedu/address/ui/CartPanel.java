@@ -38,7 +38,7 @@ public class CartPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new CartCard(ingredient, getIndex() + 1).getRoot());
+                setGraphic(new IngredientCard(ingredient, getIndex() + 1).getRoot());
             }
         }
     }

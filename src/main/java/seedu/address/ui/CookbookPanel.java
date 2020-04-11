@@ -47,9 +47,9 @@ public class CookbookPanel extends UiPart<Region> {
             } else {
                 int newIndex = getIndex() + 1;
                 if (newIndex == recipeIndex) {
-                    setGraphic(new CookbookCard(recipe, newIndex, true).getRoot());
+                    setGraphic(new RecipeCard(recipe, newIndex, true).getRoot());
                 } else {
-                    setGraphic(new CookbookCard(recipe, newIndex).getRoot());
+                    setGraphic(new RecipeCard(recipe, newIndex).getRoot());
                 }
             }
         }

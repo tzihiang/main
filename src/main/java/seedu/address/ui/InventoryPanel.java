@@ -35,7 +35,7 @@ public class InventoryPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new InventoryCard(ingredient, getIndex() + 1).getRoot());
+                setGraphic(new IngredientCard(ingredient, getIndex() + 1).getRoot());
             }
         }
     }

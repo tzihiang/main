@@ -16,9 +16,9 @@ import seedu.address.model.recipe.Recipe;
 /**
  * An UI component that displays information of a {@code Recipe}.
  */
-public class CookbookCard extends UiPart<Region> {
+public class RecipeCard extends UiPart<Region> {
 
-    private static final String FXML = "CookbookCard.fxml";
+    private static final String FXML = "RecipeCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -44,12 +44,12 @@ public class CookbookCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public CookbookCard(Recipe recipe, int displayedIndex) {
+    public RecipeCard(Recipe recipe, int displayedIndex) {
         super(FXML);
         init(recipe, displayedIndex);
     }
 
-    public CookbookCard(Recipe recipe, int displayedIndex, boolean isViewRecipe) {
+    public RecipeCard(Recipe recipe, int displayedIndex, boolean isViewRecipe) {
         super(FXML);
         init(recipe, displayedIndex);
         if (isViewRecipe) {
@@ -110,12 +110,12 @@ public class CookbookCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof CookbookCard)) {
+        if (!(other instanceof RecipeCard)) {
             return false;
         }
 
         // state check
-        CookbookCard card = (CookbookCard) other;
+        RecipeCard card = (RecipeCard) other;
         return id.getText().equals(card.id.getText())
                 && recipe.equals(card.recipe);
     }
