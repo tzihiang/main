@@ -11,16 +11,16 @@ import seedu.address.model.ingredient.Ingredient;
 /**
  * Panel containing the list of ingredients.
  */
-public class IngredientListPanel extends UiPart<Region> {
-    private static final String FXML = "IngredientListPanel.fxml";
+public class InventoryPanel extends UiPart<Region> {
+    private static final String FXML = "InventoryPanel.fxml";
 
     @FXML
-    private ListView<Ingredient> ingredientListView;
+    private ListView<Ingredient> inventoryListView;
 
-    public IngredientListPanel(ObservableList<Ingredient> ingredientList) {
+    public InventoryPanel(ObservableList<Ingredient> ingredientList) {
         super(FXML);
-        ingredientListView.setItems(ingredientList);
-        ingredientListView.setCellFactory(listView -> new IngredientListViewCell());
+        inventoryListView.setItems(ingredientList);
+        inventoryListView.setCellFactory(listView -> new IngredientListViewCell());
     }
 
     /**
@@ -35,7 +35,7 @@ public class IngredientListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new IngredientCard(ingredient, getIndex() + 1).getRoot());
+                setGraphic(new InventoryCard(ingredient, getIndex() + 1).getRoot());
             }
         }
     }

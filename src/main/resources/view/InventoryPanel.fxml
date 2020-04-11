@@ -13,6 +13,6 @@
         <Label styleClass="cell_big_label"
                text="              NAME                                              QUANTITY"/>
     </HBox>
-    <ListView fx:id="ingredientListView" HBox.hgrow="ALWAYS"/>
+    <ListView fx:id="inventoryListView" HBox.hgrow="ALWAYS"/>
 </VBox>
 

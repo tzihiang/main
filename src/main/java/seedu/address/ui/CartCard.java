@@ -11,7 +11,7 @@ import seedu.address.model.ingredient.Ingredient;
  */
 public class CartCard extends UiPart<Region> {
 
-    private static final String FXML = "CartListCard.fxml";
+    private static final String FXML = "CartCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.

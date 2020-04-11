@@ -11,13 +11,13 @@ import seedu.address.model.recipe.Recipe;
 /**
  * Panel containing the list of recipes.
  */
-public class RecipeListPanel extends UiPart<Region> {
-    private static final String FXML = "RecipeListPanel.fxml";
+public class CookbookPanel extends UiPart<Region> {
+    private static final String FXML = "CookbookPanel.fxml";
 
     @FXML
     private ListView<Recipe> recipeListView;
 
-    public RecipeListPanel(ObservableList<Recipe> recipesList) {
+    public CookbookPanel(ObservableList<Recipe> recipesList) {
         super(FXML);
         recipeListView.setItems(recipesList);
         recipeListView.setCellFactory(listView -> new RecipeListViewCell());
@@ -47,9 +47,9 @@ public class RecipeListPanel extends UiPart<Region> {
             } else {
                 int newIndex = getIndex() + 1;
                 if (newIndex == recipeIndex) {
-                    setGraphic(new RecipeCard(recipe, newIndex, true).getRoot());
+                    setGraphic(new CookbookCard(recipe, newIndex, true).getRoot());
                 } else {
-                    setGraphic(new RecipeCard(recipe, newIndex).getRoot());
+                    setGraphic(new CookbookCard(recipe, newIndex).getRoot());
                 }
             }
         }

@@ -9,9 +9,9 @@ import seedu.address.model.ingredient.Ingredient;
 /**
  * An UI component that displays information of a {@code UniqueIngredientList}.
  */
-public class IngredientCard extends UiPart<Region> {
+public class InventoryCard extends UiPart<Region> {
 
-    private static final String FXML = "IngredientListCard.fxml";
+    private static final String FXML = "InventoryCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -32,7 +32,7 @@ public class IngredientCard extends UiPart<Region> {
     @FXML
     private Label quantity;
 
-    public IngredientCard(Ingredient ingredient, int displayedIndex) {
+    public InventoryCard(Ingredient ingredient, int displayedIndex) {
         super(FXML);
         this.ingredient = ingredient;
         id.setText(displayedIndex + ". ");
@@ -48,12 +48,12 @@ public class IngredientCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof IngredientCard)) {
+        if (!(other instanceof InventoryCard)) {
             return false;
         }
 
         // state check
-        IngredientCard card = (IngredientCard) other;
+        InventoryCard card = (InventoryCard) other;
         return id.getText().equals(card.id.getText())
                 && ingredient.equals(card.ingredient);
     }
