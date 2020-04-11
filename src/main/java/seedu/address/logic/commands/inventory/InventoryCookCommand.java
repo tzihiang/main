@@ -28,6 +28,8 @@ public class InventoryCookCommand extends InventoryCommand {
             "Your inventory does not contain all the ingredients of recipe %1$s.";
     public static final String MESSAGE_INSUFFICIENT_QUANTITY =
             "Your inventory contains insufficient quantities of the ingredients in recipe %1$s.";
+    public static final String MESSAGE_NO_INGREDIENT_IN_RECIPE =
+            "Recipe %1$s does not require any ingredients to cook.";
 
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": This commands allows you to remove all ingredients of a recipe from your inventory.\n"
@@ -91,6 +93,11 @@ public class InventoryCookCommand extends InventoryCommand {
         }
 
         Recipe selectedRecipe = recipeList.get(targetIndex.getZeroBased());
+
+        if (selectedRecipe.getIngredients().asUnmodifiableObservableList().size() == 0) {
+            throw new CommandException(String.format(MESSAGE_NO_INGREDIENT_IN_RECIPE,
+                    selectedRecipe.getName().toString()));
+        }
 
         if (!hasInventoryIngredients(model.getInventory(), selectedRecipe)) {
             throw new CommandException(String.format(MESSAGE_MISSING_INGREDIENT,
