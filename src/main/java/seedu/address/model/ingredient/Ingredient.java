@@ -102,14 +102,6 @@ public class Ingredient {
     }
 
     /**
-     * Return true if otherIngredient's quantity is greater or equal than the ingredient's quantity
-     */
-    public boolean sufficientQuantity(Ingredient otherIngredient) {
-        return this.getQuantity().getValue().doubleValue()
-                >= otherIngredient.getQuantity().getValue().doubleValue();
-    }
-
-    /**
      * Returns true if both ingredients have the same name and quantity.
      * This defines a stronger notion of equality between two ingredients.
      */

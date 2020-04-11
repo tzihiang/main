@@ -71,13 +71,7 @@ public class InventoryCookCommand extends InventoryCommand {
     private boolean hasSufficientInventoryIngredients(ReadOnlyInventory inventory, Recipe recipe) {
         requireNonNull(inventory);
         requireNonNull(recipe);
-        ObservableList<Ingredient> inventoryList = inventory.getIngredientList();
-        ObservableList<Ingredient> recipeIngredients = recipe.getIngredients().asUnmodifiableObservableList();
-
-        return recipeIngredients.stream().map(recipeIngredient -> inventoryList.stream()
-                .filter(inventoryIngredient -> inventoryIngredient.isCompatibleWith(recipeIngredient))
-                .findFirst().get().sufficientQuantity(recipeIngredient))
-                .allMatch(isSufficient -> isSufficient.equals(true));
+        return inventory.calculateSimilarity(recipe) == 1;
     }
 
 
@@ -94,7 +88,7 @@ public class InventoryCookCommand extends InventoryCommand {
 
         Recipe selectedRecipe = recipeList.get(targetIndex.getZeroBased());
 
-        if (selectedRecipe.getIngredients().asUnmodifiableObservableList().size() == 0) {
+        if (selectedRecipe.getIngredients().size() == 0) {
             throw new CommandException(String.format(MESSAGE_NO_INGREDIENT_IN_RECIPE,
                     selectedRecipe.getName().toString()));
         }
