@@ -8,6 +8,8 @@ import static seedu.address.testutil.TypicalIngredients.ALMOND;
 import static seedu.address.testutil.TypicalIngredients.BUTTER;
 import static seedu.address.testutil.TypicalRecipes.CARBONARA;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -15,28 +17,45 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ingredient.IngredientName;
+import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
 
 public class RecipeRemoveIngredientCommandTest {
     private static final Index VALID_RECIPE_INDEX = new Index(0);
     private static final Index OUT_OF_BOUNDS_RECIPE_INDEX = new Index(1);
+    private static final IngredientName VALID_INGREDIENT_NAME = ALMOND.getName();
+    private static final Optional<IngredientQuantity> VALID_INGREDIENT_QUANTITY = Optional.of(ALMOND.getQuantity());
 
     @Test
     public void constructor_validInput() {
-        RecipeRemoveIngredientCommand c = new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, ALMOND);
-        assertEquals(c, new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, ALMOND));
+        RecipeRemoveIngredientCommand c = new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX,
+                VALID_INGREDIENT_NAME, VALID_INGREDIENT_QUANTITY);
+        assertEquals(c, new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX,
+                VALID_INGREDIENT_NAME, VALID_INGREDIENT_QUANTITY));
     }
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, null));
-        assertThrows(NullPointerException.class, () -> new RecipeRemoveIngredientCommand(null, ALMOND));
-        assertThrows(NullPointerException.class, () -> new RecipeRemoveIngredientCommand(null, null));
+        assertThrows(NullPointerException.class, () -> new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX,
+                null, null)); // index, null, null
+        assertThrows(NullPointerException.class, () -> new RecipeRemoveIngredientCommand(null,
+                null, VALID_INGREDIENT_QUANTITY)); // null, null, quantity
+        assertThrows(NullPointerException.class, () -> new RecipeRemoveIngredientCommand(null,
+                VALID_INGREDIENT_NAME, null)); // null, name, null
+        assertThrows(NullPointerException.class, () -> new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX,
+                VALID_INGREDIENT_NAME, null)); // index, name, null
+        assertThrows(NullPointerException.class, () -> new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX,
+                null, VALID_INGREDIENT_QUANTITY)); // index, null, quantity
+        assertThrows(NullPointerException.class, () -> new RecipeRemoveIngredientCommand(null,
+                VALID_INGREDIENT_NAME, VALID_INGREDIENT_QUANTITY)); // null, name, quantity
+        assertThrows(NullPointerException.class, () -> new RecipeRemoveIngredientCommand(null, null, null)); // all null
     }
 
     @Test
     public void execute_validInput() throws CommandException {
-        RecipeRemoveIngredientCommand c = new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, ALMOND);
+        RecipeRemoveIngredientCommand c = new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX,
+                VALID_INGREDIENT_NAME, VALID_INGREDIENT_QUANTITY);
         Model model = new ModelManager();
         model.addCookbookRecipe(CARBONARA);
 
@@ -54,7 +73,8 @@ public class RecipeRemoveIngredientCommandTest {
 
     @Test
     public void execute_invalidInput() throws CommandException {
-        RecipeRemoveIngredientCommand c = new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, ALMOND);
+        RecipeRemoveIngredientCommand c = new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX,
+                VALID_INGREDIENT_NAME, VALID_INGREDIENT_QUANTITY);
         Model model = new ModelManager();
 
         // removing from a non-existent recipe
@@ -63,23 +83,28 @@ public class RecipeRemoveIngredientCommandTest {
         model.addCookbookRecipe(CARBONARA);
 
         // recipe index out of bounds
-        RecipeRemoveIngredientCommand d = new RecipeRemoveIngredientCommand(OUT_OF_BOUNDS_RECIPE_INDEX, ALMOND);
+        RecipeRemoveIngredientCommand d = new RecipeRemoveIngredientCommand(OUT_OF_BOUNDS_RECIPE_INDEX,
+                VALID_INGREDIENT_NAME, VALID_INGREDIENT_QUANTITY);
         assertThrows(CommandException.class, () -> d.execute(model));
 
         // add ingredient to CARBONARA
         new RecipeAddIngredientCommand(VALID_RECIPE_INDEX, BUTTER).execute(model);
 
         // ingredient not found
-        RecipeRemoveIngredientCommand e = new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, BUTTER);
+        RecipeRemoveIngredientCommand e = new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX,
+                BUTTER.getName(), Optional.of(BUTTER.getQuantity()));
         e.execute(model);
         assertThrows(IngredientNotFoundException.class, () -> e.execute(model));
     }
 
     @Test
     public void equalsMethod() {
-        RecipeRemoveIngredientCommand c = new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, ALMOND);
-        assertEquals(c, new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, ALMOND));
-        assertNotEquals(c, new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, BUTTER));
+        RecipeRemoveIngredientCommand c = new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX,
+                VALID_INGREDIENT_NAME, VALID_INGREDIENT_QUANTITY);
+        assertEquals(c, new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX,
+                VALID_INGREDIENT_NAME, VALID_INGREDIENT_QUANTITY));
+        assertNotEquals(c, new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX,
+                BUTTER.getName(), Optional.of(BUTTER.getQuantity())));
         assertNotEquals(c, null);
     }
 }
