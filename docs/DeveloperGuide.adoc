@@ -159,61 +159,257 @@ This section describes some noteworthy details on how certain features are imple
 === Add Recipe to the Cookbook
 ==== Implementation
 
-The recipe addition mechanism is facilitated by `CookbookAddCommand`, which extends the `Command` abstract class. The format of the command is as follows: `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT_NAME]... [q/INGREDIENT_QUANTITY]... [t/TAG]...`
+The recipe addition mechanism is facilitated by `CookbookAddCommand`, which extends the `Command` abstract class. The
+format of the command is as follows: `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT_NAME]... [q/INGREDIENT_QUANTITY]... [t/TAG]...`.
 
-Below is a step by step sequence of what happens when a user enters this command
+Below is a step by step sequence of what happens when a user enters this command:
 
-. The user enters a recipe adding command using the command line input `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]... [x/STEP_INDEX]... [s/STEP_DESCRIPTION]... [t/TAG]...`.
-. `CookbookAddCommandParser` parsers the user input and checks if `n/NAME` and `d/DESCRIPTION` are provided. It then parses the input into the following fields: recipe name, recipe description, ingredients, and tags. Note that the ingredient names and ingredient quantities provided must be the same, or a `ParseException` will be thrown, likewise for step indices and step descriptions.
-. These fields are then passed as parameters for `Recipe`, which is then passed as the parameter for `CookbookAddCommand` and returned to `LogicManager`.
-. `LogicManager` calls `CookbookAddCommand#execute()` which checks if the cookbook already contains the same recipe with the same name, description, ingredient names, ingredient quantities, and tags using `Model#hasCookbookRecipe()`. If there is a duplicate, a `CommandException` is thrown, stating that the user is attempting to add a duplicate recipe.
-. If `CommandException` is not thrown, `Model#addCookbookRecipe()` will be executed, with the recipe to be added as a parameter.
-. `Model#addCookbookRecipe()` then executes `Cookbook#addRecipe()`, which adds the recipe to the cookbook, and the `FilteredList<Recipe>` representing the recipes in the cookbook are updated with `Model#updateFilteredCookbookRecipeList()`
-. A `CommandResult` with the text to display to the user is then returned to `LogicManager`, which can passed back to `MainWindow`, which displays it to the user on the CLI and GUI.
+. The user enters a recipe adding command using the command line input `cookbook add recipe n/NAME d/DESCRIPTION
+[i/INGREDIENT]... [q/QUANTITY]... [s/STEP_DESCRIPTION]... [t/TAG]...`.
+.  `CookbookAddCommandParser` parsers the user input and checks if `n/NAME` and `d/DESCRIPTION` are provided. It then
+parses the input into the following fields: recipe name, recipe description, ingredients, steps, and tags.
+
++
+Note that
+the ingredient names and ingredient quantities provided must be the same, or a `ParseException` will be thrown:
++
+[source,java]
+----
+if (names.size() != quantities.size()) {
+    throw new ParseException(
+        String.format(MESSAGE_DIFFERENT_NUMBER_OF_INPUTS, names.size(), quantities.size()));
+}
+----
+{blank}
+
+. These fields are then passed as parameters for `Recipe`, which is then passed as the parameter for
+`CookbookAddCommand` and returned to `LogicManager`.
+. `LogicManager` calls `CookbookAddCommand#execute()` which checks if the cookbook already contains the same recipe with the same name, description, ingredient names, ingredient quantities, and tags using `Model#hasCookbookRecipe()`.
++
+If there is a duplicate, a `CommandException` is thrown, stating that the user is attempting to add a duplicate recipe:
++
+[source,java]
+----
+if (model.hasCookbookRecipe(toAdd)) {
+    throw new CommandException(MESSAGE_DUPLICATE_RECIPE);
+}
+----
+. If `CommandException` is not thrown, `Model#addCookbookRecipe` will be executed, with the recipe to be added as a parameter.
+. `Model#addCookbookRecipe()` then executes `Cookbook#addRecipe()`, which adds the recipe to the cookbook, and the
+`FilteredList<Recipe>` representing the recipes in the cookbook are updated with `Model#updateFilteredCookbookRecipeList()`:
++
+[source,java]
+----
+updateFilteredCookbookRecipeList(PREDICATE_SHOW_ALL_RECIPES)
+----
+where `PREDICATE_SHOW_ALL_RECIPES = unused -> true`.
+. A `CommandResult` with the text to display to the user is then returned to `LogicManager`, which can passed back to
+`MainWindow`, which displays it to the user on the CLI and GUI: `resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser())`. The text displayed will notify the user on whether
+their addition was successful.
+
+.UML object diagram of Recipe
+image::RecipeObjectDiagram.png[]
 
 ==== Implementation reasoning
 
-This command is implemented this way  to allow a user to add a recipe with optional fields (ingredients, tags) - only the recipe name and recipe description are mandatory fields. This way, a user does not have input all the fields that they may not have at the moment to create a recipe. After creating the skeleton of the recipe, the user can then use the other `Cookbook` methods to add ingredients and steps to the recipe. However, one key point is that should ingredient names be provided, the same number of ingredient quantities have to be provided as well, vice versa, likewise for step indices and step descriptions.
+This command is implemented this way  to allow a user to add a recipe with optional fields (ingredients, steps, tags) -
+only the recipe name and recipe description are mandatory fields. This way, a user does not have input all the fields
+that they may not have at the moment to create a recipe. After creating the skeleton of the recipe, the user can then
+use the other `Cookbook` commands to add ingredients and steps to the recipe. However, one key point is that should
+ingredient names be provided, the same number of ingredient quantities have to be provided as well.
 
 ==== Sequence diagram
-The following sequence diagram shows how the recipe adding function works (full command omitted for brevity):
+The following sequence diagram shows how the recipe adding function works (full command [`cookbook add recipe
+                                                                                          n/Recipe name d/Recipe
+                                                                                          description i/Ingredient 1
+                                                                                          q/1 piece i/Ingredient 2
+                                                                                          q/20 ml s/Do step 1 s/Do
+                                                                                          step 2 t/This t/Is t/A
+                                                                                          t/Tag`]  omitted from diagram
+for brevity):
 
+.Sequence diagram for CookbookAddCommand
 image::CookbookAddRecipeSequenceDiagram.png[]
 
 ==== How the feature works
 Step 1: Input the command in the command box, then hit kbd:[Enter] on the keyboard. The command is as follows:
-`cookbook add recipe n/Recipe name d/Recipe description i/Ingredient 1 q/1 piece i/Ingredient 2 q/20 ml x/1 s/Do step 1 x/2 s/Do step 2 t/This t/Is t/A t/Tag`.
+`cookbook add recipe n/Recipe name d/Recipe description i/Ingredient 1 q/1 piece i/Ingredient 2 q/20 ml s/Do step 1
+ s/Do step 2 t/This t/Is t/A t/Tag`.
 
+.CookbookAddCommand sample command in Command box
 image::CookbookAddRecipe1.png[]
 
-Step 2: Results will be parsed and displayed back to the user.
+Step 2: Results will be parsed, and if the command is valid, a success message will be displayed to the user.
 
+.CookbookAddCommand sample command result in Result display
 image::CookbookAddRecipe2.png[]
 
-Step 3: The newly added recipe will now appear in the recipes panel, which a brief overview, consisting of its name, description, and tags.
+Step 3: The newly added recipe will now appear in the recipes panel, which a brief overview, consisting of its name,
+description, and tags. To view all the details of a recipe, the user can either enter `cookbook view recipe INDEX`,
+where index is a valid integer, or click the view button.
 
+.CookbookAddCommand sample recipe in Recipe panel
 image::CookbookAddRecipe3.png[]
 
 ==== Design considerations
-===== Aspect: How to parse optional fields
-- Alternative 1 (current choice): Parse each category separately
-* Each category (ingredient name, ingredient quantity, step index, step description, tag) are parsed separately and returned as `List`. If the returned `List` is empty, then it means that that field was not provided in the input, and will be set to an empty `List` in the recipe.
-* Pros: Provides more flexibility for the user, no need to deal with null values
-* Cons: More methods have to be executed which may increase time complexity
+===== Aspect 1: How to parse optional parameters
+.Design considerations for parsing optional parameters
+[cols="12%,44%,44%"]
+|===
+||Design A: Parse each category separately (current choice)  | Design B: Parse all the categories together
+|Description
+|Each category (ingredient name, ingredient quantity, step description, tag) are parsed separately and returned as `List`. If the returned `List` is empty, then it means that that field was not provided in the input, and will be set to an empty `List` in the recipe.
+|Each category will be parsed together in one function in `CookbookAddCommandParser`
+|Pros
+a|
+- Provides more flexibility for the user and does not make it mandatory to input fields that they may not necessarily
+have.
+- No need to deal with null values, can simply check if list is empty.
+a|
+- Straightforward
+- No need to create and call multiple methods from other classes
+|Cons
+a|
+- More methods have to be executed which may increase time and NPath complexity.
+- Debugging and tracing becomes more confusing due to the method being defined in the lowest level of abstraction.
+a|
+- Have to deal with null values and include null checks (`ifPresent()` etc.)
+- Method will be very long and decreases readability
+|===
 
-- Alternative 2: Parse all the categories together
-* Each category will be parse together in one function
-* Pros: Straightforward, no need to call multiple functions from other classes
-* Cons: Have to deal with null values and include null checks (`ifPresent()` etc.), method will be very long and decreases readability
+.Design considerations for results to show users
+===== Aspect 2: Result to show user
+[cols="12%,44%,44%"]
+|===
+||Design A: Show a short result on the success of the command | Design B: Show all the details back to the user
+|Description|Show a message to a usage which notifies them that the command was successful in adding the recipe to
+the cookbook. | Shows a message similar to design choice A, and also show all the details of the added recipe.
+|Pros
+a|
+- Short and succinct message, tells the user what they need to know
+- User interface is cleaner and more intuitive, and does not overload users with unnecessary information
+a|
+- Easier to implement
+|Cons
+a|
+- Requires the graphical user interface to be able to toggle and show recipes, without the need for a command,
+implemented here:
 
-===== Aspect: String formatting for CommandResult
-- Alternative 1 (current choice): Separate each field with newlines
-* Pros: vastly improves readability
-* Cons: smaller font size to improve fit in `ResultDisplay`
+image::CookbookAddRecipe3.png[]
 
-- Alternatve 2: Combine all the fields in one line
-* Pros: bigger font size due to the lack of newlines
-* Cons: difficult to read, difficult for user to extract desired information from the text in `ResultDisplay`
+a|
+- Overloads the user with unnecessary information
+- Requires result display to take up more space than required, to reduce the need for users to scroll down the result
+display.
+
+|===
+
+=== Export ingredients in cart to PDF file
+The user may use this command to export the ingredients in their cart to a PDF file, which they can then use as their
+shopping list at the supermarkets.
+
+==== Implementation
+The cart exporting mechanism is facilitated by `CookbookExportCommand`, which extends the `Command` abstract class.
+The format is as follows: `cart export`.
+
+Below is a step by step sequence of what happens when a user enters this command:
+
+. The user enters a cart export command using the command line input `cart export`.
+. `CartExportCommandParser` parses the user input and checks if the argument passed to it is an empty String, as the
+command takes in no extra parameters.
++
+Note that if the String is not empty, a `ParseException` will be thrown:
++
+[source,java]
+----
+if (userInput.isEmpty()) {
+    return new CartExportCommand();
+} else {
+    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CartExportCommand.MESSAGE_USAGE));
+}
+----
++
+This means that `cart export ingredient` will not work.
+. `CartExportCommandParser` then returns a `CartExportCommand` to `LogicManager`.
+. `LogicManager` calls `CartExportCommand#execute()` calls the static method of `PdfExporter`,
+`PdfExporter#exportCart()`, which takes in the `ObservableList<Ingredient>` stored in `Cart`
+. Step 4 is executed within a try-catch block. If a previously generated pdf (saved as `cart.pdf` by default) is
+opened in another program, or there is an issue writing to the PDF file (more information can be found
+https://api.itextpdf.com/iText5/5.59/com/itextpdf/text/DocumentException.html[here]), a `CommandResult` with an error
+message will returned to `LogicManager`:
++
+[source,java]
+----
+try {
+    PdfExporter.exportCart(model.getCart().getIngredientList());
+} catch (IOException | DocumentException e) {
+    return new CommandResult(MESSAGE_FILE_NOT_FOUND);
+}
+----
+. Else, a `CommandResult` with the text to display to the user will be returned to `LogicManager`. The
+`CommandResult` is then passed back to `MainWindow`, which displays it to the user on the CLI and GUI: `resultDisplay
+.setFeedbackToUser(commandResult.getFeedbackToUser())`. The text displayed will notify the user on whether
+their addition was successful.
+
+==== Implementation reasoning
+This command was implemented to bridge the (current, v1.4) inadequacy of Cooking Papa, which is that it is not
+portable (yet). It was still not convenient _enough_ to be able to organize cart ingredients. Evenutally, users had
+to go outside to the supermarket, and Cooking Papa is a desktop-only application. By allowing users to export the
+ingredients in their cart to a PDF file, they can then print it out, or transfer it to their mobile devices, and
+bring them along as shopping lists. Additionally, the layout and content of the generated PDF file is simple,
+informational, and easy for users to extend, allowing them to add (handwritten or  annotated) remarks.
+
+==== Sequence diagram
+The following sequence diagram shows how the function of exporting ingredients in the cart to a PDF file works:
+
+.Sequence diagram for CartExportCommand
+image::CartExportCommandSequenceDiagram.png[]
+
+==== Design considerations
+===== Aspect 1: File format to export ingredients in cart to
+[cols="12%,44%,44%"]
+|===
+||Design A (current choice): .pdf|Design B: .txt
+|Description|Exports it to a flexible pdf file|Exports it to a txt file
+|Pros
+a|
+- Easier to format with `iTextPDF` 's vast library and API
+- More versatile in that images can be added if the function was to be extended to include images of the ingredients
+a|
+- Simple to implement
+|Cons
+a|
+- More formatting code required
+- May take slightly longer to export as compared to design B
+a|
+- Lack of design/formatting flexibility
+|===
+===== Aspect 2: What information to export
+[cols="12%,44%,44%"]
+|===
+||Design A (current choice): Export the ingredient names and quantities in the cart|Design B: Export the entirety of
+Cooking Papa
+(cookbook, inventory, cart)
+|Description|Allow exporting of just the cart|Allow exporting of the cart, inventory, and cookbook
+|Pros
+a|
+- Easier to implement as there will be less information to parse
+- Keeps the exported PDF short and sweet
+- Ingredients in the inventory and recipes in the cookbook generally correlates (and are consequential of) with the
+ingredients in the cart, so exporting the inventory as well as the cookbook is likely to be redundant.
+
+.A sample shopping list generated by the command
+image::CookbookExportExample2.png[]
+a|
+- Provides users an all-in-one file containing all the information they entered into Cooking Papa
+- Allows user to reproduce hard-copy recipe books using Cooking Papa
+|Cons
+a|
+- Certain information may be needed and not exportable by the user, i.e. recipes
+a|
+- Slightly more difficult to implement
+- May be providing users with unnecessary information
+|===
 
 // tag::cookbooksearchinventory[]
 === Search for recipes based on ingredients in the inventory
@@ -247,7 +443,8 @@ are correct. Otherwise a `ParseException` will be thrown.
 `INGREDIENT_QUANTITY` unit. If that `Ingredient` exists, it will simply add on to the quantity of that ingredient. Otherwise,
 a new instance of that `Ingredient` will be added to the Cart.
 . If `CommandException` is not thrown, `Model#addCartIngredient` will be executed, with the given `Ingredient` as the parameter
-. `Model#addCartIngredient` then executes, adding the `Ingredient` to the local cart storage and updates with `Model#updateFilteredCartIngredientList()`.
+. `Model#addCartIngredient` then executes, adding the `Ingredient` to the local cart storage and updates with
+`Model#updateFilteredCartIngredientList()`.
 . A `CommandResult` with the successful text message is returned to `LogicManager` and will be displayed to the user via the GUI to feedback to the
 user that the `Ingredient` has been successfully added.
 
@@ -283,9 +480,10 @@ image::CartAddCommand3.png[]
 The above implementation is the same for `Inventory`
 
 ==== Design Considerations
-Aspect: The need for many parsers for this command
+===== Aspect: The need for many parsers for this command
 
 .Design considerations for the need for many parsers for this command
+[cols="12%,44%,44%"]
 |===
 | |Design A (Current choice): Create parsers for every individual action | Design B: Create parsers for each specific action
 
@@ -347,9 +545,10 @@ Step 2: Press kbd:[Enter]. The ingredients from cart will all be shifted to inve
 image::CartMoveCommand2.png[]
 
 ==== Design considerations
-Aspect: Allowing users to move some or all ingredients from cart to inventory
+===== Aspect: Allowing users to move some or all ingredients from cart to inventory
 
 .Design considerations for allowing users to move some or all ingredients from cart to inventory
+[cols="12%,44%,44%"]
 |===
 | |Design A (Current choice): Move all ingredients | Design B: Allow users to move individually or exclude some ingredients when moving
 
@@ -368,7 +567,6 @@ add back the ingredients to the cart after it is cleared if they wish to.
 |Lesser functionality to users that really want to only move certain ingredients
 |Poorer user experience for users that do not want to move all ingredients from the cart to inventory on a regular basis,
 |===
-
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
@@ -538,7 +736,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is `Cooking Papa` and the *Actor* is the `user`, unless specified otherwise)
 
-```
+----
 Use case: UC01 - Create a recipe
 
 MSS:
@@ -559,9 +757,9 @@ Extensions:
     *a. At any time, User chooses to end the creation of a recipe.
         *a1. Cooking Papa cancels creation of a recipe.
 
-```
+----
 
-```
+----
 Use Case: UC02 - Search for recipes
 
 MSS:
@@ -570,9 +768,9 @@ MSS:
 3. User enters the tag.
 4. Cooking Papa displays recipes with the corresponding tag.
 Use case ends.
-```
+----
 
-```
+----
 Use Case: UC03 - View a recipe
 
 MSS:
@@ -589,9 +787,9 @@ Extensions:
         3a3. User enters the new index.
         Steps 3a1-3a3 are repeated until the index entered is valid.
         Use case resumes from step 4.
-```
+----
 
-```
+----
 Use case: UC04 - Add a recipe's ingredients to the cart
 
 MSS:
@@ -608,7 +806,7 @@ Extensions:
         3a3. User enters the new index.
         Steps 3a1-3a3 are repeated until the index entered is valid.
         Use case resumes from step 4.
-```
+----
 
 [appendix]
 == Non Functional Requirements

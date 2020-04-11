@@ -36,7 +36,6 @@ public class InventoryCommandParser implements Parser<InventoryCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        // For now, implementation will only be done for the whole ingredient, and not quantity
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 

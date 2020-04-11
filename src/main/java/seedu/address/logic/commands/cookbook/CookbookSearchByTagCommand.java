@@ -16,12 +16,10 @@ public class CookbookSearchByTagCommand extends CookbookSearchCommand {
 
     public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " "
             + COMMAND_WORD + " " + SEARCH_TAG_COMMAND
-            + ": Finds all recipes "
-            + "whose recipe names contain any of "
-            + "the specified tags (case-insensitive) and displays them as a list with index numbers.\n"
+            + ": Finds all recipes whose recipe names contain any of the specified tags (case-insensitive) and"
+            + " displays them as an alphabetically sorted list with index numbers.\n"
             + "Parameters: " + PREFIX_TAG + "TAG\n\n"
-            + "Example: " + COMMAND_CATEGORY + " "
-            + COMMAND_WORD + " " + SEARCH_TAG_COMMAND + " "
+            + "Example: " + COMMAND_CATEGORY + " " + COMMAND_WORD + " " + SEARCH_TAG_COMMAND + " "
             + PREFIX_TAG + "breakfast";
 
     private final RecipeContainsTagsPredicate predicate;
@@ -33,16 +31,17 @@ public class CookbookSearchByTagCommand extends CookbookSearchCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
         model.updateFilteredCookbookRecipeList(predicate);
         return new CommandResult(
-            String.format(Messages.MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredCookbookRecipeList().size()));
+                String.format(Messages.MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredCookbookRecipeList().size()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof CookbookSearchByTagCommand // instanceof handles nulls
-            && (predicate.equals(((CookbookSearchByTagCommand) other).predicate)));
+                || (other instanceof CookbookSearchByTagCommand // instanceof handles nulls
+                && (predicate.equals(((CookbookSearchByTagCommand) other).predicate)));
     }
 }
 

@@ -2,6 +2,7 @@ package seedu.address.logic.commands.recipe;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.List;
@@ -14,8 +15,6 @@ import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.ingredient.exceptions.NonPositiveIngredientQuantityException;
 import seedu.address.model.recipe.Recipe;
-
-
 
 /**
  * Removes an ingredient from a recipe.
@@ -34,8 +33,8 @@ public class RecipeRemoveIngredientCommand extends RecipeRemoveCommand {
      * Creates a RecipeRemoveIngredientCommand to remove the specified {@code Ingredient} from the recipe
      */
     public RecipeRemoveIngredientCommand(Index index, Ingredient toRemove) {
-        requireNonNull(index);
-        requireNonNull(toRemove);
+        requireAllNonNull(index, toRemove);
+
         this.index = index;
         this.toRemove = toRemove;
     }
@@ -50,6 +49,7 @@ public class RecipeRemoveIngredientCommand extends RecipeRemoveCommand {
                     RecipeRemoveCommand.MESSAGE_USAGE));
         }
 
+        assert (index.getZeroBased() < lastShownList.size());
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
         UniqueIngredientList ingredients = recipeToEdit.getIngredients();
 

@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.inventory;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Inventory;
@@ -12,9 +14,10 @@ public class InventoryClearCommand extends InventoryCommand {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "All ingredients from inventory cleared!";
+    public static final String MESSAGE_SUCCESS_EMPTY = "The inventory is already empty.";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
-            + "This command allows you to remove all ingredients from your inventory\n"
-            + "Parameters for removing all ingredients from your inventory is as follows: \n"
+            + ": removes all ingredients from your inventory\n"
+            + "Parameters: \n"
             + COMMAND_CATEGORY + " " + COMMAND_WORD;
 
     /**
@@ -25,8 +28,11 @@ public class InventoryClearCommand extends InventoryCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        boolean isEmpty = model.getInventory().getIngredientList().size() == 0;
         model.setInventory(new Inventory());
-        return new CommandResult(MESSAGE_SUCCESS);
+        return isEmpty ? new CommandResult(MESSAGE_SUCCESS_EMPTY) : new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override

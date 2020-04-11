@@ -16,13 +16,12 @@ public class CookbookSearchByKeywordCommand extends CookbookSearchCommand {
 
     public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " "
             + COMMAND_WORD + " " + SEARCH_KEYWORD_COMMAND
-            + ": Finds all recipes "
-            + "whose recipe names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: " + PREFIX_SEARCH_KEYWORD + "KEYWORD\n\n"
+            + ": finds all recipes whose recipe names contain any of "
+            + "the specified keywords (case-insensitive) and displays them as an alphabetically sorted list with "
+            + "index numbers.\n"
+            + "Parameters: " + PREFIX_SEARCH_KEYWORD + "KEYWORD\n"
             + "Example:" + COMMAND_CATEGORY + " "
-            + COMMAND_WORD + " " + SEARCH_KEYWORD_COMMAND + " "
-            + PREFIX_SEARCH_KEYWORD + "bacon carbonara";
+            + COMMAND_WORD + " " + SEARCH_KEYWORD_COMMAND + " " + PREFIX_SEARCH_KEYWORD + "bacon";
 
     private final RecipeNameContainsKeywordsPredicate predicate;
 
@@ -33,6 +32,7 @@ public class CookbookSearchByKeywordCommand extends CookbookSearchCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
         model.updateFilteredCookbookRecipeList(predicate);
         return new CommandResult(
                 String.format(MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredCookbookRecipeList().size()));
@@ -41,8 +41,8 @@ public class CookbookSearchByKeywordCommand extends CookbookSearchCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof CookbookSearchByKeywordCommand
-            && predicate.equals(((CookbookSearchByKeywordCommand) other).predicate));
+                || (other instanceof CookbookSearchByKeywordCommand
+                && predicate.equals(((CookbookSearchByKeywordCommand) other).predicate));
     }
 }
 

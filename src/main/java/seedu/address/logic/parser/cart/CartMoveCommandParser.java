@@ -11,7 +11,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses no input to return a CartDoneCommand.
  */
 public class CartMoveCommandParser implements Parser<CartCommand> {
-
     @Override
     public CartMoveCommand parse(String userInput) throws ParseException {
         if (userInput.isEmpty()) {

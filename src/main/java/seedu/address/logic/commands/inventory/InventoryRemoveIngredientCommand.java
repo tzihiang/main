@@ -26,8 +26,8 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
     public static final String MESSAGE_SUCCESS = "%1$s removed from inventory";
     public static final String MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH = "The quantity specified is too large";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD + " " + INGREDIENT_KEYWORD
-            + ": This commands allows you to remove ingredients to your inventory.\n"
-            + "Parameters for removing an ingredient into your inventory is as follows: \n"
+            + ":removes ingredients to your inventory.\n"
+            + "Parameters: \n"
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
             + "[" + PREFIX_INGREDIENT_QUANTITY + "QUANTITY]\n"
             + "Examples:\n"
@@ -43,8 +43,9 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
      * Creates a InventoryAddIngredientCommand to add the specified {@code Ingredient} to the inventory
      */
     public InventoryRemoveIngredientCommand(IngredientName ingredientName,
-            Optional<IngredientQuantity> ingredientQuantity) {
+                                            Optional<IngredientQuantity> ingredientQuantity) {
         requireAllNonNull(ingredientName, ingredientQuantity);
+
         this.ingredientName = ingredientName;
         this.ingredientQuantity = ingredientQuantity;
     }
@@ -56,7 +57,7 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
         try {
             ingredientQuantity.map(x -> new Ingredient(ingredientName, x))
                     .ifPresentOrElse(model::removeInventoryIngredient, () ->
-                        model.removeInventoryIngredient(ingredientName));
+                            model.removeInventoryIngredient(ingredientName));
 
             String ingredientRemoved = ingredientQuantity.map(x -> new Ingredient(ingredientName, x).toString())
                     .orElseGet(() -> "All " + ingredientName);
