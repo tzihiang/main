@@ -900,6 +900,23 @@ there are three tags included, the recipes returned do not have to be tagged wit
     Expected: the recipe panel will be updated to show only three recipes, of these three recipes, they are either
 tagged with "Simple" or "Celebrity".
 
+=== Exporting the cart to a PDF file
+Please note that for the export command, the result is based on the sample cart.
+a. Prerequisite: have the sample cart data in `cart.json`, if the file has been modified, please exit Cooking Papa,
+and delete it in `/data`, and run Cooking Papa again.
+
+.. Test case: `cart export`
+    Expected: a PDF file will be created in the same folder as Cooking Papa, and the content should look like:
++
+.Content of cart.pdf created from sample cart data
+image::CookbookExportExample2.png[]
+
+.. Test case: `cart export`, with a previously created `cart.pdf` open in a program
+    Expected: an error will be thrown, as `PdfExporter` is unable to modify a file that is currently open in another
+program. Closing the file and executing the command will return the same result (assuming the cart data is the same
+as the sample cart data)
+as test case a.
+
 [appendix]
 == Effort
 [cols="25%,65%,10%"]
