@@ -44,7 +44,7 @@ public class RecipeAddIngredientCommand extends RecipeAddCommand {
                     RecipeAddCommand.MESSAGE_USAGE));
         }
 
-        assert index.getZeroBased() >= lastShownList.size();
+        assert index.getZeroBased() < lastShownList.size();
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
         UniqueIngredientList ingredients = recipeToEdit.getIngredients();
         ingredients.add(toAdd);

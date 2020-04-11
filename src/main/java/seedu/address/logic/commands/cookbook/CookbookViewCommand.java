@@ -45,8 +45,6 @@ public class CookbookViewCommand extends CookbookCommand {
                     CookbookViewCommand.MESSAGE_USAGE));
         }
 
-        assert(targetIndex.getZeroBased() >= lastShownList.size());
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex.getOneBased(),
                 lastShownList.get(targetIndex.getZeroBased()).getName().fullRecipeName),
                 true, targetIndex);

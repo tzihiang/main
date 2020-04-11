@@ -21,16 +21,17 @@ import seedu.address.model.ingredient.exceptions.NonPositiveIngredientQuantityEx
  */
 public class InventoryRemoveIngredientCommand extends InventoryCommand {
 
-    public static final String COMMAND_WORD = "remove ingredient";
+    public static final String COMMAND_WORD = "remove";
+    public static final String INGREDIENT_KEYWORD = "ingredient";
     public static final String MESSAGE_SUCCESS = "%1$s removed from inventory";
-    public static final String MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH = "The inventory does not contain %2$s %1$s";
-    public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
+    public static final String MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH = "The quantity specified is too large";
+    public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD + " " + INGREDIENT_KEYWORD
             + ": This commands allows you to remove ingredients to your inventory.\n"
             + "Parameters for removing an ingredient into your inventory is as follows: \n"
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
             + "[" + PREFIX_INGREDIENT_QUANTITY + "QUANTITY]\n"
             + "Examples:\n"
-            + COMMAND_CATEGORY + " " + COMMAND_WORD + " "
+            + COMMAND_CATEGORY + " " + COMMAND_WORD + " " + INGREDIENT_KEYWORD + " "
             + PREFIX_INGREDIENT_NAME + "Eggs\n"
             + COMMAND_CATEGORY + " " + COMMAND_WORD + " "
             + PREFIX_INGREDIENT_NAME + "Eggs " + PREFIX_INGREDIENT_QUANTITY + "10";
@@ -63,8 +64,7 @@ public class InventoryRemoveIngredientCommand extends InventoryCommand {
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, ingredientRemoved));
         } catch (NonPositiveIngredientQuantityException e) {
-            throw new CommandException(String.format(MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH,
-                    ingredientName, ingredientQuantity.get()));
+            throw new CommandException(String.format(MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH));
         }
     }
 

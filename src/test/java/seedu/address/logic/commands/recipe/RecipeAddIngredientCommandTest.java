@@ -49,7 +49,7 @@ public class RecipeAddIngredientCommandTest {
         model.addCookbookRecipe(SCRAMBLED_EGG);
         model.addCookbookRecipe(SPAGHETTI_BOLOGNESE);
         assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS,
-                CARBONARA.getName().fullRecipeName, ALMOND)));
+                AGLIO_OLIO.getName().fullRecipeName, ALMOND)));
     }
 
     @Test

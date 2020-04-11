@@ -2,18 +2,20 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javafx.collections.ObservableList;
 
 import seedu.address.model.ingredient.CompatibleIngredientList;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientDefaultComparator;
 import seedu.address.model.ingredient.IngredientName;
 
 /**
  * Wraps all data at the ingredient list level
  */
-public abstract class IngredientList {
+public abstract class SortedIngredientList {
 
     private final CompatibleIngredientList ingredients = new CompatibleIngredientList();
 
@@ -23,6 +25,7 @@ public abstract class IngredientList {
      */
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients.setIngredients(ingredients);
+        sort();
     }
 
     /**
@@ -39,6 +42,7 @@ public abstract class IngredientList {
      */
     public void addIngredient(Ingredient ingredient) {
         ingredients.add(ingredient);
+        sort();
     }
 
     /**
@@ -50,6 +54,7 @@ public abstract class IngredientList {
     public void setIngredient(Ingredient target, Ingredient editedIngredient) {
         requireNonNull(editedIngredient);
         ingredients.setIngredient(target, editedIngredient);
+        sort();
     }
 
     /**
@@ -66,6 +71,20 @@ public abstract class IngredientList {
      */
     public void removeIngredient(IngredientName key) {
         ingredients.remove(key);
+    }
+
+    /**
+     * Sorts the list of ingredients using {@code IngredientDefaultComparator}.
+     */
+    public void sort() {
+        sort(new IngredientDefaultComparator());
+    }
+
+    /**
+     * Sorts the list of ingredients using the specified comparator.
+     */
+    public void sort(Comparator<? super Ingredient> comparator) {
+        ingredients.sort(comparator);
     }
 
     public CompatibleIngredientList getCompatibleIngredientList() {

@@ -179,6 +179,11 @@ public interface Model {
      */
     void setCartIngredient(Ingredient target, Ingredient editedIngredient);
 
+    /**
+     * Sorts the cookbook by similarity of the specified inventory's ingredients.
+     */
+    void sortCookbookByInventorySimilarity();
+
     /** Returns an unmodifiable view of the filtered cookbook recipe list */
     ObservableList<Recipe> getFilteredCookbookRecipeList();
 
@@ -205,4 +210,5 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCartIngredientList(Predicate<Ingredient> predicate);
+
 }

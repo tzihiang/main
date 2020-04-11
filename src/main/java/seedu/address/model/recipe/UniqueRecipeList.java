@@ -3,6 +3,8 @@ package seedu.address.model.recipe;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -101,6 +103,13 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         if (!internalList.remove(toRemove)) {
             throw new RecipeNotFoundException();
         }
+    }
+
+    /**
+     * Sorts the list of recipes using the specified comparator.
+     */
+    public void sort(Comparator<? super Recipe> comparator) {
+        Collections.sort(internalList, comparator);
     }
 
     /**

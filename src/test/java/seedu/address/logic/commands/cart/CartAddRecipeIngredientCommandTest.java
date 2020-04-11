@@ -40,7 +40,7 @@ public class CartAddRecipeIngredientCommandTest {
         model.addCookbookRecipe(AGLIO_OLIO);
         model.addCookbookRecipe(SCRAMBLED_EGG);
         model.addCookbookRecipe(SPAGHETTI_BOLOGNESE);
-        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, CARBONARA.getName())));
+        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, AGLIO_OLIO.getName())));
         assertTrue(model.hasCookbookRecipe(AGLIO_OLIO));
         assertTrue(model.hasCookbookRecipe(SCRAMBLED_EGG));
         assertTrue(model.hasCookbookRecipe(SPAGHETTI_BOLOGNESE));

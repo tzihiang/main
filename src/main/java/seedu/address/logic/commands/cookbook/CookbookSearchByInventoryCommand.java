@@ -28,6 +28,7 @@ public class CookbookSearchByInventoryCommand extends CookbookSearchCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
+        model.sortCookbookByInventorySimilarity();
         model.updateFilteredCookbookRecipeList(
             new RecipeContainsInventoryIngredientsPredicate(model.getInventory()));
 

@@ -2,7 +2,10 @@ package seedu.address.logic.parser.recipe;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
