@@ -635,7 +635,7 @@ CookingPapa can generate a recipe of the day to cook based on the recipes curren
 [cols="2,3,5a", options="header"]
 |===
 | Category | Addtional Parameters | Result
-.7+|``cookbook``
+.8+|``cookbook``
 |``view recipe INDEX``
 |Shows recipe at given INDEX
 |``add recipe n/NAME d/DESCRIPTION``
@@ -647,10 +647,12 @@ INGREDIENT and its QUANTITY, STEP, and TAG are optional parameters and will be a
 |Remove recipe at given INDEX
 |``search recipe k/KEYWORD``
 |Search for recipes by a keyword
-|``search recipe t/TAG``
-|Search for recipes by a keyword
-|``search recipe inventory``
-|Search for recipes whose ingredients are available in the inventory.
+|``search tag t/TAG``
+|Search for recipes by a tag
+|``search inventory``
+|Search for recipes by the ingredients in the inventory.
+|``list``
+|List all recipes in the cookbook.
 
 .6+|``recipe``
 |``INDEX add ingredient i/INGREDIENT q/QUANTITY``
