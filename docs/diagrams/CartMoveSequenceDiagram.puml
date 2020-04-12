@@ -49,10 +49,10 @@ CartMoveCommand -> CartMoveCommandParser : command
 deactivate CartMoveCommand
 
 CartMoveCommandParser -> CartCommandParser : command
-deactivate CartMoveCommandParser
+destroy CartMoveCommandParser
 
 CartCommandParser -> CookingPapaParser : command
-deactivate CartCommandParser
+destroy CartCommandParser
 
 CookingPapaParser -> LogicManager : command
 deactivate CookingPapaParser
@@ -74,7 +74,7 @@ CommandResult --> CartMoveCommand
 deactivate CommandResult
 
 CartMoveCommand --> LogicManager : result
-deactivate CartMoveCommand
+destroy CartMoveCommand
 
 [<--LogicManager
 deactivate LogicManager
