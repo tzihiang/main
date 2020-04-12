@@ -431,12 +431,35 @@ When the proportion fulfilled has been calculated for each ingredient, the value
 In the case where the recipe does not have any ingredients added to it yet, the `calculateSimilarity()` method will return `0`, indicating no similarity to the inventory ingredients.
 
 The following sequence diagram summarizes how objects interact when a user executes the command,
-with more focus on how `Logic` parses the command:
+with more focus on how the command is parsed in the `Logic`component:
 
 image::CookbookSearchByInventorySequenceDiagram.png[]
-// end::cookbooksearchinventory[]
 
 ==== Design considerations
+===== Aspect 1: Weighting of each ingredient
+[cols="12%,44%,44%"]
+|===
+| |Design A (Current choice): Every ingredient is weighted equally | Design B: More important ingredients are given a larger weigting
+
+|Description
+| The similarity of a recipe's ingredients to an inventory's ingredients is calculated by taking the mean of the proportions calculated for each ingredient,
+with equal weighting given to all ingredients.
+|The similarity of a recipe's ingredients to an inventory's ingredients is calculated by taking the weighted mean of the proportions calculated for each ingredient,
+with larger weightings given to more important ingredients ingredients.
+
+|Pros
+| Gives a good rough estimate of the proportion of ingredient requirements fulfilled for a recipe, and straightforward to implement.
+| May give a better gauge of the proportion of ingredient requirements fulfilled for a recipe, by accounting for the importance of the ingredient.
+For example, beef would be an important ingredient for a steak recipe, but garnishes might be considered less important as they can be substituted more easily.
+
+|Cons
+| Does not account for the importance of the ingredient in the recipe
+| Difficult to judge the importance of the ingredient, and complicated to implement categorisation of the types ingredients and their relative importance.
+|===
+
+Design A was chosen as it provided a fair estimate of the similarity between the recipe and inventory ingredients, with a simple implementation.
+The cons for Design B were deemed to outweigh the pros, especially since the importance of an ingredient in a recipe could be rather subjective.
+// end::cookbooksearchinventory[]
 
 === Adding ingredients to inventory and cart
 The inventory and cart acts as storage for `Ingredient` classes. They are facilitated by `InventoryCommand` and `CartCommand`
