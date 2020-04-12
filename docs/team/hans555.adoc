@@ -24,7 +24,7 @@ which make this enhancement challenging also.
 implementation of this feature.
 
 * *Minor enhancement*:
-** Contributed to basic structure of `Step` and `Tag` classes in recipes.
+** Contributed to basic structure of `Step` and `Tag` classes in recipe.
 ** Contributed to basic `Recipe` command classes such as managing tag and steps in a recipe.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=hans555&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[by @hans555]]
@@ -56,7 +56,7 @@ https://github.com/AY1920S2-CS2103T-F11-4/main/pull/43[#43]
 
 ** Community:
 *** Reviewed PRs of team members before merging
-*** Reported bugs and suggestions for other teams in the class (example: https://github.com/hans555/ped/issues[1])
+*** Reported bugs and provided suggestions for other teams in the class (example: https://github.com/hans555/ped/issues[1])
 
 
 == Contributions to the User Guide

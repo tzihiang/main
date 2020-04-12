@@ -582,13 +582,13 @@ This command is implemented to ease the tedious process of having the user addin
 to their cart when they want to purchase ingredients to cook a certain recipe. This provides convenience to users
 that frequently use our application and such process like shopping for a certain recipe's ingredient is
 intuitive to users. Furthermore, this command creates interaction between the `Cookbook` and `Cart` which
-helps to further integrate the application as a all-in-one application.
+helps to further integrate the application as an all-in-one application.
 
 Below is a step by step sequence of what happens when a user enters this command:
 
 . The user enters the command `cart add recipe INDEX`  in the command line  input.
-. `CartAddRecipeIngredientParser` parses the user input and checks if the index provided is a integer.
-Note that the parser will throw a `ParseException` if the given index is not a integer.
+. `CartAddRecipeIngredientParser` parses the user input and checks if the index provided is an integer.
+Note that the parser will throw a `ParseException` if the given index is not an integer.
 [source,java]
 try {
     recipeIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -609,7 +609,7 @@ if (recipeIndex.getZeroBased() >= model.getCookbook().getRecipeList().size()) {
 . `Model#addCartIngredient` calls `Cart#addIngredident()` which then adds the ingredient to the cart.
 If a certain ingredient exists in the cart, adding a ingredient to a cart will increase the
 quantity instead. Otherwise, a new instance of that ingredient will be added to the cart.
-After adding a ingredient, the cart will be updated with `Model#updateFilteredCartIngredientList()`.
+After adding an ingredient, the cart will be updated with `Model#updateFilteredCartIngredientList()`.
 . A `CommandResult` with the successful text message is returned to `LogicManager`
 and will be displayed to the user via the GUI to feedback to the user that
 the selected recipe's ingredients has been successfully added to the cart.
