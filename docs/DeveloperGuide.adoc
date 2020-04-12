@@ -413,14 +413,30 @@ a|
 
 // tag::cookbooksearchinventory[]
 === Search for recipes based on ingredients in the inventory
-==== Implementation
-The comparison is facilitated by the `RecipeInventorySimilarityComparator`. It extends `Comparator<Recipe>` and stores
-the inventory being used for ingredient comparison.
+The user may use this command to search for recipes that they can cook using the ingredients available in their inventory.
+Recipes are sorted by how much the inventory fulfils their ingredient requirements.
 
-The following sequence diagram summarizes how objects interact when a user executes the command:
+==== Implementation
+The comparison between the ingredients a recipe requires and the ingredients in the inventory is facilitated by the `RecipeInventoryIngredientsSimilarityComparator`.
+It extends `Comparator<Recipe>` and stores the inventory being used for ingredient comparison.
+Additionally, it implements the method `calculateSimilarity()`, which accepts a `Recipe` and a `ReadOnlyInventory` as parameters,
+and returns a double value between 0 and 1 (inclusive) that represents the proportion of the recipe's ingredient requirements that are fulfilled.
+
+The `calculateSimilarity()` method first calculates the proportion of ingredient quantity fulfilled by the inventory for each ingredient that the recipe requires.
+For example, if one of the ingredients required by a recipe is `4 eggs` and the inventory contains `2 eggs`, the proportion fulfilled for this particular ingredient is `0.5`.
+This is done for all the ingredients in the recipe. If the units of an ingredient in the recipe does not match that of the same ingredient in the inventory,
+the proportion will be set at `0.5` by default. An example is when the recipe requires `1 cup flour` and the inventory contains `200 g flour`.
+
+When the proportion fulfilled has been calculated for each ingredient, the values for each ingredient are summed up and divided by the number of ingredients to obtain the average.
+In the case where the recipe does not have any ingredients added to it yet, the `calculateSimilarity()` method will return `0`, indicating no similarity to the inventory ingredients.
+
+The following sequence diagram summarizes how objects interact when a user executes the command,
+with more focus on how `Logic` parses the command:
 
 image::CookbookSearchByInventorySequenceDiagram.png[]
 // end::cookbooksearchinventory[]
+
+==== Design considerations
 
 === Adding ingredients to inventory and cart
 The inventory and cart acts as storage for `Ingredient` classes. They are facilitated by `InventoryCommand` and `CartCommand`
