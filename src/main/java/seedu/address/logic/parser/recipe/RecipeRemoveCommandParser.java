@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,7 +22,6 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.model.tag.Tag;
@@ -86,15 +86,16 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
 
         assert argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_NAME);
         assert argMultimap.getValue(PREFIX_INGREDIENT_NAME).isPresent();
-        assert argMultimap.getValue(PREFIX_INGREDIENT_QUANTITY).isPresent();
+
         IngredientName ingredientName = ParserUtil.parseIngredientName(argMultimap
                 .getValue(PREFIX_INGREDIENT_NAME).get());
-        IngredientQuantity ingredientQuantity = ParserUtil.parseIngredientQuantity(argMultimap
-                .getValue(PREFIX_INGREDIENT_QUANTITY).get());
 
-        Ingredient ingredient = new Ingredient(ingredientName, ingredientQuantity);
+        Optional<IngredientQuantity> ingredientQuantity = argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_QUANTITY)
+                ? Optional.of(ParserUtil.parseIngredientQuantity(argMultimap.getValue(PREFIX_INGREDIENT_QUANTITY)
+                    .get()))
+                : Optional.empty();
 
-        return new RecipeRemoveIngredientCommand(index, ingredient);
+        return new RecipeRemoveIngredientCommand(index, ingredientName, ingredientQuantity);
     }
 
     /**

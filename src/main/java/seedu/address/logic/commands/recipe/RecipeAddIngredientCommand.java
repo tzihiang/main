@@ -46,11 +46,12 @@ public class RecipeAddIngredientCommand extends RecipeAddCommand {
 
         assert index.getZeroBased() < lastShownList.size();
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
-        UniqueIngredientList ingredients = recipeToEdit.getIngredients();
+        UniqueIngredientList ingredients = new UniqueIngredientList();
+        ingredients.setIngredients(recipeToEdit.getIngredients());
         ingredients.add(toAdd);
 
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
-        editRecipeDescriptor.setIngredients(ingredients);
+        editRecipeDescriptor.setIngredients(ingredients.asUnmodifiableObservableList());
         Recipe editedRecipe = EditRecipeDescriptor.createEditedRecipe(recipeToEdit, editRecipeDescriptor);
 
         model.setCookbookRecipe(recipeToEdit, editedRecipe);

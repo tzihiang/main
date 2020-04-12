@@ -41,7 +41,8 @@ public class RecipeBuilder {
     public RecipeBuilder(Recipe recipeToCopy) {
         this.recipeName = recipeToCopy.getName();
         this.recipeDescription = recipeToCopy.getDescription();
-        this.ingredients = recipeToCopy.getIngredients();
+        this.ingredients = new UniqueIngredientList();
+        this.ingredients.setIngredients(recipeToCopy.getIngredients());
         this.steps = recipeToCopy.getSteps();
         this.tags = new HashSet<>(recipeToCopy.getTags());
     }
