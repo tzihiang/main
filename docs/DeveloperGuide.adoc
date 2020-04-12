@@ -570,13 +570,19 @@ add back the ingredients to the cart after it is cleared if they wish to.
 
 === Add a Recipe's Ingredients to Cart
 
-The user may want to buy the required ingredients to cook a certain recipe in the cookbook. This command allows the user
+The user may want to buy the required ingredients to cook a certain recipe in the cookbook. This feature allows the user
 to add a certain recipe's required ingredients into the cart.
 
 ==== Implementation
 
 The action of adding a recipe's ingredients to cart mechanism is facilitated by `CartAddRecipeIngredientCommand`, which
 extends the `CartAddCommand` abstract class. The format is as follows: `cart add recipe INDEX`.
+
+This command is implemented to ease the tedious process of having the user adding every single ingredient
+to their cart when they want to purchase ingredients to cook a certain recipe. This provides convenience to users
+that frequently use our application and such process like shopping for a certain recipe's ingredient is
+intuitive to users. Furthermore, this command creates interaction between the `Cookbook` and `Cart` which
+helps to further integrate the application as a all-in-one application.
 
 Below is a step by step sequence of what happens when a user enters this command:
 
@@ -608,20 +614,11 @@ After adding a ingredient, the cart will be updated with `Model#updateFilteredCa
 and will be displayed to the user via the GUI to feedback to the user that
 the selected recipe's ingredients has been successfully added to the cart.
 
-==== Implentation reasoning
-This command is implemented to ease the tedious process of having the user adding every single ingredient
-to their cart when they want to purchase ingredients to cook a certain recipe. This provides convenience to users
-that frequently use our application and such process like shopping for a certain recipe's ingredient is
-intuitive to users. Furthermore, this command creates interaction between the `Cookbook` and `Cart` which
-helps to further integrate the application as a all-in-one application.
-
 ==== Sequence diagram
 The following sequence diagram shows how the function of adding recipe's ingredients to cart works:
 
 .Sequence diagram for CartAddRecipeIngredientCommand
 image::CartAddRecipeIngredientSequenceDiagram.png[]
-
-==== How the feature works
 
 ==== Design considerations
 ===== Aspect: Allowing users to add all or some recipe's ingredients
@@ -634,7 +631,7 @@ that are missing in the inventory to the cart
 | Allows user to add a recipe's ingredients to the cart for shopping. This design is currently chosen due to ease of
 implementation and it works for all situations.
 | Allows user to add a recipe's ingredients base on the inventory status. However, there are some situations where
-this design not does work. One example would be like planning to cook at outside which the inventory status is unknown.
+this design not does work. One example would be like planning to cook at outside where the inventory status is unknown.
 |Pros
 a|
 - Easier to implement as it does not need to check if the ingredients are already present in the inventory
