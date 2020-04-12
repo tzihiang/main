@@ -13,35 +13,81 @@ Cooking Papa is a desktop cookbook application used to manage recipes and ingred
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: implemented and developed Cooking Papa's GUI
+** What it does: developed Cooking Papa's GUI to better reflect its casual usage and more cheerful nature, rather than
+the base
+AB3's dark
+theme.
+** Justification: This feature improves the product significantly because the color scheme is more in line with
+Cooking Papa's use, with the bright yet muted colors complementing the fun font styles, giving off a casual vibe, and
+invites users to use Cooking Papa.
+** Highlights: This enhancement required a lot of understanding of the interactions between various JavaFX objects,
+as well as the base CSS stylesheets provided by AB3, which took many hours of trial-and-error, as well as Googling.
++
+While constraints meant that Cooking Papa would be tested from the command line, a beautiful and inviting GUI was of utmost important to convey the application's nature.
+Coordinating various colors proved to be a challenge, and the color scheme went through three rounds of revamps,
+before settling on the current one. Moving away from the rigid sharp edges of AB3 was also a challenge, and required
+various UI elements and color choices to "soften" the overall aesthetics of Cooking Papa.
+** Credits: _JavaFX 11_ as well as _SceneBuilder_ helped immensely in the development of the GUI.
+
+* *Major enhancement*: integrate `cookbook view recipe` into the GUI
+** Justification: This feature improves the product significantly because it integrated the GUI seamlessly with the
+command.
+** Highlights: This enhancement arose due to the lack of connection between the existing `cookbook view recipe`
+command, which shows users the details of a recipe, and the GUI. It was initially displayed as a plain text result in
+the result display box of the GUI, and this causes command results (errors, success messages, usage messages), to
+appear in the same UI component as the recipe details.
++
+The idea to make `cookbook view recipe` a button on the GUI that could be toggled surfaced. Developing a button that
+could toggle the details shown was trivial, however, limiting the command to just a button on the GUI meant that it
+would not be testable on the command line. Therefore, the challenge was to connect the GUI to the Logic component,
+and typing `cookbook view recipe` on the command line (or in the command box of the GUI) would trigger the button.
+The result was amazing as it not only made the GUI much more interactive and functional, but it was still testable on
+the command line.
+** Credits: _JavaFX 11_ as well as _SceneBuilder_ helped immensely in the development of the `cookbook view recipe`
+button.
+
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=f11&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=teo-jun-xiong&tabRepo=AY1920S2-CS2103T-F11-4%2Fmain%5Bmaster%5D[Source code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.2.1` and `v1.3` (2 releases) on GitHub
+*** Managed features development under Project on GitHub
+(https://github.com/AY1920S2-CS2103T-F11-4/main/projects/1[features])
+
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI color scheme (
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/137[#137])
+
+*** Wrote additional tests for existing features to increase coverage from 56% to 77% (Pull request
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/131[#131])
+
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
 
-_{you can add/remove categories in the list above}_
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/22[#22],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/44[#44],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/57[#57],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/220[#220],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/221[#221],
+https://github.com/AY1920S2-CS2103T-F11-4/main/pull/222[#222]
+
+*** Contributed to forum discussions:
+https://github.com/nus-cs2103-AY1920S2/forum/issues/15[15]
+https://github.com/nus-cs2103-AY1920S2/forum/issues/65[65]
+
+** Tools:
+*** Integrated a third party library (iTextPDF) to the project
+(https://github.com/AY1920S2-CS2103T-F11-4/main/pull/212[#212])
+
+*** Integrated new Github plugins to the team repo: TravisCI, AppVeyor, Coveralls, Codacy
+
 
 == Contributions to the User Guide
 
@@ -60,6 +106,9 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+=== Implementation of a core feature: `cookbook add recipe`
+include::../DeveloperGuide.adoc[tag=addrecipe]
 
+=== UML sequence diagram for a core feature: `cookbook add recipe`
+include::../DeveloperGuide.adoc[tag=addrecipesequence]
 include::../DeveloperGuide.adoc[tag=dataencryption]

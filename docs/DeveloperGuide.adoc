@@ -162,6 +162,7 @@ This section describes some noteworthy details on how certain features are imple
 The recipe addition mechanism is facilitated by `CookbookAddCommand`, which extends the `Command` abstract class. The
 format of the command is as follows: `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT_NAME]... [q/INGREDIENT_QUANTITY]... [t/TAG]...`.
 
+// tag::addrecipe[]
 Below is a step by step sequence of what happens when a user enters this command:
 
 . The user enters a recipe adding command using the command line input `cookbook add recipe n/NAME d/DESCRIPTION
@@ -206,7 +207,7 @@ where `PREDICATE_SHOW_ALL_RECIPES = unused -> true`.
 . A `CommandResult` with the text to display to the user is then returned to `LogicManager`, which can passed back to
 `MainWindow`, which displays it to the user on the CLI and GUI: `resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser())`. The text displayed will notify the user on whether
 their addition was successful.
-
+// end::addrecipe[]
 .UML object diagram of Recipe
 image::RecipeObjectDiagram.png[]
 
@@ -227,9 +228,10 @@ The following sequence diagram shows how the recipe adding function works (full 
                                                                                           step 2 t/This t/Is t/A
                                                                                           t/Tag`]  omitted from diagram
 for brevity):
-
+// tag::addrecipesequence[]
 .Sequence diagram for CookbookAddCommand
 image::CookbookAddRecipeSequenceDiagram.png[]
+// end::addrecipesequence[]
 
 ==== How the feature works
 Step 1: Input the command in the command box, then hit kbd:[Enter] on the keyboard. The command is as follows:
