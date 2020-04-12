@@ -15,7 +15,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.tag.Tag;
 
-//@@author teo-jun-xiong
 public class RecipeAddTagCommandTest {
     private static final Tag VALID_TAG_ONE = new Tag("Easy");
     private static final Tag VALID_TAG_TWO = new Tag("Difficult");

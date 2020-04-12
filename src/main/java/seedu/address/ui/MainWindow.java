@@ -113,7 +113,6 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
-    //@@author teo-jun-xiong
     /**
      * Fills up all the placeholders of this window.
      */

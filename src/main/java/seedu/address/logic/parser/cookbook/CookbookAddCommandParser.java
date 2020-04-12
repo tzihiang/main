@@ -37,7 +37,6 @@ public class CookbookAddCommandParser implements Parser<CookbookAddCommand> {
     private static final Pattern COOKBOOK_ADD_COMMAND_ARGUMENT_FORMAT = Pattern
             .compile(" *recipe(?<arguments>.*)");
 
-    //@@author teo-jun-xiong
     /**
      * Parses the given {@code String} of arguments in the context of the CookbookAddCommand
      * and returns a CookbookAddCommand object for execution.

@@ -48,7 +48,6 @@ public class RecipeRemoveIngredientCommand extends RecipeRemoveCommand {
         this.ingredientQuantity = ingredientQuantity;
     }
 
-    //@@author teo-jun-xiong
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);

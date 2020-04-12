@@ -11,7 +11,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.util.PdfExporter;
 
-//@@author teo-jun-xiong
 /**
  * Exports the ingredients in cart to a pdf file.
  */

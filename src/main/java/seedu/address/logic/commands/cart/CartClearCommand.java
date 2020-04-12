@@ -26,7 +26,6 @@ public class CartClearCommand extends CartCommand {
     public CartClearCommand() {
     }
 
-    //@@author teo-jun-xiong
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);

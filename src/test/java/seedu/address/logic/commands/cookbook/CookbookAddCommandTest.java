@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
-//@@author teo-jun-xiong
 public class CookbookAddCommandTest {
 
     @Test

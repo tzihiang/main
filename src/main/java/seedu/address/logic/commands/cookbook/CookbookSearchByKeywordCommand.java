@@ -29,7 +29,6 @@ public class CookbookSearchByKeywordCommand extends CookbookSearchCommand {
         this.predicate = predicate;
     }
 
-    //@@author teo-jun-xiong
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);

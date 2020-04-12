@@ -7,7 +7,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.recipe.RecipeDefaultComparator;
 
-//@@author teo-jun-xiong
 /**
  * Shows all the recipes in the cookbook.
  */

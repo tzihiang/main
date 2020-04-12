@@ -14,7 +14,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.testutil.TypicalIngredients;
 
-//@@author teo-jun-xiong
 public class CartClearCommandTest {
 
     @Test

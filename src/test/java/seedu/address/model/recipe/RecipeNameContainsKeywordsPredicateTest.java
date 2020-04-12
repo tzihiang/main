@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-//@@author teo-jun-xiong
 public class RecipeNameContainsKeywordsPredicateTest {
     @Test
     public void constructor_validInput() {

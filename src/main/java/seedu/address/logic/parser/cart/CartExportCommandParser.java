@@ -7,7 +7,6 @@ import seedu.address.logic.commands.cart.CartExportCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-//@@author teo-jun-xiong
 /**
  * Parses input arguments and creates a new CartExportCommand object
  */

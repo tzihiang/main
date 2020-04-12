@@ -10,7 +10,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.TypicalRecipes;
 
-//@@author teo-jun-xiong
 public class CookbookAddCommandParserTest {
     private static final Recipe VALID_RECIPE = TypicalRecipes.getValidRecipe();
     private static final String VALID_ARGUMENT = "recipe n/Recipe d/Description i/Ingredient q/5 s/Step t/Tag";

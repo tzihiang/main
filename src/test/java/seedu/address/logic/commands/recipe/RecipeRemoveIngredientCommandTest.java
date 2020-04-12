@@ -20,7 +20,6 @@ import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 
-//@@author teo-jun-xiong
 public class RecipeRemoveIngredientCommandTest {
     private static final Index VALID_RECIPE_INDEX = new Index(0);
     private static final Index OUT_OF_BOUNDS_RECIPE_INDEX = new Index(1);
