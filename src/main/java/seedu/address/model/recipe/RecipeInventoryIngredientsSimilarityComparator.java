@@ -10,6 +10,10 @@ import seedu.address.model.ReadOnlyInventory;
 public class RecipeInventoryIngredientsSimilarityComparator implements Comparator<Recipe> {
     public final ReadOnlyInventory inventory;
 
+    private static final int NO_INGREDIENTS = 0;
+    private static final double ZERO_SIMILARITY = 0;
+    private static final double DEFAULT_SIMILARITY = 0.5;
+
     public RecipeInventoryIngredientsSimilarityComparator(ReadOnlyInventory inventory) {
         this.inventory = inventory;
     }
@@ -29,8 +33,8 @@ public class RecipeInventoryIngredientsSimilarityComparator implements Comparato
      * @return a double value between 0 and 1 (inclusive)
      */
     public static double calculateSimilarity(Recipe recipe, ReadOnlyInventory inventory) {
-        if (recipe.getIngredients().size() == 0) {
-            return 0;
+        if (recipe.getIngredients().size() == NO_INGREDIENTS) {
+            return ZERO_SIMILARITY;
         }
 
         return recipe.getIngredients().stream()
@@ -39,7 +43,8 @@ public class RecipeInventoryIngredientsSimilarityComparator implements Comparato
                     .findFirst()
                     .map(inventoryIngredient -> inventoryIngredient.asProportionOf(recipeIngredient))
                     .orElseGet(() -> (inventory.getIngredientList().stream().filter(inventoryIngredient
-                        -> inventoryIngredient.isSameIngredient(recipeIngredient)).count() > 0) ? 0.5 : 0))
-                .reduce(0.0, (x, y) -> x + y, (x, y) -> x + y) / recipe.getIngredients().size();
+                        -> inventoryIngredient.isSameIngredient(recipeIngredient)).count() > NO_INGREDIENTS)
+                            ? DEFAULT_SIMILARITY : ZERO_SIMILARITY))
+                .reduce(ZERO_SIMILARITY, (x, y) -> x + y, (x, y) -> x + y) / recipe.getIngredients().size();
     }
 }
