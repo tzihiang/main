@@ -57,33 +57,39 @@ Cart .up.|> ReadOnlyCart
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o-down-> "1" Cookbook
-ModelManager o-left-> "1" UserPrefs
+ModelManager -down-> "1" Cookbook
+ModelManager -left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
-ModelManager o-down-> "1" Inventory
-ModelManager o-down-> "1" Cart
+ModelManager -down-> "1" Inventory
+ModelManager -down-> "1" Cart
 
 Cookbook -[hidden]up-> UserPrefs
 
 Cookbook *--> "1" UniqueRecipeList
-UniqueRecipeList o--> "*" Recipe
-Recipe *--> RecipeName
-Recipe *--> RecipeDescription
-Recipe *--> UniqueIngredientList
-Recipe *--> UniqueStepList
+UniqueRecipeList --> "*" Recipe
+Recipe *--> "1" RecipeName
+Recipe *--> "1" RecipeDescription
+Recipe *--> "1" UniqueIngredientList
+Recipe *--> "1" UniqueStepList
 Recipe *--> "*" Tag
 
 RecipeName -[hidden]right-> RecipeDescription
 RecipeDescription -[hidden]right-> UniqueStepList
 UniqueStepList -[hidden]right-> UniqueIngredientList
 
+Tag -[hidden]right-> RecipeName
+RecipeName -[hidden]right-> RecipeDescription
+RecipeDescription -[hidden]right-> UniqueStepList
+UniqueStepList -[hidden]right-> UniqueIngredientList
+
 Inventory --|> SortedIngredientList
 Cart --|> SortedIngredientList
-SortedIngredientList *--> "1" CompatibleIngredientList
-CompatibleIngredientList *--> "*" Ingredient
-UniqueIngredientList *--> "*" Ingredient
-Ingredient *--> IngredientName
-Ingredient *--> IngredientQuantity
+SortedIngredientList *-down-> "1" CompatibleIngredientList
+CompatibleIngredientList -left-|> UniqueIngredientList
+CompatibleIngredientList -[hidden]down-|> Ingredient
+UniqueIngredientList -down-> "*" Ingredient
+Ingredient *-down-> "1" IngredientName
+Ingredient *-down-> "1" IngredientQuantity
 
 UniqueStepList *--> "*" Step
 
