@@ -441,7 +441,15 @@ divided by the number of ingredients to obtain the average. In the case where th
 added to it yet, the `calculateSimilarity()` method will return `0`, indicating no similarity to the inventory
 ingredients. This is because it is likely that recipes with no ingredients have just been added by the user, and the
 ingredients have not been added yet. If the user is using this feature to search for a recipe to cook, they would
-probably not be interested in seeing a recipe that they have not added ingredients for yet.
+probably not be interested in seeing a recipe that they have not added ingredients for yet. This is implemented via
+a guard clause as shown in the following code snippet:
+
+[source,java]
+----
+if (recipe.getIngredients().size() == NO_INGREDIENTS) {
+    return ZERO_SIMILARITY;
+}
+----
 
 The following sequence diagram summarizes how objects interact when a user executes the command,
 with more focus on how the command is parsed in the `Logic`component:
