@@ -56,7 +56,7 @@ public class InventoryCookCommand extends InventoryCommand {
         requireNonNull(inventory);
         requireNonNull(recipe);
         ObservableList<Ingredient> inventoryList = inventory.getIngredientList();
-        ObservableList<Ingredient> recipeIngredients = recipe.getIngredients().asUnmodifiableObservableList();
+        ObservableList<Ingredient> recipeIngredients = recipe.getIngredients();
 
         return recipeIngredients.stream().map(recipeIngredient -> inventoryList
                 .stream().map(inventoryIngredient -> inventoryIngredient.isCompatibleWith(recipeIngredient))
@@ -102,10 +102,7 @@ public class InventoryCookCommand extends InventoryCommand {
                     selectedRecipe.getName().toString()));
         }
 
-        List<Ingredient> ingredientList = selectedRecipe.getIngredients().asUnmodifiableObservableList();
-        for (Ingredient ingredient : ingredientList) {
-            model.removeInventoryIngredient(ingredient);
-        }
+        selectedRecipe.getIngredients().stream().forEach(model::removeInventoryIngredient);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex.getOneBased()));
     }

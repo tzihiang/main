@@ -19,7 +19,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
-import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
 
 public class RecipeRemoveIngredientCommandTest {
     private static final Index VALID_RECIPE_INDEX = new Index(0);
@@ -67,8 +66,8 @@ public class RecipeRemoveIngredientCommandTest {
                     RecipeRemoveIngredientCommand.ALL_KEYWORD + " " + VALID_INGREDIENT_NAME, CARBONARA.getName())));
 
         // error thrown after removing EGG
-        assertThrows(IngredientNotFoundException.class, () -> commandWithQuantity.execute(model));
-        assertThrows(IngredientNotFoundException.class, () -> commandWithoutQuantity.execute(model));
+        assertThrows(CommandException.class, () -> commandWithQuantity.execute(model));
+        assertThrows(CommandException.class, () -> commandWithoutQuantity.execute(model));
     }
 
     @Test
@@ -101,7 +100,7 @@ public class RecipeRemoveIngredientCommandTest {
         RecipeRemoveIngredientCommand e = new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX,
                 BUTTER.getName(), Optional.of(BUTTER.getQuantity()));
         e.execute(model);
-        assertThrows(IngredientNotFoundException.class, () -> e.execute(model));
+        assertThrows(CommandException.class, () -> e.execute(model));
     }
 
     @Test

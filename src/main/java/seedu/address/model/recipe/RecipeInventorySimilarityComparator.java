@@ -33,7 +33,7 @@ public class RecipeInventorySimilarityComparator implements Comparator<Recipe> {
             return 0;
         }
 
-        return recipe.getIngredients().asUnmodifiableObservableList().stream()
+        return recipe.getIngredients().stream()
                 .map(recipeIngredient -> inventory.getIngredientList().stream()
                     .filter(inventoryIngredient -> inventoryIngredient.isCompatibleWith(recipeIngredient))
                     .findFirst()

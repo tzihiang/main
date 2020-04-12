@@ -72,7 +72,8 @@ public class CookbookAddCommandParser implements Parser<CookbookAddCommand> {
                 ParserUtil.parseIngredientNames(argMultimap.getAllValues(PREFIX_INGREDIENT_NAME));
         List<IngredientQuantity> ingredientQuantities =
                 ParserUtil.parseIngredientQuantities(argMultimap.getAllValues(PREFIX_INGREDIENT_QUANTITY));
-        UniqueIngredientList ingredients = ParserUtil.parseIngredients(ingredientNames, ingredientQuantities);
+        UniqueIngredientList ingredients = new UniqueIngredientList();
+        ingredients.setIngredients(ParserUtil.parseIngredients(ingredientNames, ingredientQuantities));
         UniqueStepList steps = ParserUtil.parseSteps(argMultimap.getAllValues(PREFIX_STEP_DESCRIPTION));
         Set<Tag> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 

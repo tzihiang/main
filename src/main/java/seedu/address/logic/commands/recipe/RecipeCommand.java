@@ -11,8 +11,10 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.RecipeDescription;
@@ -87,7 +89,7 @@ public abstract class RecipeCommand extends Command {
     public static class EditRecipeDescriptor {
         private RecipeName name;
         private RecipeDescription description;
-        private UniqueIngredientList ingredients;
+        private ObservableList<Ingredient> ingredients;
         private UniqueStepList steps;
         private Set<Tag> tags;
 
@@ -117,8 +119,9 @@ public abstract class RecipeCommand extends Command {
                     .orElse(recipeToEdit.getName());
             RecipeDescription updatedDescription = editRecipeDescriptor.getDescription()
                     .orElse(recipeToEdit.getDescription());
-            UniqueIngredientList updatedIngredients = editRecipeDescriptor.getIngredients()
-                    .orElse(recipeToEdit.getIngredients());
+            UniqueIngredientList updatedIngredients = new UniqueIngredientList();
+            updatedIngredients.setIngredients(editRecipeDescriptor.getIngredients()
+                    .orElse(recipeToEdit.getIngredients()));
             UniqueStepList updatedSteps = editRecipeDescriptor.getSteps()
                     .orElse(recipeToEdit.getSteps());
             Set<Tag> updatedTags = editRecipeDescriptor.getTags()
@@ -150,11 +153,11 @@ public abstract class RecipeCommand extends Command {
             return Optional.ofNullable(description);
         }
 
-        public void setIngredients(UniqueIngredientList ingredients) {
+        public void setIngredients(ObservableList<Ingredient> ingredients) {
             this.ingredients = ingredients;
         }
 
-        public Optional<UniqueIngredientList> getIngredients() {
+        public Optional<ObservableList<Ingredient>> getIngredients() {
             return Optional.ofNullable(ingredients);
         }
 
