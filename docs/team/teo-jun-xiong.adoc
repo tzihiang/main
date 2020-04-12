@@ -48,7 +48,9 @@ the command line.
 button.
 
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added an command which allowed users to export the ingredients in their cart to a PDF file,
+which allows them bring along with them to the supermarkets. This feature solved the constraint of the application
+being desktop-only, and with it, Cooking Papa can _still_ help users when they are away from their computers.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=f11&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=teo-jun-xiong&tabRepo=AY1920S2-CS2103T-F11-4%2Fmain%5Bmaster%5D[Source code]]
 
@@ -83,7 +85,7 @@ https://github.com/nus-cs2103-AY1920S2/forum/issues/15[15]
 https://github.com/nus-cs2103-AY1920S2/forum/issues/65[65]
 
 ** Tools:
-*** Integrated a third party library (iTextPDF) to the project
+*** Integrated a third party library (Apache PDFbox) to the project
 (https://github.com/AY1920S2-CS2103T-F11-4/main/pull/212[#212])
 
 *** Integrated new Github plugins to the team repo: TravisCI, AppVeyor, Coveralls, Codacy
@@ -96,10 +98,6 @@ https://github.com/nus-cs2103-AY1920S2/forum/issues/65[65]
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
-
 == Contributions to the Developer Guide
 
 |===
@@ -107,8 +105,14 @@ include::../UserGuide.adoc[tag=dataencryption]
 |===
 
 === Implementation of a core feature: `cookbook add recipe`
+
 include::../DeveloperGuide.adoc[tag=addrecipe]
 
 === UML sequence diagram for a core feature: `cookbook add recipe`
 include::../DeveloperGuide.adoc[tag=addrecipesequence]
-include::../DeveloperGuide.adoc[tag=dataencryption]
+
+=== Implementation of a core feature: `cart export`
+include::../DeveloperGuide.adoc[tag=cartexport]
+
+=== UML sequence diagram for a core feature: `cart export`
+include::../DeveloperGuide.adoc[tag=cartexportsequence]

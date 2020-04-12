@@ -162,6 +162,12 @@ This section describes some noteworthy details on how certain features are imple
 The recipe addition mechanism is facilitated by `CookbookAddCommand`, which extends the `Command` abstract class. The
 format of the command is as follows: `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT_NAME]... [q/INGREDIENT_QUANTITY]... [t/TAG]...`.
 
+This command is implemented this way  to allow a user to add a recipe with optional fields (ingredients, steps, tags) -
+only the recipe name and recipe description are mandatory fields. This way, a user does not have input all the fields
+that they may not have at the moment to create a recipe. After creating the skeleton of the recipe, the user can then
+use the other `Cookbook` commands to add ingredients and steps to the recipe. However, one key point is that should
+ingredient names be provided, the same number of ingredient quantities have to be provided as well.
+
 // tag::addrecipe[]
 Below is a step by step sequence of what happens when a user enters this command:
 
@@ -208,18 +214,10 @@ where `PREDICATE_SHOW_ALL_RECIPES = unused -> true`.
 `MainWindow`, which displays it to the user on the CLI and GUI: `resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser())`. The text displayed will notify the user on whether
 their addition was successful.
 // end::addrecipe[]
-.UML object diagram of Recipe
+
+.UML object diagram of Recipe providing an overview on how the various objects interact
 image::RecipeObjectDiagram.png[]
 
-==== Implementation reasoning
-
-This command is implemented this way  to allow a user to add a recipe with optional fields (ingredients, steps, tags) -
-only the recipe name and recipe description are mandatory fields. This way, a user does not have input all the fields
-that they may not have at the moment to create a recipe. After creating the skeleton of the recipe, the user can then
-use the other `Cookbook` commands to add ingredients and steps to the recipe. However, one key point is that should
-ingredient names be provided, the same number of ingredient quantities have to be provided as well.
-
-==== Sequence diagram
 The following sequence diagram shows how the recipe adding function works (full command [`cookbook add recipe
                                                                                           n/Recipe name d/Recipe
                                                                                           description i/Ingredient 1
@@ -233,26 +231,6 @@ for brevity):
 .Sequence diagram for CookbookAddCommand
 image::CookbookAddRecipeSequenceDiagram.png[]
 // end::addrecipesequence[]
-
-==== How the feature works
-Step 1: Input the command in the command box, then hit kbd:[Enter] on the keyboard. The command is as follows:
-`cookbook add recipe n/Recipe name d/Recipe description i/Ingredient 1 q/1 piece i/Ingredient 2 q/20 ml s/Do step 1
- s/Do step 2 t/This t/Is t/A t/Tag`.
-
-.CookbookAddCommand sample command in Command box
-image::CookbookAddRecipe1.png[]
-
-Step 2: Results will be parsed, and if the command is valid, a success message will be displayed to the user.
-
-.CookbookAddCommand sample command result in Result display
-image::CookbookAddRecipe2.png[]
-
-Step 3: The newly added recipe will now appear in the recipes panel, which a brief overview, consisting of its name,
-description, and tags. To view all the details of a recipe, the user can either enter `cookbook view recipe INDEX`,
-where index is a valid integer, or click the view button.
-
-.CookbookAddCommand sample recipe in Recipe panel
-image::CookbookAddRecipe3.png[]
 
 ==== Design considerations
 ===== Aspect 1: How to parse optional parameters
@@ -308,13 +286,24 @@ display.
 |===
 
 === Export ingredients in cart to PDF file
-The user may use this command to export the ingredients in their cart to a PDF file, which they can then use as their
+The user may use this command to export the ingredients in their cart to a <<PDF, PDF>> file, which they can then
+use
+as
+their
 shopping list at the supermarkets.
 
 ==== Implementation
 The cart exporting mechanism is facilitated by `CookbookExportCommand`, which extends the `Command` abstract class.
 The format is as follows: `cart export`.
 
+This command was implemented to bridge the (current, v1.4) inadequacy of Cooking Papa, which is that it is not
+portable (yet). It was still not convenient _enough_ to be able to organize cart ingredients. Evenutally, users had
+to go outside to the supermarket, and Cooking Papa is a desktop-only application. By allowing users to export the
+ingredients in their cart to a PDF file, they can then print it out, or transfer it to their mobile devices, and
+bring them along as shopping lists. Additionally, the layout and content of the generated PDF file is simple,
+informational, and easy for users to extend, allowing them to add (handwritten or  annotated) remarks.
+
+// tag::cartexport[]
 Below is a step by step sequence of what happens when a user enters this command:
 
 . The user enters a cart export command using the command line input `cart export`.
@@ -348,24 +337,19 @@ try {
     return new CommandResult(MESSAGE_FILE_NOT_FOUND);
 }
 ----
-. Else, a `CommandResult` with the text to display to the user will be returned to `LogicManager`. The
+. The ingredients in the `Cart` is passed to the static method `PdfExporter#exportCart()`,
+. , a `CommandResult` with the text to display to the user will be returned to `LogicManager`. The
 `CommandResult` is then passed back to `MainWindow`, which displays it to the user on the CLI and GUI: `resultDisplay
 .setFeedbackToUser(commandResult.getFeedbackToUser())`. The text displayed will notify the user on whether
 their addition was successful.
+//end::cartexport[]
 
-==== Implementation reasoning
-This command was implemented to bridge the (current, v1.4) inadequacy of Cooking Papa, which is that it is not
-portable (yet). It was still not convenient _enough_ to be able to organize cart ingredients. Evenutally, users had
-to go outside to the supermarket, and Cooking Papa is a desktop-only application. By allowing users to export the
-ingredients in their cart to a PDF file, they can then print it out, or transfer it to their mobile devices, and
-bring them along as shopping lists. Additionally, the layout and content of the generated PDF file is simple,
-informational, and easy for users to extend, allowing them to add (handwritten or  annotated) remarks.
-
-==== Sequence diagram
 The following sequence diagram shows how the function of exporting ingredients in the cart to a PDF file works:
 
+// tag::cartexportsequence[]
 .Sequence diagram for CartExportCommand
 image::CartExportCommandSequenceDiagram.png[]
+// end::cartexportsequence[]
 
 ==== Design considerations
 ===== Aspect 1: File format to export ingredients in cart to
@@ -744,6 +728,9 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
+[[PDF]] PDF::
+A file format for capturing and sending electronic documents in exactly the intended format.
+
 [appendix]
 == Product Survey
 
@@ -876,4 +863,9 @@ two.
 In hindsight, perhaps greater experience with GUIs would have made this process easier, but our team were
 all novices in that aspect, and being able to pull this off, especially when we could have simply left it as the
 status quo, is a huge achievement.|`\***`
+|Refactoring `cart export` code|As the original PDF library used (iTextPDF) has not permitted due to its license, the
+whole code had to be refactored to use the current PDF library (Apache PDFbox). The challenge was the lack of
+features in PDFbox, i.e. tables were not a feature, and had to be drawn using lines. This was a huge hinder in
+achieving the intended output PDF file. Eventually, it was decided to simply create a list in the PDF instead of a
+table due to the lack of time, and the payoff for tinkering with PDFbox was not worth the effort.|`**`
 |===
