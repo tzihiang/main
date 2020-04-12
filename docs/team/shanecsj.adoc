@@ -9,12 +9,8 @@
 
 == Overview
 
-Cooking Papa is an all-in-one, and easy-to-use application that acts as a personalised cookbook, with *your* favourite
-recipes!
-
-Cooking Papa aims to help university students who live alone, to make learning how to cook more convenient,
-increasing the diversity of their meals. With Cooking Papa, users can easily edit recipes, keep track of ingredients
-they have at home and have a shopping list to help them expedite their grocery shopping process.
+Cooking Papa is a desktop cookbook application used to manage recipes and ingredients for cooking. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 15 kLoC.
 
 == Summary of contributions
 
