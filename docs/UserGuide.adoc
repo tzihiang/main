@@ -615,7 +615,7 @@ CookingPapa can generate a recipe of the day to cook based on the recipes curren
 |Displays the recipe of the day
 |===
 
-== FAQ https://github.com/teo-jun-xiong[by Teo Jun Xiong]
+== FAQ https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CookingPapa folder.
