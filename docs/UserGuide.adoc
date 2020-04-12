@@ -247,7 +247,7 @@ using the search commands to view all the recipes.
 |===
 
 [[Recipe]]
-=== Recipe Commands https://github.com/gohkh[by Goh Ka Hui]
+=== Recipe Commands https://github.com/gohkh[(by Goh Ka Hui)]
 Recipe commands are commands that change an existing recipe, which can be indicated using the index of the recipe.
 Some things you can do are to add and remove ingredients from a recipe's ingredient list.
 You can also write preparation steps for your recipes.
