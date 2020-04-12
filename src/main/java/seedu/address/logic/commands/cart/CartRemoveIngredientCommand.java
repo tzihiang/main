@@ -13,6 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
+import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
 import seedu.address.model.ingredient.exceptions.NonPositiveIngredientQuantityException;
 
 /**
@@ -25,6 +26,7 @@ public class CartRemoveIngredientCommand extends CartCommand {
     public static final String ALL_KEYWORD = "All";
     public static final String MESSAGE_SUCCESS = "%1$s removed from cart";
     public static final String MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH = "The quantity specified is too large";
+    public static final String MESSAGE_INGREDIENT_NOT_FOUND = "The cart does not contain %1$s";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": removes ingredients from your cart.\n"
             + "Parameters: \n"
@@ -64,6 +66,8 @@ public class CartRemoveIngredientCommand extends CartCommand {
                     .orElseGet(() -> ALL_KEYWORD + " " + ingredientName);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, ingredientRemoved));
+        } catch (IngredientNotFoundException e) {
+            throw new CommandException(String.format(MESSAGE_INGREDIENT_NOT_FOUND, ingredientName));
         } catch (NonPositiveIngredientQuantityException e) {
             throw new CommandException(String.format(MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH));
         }
