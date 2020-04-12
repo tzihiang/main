@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-// import java.util.logging.Logger;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -10,12 +8,12 @@ import javafx.scene.layout.Region;
 // import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.ingredient.Ingredient;
 
+//@@author teo-jun-xiong
 /**
  * Panel containing the list of persons.
  */
 public class CartPanel extends UiPart<Region> {
     private static final String FXML = "CartPanel.fxml";
-    // private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
     private ListView<Ingredient> cartListView;

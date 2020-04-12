@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
 
+<!-- @@author teo-jun-xiong -->
 <VBox xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="header" styleClass="cell_header_label" alignment="CENTER"
            text="           Inventory"/>

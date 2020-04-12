@@ -8,6 +8,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.recipe.Recipe;
 
+//@@author teo-jun-xiong
 /**
  * Panel containing the list of recipes.
  */

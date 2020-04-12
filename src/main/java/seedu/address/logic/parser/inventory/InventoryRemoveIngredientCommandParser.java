@@ -27,6 +27,7 @@ public class InventoryRemoveIngredientCommandParser implements Parser<InventoryC
     private static final Pattern INVENTORY_REMOVE_COMMAND_ARGUMENT_FORMAT = Pattern
             .compile(InventoryRemoveIngredientCommand.INGREDIENT_KEYWORD + "*(?<arguments>.*)");
 
+    //@@author teo-jun-xiong
     /**
      * Parses the given {@code String} of arguments in the context of the InventoryCommand
      * and returns a InventoryRemoveIngredientCommand object for execution.

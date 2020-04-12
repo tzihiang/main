@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.recipe.Recipe;
 
+//@@author teo-jun-xiong
 /**
  * An UI component that displays information of a {@code Recipe}.
  */

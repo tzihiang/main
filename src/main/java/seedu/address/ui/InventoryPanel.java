@@ -8,6 +8,7 @@ import javafx.scene.layout.Region;
 // import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.ingredient.Ingredient;
 
+//@@author teo-jun-xiong
 /**
  * Panel containing the list of ingredients.
  */
