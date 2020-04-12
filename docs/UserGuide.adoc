@@ -639,18 +639,18 @@ CookingPapa can generate a recipe of the day to cook based on the recipes curren
 | Category | Addtional Parameters | Result
 .8+|``cookbook``
 |``view recipe INDEX``
-|Shows recipe at given INDEX
+|Shows recipe at given INDEX.
 |``add recipe n/NAME d/DESCRIPTION``
 |Adds a new empty recipe with the given NAME and DESCRIPTION.
 |``add recipe n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY] [x/STEP_INDEX] [s/STEP] [t/TAG]``
 |Adds a new recipe with the given NAME and DESCRIPTION.
 INGREDIENT and its QUANTITY, STEP and its STEP_INDEX, and TAG are optional parameters and will be added according to input from user.
 |``remove recipe INDEX``
-|Remove recipe at given INDEX
+|Remove recipe at given INDEX.
 |``search recipe k/KEYWORD``
-|Search for recipes by a keyword
+|Search for recipes by a keyword.
 |``search recipe t/TAG``
-|Search for recipes by a keyword
+|Search for recipes by tags.
 |``search recipe inventory``
 |Search for recipes whose ingredients are available in the inventory.
 |``list``
@@ -658,17 +658,17 @@ INGREDIENT and its QUANTITY, STEP and its STEP_INDEX, and TAG are optional param
 
 .6+|``recipe``
 |``INDEX add ingredient i/INGREDIENT q/QUANTITY``
-|Add ingredients to a recipe at given INDEX
+|Add ingredients to a recipe at given INDEX.
 |``INDEX remove ingredient i/INGREDIENT q/QUANTITY``
-|Removes the ingredient and the specified quantity from recipe at given INDEX
+|Removes the ingredient and the specified quantity from recipe at given INDEX.
 |``INDEX add step x/STEP_INDEX s/STEP_DESCRIPTION``
-|Adds a step at STEP_INDEX with STEP_DESCRIPTION to the recipe at given INDEX
+|Adds a step at STEP_INDEX with STEP_DESCRIPTION to the recipe at given INDEX.
 |``INDEX remove step x/STEP_INDEX``
-|Remove a step at STEP_INDEX from the recipe at given INDEX
+|Remove a step at STEP_INDEX from the recipe at given INDEX.
 |``INDEX add tag t/TAG``
-|Adds a tag 'TAG' to the recipe at given INDEX
+|Adds a tag 'TAG' to the recipe at given INDEX.
 |``INDEX remove tag t/TAG``
-|Removes a tag 'TAG' to the recipe at given INDEX
+|Removes a tag 'TAG' to the recipe at given INDEX.
 
 .3+|``inventory``
 |``add ingredient  i/INGREDIENT q/QUANTITY``
@@ -676,7 +676,7 @@ INGREDIENT and its QUANTITY, STEP and its STEP_INDEX, and TAG are optional param
 |``remove ingredient i/INGREDIENT q/QUANTITY``
 |Removes QUANTITY of INGREDIENTS from your inventory.
 |`clear`
-|Removes all ingredients from the inventory
+|Removes all ingredients from the inventory.
 
 .5+|``cart``
 |``add recipe INDEX``
