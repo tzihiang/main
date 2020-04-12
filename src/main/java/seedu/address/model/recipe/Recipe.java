@@ -65,6 +65,10 @@ public class Recipe {
         return description;
     }
 
+    /**
+     * Returns an immutable list of ingredients, which throws {@code UnsupportedOperationException} if modification
+     * is attempted.
+     */
     public ObservableList<Ingredient> getIngredients() {
         return ingredients.asUnmodifiableObservableList();
     }
