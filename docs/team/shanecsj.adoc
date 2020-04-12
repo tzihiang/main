@@ -24,6 +24,8 @@ a convenient command to assist the user in accomplishing this task.
 implementation of this feature.
 
 * *Minor enhancement*: Implemented commands under `cookbook` category
+** Implemented the add, remove and view commands and their parsers
+** Implemented skeleton classes for the search commands and their parsers
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=shanecsj&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code contributed by @shanecsj]]
 
@@ -31,6 +33,7 @@ implementation of this feature.
 
 ** Project management:
 *** Kept track of deadlines and requirements for milestone submissions
+*** Managed bugs for v1.4 [Issue https://github.com/AY1920S2-CS2103T-F11-4/main/issues/241[#241]]
 ** Enhancements to existing features:
 *** Fixed discrepancies in some commands
 (Pull request https://github.com/AY1920S2-CS2103T-F11-4/main/pull/243[#243])
@@ -38,7 +41,7 @@ implementation of this feature.
 (Pull request https://github.com/AY1920S2-CS2103T-F11-4/main/pull/138[#138])
 ** Documentation:
 *** Updated existing contents of the User Guide: https://github.com/AY1920S2-CS2103T-F11-4/main/pull/31[#31], https://github.com/AY1920S2-CS2103T-F11-4/main/pull/245[#245]
-*** Updated existing contents of the Developer Guide: https://github.com/AY1920S2-CS2103T-F11-4/main/pull/146[#146]
+*** Updated existing contents of the Developer Guide: https://github.com/AY1920S2-CS2103T-F11-4/main/pull/146[#146], https://github.com/AY1920S2-CS2103T-F11-4/main/pull/253[#253]
 ** Community:
 *** Reviewed team members' PR before merging
 *** Reported Developer Guide suggestions for other teams (Example: https://github.com/AY1920S2-CS2103T-W13-4/main/issues/84[1])
@@ -66,9 +69,15 @@ include::../DeveloperGuide.adoc[tag=inventorycookrecipe]
 
 === UML Diagrams
 
+==== Sequence Diagram
+.Sequence diagram for InventoryCookCommand
+image::InventoryCookRecipeSequenceDiagram.png[]
+
+==== Activity Diagram
 .Activity diagram when user enters `inventory cook recipe` command
 image::InventoryCookRecipeActivityDiagram.png[]
 
+==== Class Diagram
 .Class diagram for `Cookbook` class
 image::CookbookClassDiagram.png[]
 
