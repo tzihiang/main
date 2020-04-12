@@ -12,9 +12,9 @@ public abstract class RecipeRemoveCommand extends RecipeCommand {
 
     public static final String COMMAND_WORD = "remove";
 
-    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD
-            + ": removes an ingredient, a step, or a tag from a recipe. "
-            + "\nParameters: \n"
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " INDEX " + COMMAND_WORD
+            + ": removes an ingredient, a step, or a tag from a recipe with the given INDEX.\n"
+            + "\nParameters for removing an ingredient: "
             + "INDEX (must be a positive integer) "
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
             + "[" + PREFIX_INGREDIENT_QUANTITY + "QUANTITY]\n"
@@ -22,6 +22,7 @@ public abstract class RecipeRemoveCommand extends RecipeCommand {
             + COMMAND_WORD + " "
             + PREFIX_INGREDIENT_NAME + "Eggs "
             + PREFIX_INGREDIENT_QUANTITY + "12\n"
+            + "* if no quantity is specified, all instances of the specified ingredient will be removed.\n"
             + "\nParameters for removing a step: "
             + "INDEX (must be a positive integer) "
             + PREFIX_STEP_INDEX + "STEP_INDEX\n"

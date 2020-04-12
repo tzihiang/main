@@ -22,7 +22,7 @@ public class RecipeContainsInventoryIngredientsPredicateTest {
     @Test
     public void test_inventoryContainsAllRecipeIngredients_returnsTrue() {
         Inventory inventory = new Inventory();
-        inventory.setIngredients(VALID_RECIPE.getIngredients().asUnmodifiableObservableList());
+        inventory.setIngredients(VALID_RECIPE.getIngredients());
 
         Model model = new ModelManager();
         model.addCookbookRecipe(VALID_RECIPE);

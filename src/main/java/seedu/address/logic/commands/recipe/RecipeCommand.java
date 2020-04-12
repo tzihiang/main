@@ -11,8 +11,10 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.RecipeDescription;
@@ -29,19 +31,19 @@ public abstract class RecipeCommand extends Command {
     public static final String STEP_KEYWORD = "step";
     public static final String INGREDIENT_KEYWORD = "ingredient";
     public static final String TAG_KEYWORD = "tag";
-    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + "add"
-            + ": adds an ingredient, a step, or a tag to a recipe with the given INDEX. "
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " INDEX " + "add"
+            + ": adds an ingredient, a step, or a tag to a recipe with the given INDEX.\n"
             + "\nParameters for adding an ingredient: "
-            + "INDEX (must be a positive integer) "
+            + "INDEX (must be a valid positive integer) "
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
             + PREFIX_INGREDIENT_QUANTITY + "QUANTITY\n"
             + "Example: " + COMMAND_CATEGORY + " 1 "
-            + "ADD" + " "
+            + "add" + " "
             + INGREDIENT_KEYWORD + " "
             + PREFIX_INGREDIENT_NAME + "Eggs "
             + PREFIX_INGREDIENT_QUANTITY + "12\n"
             + "\nParameters for adding a step: "
-            + "INDEX (must be a positive integer) "
+            + "INDEX (must be a valid positive integer) "
             + PREFIX_STEP_INDEX + "STEP_INDEX "
             + PREFIX_STEP_DESCRIPTION + "STEP_DESCRIPTION\n"
             + "Example: " + COMMAND_CATEGORY + " 1 "
@@ -50,30 +52,31 @@ public abstract class RecipeCommand extends Command {
             + PREFIX_STEP_INDEX + "1 "
             + PREFIX_STEP_DESCRIPTION + "Add potatoes and water to a large pot, and bring to a boil.\n"
             + "\nParameters for adding a tag: "
-            + "INDEX (must be a positive integer) "
+            + "INDEX (must be a valid positive integer) "
             + PREFIX_TAG + "TAG\n"
             + "Example: " + COMMAND_CATEGORY + " 1 "
             + "add" + " "
             + TAG_KEYWORD + " "
-            + PREFIX_TAG + "Pasta"
-            + "\n" + COMMAND_CATEGORY + " " + "remove"
-            + ": removes an ingredient, a step, or a tag from a recipe. "
-            + "\nParameters: \n"
-            + "INDEX (must be a positive integer) "
+            + PREFIX_TAG + "Pasta\n"
+            + "\n" + COMMAND_CATEGORY + " INDEX " + "remove"
+            + ": removes an ingredient, a step, or a tag from a recipe with the given INDEX.\n"
+            + "\nParameters for removing an ingredient: \n"
+            + "INDEX (must be a valid positive integer) "
             + PREFIX_INGREDIENT_NAME + "INGREDIENT "
             + "[" + PREFIX_INGREDIENT_QUANTITY + "QUANTITY]\n"
             + "Example: " + COMMAND_CATEGORY + " 1 "
             + "remove" + " "
             + PREFIX_INGREDIENT_NAME + "Eggs "
             + PREFIX_INGREDIENT_QUANTITY + "12\n"
+            + "* if no quantity is specified, all instances of the specified ingredient will be removed.\n"
             + "\nParameters for removing a step: "
-            + "INDEX (must be a positive integer) "
+            + "INDEX (must be a valid positive integer) "
             + PREFIX_STEP_INDEX + "STEP_INDEX\n"
             + "Example: " + COMMAND_CATEGORY + " 1 "
             + "remove" + " "
             + PREFIX_STEP_INDEX + "1\n"
             + "\nParameters for removing a tag: "
-            + "INDEX (must be a positive integer) "
+            + "INDEX (must be a valid positive integer) "
             + PREFIX_TAG + "TAG\n"
             + "Example: " + COMMAND_CATEGORY + " 1 "
             + "remove" + " "
@@ -86,7 +89,7 @@ public abstract class RecipeCommand extends Command {
     public static class EditRecipeDescriptor {
         private RecipeName name;
         private RecipeDescription description;
-        private UniqueIngredientList ingredients;
+        private ObservableList<Ingredient> ingredients;
         private UniqueStepList steps;
         private Set<Tag> tags;
 
@@ -116,8 +119,9 @@ public abstract class RecipeCommand extends Command {
                     .orElse(recipeToEdit.getName());
             RecipeDescription updatedDescription = editRecipeDescriptor.getDescription()
                     .orElse(recipeToEdit.getDescription());
-            UniqueIngredientList updatedIngredients = editRecipeDescriptor.getIngredients()
-                    .orElse(recipeToEdit.getIngredients());
+            UniqueIngredientList updatedIngredients = new UniqueIngredientList();
+            updatedIngredients.setIngredients(editRecipeDescriptor.getIngredients()
+                    .orElse(recipeToEdit.getIngredients()));
             UniqueStepList updatedSteps = editRecipeDescriptor.getSteps()
                     .orElse(recipeToEdit.getSteps());
             Set<Tag> updatedTags = editRecipeDescriptor.getTags()
@@ -149,11 +153,11 @@ public abstract class RecipeCommand extends Command {
             return Optional.ofNullable(description);
         }
 
-        public void setIngredients(UniqueIngredientList ingredients) {
+        public void setIngredients(ObservableList<Ingredient> ingredients) {
             this.ingredients = ingredients;
         }
 
-        public Optional<UniqueIngredientList> getIngredients() {
+        public Optional<ObservableList<Ingredient>> getIngredients() {
             return Optional.ofNullable(ingredients);
         }
 

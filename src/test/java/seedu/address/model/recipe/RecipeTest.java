@@ -70,7 +70,7 @@ public class RecipeTest {
     public void getIngredients_validInput() {
         Recipe recipeOverloaded = new Recipe(VALID_RECIPE_NAME, VALID_RECIPE_DESCRIPTION, VALID_INGREDIENTS,
             VALID_STEPS, VALID_TAGS);
-        assertEquals(recipeOverloaded.getIngredients(), VALID_INGREDIENTS);
+        assertEquals(recipeOverloaded.getIngredients(), VALID_INGREDIENTS.asUnmodifiableObservableList());
     }
 
     @Test

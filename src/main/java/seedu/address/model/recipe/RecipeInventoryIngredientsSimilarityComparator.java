@@ -7,10 +7,10 @@ import seedu.address.model.ReadOnlyInventory;
 /**
  * A comparator for {@code Recipe}, which compares recipes by their similarity to an inventory's ingredients.
  */
-public class RecipeInventorySimilarityComparator implements Comparator<Recipe> {
+public class RecipeInventoryIngredientsSimilarityComparator implements Comparator<Recipe> {
     private final ReadOnlyInventory inventory;
 
-    public RecipeInventorySimilarityComparator(ReadOnlyInventory inventory) {
+    public RecipeInventoryIngredientsSimilarityComparator(ReadOnlyInventory inventory) {
         this.inventory = inventory;
     }
 
@@ -33,7 +33,7 @@ public class RecipeInventorySimilarityComparator implements Comparator<Recipe> {
             return 0;
         }
 
-        return recipe.getIngredients().asUnmodifiableObservableList().stream()
+        return recipe.getIngredients().stream()
                 .map(recipeIngredient -> inventory.getIngredientList().stream()
                     .filter(inventoryIngredient -> inventoryIngredient.isCompatibleWith(recipeIngredient))
                     .findFirst()

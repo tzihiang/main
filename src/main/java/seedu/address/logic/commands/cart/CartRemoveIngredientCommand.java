@@ -22,6 +22,7 @@ public class CartRemoveIngredientCommand extends CartCommand {
 
     public static final String COMMAND_WORD = "remove";
     public static final String INGREDIENT_KEYWORD = "ingredient";
+    public static final String ALL_KEYWORD = "All";
     public static final String MESSAGE_SUCCESS = "%1$s removed from cart";
     public static final String MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH = "The quantity specified is too large";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
@@ -57,10 +58,10 @@ public class CartRemoveIngredientCommand extends CartCommand {
         try {
             ingredientQuantity.map(x -> new Ingredient(ingredientName, x))
                     .ifPresentOrElse(model::removeCartIngredient, () ->
-                            model.removeCartIngredient(ingredientName));
+                        model.removeCartIngredient(ingredientName));
 
             String ingredientRemoved = ingredientQuantity.map(x -> new Ingredient(ingredientName, x).toString())
-                    .orElseGet(() -> "All " + ingredientName);
+                    .orElseGet(() -> ALL_KEYWORD + " " + ingredientName);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, ingredientRemoved));
         } catch (NonPositiveIngredientQuantityException e) {

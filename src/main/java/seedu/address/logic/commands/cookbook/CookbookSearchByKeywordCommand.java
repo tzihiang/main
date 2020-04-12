@@ -15,13 +15,13 @@ import seedu.address.model.recipe.RecipeNameContainsKeywordsPredicate;
 public class CookbookSearchByKeywordCommand extends CookbookSearchCommand {
 
     public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " "
-            + COMMAND_WORD + " " + SEARCH_KEYWORD_COMMAND
+            + COMMAND_WORD + " " + RECIPE_KEYWORD
             + ": finds all recipes whose recipe names contain any of "
             + "the specified keywords (case-insensitive) and displays them as an alphabetically sorted list with "
             + "index numbers.\n"
             + "Parameters: " + PREFIX_SEARCH_KEYWORD + "KEYWORD\n"
             + "Example:" + COMMAND_CATEGORY + " "
-            + COMMAND_WORD + " " + SEARCH_KEYWORD_COMMAND + " " + PREFIX_SEARCH_KEYWORD + "bacon";
+            + COMMAND_WORD + " " + RECIPE_KEYWORD + " " + PREFIX_SEARCH_KEYWORD + "bacon";
 
     private final RecipeNameContainsKeywordsPredicate predicate;
 
