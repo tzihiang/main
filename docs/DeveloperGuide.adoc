@@ -337,15 +337,14 @@ This means that `cart export ingredient` will not work.
 . `LogicManager` calls `CartExportCommand#execute()` calls the static method of `PdfExporter`,
 `PdfExporter#exportCart()`, which takes in the `ObservableList<Ingredient>` stored in `Cart`
 . Step 4 is executed within a try-catch block. If a previously generated pdf (saved as `cart.pdf` by default) is
-opened in another program, or there is an issue writing to the PDF file (more information can be found
-https://api.itextpdf.com/iText5/5.59/com/itextpdf/text/DocumentException.html[here]), a `CommandResult` with an error
+opened in another program, or there is an issue writing to the PDF file, a `CommandResult` with an error
 message will returned to `LogicManager`:
 +
 [source,java]
 ----
 try {
     PdfExporter.exportCart(model.getCart().getIngredientList());
-} catch (IOException | DocumentException e) {
+} catch (IOException e) {
     return new CommandResult(MESSAGE_FILE_NOT_FOUND);
 }
 ----
@@ -376,7 +375,7 @@ image::CartExportCommandSequenceDiagram.png[]
 |Description|Exports it to a flexible pdf file|Exports it to a txt file
 |Pros
 a|
-- Easier to format with `iTextPDF` 's vast library and API
+- Easier to format with `Apache PDFbox` 's vast library and API
 - More versatile in that images can be added if the function was to be extended to include images of the ingredients
 a|
 - Simple to implement
