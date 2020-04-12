@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.recipe.RecipeInventorySimilarityComparator;
+import seedu.address.model.recipe.RecipeInventoryIngredientsSimilarityComparator;
 
 /**
  * Removes all the ingredients of the selected recipe from the inventory
@@ -72,7 +72,7 @@ public class InventoryCookCommand extends InventoryCommand {
     private boolean hasSufficientInventoryIngredients(ReadOnlyInventory inventory, Recipe recipe) {
         requireNonNull(inventory);
         requireNonNull(recipe);
-        return RecipeInventorySimilarityComparator.calculateSimilarity(recipe, inventory) == 1.0;
+        return RecipeInventoryIngredientsSimilarityComparator.calculateSimilarity(recipe, inventory) == 1;
     }
 
 

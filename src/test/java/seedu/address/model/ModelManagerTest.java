@@ -20,7 +20,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.recipe.RecipeInventorySimilarityComparator;
+import seedu.address.model.recipe.RecipeInventoryIngredientsSimilarityComparator;
 
 public class ModelManagerTest {
 
@@ -174,7 +174,7 @@ public class ModelManagerTest {
     @Test
     public void sortCookbook() {
         modelManager.setCookbook(getTypicalCookbook());
-        modelManager.sortCookbook(new RecipeInventorySimilarityComparator(getTypicalInventory()));
+        modelManager.sortCookbook(new RecipeInventoryIngredientsSimilarityComparator(getTypicalInventory()));
 
         assertEquals(SCRAMBLED_EGG, modelManager.getCookbook().getRecipeList().get(0));
         assertEquals(CARBONARA, modelManager.getCookbook().getRecipeList().get(1));

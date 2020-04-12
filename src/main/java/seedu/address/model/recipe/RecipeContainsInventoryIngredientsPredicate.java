@@ -1,6 +1,6 @@
 package seedu.address.model.recipe;
 
-import static seedu.address.model.recipe.RecipeInventorySimilarityComparator.calculateSimilarity;
+import static seedu.address.model.recipe.RecipeInventoryIngredientsSimilarityComparator.calculateSimilarity;
 
 import java.util.function.Predicate;
 
