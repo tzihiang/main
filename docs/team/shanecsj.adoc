@@ -60,3 +60,15 @@ include::../UserGuide.adoc[tag=inventorycookcommand]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=inventorycookrecipe]
+
+== Miscellaneous
+
+=== UML Diagrams
+
+.Activity diagram when user enters `inventory cook recipe` command
+image::InventoryCookRecipeActivityDiagram.png[]
+
+.Class diagram for `Cookbook` class
+image::CookbookClassDiagram.png[]
+
