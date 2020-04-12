@@ -229,6 +229,7 @@ The following sequence diagram shows how the recipe adding function works (full 
                                                                                           t/Tag`]  omitted from diagram
 for brevity):
 // tag::addrecipesequence[]
+
 .Sequence diagram for CookbookAddCommand
 image::CookbookAddRecipeSequenceDiagram.png[]
 // end::addrecipesequence[]
