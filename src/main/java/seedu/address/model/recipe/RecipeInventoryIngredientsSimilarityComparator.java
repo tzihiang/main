@@ -8,11 +8,11 @@ import seedu.address.model.ReadOnlyInventory;
  * A comparator for {@code Recipe}, which compares recipes by their similarity to an inventory's ingredients.
  */
 public class RecipeInventoryIngredientsSimilarityComparator implements Comparator<Recipe> {
-    public final ReadOnlyInventory inventory;
-
     private static final int NO_INGREDIENTS = 0;
     private static final double ZERO_SIMILARITY = 0;
     private static final double DEFAULT_SIMILARITY = 0.5;
+
+    public final ReadOnlyInventory inventory;
 
     public RecipeInventoryIngredientsSimilarityComparator(ReadOnlyInventory inventory) {
         this.inventory = inventory;
