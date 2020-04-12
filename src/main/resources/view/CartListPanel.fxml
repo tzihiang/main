@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Label?>
 
 <?import javafx.geometry.Insets?>
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <Label fx:id="header" styleClass="cell_header_label" alignment="CENTER"
            text="              Cart"/>
     <HBox style="-fx-background-color: #bdd0c4">
@@ -15,4 +15,3 @@
     </HBox>
     <ListView fx:id="cartListView" HBox.hgrow="ALWAYS"/>
 </VBox>
-

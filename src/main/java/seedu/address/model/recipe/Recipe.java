@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.step.UniqueStepList;
@@ -27,7 +28,7 @@ public class Recipe {
     private final RecipeDescription description;
     private final UniqueIngredientList ingredients;
     private final UniqueStepList steps;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Tag> tags;
 
     /**
      * Recipe constructor for only recipe name and description.
@@ -39,6 +40,7 @@ public class Recipe {
         this.description = description;
         this.ingredients = new UniqueIngredientList();
         this.steps = new UniqueStepList();
+        this.tags = new HashSet<>();
     }
 
     /**
@@ -47,11 +49,11 @@ public class Recipe {
      */
     public Recipe(RecipeName name, RecipeDescription description,
             UniqueIngredientList ingredients, UniqueStepList steps, Set<Tag> tags) {
-        requireAllNonNull(name, description, ingredients, steps, tags);
-        this.name = name;
-        this.description = description;
-        this.ingredients = ingredients;
-        this.steps = steps;
+        this(name, description);
+
+        requireAllNonNull(ingredients, steps, tags);
+        this.ingredients.setIngredients(ingredients);
+        this.steps.setSteps(steps);
         this.tags.addAll(tags);
     }
 
@@ -63,8 +65,12 @@ public class Recipe {
         return description;
     }
 
-    public UniqueIngredientList getIngredients() {
-        return ingredients;
+    /**
+     * Returns an immutable list of ingredients, which throws {@code UnsupportedOperationException} if modification
+     * is attempted.
+     */
+    public ObservableList<Ingredient> getIngredients() {
+        return ingredients.asUnmodifiableObservableList();
     }
 
     public UniqueStepList getSteps() {

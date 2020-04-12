@@ -62,7 +62,7 @@ class JsonAdaptedRecipe {
     public JsonAdaptedRecipe(Recipe source) {
         name = source.getName().fullRecipeName;
         description = source.getDescription().fullRecipeDescription;
-        ingredients.addAll(source.getIngredients().asUnmodifiableObservableList().stream()
+        ingredients.addAll(source.getIngredients().stream()
                 .map(JsonAdaptedIngredient::new)
                 .collect(Collectors.toList()));
         steps.addAll(source.getSteps().asUnmodifiableObservableList().stream()

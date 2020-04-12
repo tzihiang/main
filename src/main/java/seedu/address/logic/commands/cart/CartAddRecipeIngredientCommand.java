@@ -9,7 +9,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -50,8 +49,7 @@ public class CartAddRecipeIngredientCommand extends CartAddCommand {
         }
 
         Recipe targetedRecipe = model.getCookbook().getRecipeList().get(recipeIndex.getZeroBased());
-        UniqueIngredientList ingredients = targetedRecipe.getIngredients();
-        ingredients.forEach(model::addCartIngredient);
+        targetedRecipe.getIngredients().stream().forEach(model::addCartIngredient);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetedRecipe.getName()));
     }

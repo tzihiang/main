@@ -92,7 +92,7 @@ public class RecipeRemoveCommandParser implements Parser<RecipeRemoveCommand> {
 
         Optional<IngredientQuantity> ingredientQuantity = argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_QUANTITY)
                 ? Optional.of(ParserUtil.parseIngredientQuantity(argMultimap.getValue(PREFIX_INGREDIENT_QUANTITY)
-                .get()))
+                    .get()))
                 : Optional.empty();
 
         return new RecipeRemoveIngredientCommand(index, ingredientName, ingredientQuantity);

@@ -29,8 +29,7 @@ public class JsonAdaptedRecipeTest {
 
     private static final String VALID_INGREDIENT_NAME = APPLE.getName().toString();
     private static final String VALID_INGREDIENT_QUANTITY = APPLE.getQuantity().toString();
-    private static final List<JsonAdaptedIngredient> VALID_INGREDIENTS = CARBONARA.getIngredients()
-            .asUnmodifiableObservableList().stream()
+    private static final List<JsonAdaptedIngredient> VALID_INGREDIENTS = CARBONARA.getIngredients().stream()
             .map(JsonAdaptedIngredient::new)
             .collect(Collectors.toList());
     private static final String VALID_RECIPE_NAME = CARBONARA.getName().toString();
