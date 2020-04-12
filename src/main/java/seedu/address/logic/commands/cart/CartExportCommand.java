@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 
-import com.itextpdf.text.DocumentException;
-
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -34,7 +32,7 @@ public class CartExportCommand extends CartCommand {
 
         try {
             PdfExporter.exportCart(model.getCart().getIngredientList());
-        } catch (IOException | DocumentException e) {
+        } catch (IOException e) {
             return new CommandResult(MESSAGE_FILE_NOT_FOUND);
         }
 
