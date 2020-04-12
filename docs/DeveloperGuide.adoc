@@ -570,12 +570,16 @@ add back the ingredients to the cart after it is cleared if they wish to.
 
 //tag::inventorycookrecipe[]
 === Remove ingredients of a recipe from the inventory
-This feature allows users to remove the ingredients found in a recipe from their inventory.
-If the inventory contains an ingredient that has a higher quantity than specified in the selected recipe, its quantity will be subtracted accordingly.
-If the ingredient has a lower quantity than specified in the selected recipe or if there is a missing ingredient in the inventory, the feature will not be executed and an error will be thrown.
 
 ==== Implementation
 The mechanism is facilitated by `InventoryCookCommand`, which extends the `Command` abstract class. The format of the command is as follows: `inventory cook recipe INDEX`.
+
+This command was implemented to allow users to remove multiple ingredients and their quantities found in a recipe from their inventory.
+If the inventory contains an ingredient that has a higher quantity than specified in the selected recipe, its quantity will be subtracted accordingly.
+If the ingredient has a lower quantity than specified in the selected recipe or if there is a missing ingredient in the inventory, the feature will not be executed and an error will be thrown.
+Without this command, users can only remove ingredients through the `inventory remove ingredient` command one at a time.
+Moreover, they have to constantly cross-check the ingredient quantities in the recipe for accuracy.
+Therefore, this command provides convenience after users have prepared a recipe and wish to update their inventory ingredients through a single step.
 
 Below is a step-by-step sequence of what happens when a user enters this command:
 
@@ -593,44 +597,15 @@ selectedRecipe.getIngredients().stream().forEach(model::removeInventoryIngredien
 ----
 . A `CommandResult` with a success message is returned to `LogicManager` and passed back to `MainWindow` which displays the text to the user through the GUI.
 
-==== Implementation reasoning
-This command was implemented to allow users to remove multiple ingredients and their quantities found in a recipe from their inventory.
-Without this command, users can only remove ingredients through the `inventory remove ingredient` command one at a time.
-Moreover, they have to constantly cross-check the ingredient quantities in the recipe for accuracy.
-Therefore, this command provides convenience after users have prepared a recipe and wish to update their inventory ingredients through a single step.
-
-==== Sequence diagram
 The following sequence diagram shows how the command `inventory cook recipe 1` works:
 
 .Sequence Diagram for InventoryCookCommand
 image::InventoryCookRecipeSequenceDiagram.png[]
 
-==== How the feature works
-. For brevity, unrelated recipes and cart ingredients have been removed for the demonstration of this feature.
-+
-.Simplified GUI of CookingPapa for demonstration
-image::InventoryCookStep1.png[]
-
-. Ensure that the inventory contains all of the ingredients of the selected recipe. Click the 'view' button or use `cookbook view recipe INDEX` to view the ingredients of a recipe.
-+
-.Sample GUI displaying two methods of viewing recipe 1
-image::InventoryCookStep2.png[]
-
-. Input the command in the command box and hit kbd:[Enter]. The command format is `inventory cook recipe INDEX` where `INDEX` is the index of the selected recipe on the Recipe display window.
-+
-.Input of `inventory cook recipe command` in the command box
-image::InventoryCookStep3.png[]
-
-. Upon successful execution of the command, the ingredients of the selected recipe will be removed from the inventory.
-If the inventory contains an ingredient of a higher quantity, the quantity will be subtracted accordingly.
-+
-.Successful execution of InventoryCookCommand
-image::InventoryCookStep4.png[]
-
 ==== Design considerations
 ===== Aspect: Allowing users to execute the `inventory cook recipe` command when there are missing or insufficient ingredients in the inventory.
 
-.Design considerations for allowing users to execute the `inventory cook recipe` command when there are missing or insufficient ingredients in the inventory.
+.Design considerations for the `inventory cook recipe` command
 [cols="12%,44%,44%"]
 |===
 ||Design A: Allow the execution of `inventory cook recipe` command regardless of missing or insufficient ingredients in the inventory  | Design B (Current choice): Do not allow execution of `inventory cook recipe` command when there are missing or insufficient ingredients in the inventory
