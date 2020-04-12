@@ -42,7 +42,7 @@ public class CookbookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateRecipes_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
         Recipe editedCarbonara = new RecipeBuilder(CARBONARA).withTags(VALID_TAG_HEALTHY)
                 .build();

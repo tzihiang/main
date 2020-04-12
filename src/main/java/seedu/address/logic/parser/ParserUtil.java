@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -15,7 +16,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
-import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.recipe.RecipeDescription;
 import seedu.address.model.recipe.RecipeName;
 import seedu.address.model.step.Step;
@@ -151,9 +151,7 @@ public class ParserUtil {
     public static List<IngredientName> parseIngredientNames(List<String> ingredientNames) {
         requireNonNull(ingredientNames);
 
-        return ingredientNames.stream()
-            .map(IngredientName::new)
-            .collect(Collectors.toList());
+        return ingredientNames.stream().map(IngredientName::new).collect(Collectors.toList());
     }
 
     /**
@@ -162,9 +160,7 @@ public class ParserUtil {
     public static List<IngredientQuantity> parseIngredientQuantities(List<String> ingredientQuantities) {
         requireNonNull(ingredientQuantities);
 
-        return ingredientQuantities.stream()
-            .map(IngredientQuantity::new)
-            .collect(Collectors.toList());
+        return ingredientQuantities.stream().map(IngredientQuantity::new).collect(Collectors.toList());
     }
 
     /**
@@ -172,7 +168,7 @@ public class ParserUtil {
      * into a {@code UniqueIngredientList}.
      * @throws ParseException if the size of the two lists are different.
      */
-    public static UniqueIngredientList parseIngredients(List<IngredientName> names, List<IngredientQuantity> quantities)
+    public static List<Ingredient> parseIngredients(List<IngredientName> names, List<IngredientQuantity> quantities)
             throws ParseException {
 
         if (names.size() != quantities.size()) {
@@ -180,13 +176,9 @@ public class ParserUtil {
                     String.format(MESSAGE_DIFFERENT_NUMBER_OF_INPUTS, names.size(), quantities.size()));
         }
 
-        UniqueIngredientList ingredients = new UniqueIngredientList();
-
-        for (int i = 0; i < names.size(); i++) {
-            ingredients.add(new Ingredient(names.get(i), quantities.get(i)));
-        }
-
-        return ingredients;
+        return IntStream.range(0, names.size())
+                .mapToObj(i -> new Ingredient(names.get(i), quantities.get(i)))
+                .collect(Collectors.toList());
     }
 
     /**

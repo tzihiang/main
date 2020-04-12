@@ -14,10 +14,10 @@ public class InventoryClearCommand extends InventoryCommand {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "All ingredients from inventory cleared!";
-    public static final String MESSAGE_SUCCESS_EMPTY = "The inventory is already empty.";
+    public static final String MESSAGE_SUCCESS_EMPTY = "Your inventory is empty.";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
-            + ": removes all ingredients from your inventory\n"
-            + "Parameters: \n"
+            + ": removes all ingredients from your inventory.\n"
+            + "\nParameters: "
             + COMMAND_CATEGORY + " " + COMMAND_WORD;
 
     /**

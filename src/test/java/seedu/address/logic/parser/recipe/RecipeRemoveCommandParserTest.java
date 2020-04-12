@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -26,6 +28,7 @@ public class RecipeRemoveCommandParserTest {
             + "q/5";
     private static final String INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME = "1 ingredient q/5";
     private static final String VALID_PARSE_REMOVE_INGREDIENT_ARGUMENT = "1 i/Ingredient q/5";
+    private static final String VALID_PARSE_REMOVE_INGREDIENT_NO_QUANTITY_ARGUMENT = "1 i/Ingredient";
 
     private static final Index VALID_STEP_INDEX = new Index(0);
     private static final String VALID_REMOVE_STEP_ARGUMENT = "1 step x/1";
@@ -45,7 +48,8 @@ public class RecipeRemoveCommandParserTest {
     @Test
     public void parse_validInput() throws ParseException {
         assertEquals(new RecipeRemoveCommandParser().parse(VALID_REMOVE_INGREDIENT_ARGUMENT),
-                new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, VALID_INGREDIENT));
+                new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, VALID_INGREDIENT.getName(),
+                        Optional.of(VALID_INGREDIENT.getQuantity())));
         assertEquals(new RecipeRemoveCommandParser().parse(VALID_REMOVE_STEP_ARGUMENT),
                 new RecipeRemoveStepCommand(VALID_RECIPE_INDEX, VALID_STEP_INDEX));
         assertEquals(new RecipeRemoveCommandParser().parse(VALID_REMOVE_TAG_ARGUMENT),
@@ -75,7 +79,15 @@ public class RecipeRemoveCommandParserTest {
     @Test
     public void parseRemoveIngredient_validInput() throws ParseException {
         assertEquals(new RecipeRemoveCommandParser().parseRemoveIngredient(VALID_PARSE_REMOVE_INGREDIENT_ARGUMENT),
-                new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, VALID_INGREDIENT));
+                new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, VALID_INGREDIENT.getName(),
+                        Optional.of(VALID_INGREDIENT.getQuantity())));
+    }
+
+    @Test
+    public void parseRemoveIngredientWithoutQuantity_validInput() throws ParseException {
+        assertEquals(new RecipeRemoveCommandParser()
+                        .parseRemoveIngredient(VALID_PARSE_REMOVE_INGREDIENT_NO_QUANTITY_ARGUMENT),
+                new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, VALID_INGREDIENT.getName(), Optional.empty()));
     }
 
     @Test

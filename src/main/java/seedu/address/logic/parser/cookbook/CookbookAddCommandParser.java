@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECIPE_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECIPE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
@@ -55,7 +54,7 @@ public class CookbookAddCommandParser implements Parser<CookbookAddCommand> {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION, PREFIX_INGREDIENT_NAME,
-                        PREFIX_INGREDIENT_QUANTITY, PREFIX_STEP_INDEX, PREFIX_STEP_DESCRIPTION, PREFIX_TAG);
+                        PREFIX_INGREDIENT_QUANTITY, PREFIX_STEP_DESCRIPTION, PREFIX_TAG);
 
         if (!argMultimap.arePrefixesPresent(PREFIX_RECIPE_NAME, PREFIX_RECIPE_DESCRIPTION)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -73,7 +72,8 @@ public class CookbookAddCommandParser implements Parser<CookbookAddCommand> {
                 ParserUtil.parseIngredientNames(argMultimap.getAllValues(PREFIX_INGREDIENT_NAME));
         List<IngredientQuantity> ingredientQuantities =
                 ParserUtil.parseIngredientQuantities(argMultimap.getAllValues(PREFIX_INGREDIENT_QUANTITY));
-        UniqueIngredientList ingredients = ParserUtil.parseIngredients(ingredientNames, ingredientQuantities);
+        UniqueIngredientList ingredients = new UniqueIngredientList();
+        ingredients.setIngredients(ParserUtil.parseIngredients(ingredientNames, ingredientQuantities));
         UniqueStepList steps = ParserUtil.parseSteps(argMultimap.getAllValues(PREFIX_STEP_DESCRIPTION));
         Set<Tag> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 

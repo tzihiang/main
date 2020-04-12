@@ -7,7 +7,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.recipe.RecipeContainsInventoryIngredientsPredicate;
-import seedu.address.model.recipe.RecipeInventorySimilarityComparator;
+import seedu.address.model.recipe.RecipeInventoryIngredientsSimilarityComparator;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -30,7 +30,7 @@ public class CookbookSearchByInventoryCommand extends CookbookSearchCommand {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         ReadOnlyInventory inventory = model.getInventory();
-        model.sortCookbook(new RecipeInventorySimilarityComparator(inventory));
+        model.sortCookbook(new RecipeInventoryIngredientsSimilarityComparator(inventory));
         model.updateFilteredCookbookRecipeList(new RecipeContainsInventoryIngredientsPredicate(inventory));
         return new CommandResult(
                 String.format(MESSAGE_RECIPES_LISTED_OVERVIEW, model.getFilteredCookbookRecipeList().size()));
