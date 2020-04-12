@@ -616,6 +616,10 @@ intuitive to users. Furthermore, this command creates interaction between the `C
 helps to further integrate the application as a all-in-one application.
 
 ==== Sequence diagram
+The following sequence diagram shows how the function of adding recipe's ingredients to cart works:
+
+.Sequence diagram for CartAddRecipeIngredientCommand
+image::CartAddRecipeIngredientSequenceDiagram.png[]
 
 ==== How the feature works
 
