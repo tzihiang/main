@@ -8,5 +8,6 @@ import seedu.address.logic.commands.Command;
 public abstract class CookbookCommand extends Command {
 
     public static final String COMMAND_CATEGORY = "cookbook";
+    public static final String RECIPE_KEYWORD = "recipe";
 
 }

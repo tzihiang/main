@@ -6,13 +6,17 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.IngredientName;
+import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.model.ingredient.UniqueIngredientList;
+import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
 import seedu.address.model.ingredient.exceptions.NonPositiveIngredientQuantityException;
 import seedu.address.model.recipe.Recipe;
 
@@ -21,22 +25,27 @@ import seedu.address.model.recipe.Recipe;
  */
 public class RecipeRemoveIngredientCommand extends RecipeRemoveCommand {
 
-    public static final String MESSAGE_SUCCESS = "Ingredient removed for %1$s: %2$s";
-    public static final String MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH = "The inventory does not contain %1$s";
+    public static final String ALL_KEYWORD = "All";
+    public static final String MESSAGE_SUCCESS = "%1$s removed from %2$s";
+    public static final String MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH = "The quantity specified is too large";
     public static final String MESSAGE_INCOMPATIBLE_UNITS = "This ingredient has different units "
             + "from the same ingredient in the recipe";
+    public static final String MESSAGE_INGREDIENT_NOT_FOUND = "%2$s does not contain %1$s";
 
     private final Index index;
-    private final Ingredient toRemove;
+    private final IngredientName ingredientName;
+    private final Optional<IngredientQuantity> ingredientQuantity;
 
     /**
      * Creates a RecipeRemoveIngredientCommand to remove the specified {@code Ingredient} from the recipe
      */
-    public RecipeRemoveIngredientCommand(Index index, Ingredient toRemove) {
-        requireAllNonNull(index, toRemove);
+    public RecipeRemoveIngredientCommand(Index index, IngredientName ingredientName,
+                                         Optional<IngredientQuantity> ingredientQuantity) {
+        requireAllNonNull(index, ingredientName, ingredientQuantity);
 
         this.index = index;
-        this.toRemove = toRemove;
+        this.ingredientName = ingredientName;
+        this.ingredientQuantity = ingredientQuantity;
     }
 
     //@@author teo-jun-xiong
@@ -51,29 +60,43 @@ public class RecipeRemoveIngredientCommand extends RecipeRemoveCommand {
         }
 
         assert (index.getZeroBased() < lastShownList.size());
+
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
-        UniqueIngredientList ingredients = recipeToEdit.getIngredients();
+        UniqueIngredientList ingredients = new UniqueIngredientList();
+        ingredients.setIngredients(recipeToEdit.getIngredients());
 
         try {
-            ingredients.remove(toRemove);
+            ingredientQuantity.map(x -> new Ingredient(ingredientName, x))
+                    .ifPresentOrElse(ingredients::remove, () ->
+                        ingredients.remove(ingredientName));
+
+            EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
+            editRecipeDescriptor.setIngredients(ingredients.asUnmodifiableObservableList());
+            Recipe editedRecipe = EditRecipeDescriptor.createEditedRecipe(recipeToEdit, editRecipeDescriptor);
+
+            model.setCookbookRecipe(recipeToEdit, editedRecipe);
+            model.updateFilteredCookbookRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+
+            String ingredientRemoved = ingredientQuantity.map(x -> new Ingredient(ingredientName, x).toString())
+                    .orElseGet(() -> ALL_KEYWORD + " " + ingredientName);
+
+            return new CommandResult(String.format(MESSAGE_SUCCESS, ingredientRemoved,
+                    recipeToEdit.getName()));
+
+        } catch (IngredientNotFoundException e) {
+            throw new CommandException(String.format(MESSAGE_INGREDIENT_NOT_FOUND,
+                    ingredientName, recipeToEdit.getName()));
         } catch (NonPositiveIngredientQuantityException e) {
-            throw new CommandException(String.format(MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH, toRemove));
+            throw new CommandException(String.format(MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH));
         }
 
-        EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
-        editRecipeDescriptor.setIngredients(ingredients);
-        Recipe editedRecipe = EditRecipeDescriptor.createEditedRecipe(recipeToEdit, editRecipeDescriptor);
-
-        model.setCookbookRecipe(recipeToEdit, editedRecipe);
-        model.updateFilteredCookbookRecipeList(PREDICATE_SHOW_ALL_RECIPES);
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedRecipe.getName().fullRecipeName, toRemove));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RecipeRemoveIngredientCommand // instanceof handles nulls
-                && toRemove.equals(((RecipeRemoveIngredientCommand) other).toRemove));
+                && ingredientName.equals(((RecipeRemoveIngredientCommand) other).ingredientName)
+                && ingredientQuantity.equals(((RecipeRemoveIngredientCommand) other).ingredientQuantity));
     }
 }

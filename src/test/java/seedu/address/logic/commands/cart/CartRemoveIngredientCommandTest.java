@@ -27,17 +27,26 @@ public class CartRemoveIngredientCommandTest {
 
     @Test
     public void execute_validInput() throws CommandException {
-        CartRemoveIngredientCommand c = new CartRemoveIngredientCommand(ALMOND.getName(),
-                Optional.of(ALMOND.getQuantity()));
+        CartRemoveIngredientCommand commandWithQuantity =
+                new CartRemoveIngredientCommand(ALMOND.getName(), Optional.of(ALMOND.getQuantity()));
+        CartRemoveIngredientCommand commandWithoutQuantity =
+                new CartRemoveIngredientCommand(ALMOND.getName(), Optional.empty());
         Model model = new ModelManager();
-        model.addCartIngredient(ALMOND);
 
-        // removing existing ingredient
-        assertEquals(c.execute(model),
+        // removing existing ingredient with quantity specified
+        model.addCartIngredient(ALMOND);
+        assertEquals(commandWithQuantity.execute(model),
                 new CommandResult(String.format(CartRemoveIngredientCommand.MESSAGE_SUCCESS, ALMOND)));
 
+        // removing existing ingredient without quantity specified
+        model.addCartIngredient(ALMOND);
+        assertEquals(commandWithoutQuantity.execute(model),
+                new CommandResult(String.format(CartRemoveIngredientCommand.MESSAGE_SUCCESS,
+                    CartRemoveIngredientCommand.ALL_KEYWORD + " " + ALMOND.getName())));
+
         // error thrown after removing ALMOND
-        assertThrows(IngredientNotFoundException.class, () -> c.execute(model));
+        assertThrows(IngredientNotFoundException.class, () -> commandWithQuantity.execute(model));
+        assertThrows(IngredientNotFoundException.class, () -> commandWithoutQuantity.execute(model));
 
         assertFalse(model.hasCartIngredient(ALMOND));
     }

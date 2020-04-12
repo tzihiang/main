@@ -62,7 +62,7 @@ public class InventoryRemoveIngredientCommandParser implements Parser<InventoryC
 
         Optional<IngredientQuantity> ingredientQuantity = argMultimap.arePrefixesPresent(PREFIX_INGREDIENT_QUANTITY)
                 ? Optional.of(ParserUtil.parseIngredientQuantity(argMultimap.getValue(PREFIX_INGREDIENT_QUANTITY)
-                .get()))
+                    .get()))
                 : Optional.empty();
 
         return new InventoryRemoveIngredientCommand(ingredientName, ingredientQuantity);

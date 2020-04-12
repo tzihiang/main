@@ -42,8 +42,7 @@ public class InventoryCookCommandTest {
         InventoryCookCommand c = new InventoryCookCommand(VALID_RECIPE_INDEX);
         Model model = new ModelManager();
         model.addCookbookRecipe(AGLIO_OLIO);
-        AGLIO_OLIO.getIngredients().asUnmodifiableObservableList()
-                .stream()
+        AGLIO_OLIO.getIngredients().stream()
                 .forEach(recipeIngredient -> model.addInventoryIngredient(recipeIngredient));
 
         assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS,
@@ -51,8 +50,7 @@ public class InventoryCookCommandTest {
 
         // after adding multiple recipes
         model.addCookbookRecipe(CARBONARA);
-        AGLIO_OLIO.getIngredients().asUnmodifiableObservableList()
-                .stream()
+        AGLIO_OLIO.getIngredients().stream()
                 .forEach(recipeIngredient -> model.addInventoryIngredient(recipeIngredient));
         assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS,
                 VALID_RECIPE_INDEX.getOneBased())));
@@ -61,8 +59,7 @@ public class InventoryCookCommandTest {
         assertThrows(CommandException.class, () -> c.execute(model));
 
         //insufficient ingredient in inventory
-        AGLIO_OLIO.getIngredients().asUnmodifiableObservableList()
-                .stream()
+        AGLIO_OLIO.getIngredients().stream()
                 .forEach(recipeIngredient -> model.addInventoryIngredient(recipeIngredient));
         model.removeInventoryIngredient(new Ingredient(new IngredientName("Garlic"),
                 new IngredientQuantity("3 cloves")));

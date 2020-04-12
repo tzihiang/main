@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.cart.CartMoveCommand.MESSAGE_SUCCESS;
+import static seedu.address.logic.commands.cart.CartMoveCommand.MESSAGE_SUCCESS_EMPTY;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +23,7 @@ public class CartMoveCommandTest {
         CartMoveCommand c = new CartMoveCommand();
 
         // cart is initially empty
-        assertEquals(c.execute(model), new CommandResult(MESSAGE_SUCCESS));
+        assertEquals(c.execute(model), new CommandResult(MESSAGE_SUCCESS_EMPTY));
 
         // add ingredients into the cart
         model.addCartIngredient(TypicalIngredients.ALMOND);

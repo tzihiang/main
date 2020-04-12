@@ -50,7 +50,7 @@ public class CookbookSearchCommandParser implements Parser<CookbookSearchCommand
         switch(category) {
         case CookbookSearchCommand.SEARCH_INVENTORY_COMMAND:
             return parseSearchByInventory(arguments);
-        case CookbookSearchCommand.SEARCH_KEYWORD_COMMAND:
+        case CookbookSearchCommand.RECIPE_KEYWORD:
             return parseSearchByKeyword(arguments);
         case CookbookSearchCommand.SEARCH_TAG_COMMAND:
             return parseSearchByTag(arguments);

@@ -30,6 +30,7 @@ public class RecipeCommandParserTest {
     private static final String INVALID_ADD_INGREDIENT_ARGUMENT_NO_RECIPE_INDEX = "add ingredient i/Ingredient q/5";
     private static final String INVALID_ADD_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME = "1 add ingredient q/5";
     private static final String VALID_REMOVE_INGREDIENT_ARGUMENT = "1 remove ingredient i/Ingredient q/5";
+    private static final String VALID_REMOVE_INGREDIENT_NO_QUANTITY_ARGUMENT = "1 remove ingredient i/Ingredient";
     private static final String INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_RECIPE_INDEX = "remove ingredient i/Ingredient "
         + "q/5";
     private static final String INVALID_REMOVE_INGREDIENT_ARGUMENT_NO_INGREDIENT_NAME = "1 add ingredient q/5";
@@ -65,7 +66,11 @@ public class RecipeCommandParserTest {
         assertEquals(new RecipeCommandParser().parse(VALID_ADD_TAG_ARGUMENT),
                 new RecipeAddTagCommand(VALID_RECIPE_INDEX, VALID_TAG));
         assertEquals(new RecipeCommandParser().parse(VALID_REMOVE_INGREDIENT_ARGUMENT),
-                new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, VALID_INGREDIENT));
+                new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, VALID_INGREDIENT.getName(),
+                        Optional.of(VALID_INGREDIENT.getQuantity())));
+        assertEquals(new RecipeCommandParser().parse(VALID_REMOVE_INGREDIENT_NO_QUANTITY_ARGUMENT),
+                new RecipeRemoveIngredientCommand(VALID_RECIPE_INDEX, VALID_INGREDIENT.getName(),
+                        Optional.empty()));
         assertEquals(new RecipeCommandParser().parse(VALID_REMOVE_STEP_ARGUMENT),
                 new RecipeRemoveStepCommand(VALID_RECIPE_INDEX, VALID_REMOVE_STEP_INDEX));
         assertEquals(new RecipeCommandParser().parse(VALID_REMOVE_TAG_ARGUMENT),

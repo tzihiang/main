@@ -28,17 +28,26 @@ public class InventoryRemoveIngredientCommandTest {
 
     @Test
     public void execute_validInput() throws CommandException {
-        InventoryRemoveIngredientCommand c = new InventoryRemoveIngredientCommand(ALMOND.getName(),
-                Optional.of(ALMOND.getQuantity()));
+        InventoryRemoveIngredientCommand commandWithQuantity =
+                new InventoryRemoveIngredientCommand(ALMOND.getName(), Optional.of(ALMOND.getQuantity()));
+        InventoryRemoveIngredientCommand commandWithoutQuantity =
+                new InventoryRemoveIngredientCommand(ALMOND.getName(), Optional.empty());
         Model model = new ModelManager();
-        model.addInventoryIngredient(ALMOND);
 
-        // removing existing ingredient
-        assertEquals(c.execute(model),
+        // removing existing ingredient with quantity specified
+        model.addInventoryIngredient(ALMOND);
+        assertEquals(commandWithQuantity.execute(model),
                 new CommandResult(String.format(InventoryRemoveIngredientCommand.MESSAGE_SUCCESS, ALMOND)));
 
+        // removing existing ingredient without quantity specified
+        model.addInventoryIngredient(ALMOND);
+        assertEquals(commandWithoutQuantity.execute(model),
+                new CommandResult(String.format(InventoryRemoveIngredientCommand.MESSAGE_SUCCESS,
+                    InventoryRemoveIngredientCommand.ALL_KEYWORD + " " + ALMOND.getName())));
+
         // error thrown after removing ALMOND
-        assertThrows(IngredientNotFoundException.class, () -> c.execute(model));
+        assertThrows(IngredientNotFoundException.class, () -> commandWithQuantity.execute(model));
+        assertThrows(IngredientNotFoundException.class, () -> commandWithoutQuantity.execute(model));
 
         assertFalse(model.hasInventoryIngredient(ALMOND));
     }

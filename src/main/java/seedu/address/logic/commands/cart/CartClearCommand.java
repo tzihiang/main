@@ -14,7 +14,7 @@ public class CartClearCommand extends CartCommand {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "All ingredients from cart cleared!";
-    public static final String MESSAGE_SUCCESS_EMPTY = "The cart is already empty.";
+    public static final String MESSAGE_SUCCESS_EMPTY = "Your cart is empty.";
     public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
             + ": removes all ingredients from your cart.\n"
             + "Parameters: \n"
