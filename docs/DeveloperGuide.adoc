@@ -414,8 +414,14 @@ a|
 // tag::cookbooksearchinventory[]
 === Search for recipes based on ingredients in the inventory
 The user may use this command to search for recipes that they can cook using the ingredients available in their
-inventory. Recipes are sorted by how much the inventory fulfils their ingredient requirements. A user can use this
-feature by typing the command: `cookbook search inventory`.
+inventory.
+
+==== Implementation reasoning
+This command was implemented to address users needs of easily finding a recipe based on the ingredients they have. It
+allows users to whip up a meal without having to go grocery shopping if they are short of time. This feature sorts
+recipes by how much the inventory fulfils their ingredient requirements, and filters out recipes whose ingredient
+requirements are not met at all. Users can immediately see at the top of the cookbook the recipes that their ingredients
+are most suitable for preparing. A user can use this feature by typing the command: `cookbook search inventory`.
 
 ==== Implementation
 The comparison between the ingredients a recipe requires and the ingredients in the inventory is facilitated by the
@@ -450,6 +456,10 @@ if (recipe.getIngredients().size() == NO_INGREDIENTS) {
     return ZERO_SIMILARITY;
 }
 ----
+
+The following activity digram shows a possible flow of events for a user using this feature:
+
+image::CookbookSearchByInventoryActivityDiagram.png[]
 
 The following sequence diagram summarizes how objects interact when a user executes the command,
 with more focus on how the command is parsed in the `Logic`component:
