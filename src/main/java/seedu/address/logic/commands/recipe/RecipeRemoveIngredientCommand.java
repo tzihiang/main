@@ -23,6 +23,7 @@ import seedu.address.model.recipe.Recipe;
  */
 public class RecipeRemoveIngredientCommand extends RecipeRemoveCommand {
 
+    public static final String ALL_KEYWORD = "All";
     public static final String MESSAGE_SUCCESS = "%1$s removed from %2$s";
     public static final String MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH = "The quantity specified is too large";
     public static final String MESSAGE_INCOMPATIBLE_UNITS = "This ingredient has different units "
@@ -62,13 +63,17 @@ public class RecipeRemoveIngredientCommand extends RecipeRemoveCommand {
         try {
             ingredientQuantity.map(x -> new Ingredient(ingredientName, x))
                     .ifPresentOrElse(ingredients::remove, () ->
-                            ingredients.remove(ingredientName));
+                        ingredients.remove(ingredientName));
+
+            EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
+            editRecipeDescriptor.setIngredients(ingredients);
+            Recipe editedRecipe = EditRecipeDescriptor.createEditedRecipe(recipeToEdit, editRecipeDescriptor);
 
             String ingredientRemoved = ingredientQuantity.map(x -> new Ingredient(ingredientName, x).toString())
-                    .orElseGet(() -> "All " + ingredientName);
+                    .orElseGet(() -> ALL_KEYWORD + " " + ingredientName);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, ingredientRemoved,
-                    recipeToEdit.getName().fullRecipeName));
+                    recipeToEdit.getName()));
 
         } catch (NonPositiveIngredientQuantityException e) {
             throw new CommandException(String.format(MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH));
