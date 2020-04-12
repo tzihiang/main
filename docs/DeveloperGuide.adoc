@@ -614,7 +614,7 @@ After adding a ingredient, the cart will be updated with `Model#updateFilteredCa
 and will be displayed to the user via the GUI to feedback to the user that
 the selected recipe's ingredients has been successfully added to the cart.
 
-==== Sequence diagram
+
 The following sequence diagram shows how the function of adding recipe's ingredients to cart works:
 
 .Sequence diagram for CartAddRecipeIngredientCommand
