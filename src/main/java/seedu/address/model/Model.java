@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -180,9 +181,9 @@ public interface Model {
     void setCartIngredient(Ingredient target, Ingredient editedIngredient);
 
     /**
-     * Sorts the cookbook by similarity of the specified inventory's ingredients.
+     * Sorts the cookbook using the specified comparator.
      */
-    void sortCookbookByInventorySimilarity();
+    void sortCookbook(Comparator<? super Recipe> comparator);
 
     /** Returns an unmodifiable view of the filtered cookbook recipe list */
     ObservableList<Recipe> getFilteredCookbookRecipeList();

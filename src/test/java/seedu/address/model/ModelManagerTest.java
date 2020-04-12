@@ -4,11 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-
 import static seedu.address.testutil.TypicalIngredients.ALMOND;
 import static seedu.address.testutil.TypicalIngredients.APPLE;
 import static seedu.address.testutil.TypicalIngredients.BANANA;
+import static seedu.address.testutil.TypicalIngredients.getTypicalInventory;
+import static seedu.address.testutil.TypicalRecipes.AGLIO_OLIO;
 import static seedu.address.testutil.TypicalRecipes.CARBONARA;
+import static seedu.address.testutil.TypicalRecipes.SCRAMBLED_EGG;
+import static seedu.address.testutil.TypicalRecipes.SPAGHETTI_BOLOGNESE;
+import static seedu.address.testutil.TypicalRecipes.getTypicalCookbook;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,6 +20,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.recipe.RecipeInventoryIngredientsSimilarityComparator;
 
 public class ModelManagerTest {
 
@@ -167,9 +172,20 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void sortCookbook() {
+        modelManager.setCookbook(getTypicalCookbook());
+        modelManager.sortCookbook(new RecipeInventoryIngredientsSimilarityComparator(getTypicalInventory()));
+
+        assertEquals(SCRAMBLED_EGG, modelManager.getCookbook().getRecipeList().get(0));
+        assertEquals(CARBONARA, modelManager.getCookbook().getRecipeList().get(1));
+        assertEquals(SPAGHETTI_BOLOGNESE, modelManager.getCookbook().getRecipeList().get(2));
+        assertEquals(AGLIO_OLIO, modelManager.getCookbook().getRecipeList().get(3));
+    }
+
+    @Test
     public void getFilteredCookbookRecipeList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredCookbookRecipeList()
-            .remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> modelManager
+                .getFilteredCookbookRecipeList().remove(0));
     }
 
     @Test
