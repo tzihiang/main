@@ -173,9 +173,15 @@ Below is a step by step sequence of what happens when a user enters this command
 
 . The user enters a recipe adding command using the command line input `cookbook add recipe n/NAME d/DESCRIPTION
 [i/INGREDIENT]... [q/QUANTITY]... [s/STEP_DESCRIPTION]... [t/TAG]...`.
-.  `CookbookAddCommandParser` parsers the user input and checks if `n/NAME` and `d/DESCRIPTION` are provided. It then
+. `CookingPapaParser` parses the user input and checks if it is valid. If it is invalid, i.e. an unknown command
+category, a `ParseException` will be thrown. If the input is valid, with the command category `cookbook`, a new
+`CookbookCommandParser` is created.
+. `CookbookCommandParser` then parses `add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]...
+[s/STEP_DESCRIPTION]... [t/TAG]...`. If it is invalid, i.e. an unknown command word, a `ParseException` will be
+thrown. If the input is valid, with the command category `add`, a new `CookbookAddCommandParser` is created.
+.  `CookbookAddCommandParser` parsers `recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]...
+[s/STEP_DESCRIPTION]... [t/TAG]...` and checks if `n/NAME` and `d/DESCRIPTION` are provided. It then
 parses the input into the following fields: recipe name, recipe description, ingredients, steps, and tags.
-
 +
 Note that
 the ingredient names and ingredient quantities provided must be the same, or a `ParseException` will be thrown:
@@ -290,12 +296,101 @@ display.
 |===
 //end::addrecipedesign[]
 
+=== View recipe in the cookbook
+The user may use this command to view a recipe in the cookbook. This command is integrated into the Graphical User
+Interface
+(GUI) through a button.
+
+==== Implementation
+The recipe viewing mechanism (via the command line input) is facilitated by `CookbookViewCommand`, which extends the
+`Command` abstract class. The format is as follows: `cookbook view recipe INDEX`, which index has to be a valid
+integer that is not out of bounds.
+
+The recipe viewing mechanism (via the GUI) is facilitated by `RecipeCard`, which extends the `UiPart` abstract class.
+It is triggered upon clicking the "view" icon in the recipe panel:
+
+image::CookbookAddRecipe3.png[width="500"]
+
+Implementing this function, `cookbook view recipe` through a button in the GUI allows user to view the details of a
+recipe with a click of a button, greatly increasing convenience and user experience. The button also had to be
+"activated" without the
+button,
+as
+the command still had
+to be testable through the command line.
+
+Below is a step by step sequence of what happens when a user enters this command:
+
+. The user enters a view recipe command using the command line input `cookbook view recipe INDEX`.
+. `CookingPapaParser` parses the user input and checks if it is valid. If it is invalid, i.e. an unknown command
+category, a `ParseException` will be thrown. If the input is valid, with the command category `cookbook`, a new
+`CookbookCommandParser` is created.
+. `CookbookCommandParser` then parses `view recipe INDEX`. If it is invalid, i.e. an unknown command word, a
+                                       `ParseException` will be
+thrown. If the input is valid, with the command category `view`, a new `CookbookViewCommandParser` is created.
+. `CookbookViewCommandParser` then parses `recipe INDEX` and checks if the `String` contains "recipe", and an index.
+If either are absent, a `ParseException` will be thrown. If the `String` is valid, a `CookbookView` is created.
+. `CookbookViewCommandParser` then returns a `CookbookViewCommand` to `LogicManager`.
+. `LogicManager` calls `CookbookViewCommand#execute()` which checks if the provided `Index` is within the bounds of
+the `FilteredCookbookRecipeList()` in `Cookbook`, i.e. `index.getZeroBased() >= list.size()`. If it is not, a
+`CommandException` will be thrown. If it is valid, a `CommandResult` is created with a boolean value `true`.
+. A `CommandResult` with the text to display to the user will be returned to `LogicManager`. The `CommandResult` is
+then passed back to `MainWindow`. The boolean value stated in step 6 determines whether a successfully parsed command
+is a `cookbook view recipe INDEX` command.
+. `MainWindow#handleViewRecipe` is then executed, which creates a new `CookbookPanel` with the same set of data,
+calling `CookbookPanel#handleViewRecipe`, which creates new `RecipeCard` s for `Cookbook`, and for the `RecipeCard`
+that has an index equal to the index processed from the user's input, it will create a `RecipeCard` that toggles open
+the recipe details. More on how the `RecipeCard` manages this will be discussed in the following section on how
+clicking on a button in the GUI has the same effect as the `cookbook view recipe INDEX` command.
+. Lastly, the user then is shown a `CookbookPanel` with the selected recipe toggled open, which displays the details
+of that recipe:
++
+image::CookbookViewExample2.png[]
+
+Below is a step by step sequence of what happens when a user clicks the button on the GUI:
+
+. When the button is pressed, the onAction method, `RecipeCard#handleViewButtonAction()` is executed. A `RecipeCard`
+has a variable `isFullyDisplayed`, which indicates whether it is displaying an overview of the recipe, or
+fully displaying details of the recipe.
+. If `isFullyDisplayed` is false, i.e. the `RecipeCard` is currently displaying an overview of the recipe,
+`RecipeCard#displayRecipeComplete()` is executed, which replaces the text displayed by the FXML object, `Label`, with
+the full details of the recipe.
+. If `isFullyDisplayed` is true, i.e. the `RecipeCard` is currently fully displaying the details of the recipe,
+`RecipeCard#displayRecipeOverview()` is executed, which replaces the text displayed by the FXML object, `Label` with
+the overview of the recipe.
+. Both methods executed in step 3 and 4 will flip the boolean value of `isFullyDisplayed`, and this means that the
+next time the button for the same recipe is clicked, it toggles back. For example, if a recipe with its overview
+shown has its view button clicked, it will show the full details of the recipe. If the button is clicked again, it
+toggles, and shows the overview of the recipe.
++
+This feature is not reflected with `cookbook view recipe INDEX` when it is entered again in the command line, because
+the function of the command is to view a recipe, not to "un-view" it.
+
+==== Design considerations
+Aspect: what UI component to display the toggled content
+
+|===
+||Design A (current choice): toggles the content in the recipe panel|Design B: add a new UI component that pops up, i
+.e. overlay
+|Description|The content in the recipe panel can freely switch from overview to full details of a recipe.|A UI
+component appears as a small overlay, displaying the details of a recipe. The overlay can then be "exited" by clicking
+on
+an area within the application that is outside of the overlay.
+|Pros
+a|
+- Intuitive that clicking the button once more should return to the previous state
+- Increases functionality of the GUI, rather than just a "skin"
+| No need to interact between various UI components, as much as design A
+|Cons|There is a need to keep track of the state of a `RecipeCard`, which means more constructors and conditional
+statements to implement.
+|Difficult to implement as it includes creating an entirely new component (overlay) with different features than the
+existing one. The effort estimated did not seem to be worth, as the use is limited to just this command.
+|===
+
+
 === Export ingredients in cart to PDF file
 The user may use this command to export the ingredients in their cart to a <<PDF, PDF>> file, which they can then
-use
-as
-their
-shopping list at the supermarkets.
+use as their shopping list at the supermarkets.
 
 ==== Implementation
 The cart exporting mechanism is facilitated by `CookbookExportCommand`, which extends the `Command` abstract class.
@@ -312,6 +407,11 @@ informational, and easy for users to extend, allowing them to add (handwritten o
 Below is a step by step sequence of what happens when a user enters this command:
 
 . The user enters a cart export command using the command line input `cart export`.
+. `CookingPapaParser` parses the user input and checks if it is valid. If it is invalid, i.e. an unknown command
+category, a `ParseException` will be thrown. If the input is valid, with the command category `cart`, a new
+`CartCommandParser` is created.
+. `CartCommandParser` then parses `export`. If it is invalid, i.e. an unknown command word, a `ParseException` will be
+thrown. If the input is valid, with the command category `export`, a new `CookbookExportCommandParser` is created.
 . `CartExportCommandParser` parses the user input and checks if the argument passed to it is an empty String, as the
 command takes in no extra parameters.
 +
