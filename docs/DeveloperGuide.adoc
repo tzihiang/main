@@ -441,24 +441,47 @@ image::CookbookSearchByInventorySequenceDiagram.png[]
 |===
 | |Design A (Current choice): Every ingredient is weighted equally | Design B: More important ingredients are given a larger weigting
 
-|Description
+| Description
 | The similarity of a recipe's ingredients to an inventory's ingredients is calculated by taking the mean of the proportions calculated for each ingredient,
 with equal weighting given to all ingredients.
 |The similarity of a recipe's ingredients to an inventory's ingredients is calculated by taking the weighted mean of the proportions calculated for each ingredient,
 with larger weightings given to more important ingredients ingredients.
 
-|Pros
+| Pros
 | Gives a good rough estimate of the proportion of ingredient requirements fulfilled for a recipe, and straightforward to implement.
 | May give a better gauge of the proportion of ingredient requirements fulfilled for a recipe, by accounting for the importance of the ingredient.
 For example, beef would be an important ingredient for a steak recipe, but garnishes might be considered less important as they can be substituted more easily.
 
-|Cons
+| Cons
 | Does not account for the importance of the ingredient in the recipe
 | Difficult to judge the importance of the ingredient, and complicated to implement categorisation of the types ingredients and their relative importance.
 |===
 
 Design A was chosen as it provided a fair estimate of the similarity between the recipe and inventory ingredients, with a simple implementation.
 The cons for Design B were deemed to outweigh the pros, especially since the importance of an ingredient in a recipe could be rather subjective.
+
+===== Aspect 2: Handling ingredients with different units
+[cols="12%,44%,44%"]
+|===
+| |Design A (Current choice): Use a default similarity value of `0.5` | Design B: Convert the units
+
+| Description
+| The similarity value of an ingredient with different units in the recipe and the inventory is treated as `0.5`.
+| The similarity value of an ingredient with different units in the recipe and the inventory is calculated by converting the units,
+such that the proportion of the recipe ingredient in the inventory can be determined.
+
+| Pros
+| Simple to implement.
+| Able to calculate the proportion of the recipe ingredient fulfilled by the inventory, even when dealing with different units.
+
+| Cons
+| Unable to calculate the proportion of the recipe ingredient fulfilled by the inventory when dealing with different units, and can only give a fixed default value of `0.5`.
+| More complicated to implement as it requires CookingPapa to recognise the units in both the recipe and inventory and be able to convert between them.
+Some units such as `cup` may also not have a standard conversion factor.
+|===
+
+Design A was chosen due to time constraints, as handling the conversion between different units would take time away from developing other parts of the application.
+Given more time, Design B will be implemented to handle conversion for standard units, such as between `g` and `kg`, but Design A would still have to be used for units with non-standard conversion factors.
 // end::cookbooksearchinventory[]
 
 === Adding ingredients to inventory and cart
