@@ -327,7 +327,7 @@ This means that `cart export ingredient` will not work.
 `PdfExporter#exportCart()`, which takes in the `ObservableList<Ingredient>` stored in `Cart`
 . Step 4 is executed within a try-catch block. If a previously generated pdf (saved as `cart.pdf` by default) is
 opened in another program, or there is an issue writing to the PDF file, a `CommandResult` with an error
-message will returned to `LogicManager`:
+message will returned to `LogicManager` (skipping step 7 and 8):
 +
 [source,java]
 ----
@@ -337,8 +337,15 @@ try {
     return new CommandResult(MESSAGE_FILE_NOT_FOUND);
 }
 ----
-. The ingredients in the `Cart` is passed to the static method `PdfExporter#exportCart()`,
-. , a `CommandResult` with the text to display to the user will be returned to `LogicManager`. The
+. The ingredients in the `Cart` is passed to the static method `PdfExporter#exportCart()`, which then makes use of
+the library, `PDFbox`, to parse the data.
+. Within `PdfExporter`, `PdfExporter#getTextFromCart` parse the data and splits them manually, in order to wrap the
+text (this has to be done due to the inadequacy of `PDFbox`). The method returns a `List<String>`, where each string
+represents a new line on the PDF file.
+. Subsequently, `PdfExporter` checks if the number of `String` s in the list in step 7 is greater than the number of
+lines a single page of the PDF can accomodate. If it is, it adds a new page, and adds lines to the PDF until the
+limit is hit. This repeats until all the lines are added to the PDF.
+. A `CommandResult` with the text to display to the user will be returned to `LogicManager`. The
 `CommandResult` is then passed back to `MainWindow`, which displays it to the user on the CLI and GUI: `resultDisplay
 .setFeedbackToUser(commandResult.getFeedbackToUser())`. The text displayed will notify the user on whether
 their addition was successful.
