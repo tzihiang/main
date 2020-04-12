@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.recipe.RecipeInventorySimilarityComparator;
+import seedu.address.model.recipe.RecipeInventoryIngredientsSimilarityComparator;
 
 /**
  * Removes all the ingredients of the selected recipe from the inventory
@@ -32,12 +32,12 @@ public class InventoryCookCommand extends InventoryCommand {
     public static final String MESSAGE_NO_INGREDIENT_IN_RECIPE =
             "Recipe %1$s does not require any ingredients to cook.";
 
-    public static final String MESSAGE_USAGE = COMMAND_CATEGORY + " " + COMMAND_WORD
-            + ": removes all ingredients of a recipe from your inventory.\n"
-            + "Parameters: \n"
-            + "INDEX\n"
-            + "Example:\n"
-            + COMMAND_CATEGORY + " " + COMMAND_WORD + " 1";
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_CATEGORY + " " + COMMAND_WORD + " " + RECIPE_KEYWORD
+            + ": removes all ingredients of a specified recipe from your inventory.\n"
+            + "\nParameters: "
+            + "INDEX (must be a valid positive integer)\n"
+            + "Example: "
+            + COMMAND_CATEGORY + " " + COMMAND_WORD + " " + RECIPE_KEYWORD + " 1";
 
     private final Index targetIndex;
 
@@ -56,7 +56,7 @@ public class InventoryCookCommand extends InventoryCommand {
         requireNonNull(inventory);
         requireNonNull(recipe);
         ObservableList<Ingredient> inventoryList = inventory.getIngredientList();
-        ObservableList<Ingredient> recipeIngredients = recipe.getIngredients().asUnmodifiableObservableList();
+        ObservableList<Ingredient> recipeIngredients = recipe.getIngredients();
 
         return recipeIngredients.stream().map(recipeIngredient -> inventoryList
                 .stream().map(inventoryIngredient -> inventoryIngredient.isCompatibleWith(recipeIngredient))
@@ -72,7 +72,7 @@ public class InventoryCookCommand extends InventoryCommand {
     private boolean hasSufficientInventoryIngredients(ReadOnlyInventory inventory, Recipe recipe) {
         requireNonNull(inventory);
         requireNonNull(recipe);
-        return RecipeInventorySimilarityComparator.calculateSimilarity(recipe, inventory) == 1.0;
+        return RecipeInventoryIngredientsSimilarityComparator.calculateSimilarity(recipe, inventory) == 1;
     }
 
 
@@ -102,10 +102,7 @@ public class InventoryCookCommand extends InventoryCommand {
                     selectedRecipe.getName().toString()));
         }
 
-        List<Ingredient> ingredientList = selectedRecipe.getIngredients().asUnmodifiableObservableList();
-        for (Ingredient ingredient : ingredientList) {
-            model.removeInventoryIngredient(ingredient);
-        }
+        selectedRecipe.getIngredients().stream().forEach(model::removeInventoryIngredient);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex.getOneBased()));
     }
