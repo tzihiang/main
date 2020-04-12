@@ -23,7 +23,7 @@ recipes!
 
 Cooking Papa aims to help university students who live alone, to make learning how to cook more convenient,
 increasing the diversity of their meals. With Cooking Papa, users can easily edit recipes, keep track of ingredients
-they have at home and have a shopping list that to help them expedite their grocery shopping process.
+they have at home and have a shopping list to help them expedite their grocery shopping process.
 
 CookingPapa consists of 3 main features:
 
@@ -112,6 +112,7 @@ A quarter cup of milk can be represented in a command as: `i/Milk q/1/4 cup`.
 |===
 
 [[Cookbook]]
+//tag::shanecsj[]
 === Cookbook Commands
 Cookbook commands are commands that allow users to add and remove recipes from the cookbook,
 as well as view recipes stored in the cookbook. More commands can be done with recipes, and
@@ -219,18 +220,18 @@ recipe that contains any of the given tags.
 | Command | Result
 |`cookbook search tag t/Easy`
 |Searches the cookbook for recipes wisth tags matching 'Easy'.
-|`cookbook search recipe t/Pasta t/Cream t/Easy`
+|`cookbook search tag t/Pasta t/Cream t/Easy`
 |Searches the cookbook for recipes with tags matching 'Pasta', or 'Cream', or 'Easy'.
 |===
 ==== Search recipes by ingredients owned
 This command allows you to see search for recipes you can cook with your current inventory of ingredients.
 
-- Format: `cookbook search recipe inventory`
+- Format: `cookbook search inventory`
 - Example:
 |===
 | Command | Result
 
-|`cookbook search recipe inventory`
+|`cookbook search inventory`
 |Searches the cookbook for recipes whose ingredients are available in the inventory.
 |===
 ==== List all recipes in the cookbook
@@ -245,6 +246,7 @@ using the search commands to view all the recipes.
 |`cookbook list`
 |Lists all recipes in the cookbook
 |===
+//end::shanecsj[]
 
 [[Recipe]]
 === Recipe Commands
