@@ -424,6 +424,11 @@ for ingredient comparison. Additionally, it implements the method `calculateSimi
 a `ReadOnlyInventory` as parameters, and returns a double value between 0 and 1 (inclusive) that represents the
 proportion of the recipe's ingredient requirements that are fulfilled.
 
+The following class diagram summarizes how the `RecipeInventoryIngredientsSimilarityComparator` interacts with `Recipe`
+and `Inventory`:
+
+image::CookbookSearchByInventoryClassDiagram.png[]
+
 The `calculateSimilarity()` method first calculates the proportion of ingredient quantity fulfilled by the inventory
 for each ingredient that the recipe requires. For example, if one of the ingredients required by a recipe is `4 eggs`
 and the inventory contains `2 eggs`, the proportion fulfilled for this particular ingredient is `0.5`. This is done for
