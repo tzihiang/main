@@ -215,6 +215,8 @@ where `PREDICATE_SHOW_ALL_RECIPES = unused -> true`.
 their addition was successful.
 // end::addrecipe[]
 
+The following `Recipe` object diagram is an overview of the attributes of a `Recipe` object:
+
 .UML object diagram of Recipe providing an overview on how the various objects interact
 image::RecipeObjectDiagram.png[]
 
@@ -233,6 +235,8 @@ image::CookbookAddRecipeSequenceDiagram.png[]
 // end::addrecipesequence[]
 
 ==== Design considerations
+
+// tag::addrecipedesign[]
 ===== Aspect 1: How to parse optional parameters
 .Design considerations for parsing optional parameters
 [cols="12%,44%,44%"]
@@ -284,6 +288,7 @@ a|
 display.
 
 |===
+//end::addrecipedesign[]
 
 === Export ingredients in cart to PDF file
 The user may use this command to export the ingredients in their cart to a <<PDF, PDF>> file, which they can then
