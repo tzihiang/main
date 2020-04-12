@@ -16,6 +16,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
+//@@author teo-jun-xiong
 public class InventoryAddIngredientCommandTest {
     @Test
     public void constructor_validInput() {

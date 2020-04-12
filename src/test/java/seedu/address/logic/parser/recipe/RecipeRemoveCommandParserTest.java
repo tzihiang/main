@@ -17,6 +17,7 @@ import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.model.tag.Tag;
 
+//@@author teo-jun-xiong
 public class RecipeRemoveCommandParserTest {
     private static final Index VALID_RECIPE_INDEX = new Index(0);
     private static final Ingredient VALID_INGREDIENT = new Ingredient(new IngredientName("Ingredient"),

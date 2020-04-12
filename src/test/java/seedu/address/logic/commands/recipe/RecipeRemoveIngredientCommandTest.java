@@ -17,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
 
+//@@author teo-jun-xiong
 public class RecipeRemoveIngredientCommandTest {
     private static final Index VALID_RECIPE_INDEX = new Index(0);
     private static final Index OUT_OF_BOUNDS_RECIPE_INDEX = new Index(1);

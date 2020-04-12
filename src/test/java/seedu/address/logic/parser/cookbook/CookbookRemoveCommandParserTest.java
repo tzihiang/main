@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.cookbook.CookbookRemoveCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+//@@author teo-jun-xiong
 public class CookbookRemoveCommandParserTest {
     private static final Index VALID_INDEX = new Index(0);
     private static final String VALID_INDEX_STRING = "recipe 1";

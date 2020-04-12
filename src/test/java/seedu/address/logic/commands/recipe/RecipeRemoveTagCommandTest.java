@@ -15,6 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.tag.Tag;
 
+//@@author teo-jun-xiong
 public class RecipeRemoveTagCommandTest {
     private static final Index VALID_RECIPE_INDEX = new Index(0);
     private static final Index OUT_OF_BOUNDS_RECIPE_INDEX = new Index(1);

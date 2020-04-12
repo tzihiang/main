@@ -18,6 +18,7 @@ import seedu.address.model.recipe.RecipeContainsTagsPredicate;
 import seedu.address.model.recipe.RecipeDescription;
 import seedu.address.model.recipe.RecipeName;
 
+//@@author teo-jun-xiong
 public class CookbookSearchByTagCommandTest {
     private static final List<String> VALID_TAGS_ONE = Arrays.asList("easy", "difficult");
     private static final List<String> VALID_TAGS_TWO = Collections.singletonList("easydifficult");

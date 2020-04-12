@@ -17,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
 
+//@@author teo-jun-xiong
 public class InventoryRemoveIngredientCommandTest {
     @Test
     public void constructor_null_throwsNullPointerException() {

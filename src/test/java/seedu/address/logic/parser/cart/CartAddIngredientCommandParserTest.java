@@ -11,6 +11,7 @@ import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 
+//@@author teo-jun-xiong
 public class CartAddIngredientCommandParserTest {
     private static final Ingredient VALID_INGREDIENT = new Ingredient(new IngredientName("Ingredient"),
             new IngredientQuantity("5"));
