@@ -65,9 +65,9 @@ public class InventoryCookCommand extends InventoryCommand {
     }
 
     /**
-     * Returns true if all ingredients's quantity in recipe is lesser than the the same ingredient's quantity
+     * Returns true if all ingredients's quantity in recipe is lesser than or equal to the ingredient's quantity
      * in inventory
-     * The ingredients in other list must exist in this list.
+     * The ingredients in the recipe must exist in the inventory.
      */
     private boolean hasSufficientInventoryIngredients(ReadOnlyInventory inventory, Recipe recipe) {
         requireNonNull(inventory);
