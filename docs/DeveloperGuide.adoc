@@ -469,15 +469,15 @@ image::CartAddIngredientSequenceDiagram.png[]
 |The command will go through the parsers in the following order: `CookingPapaParser` -> `CartCommandParser` -> `CartAddCommandParser`
 -> `CartAddIngredientParser` before finally returning `CartAddIngredientCommand`. We eventually went with this as we wanted the add
 functionality to be expanded, namely to be able to add all the ingredients of cookbook recipes into the cart.
-| `CartAddCommand` will not be created facilitate `CartAddIngredientCommand` and `CartAddRecipeIngredientCommand`.
+| `CartAddCommand` will not be created to facilitate `CartAddIngredientCommand` and `CartAddRecipeIngredientCommand`.
 
 
 |Pros
 |More organised and can do more with `cart add` as the prefix.
-|Many parser classes to make and keep track of.
+|The classes can be more specific and atomic in their actions.
 
 |Cons
-|The classes can be more specific and atomic in their actions.
+|Many parser classes to make and keep track of.
 |Might lead to disorganisation during troubleshooting with so many classes to keep track.
 |===
 

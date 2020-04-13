@@ -53,6 +53,7 @@ is a key part of our project.
 
 ** Community:
 *** Reviewed PRs before merging
+*** Asked questions and answered questions regarding project with team mates.
 *** Contributed to bug reports during PE Dry Run using CATcher.
 
 == Contributions to the User Guide
@@ -204,7 +205,7 @@ INGREDIENT and its QUANTITY, STEP, and TAG are optional parameters and will be a
 |`clear`
 |Removes all ingredients from the inventory.
 
-.5+|``cart``
+.6+|``cart``
 |``add recipe INDEX``
 |Adds all ingredients required of recipe at given INDEX to the cart.
 |``add ingredient i/INGREDIENT q/QUANTITY``
@@ -215,6 +216,8 @@ INGREDIENT and its QUANTITY, STEP, and TAG are optional parameters and will be a
 |Clears the cart of all ingredients.
 |``move``
 |Moves all the ingredients from the cart to the inventory, clearing the cart in the process.
+|``export``
+|Exports current cart into a PDF.
 |===
 
 == Contributions to the Developer Guide
@@ -270,15 +273,15 @@ image::CartAddIngredientSequenceDiagram.png[]
 |The command will go through the parsers in the following order: `CookingPapaParser` -> `CartCommandParser` -> `CartAddCommandParser`
 -> `CartAddIngredientParser` before finally returning `CartAddIngredientCommand`. We eventually went with this as we wanted the add
 functionality to be expanded, namely to be able to add all the ingredients of cookbook recipes into the cart.
-| `CartAddCommand` will not be created facilitate `CartAddIngredientCommand` and `CartAddRecipeIngredientCommand`.
+| `CartAddCommand` will not be created to facilitate `CartAddIngredientCommand` and `CartAddRecipeIngredientCommand`.
 
 
 |Pros
 |More organised and can do more with `cart add` as the prefix.
-|Many parser classes to make and keep track of.
+|The classes can be more specific and atomic in their actions.
 
 |Cons
-|The classes can be more specific and atomic in their actions.
+|Many parser classes to make and keep track of.
 |Might lead to disorganisation during troubleshooting with so many classes to keep track.
 |===
 
