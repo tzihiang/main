@@ -490,7 +490,7 @@ removed regardless of the unit.
 | Command | Result
 
 |`inventory remove ingredient i/Bacon`
-|Removes all bacons from your inventory.
+|Removes all bacon from your inventory.
 
 |`inventory remove ingredient i/Butter q/200g`
 |Removes 200g of butter from your inventory.
@@ -503,7 +503,7 @@ This command allows you to remove all ingredients from the inventory.
 - Format: `inventory clear`
 - Example:
 |===
-| Parameters | Result
+| Command | Result
 
 |`inventory clear`
 |Removes all ingredients from the inventory
@@ -697,7 +697,7 @@ Reminds the user to cook a certain recipe on a certain day.
 - Format: ``calendar set DD-MM-YYYY cook recipe INDEX``
 - Example:
 |===
-| Parameters | Result
+| Command | Result
 
 | `calendar set 10-10-2020 cook recipe 1`
 |Adds recipe 1 to your calendar for cooking on 10th October 2020.
@@ -710,7 +710,7 @@ be replaced with 'today' for the current date, or 'tomorrow' for the next day.
 - Format: ``calendar view recipes DD-MM-YYYY``
 - Example:
 |===
-| Parameters | Result
+| Command | Result
 
 | `calendar view recipes 10-10-2020`
 |Shows the recipes scheduled for cooking on 10th October 2020.
@@ -728,7 +728,7 @@ This command allows CookingPapa to recommend a recipe to cook based on the recip
 - Format: ``generate recipe of the day``
 - Example:
 |===
-| Parameters | Result
+| Command | Result
 
 | `generate recipe of the day`
 |Displays the recipe of the day
@@ -796,13 +796,15 @@ INGREDIENT and its QUANTITY, STEP, and TAG are optional parameters and will be a
 |``INDEX remove tag t/TAG``
 |Removes a tag 'TAG' to the recipe at given INDEX.
 
-.3+|``inventory``
+.4+|``inventory``
 |``add ingredient  i/INGREDIENT q/QUANTITY``
 |Adds QUANTITY of INGREDIENTS into your inventory.
 |``remove ingredient i/INGREDIENT q/QUANTITY``
 |Removes QUANTITY of INGREDIENTS from your inventory.
-|`clear`
+|``clear``
 |Removes all ingredients from the inventory.
+|``cook recipe INDEX``
+|Removes the ingredients and its' corresponding quantities of recipe INDEX from the inventory.
 
 .6+|``cart``
 |``add recipe INDEX``
