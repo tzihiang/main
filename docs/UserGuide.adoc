@@ -59,6 +59,11 @@ command given by the user.
 .Cooking Papa User Interface; marked: display window
 image::Example2.png[width="790"]
 
+. Here are the components of Cooking Papa's user interface:
+
++
+.The UI components of Cooking Papa
+image::Example3.png[width="790"]
 
 [[Features]]
 == Features
@@ -318,7 +323,7 @@ The STEP_INDEX given must be at most 1 more than the current number of steps cur
 the user can only add a STEP_INDEX of up to 5)
 
 - Format: `recipe INDEX add step x/STEP_INDEX s/STEP_DESCRIPTION`
-- Examples:
+- Example:
 |===
 | Command | Result
 
