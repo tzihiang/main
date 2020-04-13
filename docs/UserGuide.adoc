@@ -536,7 +536,7 @@ image::CookbookHelpExample.png[width="250"]
 .Cooking Papa Help window and 'Copy URL' button
 image::CookbookHelpExample2.png[width="700"]
 
-=== Exit command https://github.com/shanecsj[(by Chan Shun Jie)]
+=== Exit command https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
 There are 3 ways a user can exit Cooking Papa:
 
 - Type `exit`.
@@ -684,7 +684,7 @@ INGREDIENT and its QUANTITY, STEP, and TAG are optional parameters and will be a
 |`clear`
 |Removes all ingredients from the inventory.
 
-.5+|``cart``
+.6+|``cart``
 |``add recipe INDEX``
 |Adds all ingredients required of recipe at given INDEX to the cart.
 |``add ingredient i/INGREDIENT q/QUANTITY``
@@ -695,4 +695,6 @@ INGREDIENT and its QUANTITY, STEP, and TAG are optional parameters and will be a
 |Clears the cart of all ingredients.
 |``move``
 |Moves all the ingredients from the cart to the inventory, clearing the cart in the process.
+|``export``
+|Exports current cart into a PDF.
 |===
