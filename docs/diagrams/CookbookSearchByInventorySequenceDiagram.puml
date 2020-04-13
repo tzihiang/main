@@ -72,13 +72,13 @@ deactivate CookingPapaParser
 LogicManager -> CookbookSearchByInventoryCommand : execute()
 activate CookbookSearchByInventoryCommand
 
-CookbookSearchByInventoryCommand -> Model : sort recipes by similarity to inventory ingredients
+CookbookSearchByInventoryCommand -> Model : sortCookbook()
 activate Model
 
 Model --> CookbookSearchByInventoryCommand
 deactivate Model
 
-CookbookSearchByInventoryCommand -> Model : filter out recipes with 0% similarity to inventory ingredients
+CookbookSearchByInventoryCommand -> Model : updateFilteredCookbookRecipeList()
 activate Model
 
 Model --> CookbookSearchByInventoryCommand

@@ -522,25 +522,120 @@ a|
 - May be providing users with unnecessary information
 |===
 
-// tag::cookbooksearchinventory[]
+// tag::gohkh[]
 === Search for recipes based on ingredients in the inventory
-==== Implementation
-The comparison is facilitated by the `RecipeInventorySimilarityComparator`. It extends `Comparator<Recipe>` and stores
-the inventory being used for ingredient comparison.
+The user may use this command to search for recipes that they can cook using the ingredients available in their
+inventory.
 
-The following sequence diagram summarizes how objects interact when a user executes the command:
+==== Implementation reasoning
+This command was implemented to address users needs of easily finding a recipe based on the ingredients they have. It
+allows users to whip up a meal without having to go grocery shopping if they are short of time. This feature sorts
+recipes by how much the inventory fulfils their ingredient requirements, and filters out recipes whose ingredient
+requirements are not met at all. Users can immediately see at the top of the cookbook the recipes that their ingredients
+are most suitable for preparing. A user can use this feature by typing the command: `cookbook search inventory`.
+
+==== Implementation
+The comparison between the ingredients a recipe requires and the ingredients in the inventory is facilitated by the
+`RecipeInventoryIngredientsSimilarityComparator`. It extends `Comparator<Recipe>` and stores the inventory being used
+for ingredient comparison. Additionally, it implements the method `calculateSimilarity()`, which accepts a `Recipe` and
+a `ReadOnlyInventory` as parameters, and returns a double value between 0 and 1 (inclusive) that represents the
+proportion of the recipe's ingredient requirements that are fulfilled.
+
+The following class diagram summarizes how the `RecipeInventoryIngredientsSimilarityComparator` interacts with `Recipe`
+and `Inventory`:
+
+image::CookbookSearchByInventoryClassDiagram.png[]
+
+The `calculateSimilarity()` method first calculates the proportion of ingredient quantity fulfilled by the inventory
+for each ingredient that the recipe requires. For example, if one of the ingredients required by a recipe is `4 eggs`
+and the inventory contains `2 eggs`, the proportion fulfilled for this particular ingredient is `0.5`. This is done for
+all the ingredients in the recipe. If the units of an ingredient in the recipe does not match that of the same
+ingredient in the inventory, the proportion will be set at `0.5` by default. An example is when the recipe requires
+`1 cup flour` and the inventory contains `200 g flour`.
+
+When the proportion fulfilled has been calculated for each ingredient, the values for each ingredient are summed up and
+divided by the number of ingredients to obtain the average. In the case where the recipe does not have any ingredients
+added to it yet, the `calculateSimilarity()` method will return `0`, indicating no similarity to the inventory
+ingredients. This is because it is likely that recipes with no ingredients have just been added by the user, and the
+ingredients have not been added yet. If the user is using this feature to search for a recipe to cook, they would
+probably not be interested in seeing a recipe that they have not added ingredients for yet. This is implemented via
+a guard clause as shown in the following code snippet:
+
+[source,java]
+----
+if (recipe.getIngredients().size() == NO_INGREDIENTS) {
+    return ZERO_SIMILARITY;
+}
+----
+
+The following activity digram shows a possible flow of events for a user using this feature:
+
+image::CookbookSearchByInventoryActivityDiagram.png[]
+
+The following sequence diagram summarizes how objects interact when a user executes the command,
+with more focus on how the command is parsed in the `Logic`component:
 
 image::CookbookSearchByInventorySequenceDiagram.png[]
-// end::cookbooksearchinventory[]
+
+==== Design considerations
+===== Aspect 1: Weighting of each ingredient
+[cols="12%,44%,44%"]
+|===
+| |Design A (Current choice): Every ingredient is weighted equally | Design B: More important ingredients are given a larger weigting
+
+| Description
+| The similarity of a recipe's ingredients to an inventory's ingredients is calculated by taking the mean of the proportions calculated for each ingredient,
+with equal weighting given to all ingredients.
+|The similarity of a recipe's ingredients to an inventory's ingredients is calculated by taking the weighted mean of the proportions calculated for each ingredient,
+with larger weightings given to more important ingredients ingredients.
+
+| Pros
+| Gives a good rough estimate of the proportion of ingredient requirements fulfilled for a recipe, and straightforward to implement.
+| May give a better gauge of the proportion of ingredient requirements fulfilled for a recipe, by accounting for the importance of the ingredient.
+For example, beef would be an important ingredient for a steak recipe, but garnishes might be considered less important as they can be substituted more easily.
+
+| Cons
+| Does not account for the importance of the ingredient in the recipe
+| Difficult to judge the importance of the ingredient, and complicated to implement categorisation of the types ingredients and their relative importance.
+|===
+
+Design A was chosen as it provided a fair estimate of the similarity between the recipe and inventory ingredients, with a simple implementation.
+The cons for Design B were deemed to outweigh the pros, especially since the importance of an ingredient in a recipe could be rather subjective.
+
+===== Aspect 2: Handling ingredients with different units
+[cols="12%,44%,44%"]
+|===
+| |Design A (Current choice): Use a default similarity value of `0.5` | Design B: Convert the units
+
+| Description
+| The similarity value of an ingredient with different units in the recipe and the inventory is treated as `0.5`.
+| The similarity value of an ingredient with different units in the recipe and the inventory is calculated by converting the units,
+such that the proportion of the recipe ingredient in the inventory can be determined.
+
+| Pros
+| Simple to implement.
+| Able to calculate the proportion of the recipe ingredient fulfilled by the inventory, even when dealing with different units.
+
+| Cons
+| Unable to calculate the proportion of the recipe ingredient fulfilled by the inventory when dealing with different units, and can only give a fixed default value of `0.5`.
+| More complicated to implement as it requires CookingPapa to recognise the units in both the recipe and inventory and be able to convert between them.
+Some units such as `cup` may also not have a standard conversion factor.
+|===
+
+Design A was chosen due to time constraints, as handling the conversion between different units would take time away from developing other parts of the application.
+Given more time, Design B will be implemented to handle conversion for standard units, such as between `g` and `kg`, but Design A would still have to be used for units with non-standard conversion factors.
+// end::gohkh[]
 
 === Adding ingredients to inventory and cart
 The inventory and cart acts as storage for `Ingredient` classes. They are facilitated by `InventoryCommand` and `CartCommand`
 respectively, which extends the `Command` abstract class. Since `CartAddCommand` and `InventoryAddCommand` both serve the
 same purpose in different contexts of `Cart` and `Inventory` respectively, they will be mentioned together in tandem. +
-The format of the commands are as follows:
 
-* For cart: `cart add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY`
-* For inventory: `inventory add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY`
+This command was implemented to allow the user know to add an ingredient to the cart or inventory respectively.
+An ingredient only has two main components - its name and quantity. We allow the user to use their own measurement up to their own
+preferences and do not force any fixed unit of measurement. Although similar, `Cart` and `Ingredients` differ in certain functions
+from a user's point of view. For a user to immediately sort where they wish to sort the ingredient they are adding, `Cart` and
+
 
 ==== Implementation
 
@@ -561,34 +656,10 @@ user that the `Ingredient` has been successfully added.
 
 The above implementation is the same for `Inventory` with the command `inventory  add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY`
 
-==== Implementation reasoning
-This command was implemented to allow the user know to add an ingredient to the cart or inventory respectively.
-An ingredient only has two main components - its name and quantity. We allow the user to use their own measurement up to their own
-preferences and do not force any fixed unit of measurement. Although similar, `Cart` and `Ingredients` differ in certain functions
-from a user's point of view. For a user to immediately sort where they wish to sort the ingredient they are adding, `Cart` and
-`Inventory` is the first parameter they would use for the command.
-
-==== Sequence diagram
 The following sequence diagram shows how the function of adding ingredients to cart work (full command omitted for brevity):
 
 .Sequence diagram for CartAddIngredientCommand
 image::CartAddIngredientSequenceDiagram.png[]
-
-==== How the feature works
-
-Step 1: The below diagram shows an initially empty cart
-
-image::CartAddCommand1.png[]
-
-Step 2: Input the command `cart add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY`. An example command is as follows: `cart add ingredient i/Eggs q/10`.
-
-image::CartAddCommand2.png[]
-
-Step 3: Hit kbd:[Enter]. The cart should be updated as follows:
-
-image::CartAddCommand3.png[]
-
-The above implementation is the same for `Inventory`
 
 ==== Design Considerations
 ===== Aspect: The need for many parsers for this command
@@ -602,20 +673,25 @@ The above implementation is the same for `Inventory`
 |The command will go through the parsers in the following order: `CookingPapaParser` -> `CartCommandParser` -> `CartAddCommandParser`
 -> `CartAddIngredientParser` before finally returning `CartAddIngredientCommand`. We eventually went with this as we wanted the add
 functionality to be expanded, namely to be able to add all the ingredients of cookbook recipes into the cart.
-| `CartAddCommand` will not be created facilitate `CartAddIngredientCommand` and `CartAddRecipeIngredientCommand`.
+| `CartAddCommand` will not be created to facilitate `CartAddIngredientCommand` and `CartAddRecipeIngredientCommand`.
 
 
 |Pros
 |More organised and can do more with `cart add` as the prefix.
-|Many parser classes to make and keep track of.
+|The classes can be more specific and atomic in their actions.
 
 |Cons
-|The classes can be more specific and atomic in their actions.
+|Many parser classes to make and keep track of.
 |Might lead to disorganisation during troubleshooting with so many classes to keep track.
 |===
 
 === Moving ingredients from cart to inventory
 The user may use this command after their shopping trip. With this one command, all ingredients will be shifted from the cart to the inventory.
+
+This command is implemented to ease the process of having the user adding every single ingredient to their inventory after they have bought ingredients from their cart
+and eventually deleting the cart after that tedious process. These gives a convenience to users that frequently use our application and we forsee
+that such an action will be used very often by these users. As this command only performs an atomic action, no extra
+arguments are needed to further supplement the use of this command.
 
 ==== Implementation
 This command is facilitated by `CartMoveCommand`, which extends the `Command` class. The format of the command is as follows:
@@ -633,27 +709,11 @@ will be thrown.
 . A `CommandResult` with the success message text will be returned to `LogicManager`, which will then be passed to `MainWindow`
 and will then feedback to the user.
 
-==== Implementation reasoning
-This command is implemented to ease the process of having the user adding every single ingredient to their inventory after they have bought ingredients from their cart
-and eventually deleting the cart after that tedious process. These gives a convenience to users that frequently use our application and we forsee
-that such an action will be used very often by these users. As this command only performs an atomic action, no extra
-arguments are needed to further supplement the use of this command.
 
-==== Sequence Diagram
 The following sequence diagram shows how this function works (full command omitted for brevity):
 
 .Sequence Diagram for CartMoveCommand
 image::CartMoveSequenceDiagram.png[]
-
-==== How this feature works
-Step 1: This feature is intended when you have ingredients in the cart. As an example, the diagram below shows an
-empty inventory, along with a cart with an ingredient.
-
-image::CartMoveCommand1.png[]
-
-Step 2: Press kbd:[Enter]. The ingredients from cart will all be shifted to inventory as shown in the diagram below
-
-image::CartMoveCommand2.png[]
 
 ==== Design considerations
 ===== Aspect: Allowing users to move some or all ingredients from cart to inventory
@@ -677,6 +737,86 @@ add back the ingredients to the cart after it is cleared if they wish to.
 |Cons
 |Lesser functionality to users that really want to only move certain ingredients
 |Poorer user experience for users that do not want to move all ingredients from the cart to inventory on a regular basis,
+|===
+
+=== Add a Recipe's Ingredients to Cart
+
+The user may want to buy the required ingredients to cook a certain recipe in the cookbook. This feature allows the user
+to add a certain recipe's required ingredients into the cart.
+
+==== Implementation
+
+The action of adding a recipe's ingredients to cart mechanism is facilitated by `CartAddRecipeIngredientCommand`, which
+extends the `CartAddCommand` abstract class. The format is as follows: `cart add recipe INDEX`.
+
+This command is implemented to ease the tedious process of having the user adding every single ingredient
+to their cart when they want to purchase ingredients to cook a certain recipe. This provides convenience to users
+that frequently use our application and such process like shopping for a certain recipe's ingredient is
+intuitive to users. Furthermore, this command creates interaction between the `Cookbook` and `Cart` which
+helps to further integrate the application as an all-in-one application.
+
+Below is a step by step sequence of what happens when a user enters this command:
+
+. The user enters the command `cart add recipe INDEX`  in the command line  input.
+. `CartAddRecipeIngredientParser` parses the user input and checks if the index provided is an integer.
+Note that the parser will throw a `ParseException` if the given index is not an integer.
+[source,java]
+try {
+    recipeIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
+} catch (ParseException pe) {
+    throw new ParseException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX, CartAddCommand.MESSAGE_USAGE), pe);
+}
+
+. The index is passed as a parameter for `CartAddRecipeIngredientCommand` which is returned to `LogicManager`.
+. `LogicManager` calls `CartAddRecipeIngredientCommand#execute()` which checks if the given index is
+a valid index of a recipe. Note that the command will throw a `CommandException` if the given index is not valid.
+[source, java]
+if (recipeIndex.getZeroBased() >= model.getCookbook().getRecipeList().size()) {
+    throw new CommandException(String.format(MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX, MESSAGE_USAGE));
+}
+
+. If the index is valid, the selected recipe's ingredients will be added accordingly. This is done through calling
+`Model#addCartIngredient()`, with each ingredient as the parameter.
+. `Model#addCartIngredient` calls `Cart#addIngredident()` which then adds the ingredient to the cart.
+If a certain ingredient exists in the cart, adding a ingredient to a cart will increase the
+quantity instead. Otherwise, a new instance of that ingredient will be added to the cart.
+After adding an ingredient, the cart will be updated with `Model#updateFilteredCartIngredientList()`.
+. A `CommandResult` with the successful text message is returned to `LogicManager`
+and will be displayed to the user via the GUI to feedback to the user that
+the selected recipe's ingredients has been successfully added to the cart.
+
+
+The following sequence diagram shows how the function of adding recipe's ingredients to cart works:
+
+.Sequence diagram for CartAddRecipeIngredientCommand
+image::CartAddRecipeIngredientSequenceDiagram.png[]
+
+==== Design considerations
+===== Aspect: Allowing users to add all or some recipe's ingredients
+.Design considerations for allowing users to add only recipe's ingredients that are not present in the inventory to the cart
+[cols="12%,44%,44%"]
+|===
+||Design A (current choice): Adding all recipe's ingredients to the cart|Design B: Adding only recipe's ingredients
+that are missing in the inventory to the cart
+|Description
+| Allows user to add a recipe's ingredients to the cart for shopping. This design is currently chosen due to ease of
+implementation and it works for all situations.
+| Allows user to add a recipe's ingredients base on the inventory status. However, there are some situations where
+this design not does work. One example would be like planning to cook at outside where the inventory status is unknown.
+|Pros
+a|
+- Easier to implement as it does not need to check if the ingredients are already present in the inventory
+- Works for all situations as it ensures that the user is able to cook this recipe after buying the ingredients in the cart
+a|
+- Provide a more intuitive experience of the application as user only need to buy ingredients that are missing in the inventory
+|Cons
+a|
+- Less flexible as users have to manually remove some of the recipe's ingredients that they do not want to buy
+a|
+- Harder to implement as additional checking is required to filter a recipe's ingredients that are missing in the inventory
+- Users have to manually add some of the recipe's ingredients that they want to buy although it is present in the inventory
+
+|
 |===
 
 [[Implementation-Configuration]]
