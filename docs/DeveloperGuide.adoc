@@ -80,7 +80,10 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of several UI parts: `CommandBox`, `ResultDisplay`,
+`CookbookPanel`,
+`RecipeCard`, `InventoryPanel`, `CartPanel`, `IngredientCard`,
+`StatusBarFooter`. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -109,8 +112,6 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 .Interactions Inside the Logic Component for the `cookbook remove recipe 2` Command
 image::CookbookRemoveRecipeSequenceDiagram.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -178,9 +179,12 @@ category, a `ParseException` will be thrown. If the input is valid, with the com
 `CookbookCommandParser` is created.
 . `CookbookCommandParser` then parses `add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]...
 [s/STEP_DESCRIPTION]... [t/TAG]...`. If it is invalid, i.e. an unknown command word, a `ParseException` will be
-thrown. If the input is valid, with the command category `add`, a new `CookbookAddCommandParser` is created.
-.  `CookbookAddCommandParser` parsers `recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]...
-[s/STEP_DESCRIPTION]... [t/TAG]...` and checks if `n/NAME` and `d/DESCRIPTION` are provided. It then
+thrown. If the input is valid, with the command word `add`, a new `CookbookAddCommandParser` is created.
+.  `CookbookAddCommandParser` parses `recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]...
+[s/STEP_DESCRIPTION]... [t/TAG]...` and checks if `n/NAME` and `d/DESCRIPTION` are provided. If either are not
+provided, then a `ParseException` will be thrown.
++
+It then
 parses the input into the following fields: recipe name, recipe description, ingredients, steps, and tags.
 +
 Note that
@@ -238,6 +242,12 @@ for brevity):
 
 .Sequence diagram for CookbookAddCommand
 image::CookbookAddRecipeSequenceDiagram.png[]
+
+The following activity diagram shows a possible flow of events for a user using this feature:
+
+.Activity diagram for CookbookAddCommand
+image::CookbookAddActivityDiagram.png[]
+
 // end::addrecipesequence[]
 
 ==== Design considerations
@@ -247,9 +257,11 @@ image::CookbookAddRecipeSequenceDiagram.png[]
 .Design considerations for parsing optional parameters
 [cols="16%,42%,42%"]
 |===
-||Design A: Parse each category separately (current choice)  | Design B: Parse all the categories together
+||Design A (current choice): Parse each category separately  | Design B: Parse all the categories together
 |Description
-|Each category (ingredient name, ingredient quantity, step description, tag) are parsed separately and returned as `List`. If the returned `List` is empty, then it means that that field was not provided in the input, and will be set to an empty `List` in the recipe.
+|Each category (ingredient name, ingredient quantity, step description, tag) are parsed separately and returned as
+`List`. If the returned `List` is empty, then it means that that field was not provided in the input, and will be set
+to an empty `List` in the recipe e.g., no ingredients were provided in the command.
 |Each category will be parsed together in one function in `CookbookAddCommandParser`
 |Pros
 a|
@@ -268,11 +280,16 @@ a|
 - Method will be very long and decreases readability
 |===
 
+Design A was chosen because it was more user-friendly, and removed the restriction of having to include ingredients,
+steps, and tags at the stage of recipe creation, some of which the user may not have at the moment, i.e.
+experimenting with different ingredients. Additionally, design A allowed us to be more modular while coding.
+
 .Design considerations for results to show users
 ===== Aspect 2: Result to show user
 [cols="16%,42%,42%"]
 |===
-||Design A: Show a short result on the success of the command | Design B: Show all the details back to the user
+||Design A (current choice): Show a short result on the success of the command | Design B: Show all the details back to
+the user
 |Description|Show a message to a usage which notifies them that the command was successful in adding the recipe to
 the cookbook. | Shows a message similar to design choice A, and also show all the details of the added recipe.
 |Pros
@@ -294,6 +311,11 @@ a|
 display.
 
 |===
+
+Design A was chosen because it did not reuse the same component for multiple uses. Additionally, it allows us to
+reduce the size of result display, as most of the time, it displays only a short message displaying the success of a
+command.
+
 //end::addrecipedesign[]
 
 === View recipe in the cookbook
@@ -343,7 +365,8 @@ calling `CookbookPanel#handleViewRecipe`, which creates new `RecipeCard` s for `
 that has an index equal to the index processed from the user's input, it will create a `RecipeCard` that toggles open
 the recipe details. More on how the `RecipeCard` manages this will be discussed in the following section on how
 clicking on a button in the GUI has the same effect as the `cookbook view recipe INDEX` command.
-. Lastly, the user then is shown a `CookbookPanel` with the selected recipe toggled open, which displays the details
+. Lastly, the user then is shown a `CookbookPanel` with the selected recipe toggled open, which displays the full
+details
 of that recipe:
 +
 image::CookbookViewExample2.png[]
@@ -381,6 +404,8 @@ image::CookbookViewSEquenceDiagram2.png[]
 ==== Design considerations
 Aspect: what UI component to display the toggled content
 
+.Design considerations for the UI component to display the toggled content
+
 [cols="16%,42%,42%"]
 |===
 ||Design A (current choice): toggles the content in the recipe panel|Design B: add a new UI component that pops up, i
@@ -400,6 +425,8 @@ statements to implement.
 existing one. The effort estimated did not seem to be worth, as the use is limited to just this command.
 |===
 
+Design A was chosen because it made the GUI more functional, and less complicated to implement in terms of connecting
+the various `UiPart` s.
 
 === Export ingredients in cart to PDF file
 The user may use this command to export the ingredients in their cart to a <<PDF, PDF>> file, which they can then
@@ -478,9 +505,11 @@ image::CartExportCommandSequenceDiagram.png[]
 
 ==== Design considerations
 ===== Aspect 1: File format to export ingredients in cart to
+
+.Design considerations for the file format to export to
 [cols="16%,42%,42%"]
 |===
-||Design A (current choice): .pdf|Design B: .txt
+||Design A (current choice): `.pdf`|Design B: `.txt`
 |Description|Exports it to a flexible pdf file|Exports it to a txt file
 |Pros
 a|
@@ -495,7 +524,13 @@ a|
 a|
 - Lack of design/formatting flexibility
 |===
+
+Design A was chosen as a `.pdf` file was more customisable and flexible. `.txt` files are generally more troublesome
+to format as well.
+
 ===== Aspect 2: What information to export
+
+.Design considerations for the information to export
 [cols="16%,42%,42%"]
 |===
 ||Design A (current choice): Export the ingredient names and quantities in the cart|Design B: Export the entirety of
@@ -522,13 +557,18 @@ a|
 - May be providing users with unnecessary information
 |===
 
+Design A was chosen because there were minimal use cases which required the information in the inventory and cookbook
+to be exported, as compared to the cart. Additionally, due to the time constraint, the team could not implement the
+command for all three, especially since all of them needed different formatting.
+
 // tag::gohkh[]
 === Search for recipes based on ingredients in the inventory
 The user may use this command to search for recipes that they can cook using the ingredients available in their
 inventory.
 
 ==== Implementation reasoning
-This command was implemented to address users needs of easily finding a recipe based on the ingredients they have. It
+This command was implemented to address the users' need of easily finding a recipe based on the ingredients they have
+. It
 allows users to whip up a meal without having to go grocery shopping if they are short of time. This feature sorts
 recipes by how much the inventory fulfils their ingredient requirements, and filters out recipes whose ingredient
 requirements are not met at all. Users can immediately see at the top of the cookbook the recipes that their ingredients
@@ -538,12 +578,13 @@ are most suitable for preparing. A user can use this feature by typing the comma
 The comparison between the ingredients a recipe requires and the ingredients in the inventory is facilitated by the
 `RecipeInventoryIngredientsSimilarityComparator`. It extends `Comparator<Recipe>` and stores the inventory being used
 for ingredient comparison. Additionally, it implements the method `calculateSimilarity()`, which accepts a `Recipe` and
-a `ReadOnlyInventory` as parameters, and returns a double value between 0 and 1 (inclusive) that represents the
+a `ReadOnlyInventory` as parameters, and returns a double value between 0 and 1 (both inclusive) that represents the
 proportion of the recipe's ingredient requirements that are fulfilled.
 
 The following class diagram summarizes how the `RecipeInventoryIngredientsSimilarityComparator` interacts with `Recipe`
 and `Inventory`:
 
+.Class diagram for RecipeInventoryIngredientsSimilarityComparator
 image::CookbookSearchByInventoryClassDiagram.png[]
 
 The `calculateSimilarity()` method first calculates the proportion of ingredient quantity fulfilled by the inventory
@@ -568,17 +609,22 @@ if (recipe.getIngredients().size() == NO_INGREDIENTS) {
 }
 ----
 
-The following activity digram shows a possible flow of events for a user using this feature:
+The following activity diagram shows a possible flow of events for a user using this feature:
 
+.Acitivty diagram for CookbookSearchByInventory
 image::CookbookSearchByInventoryActivityDiagram.png[]
 
 The following sequence diagram summarizes how objects interact when a user executes the command,
 with more focus on how the command is parsed in the `Logic`component:
 
+.Sequence diagram for CookbokoSearchByInventory
+
 image::CookbookSearchByInventorySequenceDiagram.png[]
 
 ==== Design considerations
 ===== Aspect 1: Weighting of each ingredient
+
+.Design considerations for weighing of each ingredient
 [cols="12%,44%,44%"]
 |===
 | |Design A (Current choice): Every ingredient is weighted equally | Design B: More important ingredients are given a larger weigting
@@ -603,6 +649,8 @@ Design A was chosen as it provided a fair estimate of the similarity between the
 The cons for Design B were deemed to outweigh the pros, especially since the importance of an ingredient in a recipe could be rather subjective.
 
 ===== Aspect 2: Handling ingredients with different units
+
+.Design consideration for handling ingredients with different units
 [cols="12%,44%,44%"]
 |===
 | |Design A (Current choice): Use a default similarity value of `0.5` | Design B: Convert the units
@@ -626,7 +674,7 @@ Design A was chosen due to time constraints, as handling the conversion between 
 Given more time, Design B will be implemented to handle conversion for standard units, such as between `g` and `kg`, but Design A would still have to be used for units with non-standard conversion factors.
 // end::gohkh[]
 
-=== Adding ingredients to inventory and cart
+=== Add ingredients to inventory and cart
 The inventory and cart acts as storage for `Ingredient` classes. They are facilitated by `InventoryCommand` and `CartCommand`
 respectively, which extends the `Command` abstract class. Since `CartAddCommand` and `InventoryAddCommand` both serve the
 same purpose in different contexts of `Cart` and `Inventory` respectively, they will be mentioned together in tandem. +
