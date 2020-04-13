@@ -27,7 +27,6 @@ public class Inventory extends SortedIngredientList implements ReadOnlyInventory
     @Override
     public String toString() {
         return getIngredientList().size() + " ingredients";
-        // TODO: refine later
     }
 
     @Override

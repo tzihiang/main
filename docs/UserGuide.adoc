@@ -59,6 +59,11 @@ command given by the user.
 .Cooking Papa User Interface; marked: display window
 image::Example2.png[width="790"]
 
+. Here are the components of Cooking Papa's user interface:
+
++
+.The UI components of Cooking Papa
+image::Example3.png[width="790"]
 
 [[Features]]
 == Features
@@ -196,7 +201,9 @@ Note: you must have added a recipe to the cookbook, otherwise Cooking Papa will 
 This command allows you to search for recipes by keywords, returning a list of recipes.
 
 Note: Adding more keywords will not narrow the search results, but will expand the search results to return any recipe
-that contains any of the given keywords.
+that contains any of the given keywords. Moreover, only full words will be searched, for example, if there is a
+recipe named "ABCD" in the cookbook, searching with the parameter `k/AB` will *not* return the mentioned recipe as a
+result.
 
 - Format: `cookbook search recipe k/KEYWORD...`
 - Example:
@@ -316,7 +323,7 @@ The STEP_INDEX given must be at most 1 more than the current number of steps cur
 the user can only add a STEP_INDEX of up to 5)
 
 - Format: `recipe INDEX add step x/STEP_INDEX s/STEP_DESCRIPTION`
-- Examples:
+- Example:
 |===
 | Command | Result
 
@@ -549,6 +556,7 @@ image::CookbookExportExample2.png[width="790"]
 _An example of the PDF file exported from the sample cart in Cooking Papa._
 |===
 
+//tag::help[]
 === Help command https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
 This command shows a popup window with a URL to Cooking Papa's user guide (what you are reading now). This is for access
 should you need some help executing a certain action in Cooking Papa.
@@ -565,7 +573,9 @@ image::CookbookHelpExample.png[width="250"]
 
 .Cooking Papa Help window and 'Copy URL' button
 image::CookbookHelpExample2.png[width="700"]
+//end::help[]
 
+//tag::exit[]
 === Exit command https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
 There are 3 ways a user can exit Cooking Papa:
 
@@ -575,6 +585,7 @@ There are 3 ways a user can exit Cooking Papa:
 
 .Cooking Papa 'X' button to exit the application.
 image::ExitExample.png[width="790"]
+//end::exit[]
 
 == Version 2.0 Features
 These features are not implemented yet, but we plan to do so moving forward with the application.
@@ -610,36 +621,40 @@ Requires a valid index in the list of recipes and the cooking step
 |Changes preparation step 2 to 'Fry the eggs' in recipe 1
 |===
 
+//tag::calendar[]
 === Calendar Commands [v2.0] https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
 Calendar commands are commands that allow you to set date-related commands, such as reminders and
 recipe of the day
 
 ==== Add a recipe to cook on a certain day
-Reminds the user to cook a certain recipe on a certain day
+Reminds the user to cook a certain recipe on a certain day.
 
 - Format: ``calendar set DD-MM-YYYY cook recipe INDEX``
 - Example:
 |===
 | Parameters | Result
 
-| `calendar set 10-10-2010 cook recipe 1`
-|Adds recipe 1 to your calendar to cook
+| `calendar set 10-10-2020 cook recipe 1`
+|Adds recipe 1 to your calendar for cooking on 10th October 2020.
 |===
 
 ==== View recipes to cook on a certain day
 User can view the recipes they were supposed to cook on a certain day. The date input can
-be replaced with 'today' for the current date.
+be replaced with 'today' for the current date, or 'tomorrow' for the next day.
 
 - Format: ``calendar view recipes DD-MM-YYYY``
 - Example:
 |===
 | Parameters | Result
 
-| `calendar view recipes 10-10-2010`
-|Shows the recipes scheduled to cook on 10th October 2010.
+| `calendar view recipes 10-10-2020`
+|Shows the recipes scheduled for cooking on 10th October 2020.
 | `calendar view recipes today`
-|Shows the recipes scheduled to cook on the current day of use.
+|Shows the recipes scheduled for cooking on the current day.
+| `calendar view recipes tomorrow`
+| Shows the recipes scheduled for cooking on the day after the current day.
 |===
+//end::calendar[]
 
 === Recipe of the day generator [v2.0] https://github.com/hans555[(by Ong Han Sheng)]
 CookingPapa can generate a recipe of the day to cook based on the recipes currently in the cookbook.
@@ -653,22 +668,27 @@ CookingPapa can generate a recipe of the day to cook based on the recipes curren
 |Displays the recipe of the day
 |===
 
+//tag::faq[]
 == FAQ https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CookingPapa folder.
 
 *Q*: Where can I install the latest version of CookingPapa? +
-*A*: You can find the latest releases at: https://github.com/AY1920S2-CS2103T-F11-4/main/releases. You only have to download the latest version of CookingPapa.jar
+*A*: You can find the latest release https://github.com/AY1920S2-CS2103T-F11-4/main/releases[here]. Please download
+the latest version of CookingPapa.jar to enjoy the most udpated features.
 
 *Q*: Do I need to be connected to the internet to access this application? +
 *A*: All information is stored locally in your own computer. No internet connection is required.
 
 *Q*: Something is not working as expected. Who can I contact? +
-*A*: You may report your bugs to: https://github.com/AY1920S2-CS2103T-F11-4/main/issues. Bug reports are highly appreciated!
+*A*: You may report your bugs here https://github.com/AY1920S2-CS2103T-F11-4/main/issues[here]. Bug reports are highly
+appreciated!
 
 *Q*: Is this application free? +
-*A*: Yes! This application is open-source under the MIT license. You may feel free to modify, contribute and share this application with any community!
+*A*: Yes! This application is open-source under the MIT license. You may feel free to modify, contribute and share
+this application with the community!
+//end::faq[]
 
 == Command Summary https://github.com/tzihiang[(by Tay Zi Hiang Willis)]
 
