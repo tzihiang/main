@@ -366,6 +366,14 @@ toggles, and shows the overview of the recipe.
 This feature is not reflected with `cookbook view recipe INDEX` when it is entered again in the command line, because
 the function of the command is to view a recipe, not to "un-view" it.
 
+The following sequence diagram shows how the recipe viewing function interacts between the classes in `Logic`:
+
+image::CookbookViewSequenceDiagram.png[]
+
+The following sequence diagram shows how the recipe viewing function interacts between the classes in `Ui`:
+
+image::CookbookViewSEquenceDiagram2.png[]
+
 ==== Design considerations
 Aspect: what UI component to display the toggled content
 
