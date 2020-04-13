@@ -22,7 +22,7 @@ create CookingPapaParser
 LogicManager -> CookingPapaParser
 activate CookingPapaParser
 
-CookingPapaParser -> LogicManager
+CookingPapaParser --> LogicManager
 deactivate CookingPapaParser
 
 LogicManager -> CookingPapaParser : parseCommand("cart add recipe 1")
@@ -32,7 +32,7 @@ create CartCommandParser
 CookingPapaParser -> CartCommandParser
 activate CartCommandParser
 
-CartCommandParser -> CookingPapaParser
+CartCommandParser --> CookingPapaParser
 deactivate CartCommandParser
 
 CookingPapaParser -> CartCommandParser : parse(" add recipe 1")
@@ -42,7 +42,7 @@ create CartAddCommandParser
 CartCommandParser -> CartAddCommandParser
 activate CartAddCommandParser
 
-CartAddCommandParser -> CartCommandParser
+CartAddCommandParser --> CartCommandParser
 deactivate CartAddCommandParser
 
 CartCommandParser -> CartAddCommandParser : parse(" recipe 1")
@@ -55,11 +55,11 @@ activate CartAddRecipeIngredientParser
 CartAddRecipeIngredientParser --> CartAddCommandParser
 deactivate CartAddRecipeIngredientParser
 
-CartAddCommandParser --> CartAddRecipeIngredientParser : parse(" 1")
+CartAddCommandParser -> CartAddRecipeIngredientParser : parse(" 1")
 activate CartAddRecipeIngredientParser
 
 create CartAddRecipeIngredientCommand
-CartAddRecipeIngredientParser --> CartAddRecipeIngredientCommand
+CartAddRecipeIngredientParser -> CartAddRecipeIngredientCommand
 activate CartAddRecipeIngredientCommand
 
 CartAddRecipeIngredientCommand --> CartAddRecipeIngredientParser : command
@@ -89,11 +89,13 @@ deactivate CookingPapaParser
 LogicManager -> CartAddRecipeIngredientCommand : execute()
 activate CartAddRecipeIngredientCommand
 
-CartAddRecipeIngredientCommand -> Model : addCartIngredient()
-activate Model
+loop until end of Recipe's ingredient list
+    CartAddRecipeIngredientCommand -> Model : addCartIngredient()
+    activate Model
 
-Model --> CartAddRecipeIngredientCommand
-deactivate Model
+    Model --> CartAddRecipeIngredientCommand
+    deactivate Model
+end loop
 
 create CommandResult
 CartAddRecipeIngredientCommand -> CommandResult
