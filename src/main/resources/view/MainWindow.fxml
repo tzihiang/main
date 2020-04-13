@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
+<!-- @@author teo-jun-xiong -->
 <fx:root maxWidth="1000" minHeight="700" minWidth="1000" onCloseRequest="#handleExit" title="Cooking Papa" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/gordon_ramsay_icon.png" />

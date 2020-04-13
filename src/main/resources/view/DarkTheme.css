@@ -87,7 +87,7 @@
     -fx-background-color: -fx-focus-color;
 }
 
-/* useless */
+/* @@author teo-jun-xiong */
 .split-pane:horizontal .split-pane-divider {
     -fx-background-color: #ffffed;
     -fx-border-color: transparent transparent transparent transparent;

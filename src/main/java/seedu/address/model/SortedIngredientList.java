@@ -98,6 +98,5 @@ public abstract class SortedIngredientList {
     @Override
     public String toString() {
         return ingredients.asUnmodifiableObservableList().size() + " ingredients";
-        // TODO: refine later
     }
 }
