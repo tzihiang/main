@@ -53,6 +53,7 @@ is a key part of our project.
 
 ** Community:
 *** Reviewed PRs before merging
+*** Asked questions and answered questions regarding project with team mates.
 *** Contributed to bug reports during PE Dry Run using CATcher.
 
 == Contributions to the User Guide
