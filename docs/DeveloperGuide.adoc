@@ -411,7 +411,7 @@ a|
 - May be providing users with unnecessary information
 |===
 
-// tag::cookbooksearchinventory[]
+// tag::gohkh[]
 === Search for recipes based on ingredients in the inventory
 The user may use this command to search for recipes that they can cook using the ingredients available in their
 inventory.
@@ -513,7 +513,7 @@ Some units such as `cup` may also not have a standard conversion factor.
 
 Design A was chosen due to time constraints, as handling the conversion between different units would take time away from developing other parts of the application.
 Given more time, Design B will be implemented to handle conversion for standard units, such as between `g` and `kg`, but Design A would still have to be used for units with non-standard conversion factors.
-// end::cookbooksearchinventory[]
+// end::gohkh[]
 
 === Adding ingredients to inventory and cart
 The inventory and cart acts as storage for `Ingredient` classes. They are facilitated by `InventoryCommand` and `CartCommand`
