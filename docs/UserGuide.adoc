@@ -638,36 +638,38 @@ image::ExitExample.png[width="790"]
 == Version 2.0 Features
 These features are not implemented yet, but we plan to do so moving forward with the application.
 
+// tag::gohkh[]
 === Edit recipe details [v2.0] https://github.com/gohkh?tab=repositories[(by Goh Ka Hui)]
 The following commands allow you to edit the details of the recipes that are currently in the cookbook.
 
 ==== Edit an ingredient in a recipe
-If you want to change the quantity of an ingredient after some experimentation, this command will help you achieve that.
+This command allows you to edit an ingredient in an existing recipe in the cookbook.
+It replaces the original quantity of the ingredient with the new quantity that you specify in the command.
 
 - Format: `recipe INDEX edit i/INGREDIENT q/QUANTITY`
 - Examples:
 |===
-| Parameters | Result
+| Command | Result
 
-| `recipe 1 edit i/Egg q/2`
-|Changes the quantity of eggs to 3 in the 1st recipe's list of ingredients.
+| `recipe 1 edit i/Eggs q/2`
+|Changes the quantity of eggs to 2 in the first recipe's list of ingredients.
 
 |`recipe 2 edit i/Milk q/100 ml`
-|Changes the quantity of milk to 100 ml in the 2nd recipe's list of ingredients.
+|Changes the quantity of milk to 100 ml in the second recipe's list of ingredients.
 |===
 
 ==== Edit a preparation step in a recipe
-This command allows you to edit a preparation step from the selected recipe.
-Requires a valid index in the list of recipes and the cooking step
+This command allows you to edit a step in an existing recipe in the cookbook.
 
 - Format: `recipe INDEX edit step x/STEP_INDEX s/STEP_DESCRIPTION`
 - Example:
 |===
-| Parameters | Result
+| Command | Result
 
 |`recipe 1 edit step x/2 s/Fry the eggs`
 |Changes preparation step 2 to 'Fry the eggs' in recipe 1
 |===
+// end::gohkh[]
 
 //tag::calendar[]
 === Calendar Commands [v2.0] https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
