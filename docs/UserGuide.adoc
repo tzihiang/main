@@ -248,20 +248,24 @@ using the search commands to view all the recipes.
 |===
 //end::shanecsj[]
 
+//tag::gohkh[]
 [[Recipe]]
 === Recipe Commands
-Recipe commands are commands that change an existing recipe, which can be indicated using the index of the recipe.
-Some things you can do are to add and remove ingredients from a recipe's ingredient list.
-You can also write preparation steps for your recipes.
+Recipe commands are commands that change an existing recipe in the cookbook, which can be indicated using the index of
+the recipe. You can use these commands to to add and remove ingredients or steps from a recipe in the cookbook. You may
+also tag your recipes to make it easier for you to find them.
 
 ==== Add an ingredient to a recipe
-This command allows you to add ingredients to a recipe.
+This command allows you to add ingredients to an existing recipe in the cookbook.
 
-You can increase the quantity of an ingredient that is already in the recipe, provided that you indicate the same unit.
-Otherwise, Cooking Papa will not add the ingredient.
+You can increase the quantity of an ingredient that is already in the recipe, provided that you indicate a quantity with
+the same unit. Otherwise, Cooking Papa will not add the ingredient.
 
-Note: you must have added a recipe to the cookbook, otherwise Cooking Papa will not be able to add an ingredient to
-the recipe.
+Ingredient quantities are case-sensitive, but ingredient names are not, when you adding to an existing ingredient in a
+recipe.
+
+Note: If you indicate multiple ingredient names or quantities, Cooking Papa will only add an ingredient with the last
+name and quantity indicated in your command.
 
 - Format: `recipe INDEX add ingredient i/INGREDIENT q/QUANTITY`
 - Examples:
@@ -361,6 +365,7 @@ Requires a valid index in the list of recipes.
 |`recipe 1 remove tag t/Beef`
 |Removes the tag 'Beef' from the recipe 1.
 |===
+//end::gohkh[]
 
 [[Inventory]]
 === Inventory Commands

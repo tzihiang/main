@@ -13,6 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.UniqueIngredientList;
+import seedu.address.model.ingredient.exceptions.IncompatibleIngredientException;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -20,7 +21,8 @@ import seedu.address.model.recipe.Recipe;
  */
 public class RecipeAddIngredientCommand extends RecipeAddCommand {
 
-    public static final String MESSAGE_SUCCESS = "New ingredient added for %1$s: %2$s";
+    public static final String MESSAGE_SUCCESS = "New ingredient added for %2$s: %1$s";
+    public static final String MESSAGE_INCOMPATIBLE_UNITS = "%1$s has different units in %2$s";
 
     private final Index index;
     private final Ingredient toAdd;
@@ -48,16 +50,21 @@ public class RecipeAddIngredientCommand extends RecipeAddCommand {
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
         UniqueIngredientList ingredients = new UniqueIngredientList();
         ingredients.setIngredients(recipeToEdit.getIngredients());
-        ingredients.add(toAdd);
 
-        EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
-        editRecipeDescriptor.setIngredients(ingredients.asUnmodifiableObservableList());
-        Recipe editedRecipe = EditRecipeDescriptor.createEditedRecipe(recipeToEdit, editRecipeDescriptor);
+        try {
+            ingredients.add(toAdd);
 
-        model.setCookbookRecipe(recipeToEdit, editedRecipe);
-        model.updateFilteredCookbookRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+            EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
+            editRecipeDescriptor.setIngredients(ingredients.asUnmodifiableObservableList());
+            Recipe editedRecipe = EditRecipeDescriptor.createEditedRecipe(recipeToEdit, editRecipeDescriptor);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedRecipe.getName().fullRecipeName, toAdd));
+            model.setCookbookRecipe(recipeToEdit, editedRecipe);
+            model.updateFilteredCookbookRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, editedRecipe.getName()));
+        } catch (IncompatibleIngredientException e) {
+            throw new CommandException(String.format(MESSAGE_INCOMPATIBLE_UNITS, toAdd, recipeToEdit.getName()));
+        }
     }
 
     @Override
