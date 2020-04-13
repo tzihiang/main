@@ -15,7 +15,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
 
 public class CartRemoveIngredientCommandTest {
     @Test
@@ -45,8 +44,8 @@ public class CartRemoveIngredientCommandTest {
                     CartRemoveIngredientCommand.ALL_KEYWORD + " " + ALMOND.getName())));
 
         // error thrown after removing ALMOND
-        assertThrows(IngredientNotFoundException.class, () -> commandWithQuantity.execute(model));
-        assertThrows(IngredientNotFoundException.class, () -> commandWithoutQuantity.execute(model));
+        assertThrows(CommandException.class, () -> commandWithQuantity.execute(model));
+        assertThrows(CommandException.class, () -> commandWithoutQuantity.execute(model));
 
         assertFalse(model.hasCartIngredient(ALMOND));
     }
@@ -64,7 +63,7 @@ public class CartRemoveIngredientCommandTest {
                 Optional.of(ALMOND.getQuantity()));
         Model model = new ModelManager();
 
-        assertThrows(IngredientNotFoundException.class, () -> c.execute(model));
+        assertThrows(CommandException.class, () -> c.execute(model));
     }
 
     @Test

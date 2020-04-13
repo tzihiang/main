@@ -16,6 +16,7 @@ import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.IngredientName;
 import seedu.address.model.ingredient.IngredientQuantity;
 import seedu.address.model.ingredient.UniqueIngredientList;
+import seedu.address.model.ingredient.exceptions.IncompatibleIngredientException;
 import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
 import seedu.address.model.ingredient.exceptions.NonPositiveIngredientQuantityException;
 import seedu.address.model.recipe.Recipe;
@@ -28,8 +29,7 @@ public class RecipeRemoveIngredientCommand extends RecipeRemoveCommand {
     public static final String ALL_KEYWORD = "All";
     public static final String MESSAGE_SUCCESS = "%1$s removed from %2$s";
     public static final String MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH = "The quantity specified is too large";
-    public static final String MESSAGE_INCOMPATIBLE_UNITS = "This ingredient has different units "
-            + "from the same ingredient in the recipe";
+    public static final String MESSAGE_INCOMPATIBLE_UNITS = "%1$s has different units in %2$s";
     public static final String MESSAGE_INGREDIENT_NOT_FOUND = "%2$s does not contain %1$s";
 
     private final Index index;
@@ -59,7 +59,6 @@ public class RecipeRemoveIngredientCommand extends RecipeRemoveCommand {
         }
 
         assert (index.getZeroBased() < lastShownList.size());
-
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
         UniqueIngredientList ingredients = new UniqueIngredientList();
         ingredients.setIngredients(recipeToEdit.getIngredients());
@@ -84,6 +83,9 @@ public class RecipeRemoveIngredientCommand extends RecipeRemoveCommand {
 
         } catch (IngredientNotFoundException e) {
             throw new CommandException(String.format(MESSAGE_INGREDIENT_NOT_FOUND,
+                    ingredientName, recipeToEdit.getName()));
+        } catch (IncompatibleIngredientException e) {
+            throw new CommandException(String.format(MESSAGE_INCOMPATIBLE_UNITS,
                     ingredientName, recipeToEdit.getName()));
         } catch (NonPositiveIngredientQuantityException e) {
             throw new CommandException(String.format(MESSAGE_INGREDIENT_QUANTITY_TOO_HIGH));
