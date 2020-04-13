@@ -62,6 +62,9 @@ is a key part of our project.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+== Contributions to the User Guide
+
+
 [[Cart]]
 === Cart Commands http://github.com/tzihiang[(by Tay Zi Hiang Willis)]
 Cart commands are commands that allow you to easily add ingredients needed for a recipe
@@ -107,7 +110,7 @@ regardless of the unit.
 | Command | Result
 |`cart remove ingredient i/Eggs`
 |Removes all eggs from the cart
-|`cart remove i/Milk q/200ml`
+|`cart remove ingredient i/Milk q/200ml`
 |Removes 200ml of milk from the cart.
 _(If your cart had 500 ml of milk, it will be subtracted and updated to 300 ml of milk)_
 |===
@@ -157,7 +160,6 @@ _The exported PDF file will be in the same folder where Cooking Papa is located.
 image::CookbookExportExample2.png[width="790"]
 _An example of the PDF file exported from the sample cart in Cooking Papa._
 |===
-
 == Command Summary https://github.com/tzihiang[(by Tay Zi Hiang Willis)]
 
 [cols="2,3,5a", options="header"]
@@ -219,7 +221,6 @@ INGREDIENT and its QUANTITY, STEP, and TAG are optional parameters and will be a
 |``export``
 |Exports current cart into a PDF.
 |===
-
 == Contributions to the Developer Guide
 
 |===
