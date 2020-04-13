@@ -576,6 +576,9 @@ There are 3 ways a user can exit Cooking Papa:
 .Cooking Papa 'X' button to exit the application.
 image::ExitExample.png[width="790"]
 
+== Version 2.0 Features
+These features are not implemented yet, but we plan to do so moving forward with the application.
+
 === Edit recipe details [v2.0] https://github.com/gohkh?tab=repositories[(by Goh Ka Hui)]
 The following commands allow you to edit the details of the recipes that are currently in the cookbook.
 
