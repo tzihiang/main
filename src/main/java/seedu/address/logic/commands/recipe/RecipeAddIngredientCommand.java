@@ -14,7 +14,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.UniqueIngredientList;
 import seedu.address.model.ingredient.exceptions.IncompatibleIngredientException;
-import seedu.address.model.ingredient.exceptions.IngredientNotFoundException;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -48,11 +47,11 @@ public class RecipeAddIngredientCommand extends RecipeAddCommand {
         }
 
         assert index.getZeroBased() < lastShownList.size();
+        Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
+        UniqueIngredientList ingredients = new UniqueIngredientList();
+        ingredients.setIngredients(recipeToEdit.getIngredients());
 
         try {
-            Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
-            UniqueIngredientList ingredients = new UniqueIngredientList();
-            ingredients.setIngredients(recipeToEdit.getIngredients());
             ingredients.add(toAdd);
 
             EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();

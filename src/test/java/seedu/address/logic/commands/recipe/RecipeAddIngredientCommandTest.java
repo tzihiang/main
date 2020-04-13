@@ -41,13 +41,13 @@ public class RecipeAddIngredientCommandTest {
         RecipeAddIngredientCommand c = new RecipeAddIngredientCommand(VALID_RECIPE_INDEX, ALMOND);
         Model model = new ModelManager();
         model.addCookbookRecipe(CARBONARA);
-        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, CARBONARA.getName(), ALMOND)));
+        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, ALMOND, CARBONARA.getName())));
 
         // after adding multiple recipes
         model.addCookbookRecipe(AGLIO_OLIO);
         model.addCookbookRecipe(SCRAMBLED_EGG);
         model.addCookbookRecipe(SPAGHETTI_BOLOGNESE);
-        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, AGLIO_OLIO.getName(), ALMOND)));
+        assertEquals(c.execute(model), new CommandResult(String.format(MESSAGE_SUCCESS, ALMOND, AGLIO_OLIO.getName())));
     }
 
     @Test

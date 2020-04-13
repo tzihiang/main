@@ -59,7 +59,6 @@ public class RecipeRemoveIngredientCommand extends RecipeRemoveCommand {
         }
 
         assert (index.getZeroBased() < lastShownList.size());
-
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
         UniqueIngredientList ingredients = new UniqueIngredientList();
         ingredients.setIngredients(recipeToEdit.getIngredients());
