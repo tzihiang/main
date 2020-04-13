@@ -502,7 +502,7 @@ This command allows you to remove all ingredients from the inventory.
 - Format: `inventory clear`
 - Example:
 |===
-| Parameters | Result
+| Command | Result
 
 |`inventory clear`
 |Removes all ingredients from the inventory
@@ -647,7 +647,7 @@ If you want to change the quantity of an ingredient after some experimentation, 
 - Format: `recipe INDEX edit i/INGREDIENT q/QUANTITY`
 - Examples:
 |===
-| Parameters | Result
+| Command | Result
 
 | `recipe 1 edit i/Egg q/2`
 |Changes the quantity of eggs to 3 in the 1st recipe's list of ingredients.
@@ -663,7 +663,7 @@ Requires a valid index in the list of recipes and the cooking step
 - Format: `recipe INDEX edit step x/STEP_INDEX s/STEP_DESCRIPTION`
 - Example:
 |===
-| Parameters | Result
+| Command | Result
 
 |`recipe 1 edit step x/2 s/Fry the eggs`
 |Changes preparation step 2 to 'Fry the eggs' in recipe 1
@@ -680,7 +680,7 @@ Reminds the user to cook a certain recipe on a certain day.
 - Format: ``calendar set DD-MM-YYYY cook recipe INDEX``
 - Example:
 |===
-| Parameters | Result
+| Command | Result
 
 | `calendar set 10-10-2020 cook recipe 1`
 |Adds recipe 1 to your calendar for cooking on 10th October 2020.
@@ -693,7 +693,7 @@ be replaced with 'today' for the current date, or 'tomorrow' for the next day.
 - Format: ``calendar view recipes DD-MM-YYYY``
 - Example:
 |===
-| Parameters | Result
+| Command | Result
 
 | `calendar view recipes 10-10-2020`
 |Shows the recipes scheduled for cooking on 10th October 2020.
@@ -710,7 +710,7 @@ CookingPapa can generate a recipe of the day to cook based on the recipes curren
 - Format: ``generate recipe of the day``
 - Example:
 |===
-| Parameters | Result
+| Command | Result
 
 | `generate recipe of the day`
 |Displays the recipe of the day
