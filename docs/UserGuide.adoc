@@ -296,14 +296,8 @@ Sample command feedback: +
 ==== Remove an ingredient from a recipe
 This command allows you to remove ingredients from an existing recipe in the cookbook.
 
-<<<<<<< HEAD
 You can reduce the quantity of an ingredient that is already in the recipe, as long as you provide a quantity with
 the same unit, and a value not greater than that in the recipe.  Otherwise, Cooking Papa will not remove the ingredient.
-=======
-You can indicate the quantity you want to remove for an ingredient, which should not be greater that than the
-ingredient's quantity. Please ensure that the unit of the quantity matches the ingredient's unit in the recipe. *If
-you do not indicate any quantity, the specified ingredient will be removed from the recipe entirely.*
->>>>>>> upstream/development
 
 If you do not indicate any quantity, all of the specified ingredient will be removed from the recipe.
 
