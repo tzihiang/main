@@ -787,7 +787,7 @@ add back the ingredients to the cart after it is cleared if they wish to.
 |Poorer user experience for users that do not want to move all ingredients from the cart to inventory on a regular basis,
 |===
 
-
+//tag::hansheng[]
 === Add a Recipe's Ingredients to Cart
 
 The user may want to buy the required ingredients to cook a certain recipe in the cookbook. This feature allows the user
@@ -866,6 +866,7 @@ a|
 - Users have to manually add some of the recipe's ingredients that they want to buy although it is present in the inventory
 
 |===
+//end::hansheng[]
 
 //tag::inventorycookrecipe[]
 === Remove ingredients of a recipe from the inventory
