@@ -519,10 +519,12 @@ Given more time, Design B will be implemented to handle conversion for standard 
 The inventory and cart acts as storage for `Ingredient` classes. They are facilitated by `InventoryCommand` and `CartCommand`
 respectively, which extends the `Command` abstract class. Since `CartAddCommand` and `InventoryAddCommand` both serve the
 same purpose in different contexts of `Cart` and `Inventory` respectively, they will be mentioned together in tandem. +
-The format of the commands are as follows:
 
-* For cart: `cart add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY`
-* For inventory: `inventory add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY`
+This command was implemented to allow the user know to add an ingredient to the cart or inventory respectively.
+An ingredient only has two main components - its name and quantity. We allow the user to use their own measurement up to their own
+preferences and do not force any fixed unit of measurement. Although similar, `Cart` and `Ingredients` differ in certain functions
+from a user's point of view. For a user to immediately sort where they wish to sort the ingredient they are adding, `Cart` and
+
 
 ==== Implementation
 
@@ -543,34 +545,10 @@ user that the `Ingredient` has been successfully added.
 
 The above implementation is the same for `Inventory` with the command `inventory  add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY`
 
-==== Implementation reasoning
-This command was implemented to allow the user know to add an ingredient to the cart or inventory respectively.
-An ingredient only has two main components - its name and quantity. We allow the user to use their own measurement up to their own
-preferences and do not force any fixed unit of measurement. Although similar, `Cart` and `Ingredients` differ in certain functions
-from a user's point of view. For a user to immediately sort where they wish to sort the ingredient they are adding, `Cart` and
-`Inventory` is the first parameter they would use for the command.
-
-==== Sequence diagram
 The following sequence diagram shows how the function of adding ingredients to cart work (full command omitted for brevity):
 
 .Sequence diagram for CartAddIngredientCommand
 image::CartAddIngredientSequenceDiagram.png[]
-
-==== How the feature works
-
-Step 1: The below diagram shows an initially empty cart
-
-image::CartAddCommand1.png[]
-
-Step 2: Input the command `cart add ingredient i/INGREDIENT_NAME q/INGREDIENT_QUANTITY`. An example command is as follows: `cart add ingredient i/Eggs q/10`.
-
-image::CartAddCommand2.png[]
-
-Step 3: Hit kbd:[Enter]. The cart should be updated as follows:
-
-image::CartAddCommand3.png[]
-
-The above implementation is the same for `Inventory`
 
 ==== Design Considerations
 ===== Aspect: The need for many parsers for this command
@@ -584,20 +562,25 @@ The above implementation is the same for `Inventory`
 |The command will go through the parsers in the following order: `CookingPapaParser` -> `CartCommandParser` -> `CartAddCommandParser`
 -> `CartAddIngredientParser` before finally returning `CartAddIngredientCommand`. We eventually went with this as we wanted the add
 functionality to be expanded, namely to be able to add all the ingredients of cookbook recipes into the cart.
-| `CartAddCommand` will not be created facilitate `CartAddIngredientCommand` and `CartAddRecipeIngredientCommand`.
+| `CartAddCommand` will not be created to facilitate `CartAddIngredientCommand` and `CartAddRecipeIngredientCommand`.
 
 
 |Pros
 |More organised and can do more with `cart add` as the prefix.
-|Many parser classes to make and keep track of.
+|The classes can be more specific and atomic in their actions.
 
 |Cons
-|The classes can be more specific and atomic in their actions.
+|Many parser classes to make and keep track of.
 |Might lead to disorganisation during troubleshooting with so many classes to keep track.
 |===
 
 === Moving ingredients from cart to inventory
 The user may use this command after their shopping trip. With this one command, all ingredients will be shifted from the cart to the inventory.
+
+This command is implemented to ease the process of having the user adding every single ingredient to their inventory after they have bought ingredients from their cart
+and eventually deleting the cart after that tedious process. These gives a convenience to users that frequently use our application and we forsee
+that such an action will be used very often by these users. As this command only performs an atomic action, no extra
+arguments are needed to further supplement the use of this command.
 
 ==== Implementation
 This command is facilitated by `CartMoveCommand`, which extends the `Command` class. The format of the command is as follows:
@@ -615,27 +598,11 @@ will be thrown.
 . A `CommandResult` with the success message text will be returned to `LogicManager`, which will then be passed to `MainWindow`
 and will then feedback to the user.
 
-==== Implementation reasoning
-This command is implemented to ease the process of having the user adding every single ingredient to their inventory after they have bought ingredients from their cart
-and eventually deleting the cart after that tedious process. These gives a convenience to users that frequently use our application and we forsee
-that such an action will be used very often by these users. As this command only performs an atomic action, no extra
-arguments are needed to further supplement the use of this command.
 
-==== Sequence Diagram
 The following sequence diagram shows how this function works (full command omitted for brevity):
 
 .Sequence Diagram for CartMoveCommand
 image::CartMoveSequenceDiagram.png[]
-
-==== How this feature works
-Step 1: This feature is intended when you have ingredients in the cart. As an example, the diagram below shows an
-empty inventory, along with a cart with an ingredient.
-
-image::CartMoveCommand1.png[]
-
-Step 2: Press kbd:[Enter]. The ingredients from cart will all be shifted to inventory as shown in the diagram below
-
-image::CartMoveCommand2.png[]
 
 ==== Design considerations
 ===== Aspect: Allowing users to move some or all ingredients from cart to inventory
