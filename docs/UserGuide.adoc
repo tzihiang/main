@@ -18,12 +18,12 @@ By: `Team F11-4`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-Cooking Papa is an all-in-one, and easy-to-use application that acts as a personalised cookbook, with *your* favourite
+Cooking Papa is an all-in-one, easy-to-use application that acts as a personalised cookbook, with *your* favourite
 recipes!
 
-Cooking Papa aims to help university students who live alone, to make learning how to cook more convenient,
-increasing the diversity of their meals. With Cooking Papa, users can easily edit recipes, keep track of ingredients
-they have at home and have a shopping list to help them expedite their grocery shopping process.
+Cooking Papa aims to help university students who live alone. We aim to make learning how to cook more convenient,
+contributing to the variety of meals of these university students. With Cooking Papa, users can easily edit recipes, keep track of ingredients
+they currently have at home and have a shopping list that assists them in their grocery shopping process.
 
 CookingPapa consists of 3 main features:
 
@@ -70,7 +70,7 @@ for smooth usage of the application.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user. +
 (e.g. in `inventory add ingredient i/INGREDIENT`, `INGREDIENT`
-is a parameter which can be used as `inventory add ingredient i/Bacon`).
+is a parameter which can be used as `inventory add ingredient i/Bacon q/10`).
 * Words in square brackets are optional. +
  (e.g in `cookbook add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]... [s/STEP]... [t/TAG]...` can be
 used as
@@ -112,8 +112,10 @@ A quarter cup of milk can be represented in a command as: `i/Milk q/1/4 cup`.
 |===
 
 [[Cookbook]]
+
+=== Cookbook Commands https://github.com/shanecsj[(by Chan Shun Jie)]
 //tag::shanecsj[]
-=== Cookbook Commands
+
 Cookbook commands are commands that allow users to add and remove recipes from the cookbook,
 as well as view recipes stored in the cookbook. More commands can be done with recipes, and
 are covered in <<Recipe>>.
@@ -232,7 +234,8 @@ This command allows you to see search for recipes you can cook with your current
 | Command | Result
 
 |`cookbook search inventory`
-|Searches the cookbook for recipes whose ingredients are available in the inventory.
+|Searches the cookbook for recipes which ingredients are available in the inventory.
+
 |===
 ==== List all recipes in the cookbook
 This commands allows you to view the whole collection of recipes in the cookbook. Additionally, it can be used after
@@ -250,7 +253,7 @@ using the search commands to view all the recipes.
 
 //tag::gohkh[]
 [[Recipe]]
-=== Recipe Commands
+=== Recipe Commands https://github.com/gohkh[(by Goh Ka Hui)]
 Recipe commands are commands that change an existing recipe in the cookbook, which can be indicated using the index of
 the recipe. You can use these commands to to add and remove ingredients or steps from a recipe in the cookbook. You may
 also tag your recipes to make it easier for you to find them.
@@ -286,8 +289,14 @@ Sample command feedback: +
 ==== Remove an ingredient from a recipe
 This command allows you to remove ingredients from an existing recipe in the cookbook.
 
+<<<<<<< HEAD
 You can reduce the quantity of an ingredient that is already in the recipe, as long as you provide a quantity with
 the same unit, and a value not greater than that in the recipe.  Otherwise, Cooking Papa will not remove the ingredient.
+=======
+You can indicate the quantity you want to remove for an ingredient, which should not be greater that than the
+ingredient's quantity. Please ensure that the unit of the quantity matches the ingredient's unit in the recipe. *If
+you do not indicate any quantity, the specified ingredient will be removed from the recipe entirely.*
+>>>>>>> upstream/development
 
 If you do not indicate any quantity, all of the specified ingredient will be removed from the recipe.
 
@@ -297,7 +306,7 @@ If you do not indicate any quantity, all of the specified ingredient will be rem
 | Command | Result
 
 | `recipe 1 remove ingredient i/Eggs`
-|Removes all egg from the list of ingredients in recipe 1. +
+|Removes all eggs from the list of ingredients in recipe 1. +
 Sample command feedback: +
 `All Eggs removed from recipe 1`
 |`recipe 2 remove ingredient i/Milk q/200 ml`
@@ -376,6 +385,8 @@ This command allows you to remove a tag from an existing recipe in the cookbook.
 Only one tag is accepted at a time. If you provide multiple steps, Cooking Papa
 will only remove the last tag in your command.
 
+Note: you must have the tag you wish to remove in the selected recipe, otherwise Cooking Papa will not be able to remove the tag from the recipe.
+
 - Format: `recipe INDEX remove tag t/TAG`
 - Example:
 |===
@@ -441,7 +452,7 @@ image::RecipeCommand9.png[width=400]
 //end::gohkh[]
 
 [[Inventory]]
-=== Inventory Commands
+=== Inventory Commands https://github.com/hans555[(by Ong Han Sheng)]
 Inventory commands are commands that update the user's very own inventory at home.
 These commands include adding, remove and viewing the current inventory database.
 
@@ -454,7 +465,7 @@ Ingredient names such as 'Bacon' and 'bacon' will be recognised by CookingPapa a
 |===
 | Command | Result
 
-|`inventory add ingredient i/Egg q/10`
+|`inventory add ingredient i/Eggs q/10`
 |Adds 10 eggs into your inventory.
 
 |`inventory add ingredient i/Butter q/200g`
@@ -467,7 +478,8 @@ This command allows you to remove ingredients from the inventory.
 You can indicate the quantity you want to remove for an ingredient, which should not be greater that than the
 ingredient's quantity.
 Please ensure that the unit of the quantity matches the ingredient's unit in the inventory.
-If you do not indicate any quantity, all entries in the inventory that have the specified ingredient name will be
+
+Note: If you do not indicate any quantity, all entries in the inventory that have the specified ingredient name will be
 removed regardless of the unit.
 
 - Format: `inventory remove ingredient i/INGREDIENT [q/QUANTITY]`
@@ -486,17 +498,17 @@ _(If your inventory had 500 g of milk, it will be subtracted and updated to 300 
 ==== Remove all ingredients from the inventory.
 This command allows you to remove all ingredients from the inventory.
 
-- Format: `inventory clear ingredient`
+- Format: `inventory clear`
 - Example:
 |===
 | Parameters | Result
 
-|`inventory clear ingredient`
+|`inventory clear`
 |Removes all ingredients from the inventory
 |===
 
 [[Cart]]
-=== Cart Commands
+=== Cart Commands http://github.com/tzihiang[(by Tay Zi Hiang Willis)]
 Cart commands are commands that allow you to easily add ingredients needed for a recipe
 into a shopping cart. This provides convenience for your grocery shopping needs.
 
@@ -530,7 +542,8 @@ This command allows you to remove ingredients from the cart.
 You can indicate the quantity you want to remove for an ingredient, which should not be greater that than the
 ingredient's quantity.
 Please ensure that the unit of the quantity matches the ingredient's unit in the cart.
-If you do not indicate any quantity, all entries in the cart that have the specified ingredient name will be removed
+
+Note: If you do not indicate any quantity, all entries in the cart that have the specified ingredient name will be removed
 regardless of the unit.
 
 - Format: `cart remove ingredient i/INGREDIENT [q/QUANTITY]`
@@ -539,7 +552,7 @@ regardless of the unit.
 | Command | Result
 |`cart remove ingredient i/Eggs`
 |Removes all eggs from the cart
-|`cart remove i/Milk q/200ml`
+|`cart remove ingredient i/Milk q/200ml`
 |Removes 200ml of milk from the cart.
 _(If your cart had 500 ml of milk, it will be subtracted and updated to 300 ml of milk)_
 |===
@@ -553,7 +566,7 @@ or to clear the cart after completing the purchase.
 |===
 | Command | Result
 
-|`cart clear ingredient`
+|`cart clear`
 |Clears the cart of all items.
 |===
 
@@ -563,12 +576,12 @@ This command allows you to move all the ingredients from the cart into your inve
 empties your cart. This is helpful after the user has finished shopping and wish to conveniently move all
 the ingredients to the inventory.
 
-- Format: `cart move ingredient`
+- Format: `cart move`
 - Example:
 |===
 | Command | Result
 
-|`cart move ingredients`
+|`cart move`
 |Moves all ingredients from the cart into the inventory. Also clears the cart of all items.
 |===
 
@@ -590,8 +603,8 @@ image::CookbookExportExample2.png[width="790"]
 _An example of the PDF file exported from the sample cart in Cooking Papa._
 |===
 
-=== Help command
-This command shows a popup window with a URL to Cooking Papa's user guide (what you are reading now), easy for access
+=== Help command https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
+This command shows a popup window with a URL to Cooking Papa's user guide (what you are reading now). This is for access
 should you need some help executing a certain action in Cooking Papa.
 
 There are 2 ways a user can access the help window:
@@ -607,9 +620,7 @@ image::CookbookHelpExample.png[width="250"]
 .Cooking Papa Help window and 'Copy URL' button
 image::CookbookHelpExample2.png[width="700"]
 
-
-
-=== Exit command
+=== Exit command https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
 There are 3 ways a user can exit Cooking Papa:
 
 - Type `exit`.
@@ -619,7 +630,10 @@ There are 3 ways a user can exit Cooking Papa:
 .Cooking Papa 'X' button to exit the application.
 image::ExitExample.png[width="790"]
 
-=== Edit recipe details [v2.0]
+== Version 2.0 Features
+These features are not implemented yet, but we plan to do so moving forward with the application.
+
+=== Edit recipe details [v2.0] https://github.com/gohkh?tab=repositories[(by Goh Ka Hui)]
 The following commands allow you to edit the details of the recipes that are currently in the cookbook.
 
 ==== Edit an ingredient in a recipe
@@ -650,7 +664,7 @@ Requires a valid index in the list of recipes and the cooking step
 |Changes preparation step 2 to 'Fry the eggs' in recipe 1
 |===
 
-=== Calendar Commands [v2.0]
+=== Calendar Commands [v2.0] https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
 Calendar commands are commands that allow you to set date-related commands, such as reminders and
 recipe of the day
 
@@ -681,8 +695,8 @@ be replaced with 'today' for the current date.
 |Shows the recipes scheduled to cook on the current day of use.
 |===
 
-=== Recipe of the day generator [v2.0]
-CookingPapa can generate a recipe of the day to cook based on the recipes currently in their cookbook.
+=== Recipe of the day generator [v2.0] https://github.com/hans555[(by Ong Han Sheng)]
+CookingPapa can generate a recipe of the day to cook based on the recipes currently in the cookbook.
 
 - Format: ``generate recipe of the day``
 - Example:
@@ -693,7 +707,7 @@ CookingPapa can generate a recipe of the day to cook based on the recipes curren
 |Displays the recipe of the day
 |===
 
-== FAQ
+== FAQ https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CookingPapa folder.
@@ -710,61 +724,64 @@ CookingPapa can generate a recipe of the day to cook based on the recipes curren
 *Q*: Is this application free? +
 *A*: Yes! This application is open-source under the MIT license. You may feel free to modify, contribute and share this application with any community!
 
-== Command Summary
+== Command Summary https://github.com/tzihiang[(by Tay Zi Hiang Willis)]
 
 [cols="2,3,5a", options="header"]
 |===
 | Category | Addtional Parameters | Result
 .8+|``cookbook``
 |``view recipe INDEX``
-|Shows recipe at given INDEX
+|Shows recipe at given INDEX.
 |``add recipe n/NAME d/DESCRIPTION``
 |Adds a new empty recipe with the given NAME and DESCRIPTION.
 |``add recipe n/NAME d/DESCRIPTION [i/INGREDIENT] [q/QUANTITY] [s/STEP] [t/TAG]``
 |Adds a new recipe with the given NAME and DESCRIPTION.
 INGREDIENT and its QUANTITY, STEP, and TAG are optional parameters and will be added according to input from user.
 |``remove recipe INDEX``
-|Remove recipe at given INDEX
+|Remove recipe at given INDEX.
 |``search recipe k/KEYWORD``
-|Search for recipes by a keyword
-|``search tag t/TAG``
-|Search for recipes by a tag
+|Search for recipes by a keyword.
+|``search recipe t/TAG``
+|Search for recipes by tags.
 |``search inventory``
-|Search for recipes by the ingredients in the inventory.
+|Search for recipes whose ingredients are available in the inventory.
 |``list``
-|List all recipes in the cookbook.
+|Views the whole collection of recipes in the cookbook.
+
 
 .6+|``recipe``
 |``INDEX add ingredient i/INGREDIENT q/QUANTITY``
-|Add ingredients to a recipe at given INDEX
+|Add ingredients to a recipe at given INDEX.
 |``INDEX remove ingredient i/INGREDIENT q/QUANTITY``
-|Removes the ingredient and the specified quantity from recipe at given INDEX
+|Removes the ingredient and the specified quantity from recipe at given INDEX.
 |``INDEX add step x/STEP_INDEX s/STEP_DESCRIPTION``
-|Adds a step at STEP_INDEX with STEP_DESCRIPTION to the recipe at given INDEX
+|Adds a step at STEP_INDEX with STEP_DESCRIPTION to the recipe at given INDEX.
 |``INDEX remove step x/STEP_INDEX``
-|Remove a step at STEP_INDEX from the recipe at given INDEX
+|Remove a step at STEP_INDEX from the recipe at given INDEX.
 |``INDEX add tag t/TAG``
-|Adds a tag 'TAG' to the recipe at given INDEX
+|Adds a tag 'TAG' to the recipe at given INDEX.
 |``INDEX remove tag t/TAG``
-|Removes a tag 'TAG' to the recipe at given INDEX
+|Removes a tag 'TAG' to the recipe at given INDEX.
 
-.3+|inventory
+.3+|``inventory``
 |``add ingredient  i/INGREDIENT q/QUANTITY``
 |Adds QUANTITY of INGREDIENTS into your inventory.
 |``remove ingredient i/INGREDIENT q/QUANTITY``
 |Removes QUANTITY of INGREDIENTS from your inventory.
-|`clear ingredient`
-|Removes all ingredients from the inventory
+|`clear`
+|Removes all ingredients from the inventory.
 
-.5+|``cart``
+.6+|``cart``
 |``add recipe INDEX``
 |Adds all ingredients required of recipe at given INDEX to the cart.
 |``add ingredient i/INGREDIENT q/QUANTITY``
 |Adds QUANTITY of INGREDIENTS into your cart.
 |``remove ingredient i/INGREDIENT q/QUANTITY``
 |Removes QUANTITY of INGREDIENTS from your cart.
-|``clear ingredient``
+|``clear``
 |Clears the cart of all ingredients.
-|``move ingredient``
+|``move``
 |Moves all the ingredients from the cart to the inventory, clearing the cart in the process.
+|``export``
+|Exports current cart into a PDF.
 |===
