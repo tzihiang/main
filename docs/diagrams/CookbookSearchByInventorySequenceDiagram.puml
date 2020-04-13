@@ -21,7 +21,7 @@ create CookingPapaParser
 LogicManager -> CookingPapaParser
 activate CookingPapaParser
 
-CookingPapaParser -> LogicManager
+CookingPapaParser --> LogicManager
 deactivate CookingPapaParser
 
 LogicManager -> CookingPapaParser : parseCommand("cookbook search inventory")
@@ -31,7 +31,7 @@ create CookbookCommandParser
 CookingPapaParser -> CookbookCommandParser
 activate CookbookCommandParser
 
-CookbookCommandParser -> CookingPapaParser
+CookbookCommandParser --> CookingPapaParser
 deactivate CookbookCommandParser
 
 CookingPapaParser -> CookbookCommandParser : parse(" search inventory")
@@ -41,7 +41,7 @@ create CookbookSearchCommandParser
 CookbookCommandParser -> CookbookSearchCommandParser
 activate CookbookSearchCommandParser
 
-CookbookSearchCommandParser -> CookbookCommandParser
+CookbookSearchCommandParser --> CookbookCommandParser
 deactivate CookbookSearchCommandParser
 
 CookbookCommandParser -> CookbookSearchCommandParser : parse("inventory")
