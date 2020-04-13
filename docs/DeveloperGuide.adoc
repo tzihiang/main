@@ -69,7 +69,7 @@ image::ArchitectureSequenceDiagram.png[]
 The sections below give more details of each component.
 
 [[Design-Ui]]
-=== UI component
+=== UI component https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
@@ -86,7 +86,7 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
-=== Logic component
+=== Logic component https://github.com/gohkh[(by Goh Ka Hui)]
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -109,7 +109,7 @@ image::CookbookRemoveRecipeSequenceDiagram.png[]
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
-=== Model component
+=== Model component https://github.com/gohkh[(by Goh Ka Hui)]
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
@@ -129,7 +129,7 @@ As a more OOP model, we can store a `Tag` list in `Cookbook`, which `Recipe` can
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
-=== Storage component
+=== Storage component https://github.com/gohkh[(by Goh Ka Hui)]
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
@@ -152,7 +152,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Add Recipe to the Cookbook
+=== Add Recipe to the Cookbook https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
 ==== Implementation
 
 The recipe addition mechanism is facilitated by `CookbookAddCommand`, which extends the `Command` abstract class. The
@@ -292,7 +292,7 @@ display.
 |===
 //end::addrecipedesign[]
 
-=== View recipe in the cookbook
+=== View recipe in the cookbook https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
 The user may use this command to view a recipe in the cookbook. This command is integrated into the Graphical User
 Interface
 (GUI) through a button.
@@ -397,7 +397,7 @@ existing one. The effort estimated did not seem to be worth, as the use is limit
 |===
 
 // tag::gohkh[]
-=== Search for recipes based on ingredients in the inventory
+=== Search for recipes based on ingredients in the inventory https://github.com/gohkh[(by Goh Ka Hui)]
 The user may use this command to search for recipes that they can cook using the ingredients available in their
 inventory.
 
@@ -500,7 +500,7 @@ Design A was chosen due to time constraints, as handling the conversion between 
 Given more time, Design B will be implemented to handle conversion for standard units, such as between `g` and `kg`, but Design A would still have to be used for units with non-standard conversion factors.
 // end::gohkh[]
 
-=== Adding ingredients to inventory and cart
+=== Adding ingredients to inventory and cart https://github.com/tzihiang[(by Tay Zi Hiang Willis)]
 The inventory and cart acts as storage for `Ingredient` classes. They are facilitated by `InventoryCommand` and `CartCommand`
 respectively, which extends the `Command` abstract class. Since `CartAddCommand` and `InventoryAddCommand` both serve the
 same purpose in different contexts of `Cart` and `Inventory` respectively, they will be mentioned together in tandem. +
@@ -561,7 +561,7 @@ functionality to be expanded, namely to be able to add all the ingredients of co
 
 
 //tag::inventorycookrecipe[]
-=== Remove ingredients of a recipe from the inventory
+=== Remove ingredients of a recipe from the inventory https://github.com/shanecsj[(by Chan Shun Jie)]
 
 ==== Implementation
 The mechanism is facilitated by `InventoryCookCommand`, which extends the `Command` abstract class. The format of the command is as follows: `inventory cook recipe INDEX`.
@@ -617,7 +617,7 @@ image::InventoryCookRecipeSequenceDiagram.png[]
 
 //end::inventorycookrecipe[]
 
-=== Moving ingredients from cart to inventory
+=== Moving ingredients from cart to inventory https://github.com/tzihiang[(by Tay Zi Hiang Willis)]
 The user may use this command after their shopping trip. With this one command, all ingredients will be shifted from the cart to the inventory.
 
 This command is implemented to ease the process of having the user adding every single ingredient to their inventory after they have bought ingredients from their cart
@@ -672,7 +672,7 @@ add back the ingredients to the cart after it is cleared if they wish to.
 |===
 
 
-=== Add a Recipe's Ingredients to Cart
+=== Add a Recipe's Ingredients to Cart https://github.com/hans555[(by Ong Han Sheng)]
 
 The user may want to buy the required ingredients to cook a certain recipe in the cookbook. This feature allows the user
 to add a certain recipe's required ingredients into the cart.
@@ -752,7 +752,7 @@ a|
 |===
 
 
-=== Export ingredients in cart to PDF file
+=== Export ingredients in cart to PDF file https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
 The user may use this command to export the ingredients in their cart to a <<PDF, PDF>> file, which they can then
 use as their shopping list at the supermarkets.
 
@@ -1040,8 +1040,6 @@ Extensions:
 .  Should be able to hold up to 500 recipes without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
@@ -1050,23 +1048,6 @@ Windows, Linux, Unix, OS-X
 
 [[PDF]] PDF::
 A file format for capturing and sending electronic documents in exactly the intended format.
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
