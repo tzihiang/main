@@ -177,7 +177,7 @@ INGREDIENT and its QUANTITY, STEP, and TAG are optional parameters and will be a
 |Search for recipes by a keyword.
 |``search recipe t/TAG``
 |Search for recipes by tags.
-|``search recipe inventory``
+|``search inventory``
 |Search for recipes whose ingredients are available in the inventory.
 |``list``
 |Views the whole collection of recipes in the cookbook.

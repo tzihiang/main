@@ -498,7 +498,7 @@ regardless of the unit.
 | Command | Result
 |`cart remove ingredient i/Eggs`
 |Removes all eggs from the cart
-|`cart remove i/Milk q/200ml`
+|`cart remove ingredient i/Milk q/200ml`
 |Removes 200ml of milk from the cart.
 _(If your cart had 500 ml of milk, it will be subtracted and updated to 300 ml of milk)_
 |===
@@ -689,7 +689,7 @@ INGREDIENT and its QUANTITY, STEP, and TAG are optional parameters and will be a
 |Search for recipes by a keyword.
 |``search recipe t/TAG``
 |Search for recipes by tags.
-|``search recipe inventory``
+|``search inventory``
 |Search for recipes whose ingredients are available in the inventory.
 |``list``
 |Views the whole collection of recipes in the cookbook.
