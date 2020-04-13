@@ -452,6 +452,7 @@ image::RecipeCommand8.png[width=400]
 image::RecipeCommand9.png[width=400]
 //end::gohkh[]
 
+//tag::hansheng[]
 [[Inventory]]
 === Inventory Commands https://github.com/hans555[(by Ong Han Sheng)]
 Inventory commands are commands that update the user's very own inventory at home.
@@ -488,12 +489,12 @@ removed regardless of the unit.
 |===
 | Command | Result
 
-|`inventory remove ingredient i/Eggs`
-|Removes all eggs from your inventory.
+|`inventory remove ingredient i/Bacon`
+|Removes all bacons from your inventory.
 
 |`inventory remove ingredient i/Butter q/200g`
 |Removes 200g of butter from your inventory.
-_(If your inventory had 500 g of milk, it will be subtracted and updated to 300 g of butter)_
+_(If your inventory had 500 g of butter, it will be subtracted and updated to 300 g of butter)_
 |===
 
 ==== Remove all ingredients from the inventory.
@@ -507,6 +508,20 @@ This command allows you to remove all ingredients from the inventory.
 |`inventory clear`
 |Removes all ingredients from the inventory
 |===
+
+==== Cook a recipe using the ingredients in the inventory
+This command allows you to remove the selected's recipe ingredients from the inventory after
+cooking a delicious meal.
+
+- Format: `inventory cook recipe INDEX`
+- Example:
+|===
+| Parameters | Result
+
+|`inventory cook recipe 3`
+|Removes all ingredients required to cook recipe 3 from the inventory
+|===
+//end::hansheng[]
 
 [[Cart]]
 === Cart Commands http://github.com/tzihiang[(by Tay Zi Hiang Willis)]
@@ -704,8 +719,9 @@ be replaced with 'today' for the current date, or 'tomorrow' for the next day.
 |===
 //end::calendar[]
 
+//tag::hansheng[]
 === Recipe of the day generator [v2.0] https://github.com/hans555[(by Ong Han Sheng)]
-CookingPapa can generate a recipe of the day to cook based on the recipes currently in the cookbook.
+This command allows CookingPapa to recommend a recipe to cook based on the recipes currently in the cookbook.
 
 - Format: ``generate recipe of the day``
 - Example:
@@ -715,6 +731,7 @@ CookingPapa can generate a recipe of the day to cook based on the recipes curren
 | `generate recipe of the day`
 |Displays the recipe of the day
 |===
+//end::hansheng[]
 
 //tag::faq[]
 == FAQ https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
