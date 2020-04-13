@@ -124,6 +124,10 @@ https://github.com/nus-cs2103-AY1920S2/forum/issues/65[65]
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+include::../UserGuide.adoc[tag=help]
+include::../UserGuide.adoc[tag=exit]
+include::../UserGuide.adoc[tag=calendar]
+include::../UserGuide.adoc[tag=faq]
 
 == Contributions to the Developer Guide
 
