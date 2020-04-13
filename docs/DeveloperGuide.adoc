@@ -76,7 +76,10 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of several UI parts: `CommandBox`, `ResultDisplay`,
+`CookbookPanel`,
+`RecipeCard`, `InventoryPanel`, `CartPanel`, `IngredientCard`,
+`StatusBarFooter`. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -105,8 +108,6 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 .Interactions Inside the Logic Component for the `cookbook remove recipe 2` Command
 image::CookbookRemoveRecipeSequenceDiagram.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component https://github.com/gohkh[(by Goh Ka Hui)]
@@ -174,9 +175,12 @@ category, a `ParseException` will be thrown. If the input is valid, with the com
 `CookbookCommandParser` is created.
 . `CookbookCommandParser` then parses `add recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]...
 [s/STEP_DESCRIPTION]... [t/TAG]...`. If it is invalid, i.e. an unknown command word, a `ParseException` will be
-thrown. If the input is valid, with the command category `add`, a new `CookbookAddCommandParser` is created.
-.  `CookbookAddCommandParser` parsers `recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]...
-[s/STEP_DESCRIPTION]... [t/TAG]...` and checks if `n/NAME` and `d/DESCRIPTION` are provided. It then
+thrown. If the input is valid, with the command word `add`, a new `CookbookAddCommandParser` is created.
+.  `CookbookAddCommandParser` parses `recipe n/NAME d/DESCRIPTION [i/INGREDIENT]... [q/QUANTITY]...
+[s/STEP_DESCRIPTION]... [t/TAG]...` and checks if `n/NAME` and `d/DESCRIPTION` are provided. If either are not
+provided, then a `ParseException` will be thrown.
++
+It then
 parses the input into the following fields: recipe name, recipe description, ingredients, steps, and tags.
 +
 Note that
@@ -234,6 +238,12 @@ for brevity):
 
 .Sequence diagram for CookbookAddCommand
 image::CookbookAddRecipeSequenceDiagram.png[]
+
+The following activity diagram shows a possible flow of events for a user using this feature:
+
+.Activity diagram for CookbookAddCommand
+image::CookbookAddActivityDiagram.png[]
+
 // end::addrecipesequence[]
 
 ==== Design considerations
@@ -243,9 +253,11 @@ image::CookbookAddRecipeSequenceDiagram.png[]
 .Design considerations for parsing optional parameters
 [cols="16%,42%,42%"]
 |===
-||Design A: Parse each category separately (current choice)  | Design B: Parse all the categories together
+||Design A (current choice): Parse each category separately  | Design B: Parse all the categories together
 |Description
-|Each category (ingredient name, ingredient quantity, step description, tag) are parsed separately and returned as `List`. If the returned `List` is empty, then it means that that field was not provided in the input, and will be set to an empty `List` in the recipe.
+|Each category (ingredient name, ingredient quantity, step description, tag) are parsed separately and returned as
+`List`. If the returned `List` is empty, then it means that that field was not provided in the input, and will be set
+to an empty `List` in the recipe e.g., no ingredients were provided in the command.
 |Each category will be parsed together in one function in `CookbookAddCommandParser`
 |Pros
 a|
@@ -264,11 +276,16 @@ a|
 - Method will be very long and decreases readability
 |===
 
+Design A was chosen because it was more user-friendly, and removed the restriction of having to include ingredients,
+steps, and tags at the stage of recipe creation, some of which the user may not have at the moment, i.e.
+experimenting with different ingredients. Additionally, design A allowed us to be more modular while coding.
+
 .Design considerations for results to show users
 ===== Aspect 2: Result to show user
 [cols="16%,42%,42%"]
 |===
-||Design A: Show a short result on the success of the command | Design B: Show all the details back to the user
+||Design A (current choice): Show a short result on the success of the command | Design B: Show all the details back to
+the user
 |Description|Show a message to a usage which notifies them that the command was successful in adding the recipe to
 the cookbook. | Shows a message similar to design choice A, and also show all the details of the added recipe.
 |Pros
@@ -290,6 +307,11 @@ a|
 display.
 
 |===
+
+Design A was chosen because it did not reuse the same component for multiple uses. Additionally, it allows us to
+reduce the size of result display, as most of the time, it displays only a short message displaying the success of a
+command.
+
 //end::addrecipedesign[]
 
 === View recipe in the cookbook https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
@@ -339,7 +361,8 @@ calling `CookbookPanel#handleViewRecipe`, which creates new `RecipeCard` s for `
 that has an index equal to the index processed from the user's input, it will create a `RecipeCard` that toggles open
 the recipe details. More on how the `RecipeCard` manages this will be discussed in the following section on how
 clicking on a button in the GUI has the same effect as the `cookbook view recipe INDEX` command.
-. Lastly, the user then is shown a `CookbookPanel` with the selected recipe toggled open, which displays the details
+. Lastly, the user then is shown a `CookbookPanel` with the selected recipe toggled open, which displays the full
+details
 of that recipe:
 +
 image::CookbookViewExample2.png[]
@@ -377,6 +400,8 @@ image::CookbookViewSEquenceDiagram2.png[]
 ==== Design considerations
 Aspect: what UI component to display the toggled content
 
+.Design considerations for the UI component to display the toggled content
+
 [cols="16%,42%,42%"]
 |===
 ||Design A (current choice): toggles the content in the recipe panel|Design B: add a new UI component that pops up, i
@@ -396,13 +421,151 @@ statements to implement.
 existing one. The effort estimated did not seem to be worth, as the use is limited to just this command.
 |===
 
+Design A was chosen because it made the GUI more functional, and less complicated to implement in terms of connecting
+the various `UiPart` s.
+
+=== Export ingredients in cart to PDF file
+The user may use this command to export the ingredients in their cart to a <<PDF, PDF>> file, which they can then
+use as their shopping list at the supermarkets.
+
+==== Implementation
+The cart exporting mechanism is facilitated by `CookbookExportCommand`, which extends the `Command` abstract class.
+The format is as follows: `cart export`.
+
+This command was implemented to bridge the (current, v1.4) inadequacy of Cooking Papa, which is that it is not
+portable (yet). It was still not convenient _enough_ to be able to organize cart ingredients. Evenutally, users had
+to go outside to the supermarket, and Cooking Papa is a desktop-only application. By allowing users to export the
+ingredients in their cart to a PDF file, they can then print it out, or transfer it to their mobile devices, and
+bring them along as shopping lists. Additionally, the layout and content of the generated PDF file is simple,
+informational, and easy for users to extend, allowing them to add (handwritten or  annotated) remarks.
+
+// tag::cartexport[]
+Below is a step by step sequence of what happens when a user enters this command:
+
+. The user enters a cart export command using the command line input `cart export`.
+. `CookingPapaParser` parses the user input and checks if it is valid. If it is invalid, i.e. an unknown command
+category, a `ParseException` will be thrown. If the input is valid, with the command category `cart`, a new
+`CartCommandParser` is created.
+. `CartCommandParser` then parses `export`. If it is invalid, i.e. an unknown command word, a `ParseException` will be
+thrown. If the input is valid, with the command category `export`, a new `CookbookExportCommandParser` is created.
+. `CartExportCommandParser` parses the user input and checks if the argument passed to it is an empty String, as the
+command takes in no extra parameters.
++
+Note that if the String is not empty, a `ParseException` will be thrown:
++
+[source,java]
+----
+if (userInput.isEmpty()) {
+    return new CartExportCommand();
+} else {
+    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CartExportCommand.MESSAGE_USAGE));
+}
+----
++
+This means that `cart export ingredient` will not work.
+. `CartExportCommandParser` then returns a `CartExportCommand` to `LogicManager`.
+. `LogicManager` calls `CartExportCommand#execute()` calls the static method of `PdfExporter`,
+`PdfExporter#exportCart()`, which takes in the `ObservableList<Ingredient>` stored in `Cart`
+. Step 4 is executed within a try-catch block. If a previously generated pdf (saved as `cart.pdf` by default) is
+opened in another program, or there is an issue writing to the PDF file, a `CommandResult` with an error
+message will returned to `LogicManager` (skipping step 7 and 8):
++
+[source,java]
+----
+try {
+    PdfExporter.exportCart(model.getCart().getIngredientList());
+} catch (IOException e) {
+    return new CommandResult(MESSAGE_FILE_NOT_FOUND);
+}
+----
+. The ingredients in the `Cart` is passed to the static method `PdfExporter#exportCart()`, which then makes use of
+the library, `PDFbox`, to parse the data.
+. Within `PdfExporter`, `PdfExporter#getTextFromCart` parse the data and splits them manually, in order to wrap the
+text (this has to be done due to the inadequacy of `PDFbox`). The method returns a `List<String>`, where each string
+represents a new line on the PDF file.
+. Subsequently, `PdfExporter` checks if the number of `String` s in the list in step 7 is greater than the number of
+lines a single page of the PDF can accomodate. If it is, it adds a new page, and adds lines to the PDF until the
+limit is hit. This repeats until all the lines are added to the PDF.
+. A `CommandResult` with the text to display to the user will be returned to `LogicManager`. The
+`CommandResult` is then passed back to `MainWindow`, which displays it to the user on the CLI and GUI: `resultDisplay
+.setFeedbackToUser(commandResult.getFeedbackToUser())`. The text displayed will notify the user on whether
+their addition was successful.
+//end::cartexport[]
+
+The following sequence diagram shows how the function of exporting ingredients in the cart to a PDF file works:
+
+// tag::cartexportsequence[]
+.Sequence diagram for CartExportCommand
+image::CartExportCommandSequenceDiagram.png[]
+// end::cartexportsequence[]
+
+==== Design considerations
+===== Aspect 1: File format to export ingredients in cart to
+
+.Design considerations for the file format to export to
+[cols="16%,42%,42%"]
+|===
+||Design A (current choice): `.pdf`|Design B: `.txt`
+|Description|Exports it to a flexible pdf file|Exports it to a txt file
+|Pros
+a|
+- Easier to format with `Apache PDFbox` 's vast library and API
+- More versatile in that images can be added if the function was to be extended to include images of the ingredients
+a|
+- Simple to implement
+|Cons
+a|
+- More formatting code required
+- May take slightly longer to export as compared to design B
+a|
+- Lack of design/formatting flexibility
+|===
+
+Design A was chosen as a `.pdf` file was more customisable and flexible. `.txt` files are generally more troublesome
+to format as well.
+
+===== Aspect 2: What information to export
+
+.Design considerations for the information to export
+[cols="16%,42%,42%"]
+|===
+||Design A (current choice): Export the ingredient names and quantities in the cart|Design B: Export the entirety of
+Cooking Papa
+(cookbook, inventory, cart)
+|Description|Allow exporting of just the cart|Allow exporting of the cart, inventory, and cookbook
+|Pros
+a|
+- Easier to implement as there will be less information to parse
+- Keeps the exported PDF short and sweet
+- Ingredients in the inventory and recipes in the cookbook generally correlates (and are consequential of) with the
+ingredients in the cart, so exporting the inventory as well as the cookbook is likely to be redundant.
+
+.A sample shopping list generated by the command
+image::CookbookExportExample2.png[]
+a|
+- Provides users an all-in-one file containing all the information they entered into Cooking Papa
+- Allows user to reproduce hard-copy recipe books using Cooking Papa
+|Cons
+a|
+- Certain information may be needed and not exportable by the user, i.e. recipes
+a|
+- Slightly more difficult to implement
+- May be providing users with unnecessary information
+|===
+
+Design A was chosen because there were minimal use cases which required the information in the inventory and cookbook
+to be exported, as compared to the cart. Additionally, due to the time constraint, the team could not implement the
+command for all three, especially since all of them needed different formatting.
+
+
 // tag::gohkh[]
 === Search for recipes based on ingredients in the inventory https://github.com/gohkh[(by Goh Ka Hui)]
 The user may use this command to search for recipes that they can cook using the ingredients available in their
 inventory.
 
 ==== Implementation reasoning
-This command was implemented to address users needs of easily finding a recipe based on the ingredients they have. It
+This command was implemented to address the users' need of easily finding a recipe based on the ingredients they have
+. It
 allows users to whip up a meal without having to go grocery shopping if they are short of time. This feature sorts
 recipes by how much the inventory fulfils their ingredient requirements, and filters out recipes whose ingredient
 requirements are not met at all. Users can immediately see at the top of the cookbook the recipes that their ingredients
@@ -412,12 +575,13 @@ are most suitable for preparing. A user can use this feature by typing the comma
 The comparison between the ingredients a recipe requires and the ingredients in the inventory is facilitated by the
 `RecipeInventoryIngredientsSimilarityComparator`. It extends `Comparator<Recipe>` and stores the inventory being used
 for ingredient comparison. Additionally, it implements the method `calculateSimilarity()`, which accepts a `Recipe` and
-a `ReadOnlyInventory` as parameters, and returns a double value between 0 and 1 (inclusive) that represents the
+a `ReadOnlyInventory` as parameters, and returns a double value between 0 and 1 (both inclusive) that represents the
 proportion of the recipe's ingredient requirements that are fulfilled.
 
 The following class diagram summarizes how the `RecipeInventoryIngredientsSimilarityComparator` interacts with `Recipe`
 and `Inventory`:
 
+.Class diagram for RecipeInventoryIngredientsSimilarityComparator
 image::CookbookSearchByInventoryClassDiagram.png[]
 
 The `calculateSimilarity()` method first calculates the proportion of ingredient quantity fulfilled by the inventory
@@ -442,17 +606,22 @@ if (recipe.getIngredients().size() == NO_INGREDIENTS) {
 }
 ----
 
-The following activity digram shows a possible flow of events for a user using this feature:
+The following activity diagram shows a possible flow of events for a user using this feature:
 
+.Acitivty diagram for CookbookSearchByInventory
 image::CookbookSearchByInventoryActivityDiagram.png[]
 
 The following sequence diagram summarizes how objects interact when a user executes the command,
 with more focus on how the command is parsed in the `Logic`component:
 
+.Sequence diagram for CookbokoSearchByInventory
+
 image::CookbookSearchByInventorySequenceDiagram.png[]
 
 ==== Design considerations
 ===== Aspect 1: Weighting of each ingredient
+
+.Design considerations for weighing of each ingredient
 [cols="12%,44%,44%"]
 |===
 | |Design A (Current choice): Every ingredient is weighted equally | Design B: More important ingredients are given a larger weigting
@@ -477,6 +646,8 @@ Design A was chosen as it provided a fair estimate of the similarity between the
 The cons for Design B were deemed to outweigh the pros, especially since the importance of an ingredient in a recipe could be rather subjective.
 
 ===== Aspect 2: Handling ingredients with different units
+
+.Design consideration for handling ingredients with different units
 [cols="12%,44%,44%"]
 |===
 | |Design A (Current choice): Use a default similarity value of `0.5` | Design B: Convert the units
@@ -501,6 +672,7 @@ Given more time, Design B will be implemented to handle conversion for standard 
 // end::gohkh[]
 
 === Adding ingredients to inventory and cart https://github.com/tzihiang[(by Tay Zi Hiang Willis)]
+
 The inventory and cart acts as storage for `Ingredient` classes. They are facilitated by `InventoryCommand` and `CartCommand`
 respectively, which extends the `Command` abstract class. Since `CartAddCommand` and `InventoryAddCommand` both serve the
 same purpose in different contexts of `Cart` and `Inventory` respectively, they will be mentioned together in tandem. +
@@ -672,6 +844,7 @@ add back the ingredients to the cart after it is cleared if they wish to.
 |===
 
 
+//tag::hansheng[]
 === Add a Recipe's Ingredients to Cart https://github.com/hans555[(by Ong Han Sheng)]
 
 The user may want to buy the required ingredients to cook a certain recipe in the cookbook. This feature allows the user
@@ -750,6 +923,7 @@ a|
 - Users have to manually add some of the recipe's ingredients that they want to buy although it is present in the inventory
 
 |===
+//end::hansheng[]
 
 
 === Export ingredients in cart to PDF file https://github.com/teo-jun-xiong[(by Teo Jun Xiong)]
@@ -1118,9 +1292,21 @@ there are three tags included, the recipes returned do not have to be tagged wit
 .. Prerequisites: List all recipes in the cookbook using the `cookbook list` command, and *using the sample cookbook*.
 .. Test case: `cookbook search tag t/Simple` +
     Expected: the recipe panel will be updated to show only two recipes, both which are tagged with "Simple".
-.. Test case: 'cookbook search tag t/Simple t/Celebrity'
+.. Test case: `cookbook search tag t/Simple t/Celebrity`
     Expected: the recipe panel will be updated to show only three recipes, of these three recipes, they are either
 tagged with "Simple" or "Celebrity".
+
+=== Adding an ingredient to a recipe
+
+Please note that the results of these test cases are based on the sample cookbook.
+
+.. Prerequisites: List all recipes in the cookbook with the `cookbook list` command, and view all the ingredients in recipe 1 with the `cookbook view recipe INDEX` command, *using the sample cookbook*.
+.. Test case: `recipe 1 add ingredient i/Olive Oil q/1 tbsp` +
+   Expected: 1 tbsp of olive oil is added to the recipe, and the ingredient quantity of olive oil is changed from 1 to 2 tbsp.
+.. Test case: `recipe 1 add ingredient i/Olive Oil q/1 tsp` (an ingredient with incompatible units) +
+   Expected: the specified ingredient will not be added, and an error message indicating that the existing ingredient in the recipe has a different unit will be displayed.
+.. Test case: `recipe 1 add ingredient i/Ingredient q/1` (a new ingredient) +
+   Expected: the specified ingredient is added to the recipe.
 
 === Exporting the cart to a PDF file
 Please note that for the export command, the result is based on the sample cart.
