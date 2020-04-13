@@ -245,7 +245,7 @@ image::CookbookAddRecipeSequenceDiagram.png[]
 // tag::addrecipedesign[]
 ===== Aspect 1: How to parse optional parameters
 .Design considerations for parsing optional parameters
-[cols="12%,44%,44%"]
+[cols="16%,42%,42%"]
 |===
 ||Design A: Parse each category separately (current choice)  | Design B: Parse all the categories together
 |Description
@@ -270,7 +270,7 @@ a|
 
 .Design considerations for results to show users
 ===== Aspect 2: Result to show user
-[cols="12%,44%,44%"]
+[cols="16%,42%,42%"]
 |===
 ||Design A: Show a short result on the success of the command | Design B: Show all the details back to the user
 |Description|Show a message to a usage which notifies them that the command was successful in adding the recipe to
@@ -319,6 +319,7 @@ as
 the command still had
 to be testable through the command line.
 
+//tag::viewrecipe[]
 Below is a step by step sequence of what happens when a user enters this command:
 
 . The user enters a view recipe command using the command line input `cookbook view recipe INDEX`.
@@ -365,7 +366,9 @@ toggles, and shows the overview of the recipe.
 +
 This feature is not reflected with `cookbook view recipe INDEX` when it is entered again in the command line, because
 the function of the command is to view a recipe, not to "un-view" it.
+//end::viewrecipe[]
 
+//tag::viewrecipesequence[]
 The following sequence diagram shows how the recipe viewing function interacts between the classes in `Logic`:
 
 image::CookbookViewSequenceDiagram.png[]
@@ -373,10 +376,12 @@ image::CookbookViewSequenceDiagram.png[]
 The following sequence diagram shows how the recipe viewing function interacts between the classes in `Ui`:
 
 image::CookbookViewSEquenceDiagram2.png[]
+//end::viewrecipesequence[]
 
 ==== Design considerations
 Aspect: what UI component to display the toggled content
 
+[cols="16%,42%,42%"]
 |===
 ||Design A (current choice): toggles the content in the recipe panel|Design B: add a new UI component that pops up, i
 .e. overlay
@@ -473,7 +478,7 @@ image::CartExportCommandSequenceDiagram.png[]
 
 ==== Design considerations
 ===== Aspect 1: File format to export ingredients in cart to
-[cols="12%,44%,44%"]
+[cols="16%,42%,42%"]
 |===
 ||Design A (current choice): .pdf|Design B: .txt
 |Description|Exports it to a flexible pdf file|Exports it to a txt file
@@ -491,7 +496,7 @@ a|
 - Lack of design/formatting flexibility
 |===
 ===== Aspect 2: What information to export
-[cols="12%,44%,44%"]
+[cols="16%,42%,42%"]
 |===
 ||Design A (current choice): Export the ingredient names and quantities in the cart|Design B: Export the entirety of
 Cooking Papa
@@ -589,7 +594,7 @@ The above implementation is the same for `Inventory`
 ===== Aspect: The need for many parsers for this command
 
 .Design considerations for the need for many parsers for this command
-[cols="12%,44%,44%"]
+[cols="16%,42%,42%"]
 |===
 | |Design A (Current choice): Create parsers for every individual action | Design B: Create parsers for each specific action
 
@@ -654,7 +659,7 @@ image::CartMoveCommand2.png[]
 ===== Aspect: Allowing users to move some or all ingredients from cart to inventory
 
 .Design considerations for allowing users to move some or all ingredients from cart to inventory
-[cols="12%,44%,44%"]
+[cols="16%,42%,42%"]
 |===
 | |Design A (Current choice): Move all ingredients | Design B: Allow users to move individually or exclude some ingredients when moving
 

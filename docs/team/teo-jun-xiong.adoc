@@ -146,3 +146,9 @@ include::../DeveloperGuide.adoc[tag=cartexport]
 
 === UML Sequence Diagram for a core feature: `cart export`
 include::../DeveloperGuide.adoc[tag=cartexportsequence]
+
+=== Implementation of a core feature: `cookbook view recipe`
+include::../DeveloperGuide.adoc[tag=viewrecipe]
+
+=== UML Sequence Diagram for a core feature: `cookbook view recipe`
+include::../DeveloperGuide.adoc[tag=viewrecipesequence]
